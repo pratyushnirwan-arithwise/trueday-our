@@ -1,0 +1,444 @@
+body {
+  font-family: 'Calibri', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.games-rewards-page {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #333;
+}
+
+/* Header Styles */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.user-stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.points-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2563eb;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+}
+
+.level-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.level-badge {
+  background: #f0f4f8;
+  color: #2563eb;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 12px;
+}
+
+/* Game Tab Styles */
+.game-tab {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.game-podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 400px;
+  gap: 30px;
+  margin: 40px 0;
+  position: relative;
+}
+
+.podium-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background: #f0f4f8;
+  border-radius: 12px 12px 0 0;
+  padding: 25px;
+  min-width: 150px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.podium-step:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.podium-step.first {
+  height: 280px;
+  background: linear-gradient(135deg, #ffd700, #ffc800);
+  z-index: 3;
+}
+
+.podium-step.second {
+  height: 220px;
+  background: linear-gradient(135deg, #c0c0c0, #b0b0b0);
+  z-index: 2;
+}
+
+.podium-step.third {
+  height: 180px;
+  background: linear-gradient(135deg, #cd7f32, #b86d2a);
+  z-index: 1;
+}
+
+.podium-step .position-number {
+  position: absolute;
+  top: -40px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #2563eb;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.podium-step .trophy-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.podium-step .player-info {
+  text-align: center;
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.podium-step .player-name {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #1e293b;
+}
+
+.podium-step .player-points {
+  font-size: 16px;
+  color: #2563eb;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.podium-step .player-level {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  color: #2563eb;
+  border-bottom: 2px solid #2563eb;
+}
+
+/* Rewards Tab */
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.reward-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.reward-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.reward-description {
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+}
+
+.redeem-button {
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.redeem-button.disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* Achievements Tab */
+.achievements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.achievement-icon {
+  font-size: 30px;
+}
+
+.achievement-info {
+  flex: 1;
+}
+
+.achievement-name {
+  font-weight: 600;
+  color: #334155;
+}
+
+.achievement-description {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Popup Styles */
+.reward-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.reward-popup {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.popup-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.confirm-button {
+  background: #2563eb;
+  color: white;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .user-stats {
+    width: 100%;
+  }
+
+  .tab-navigation {
+    overflow-x: auto;
+  }
+
+  .game-podium {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .podium-step {
+    width: 80%;
+    height: 120px !important;
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+
+  .podium-step .position-number {
+    top: -30px;
+    font-size: 24px;
+  }
+
+  .podium-step .trophy-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .podium-step .player-info {
+    padding: 10px;
+  }
+
+  .podium-step .player-name {
+    font-size: 16px;
+  }
+
+  .podium-step .player-points {
+    font-size: 14px;
+  }
+
+  .rewards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leaderboard-subtitle {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.player-avatar {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.player-streak {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #f59e0b;
+  margin: 8px 0;
+}
+
+.player-achievements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.achievement-badge {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Hover effects for podium steps */
+.podium-step:hover .player-info {
+  transform: scale(1.05);
+  background: white;
+}
+
+.podium-step:hover .trophy-icon {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Animation for trophy icons */
+@keyframes shine {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.2); }
+  100% { filter: brightness(1); }
+}
+
+.podium-step.first .trophy-icon {
+  animation: shine 2s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .player-achievements {
+    justify-content: center;
+  }
+
+  .achievement-badge {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .player-streak {
+    font-size: 12px;
+  }
+} 

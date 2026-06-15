@@ -1,0 +1,186 @@
+Line 31 (message): format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+Line 144 (message): return {'valid': False, 'message': f'Invalid current status: {current_status}'}
+Line 150 (message): 'message': f'Invalid status transition. From "{current_status}" you can only move to: {allowed_statuses}'
+Line 160 (attachments): # Ensure attachments folder exists
+Line 161 (attachments): ATTACHMENTS_FOLDER = os.path.join(os.getcwd(), 'attachments')
+Line 433 (message): #         return jsonify({"message": "Test email sent successfully"}), 200
+Line 528 (message): return jsonify({'message': 'Notification sent'}), 200
+Line 569 (message): "message": "User registered successfully",
+Line 638 (message): 'message': 'Login successful',
+Line 773 (message): return jsonify({"error": workflow_validation['message']}), 400
+Line 1240 (message): return jsonify({"message": "Ticket updated successfully"}), 200
+Line 1411 (message): message = data.get('message')
+Line 1413 (message): if not all([name, email, subject, message]):
+Line 1426 (message): message TEXT NOT NULL,
+Line 1434 (message): INSERT INTO contact_submissions (name, email, subject, message)
+Line 1437 (message): """, (name, email, subject, message))
+Line 1450 (message): "message": "Message sent successfully",
+Line 1469 (message): SELECT id, name, email, subject, message, created_at
+Line 1481 (message): "message": row[4],
+Line 1700 (message): return jsonify({"message": "Entry added successfully", "id": new_entry_id}), 201
+Line 2461 (message): "message": "Ticket created successfully",
+Line 2642 (message): 'message': f'Successfully saved {len(inserted_ids)} responses',
+Line 2938 (attachments): ('trueday.attachments', ['ticket_id']),
+Line 2939 (message): ('trueday.messages', ['ticket_id']),
+Line 2988 (message): return jsonify({"message": "Ticket deleted permanently"}), 200
+Line 2993 (message): # Route to get messages for a ticket
+Line 2994 (message): @app.route('/get_ticket_messages/<int:ticket_id>', methods=['GET', 'OPTIONS'])
+Line 2995 (message): def get_ticket_messages(ticket_id):
+Line 3005 (message): print(f"Fetching messages for ticket ID: {ticket_id}")
+Line 3014 (message): # Get messages with user information and threading
+Line 3018 (message): m.message_text,
+Line 3023 (message): FROM trueday.messages m
+Line 3029 (message): messages = cursor.fetchall()
+Line 3031 (message): print(f"Found {len(messages)} messages for ticket {ticket_id}")
+Line 3033 (message): # Build a safe message list that works with dict-row (dict_row) and tuple-row results
+Line 3034 (message): message_list = []
+Line 3035 (message): for msg in messages:
+Line 3044 (message): message_list.append({
+Line 3046 (message): "message": msg.get('message_text'),
+Line 3056 (message): message_list.append({
+Line 3058 (message): "message": msg[1] if len(msg) > 1 else None,
+Line 3065 (message): print(f"⚠️ Skipping message row due to parsing error: {e}")
+Line 3071 (message): return jsonify(message_list), 200
+Line 3073 (message): print(f"Error fetching messages: {e}")
+Line 3080 (upload_attachment): @app.route('/upload_attachment', methods=['POST', 'OPTIONS'])
+Line 3081 (upload_attachment): def upload_attachment():
+Line 3107 (attachments): # Ensure attachments folder exists then save the file
+Line 3111 (attachments): print(f"⚠️ Could not create attachments folder: {e}")
+Line 3133 (attachments): INSERT INTO trueday.attachments
+Line 3140 (attachments): print(f"📦 attachments INSERT returned: {created_row}")
+Line 3143 (attachments): print("⚠️ attachments INSERT returned no row")
+Line 3206 (message): # Function to clean message text for email
+Line 3207 (message): def clean_message_for_email(message_text):
+Line 3208 (message): """Clean message text for email display"""
+Line 3210 (message): if not message_text:
+Line 3214 (message): cleaned = html.unescape(message_text)
+Line 3229 (message): # Function to extract usernames from message text
+Line 3230 (message): def extract_tagged_usernames(message_text):
+Line 3231 (message): """Extract usernames that are tagged with @ symbol from message text"""
+Line 3233 (message): print(f"🔍 Extracting usernames from message: {message_text}")
+Line 3234 (message): print(f"📝 Message type: {type(message_text)}")
+Line 3235 (message): print(f"📝 Message length: {len(message_text) if message_text else 0}")
+Line 3237 (message): if not message_text:
+Line 3242 (message): if '<' in message_text and '>' in message_text:
+Line 3245 (message): text_content = re.sub(html_pattern, '', message_text)
+Line 3248 (message): text_content = message_text
+Line 3277 (message): def send_tagging_notifications(tagged_usernames, ticket_id, commenter_username, message_text):
+Line 3283 (message): print(f"💬 Full Message: {message_text}")
+Line 3284 (message): print(f"💬 Message length: {len(message_text)}")
+Line 3285 (message): print(f"💬 Message type: {type(message_text)}")
+Line 3289 (message): # Clean the message for email display
+Line 3290 (message): cleaned_message = clean_message_for_email(message_text)
+Line 3291 (message): print(f"🧹 Cleaned Message: {cleaned_message}")
+Line 3372 (message): # Create beautiful HTML email message like collaborator notifications
+Line 3391 (message): print(f"📧 Creating email message for {user_email}...")
+Line 3399 (message): print(f"📧 Email message created, attempting to send...")
+Line 3422 (message): # Route to add a message to a ticket
+Line 3423 (add_ticket_message): @app.route('/add_ticket_message', methods=['POST'])
+Line 3424 (add_ticket_message): def add_ticket_message():
+Line 3425 (add_ticket_message): print(f"🎯 /add_ticket_message endpoint called at {datetime.now()}")
+Line 3433 (message): message = data.get('message')
+Line 3438 (message): print(f"🎯 Received message data: ticket_id={ticket_id}, user_id={user_id}, parent_id={parent_id}")
+Line 3440 (message): if not all([ticket_id, message, user_id]):
+Line 3441 (message): print(f"❌ Missing required fields: ticket_id={ticket_id}, message_present={bool(message)}, user_id={user_id}")
+Line 3442 (message): return jsonify({"error": "Ticket ID, message, and user ID are required"}), 400
+Line 3499 (message): # Insert the message
+Line 3501 (message): INSERT INTO trueday.messages (ticket_id, user_id, message_text, parent_id, created_at)
+Line 3506 (message): cursor.execute(insert_query, (ticket_id, user_id, message, parent_id, created_at_val))
+Line 3509 (message): # Safely extract message id and created_at
+Line 3511 (message): message_id = result.get('id') or result.get('message_id') or list(result.values())[0]
+Line 3515 (message): message_id = result[0] if result and len(result) > 0 else None
+Line 3529 (message): cleaned = clean_message_for_email(message)
+Line 3541 (message): json.dumps({"message_id": message_id})
+Line 3552 (message): tagged_usernames = extract_tagged_usernames(message)
+Line 3556 (message): send_tagging_notifications(tagged_usernames, ticket_id, username, message)
+Line 3569 (message): "id": message_id,
+Line 3570 (message): "message": message,
+Line 3579 (message): print(f"❌ Error adding message: {str(e)}")
+Line 3585 (message): # Update an existing ticket message
+Line 3586 (message): @app.route('/update_ticket_message/<int:message_id>', methods=['PUT', 'POST', 'OPTIONS'])
+Line 3587 (message): def update_ticket_message(message_id):
+Line 3596 (message): print(f"Received {request.method} request to update message {message_id}")
+Line 3603 (message): new_message = data.get('message')
+Line 3606 (message): if not all([message_id, new_message, user_id]):
+Line 3607 (message): print(f"Missing required fields: message_id={message_id}, new_message={bool(new_message)}, user_id={user_id}")
+Line 3608 (message): return jsonify({"error": "message_id, message and user_id are required"}), 400
+Line 3613 (message): # Ensure message exists and belongs to the user performing the update
+Line 3614 (message): cursor.execute("SELECT ticket_id, user_id, message_text FROM trueday.messages WHERE id = %s", (message_id,))
+Line 3618 (message): print(f"Message {message_id} not found")
+Line 3621 (message): ticket_id, owner_user_id, old_message_text = row
+Line 3627 (message): return jsonify({"error": "Not authorized to edit this message"}), 403
+Line 3630 (message): UPDATE trueday.messages
+Line 3631 (message): SET message_text = %s
+Line 3633 (message): RETURNING id, message_text, created_at, user_id
+Line 3634 (message): """, (new_message, message_id))
+Line 3636 (message): print(f"Updated message: {updated}")
+Line 3645 (message): old_clean = clean_message_for_email(old_message_text)
+Line 3646 (message): new_clean = clean_message_for_email(new_message)
+Line 3659 (message): json.dumps({"message_id": updated[0]})
+Line 3667 (message): # Extract tagged usernames and send notifications in background for edited messages
+Line 3668 (message): print(f"🔍 Starting to extract tagged usernames from edited message...")
+Line 3669 (message): tagged_usernames = extract_tagged_usernames(new_message)
+Line 3670 (message): print(f"🎯 Extracted tagged usernames from edited message: {tagged_usernames}")
+Line 3673 (message): print(f"🎯 Found {len(tagged_usernames)} tagged usernames in edited message: {tagged_usernames}")
+Line 3674 (message): print(f"🚀 Starting background thread for email notifications for edited message...")
+Line 3676 (message): Thread(target=send_tagging_notifications, args=(tagged_usernames, ticket_id, username, new_message)).start()
+Line 3677 (message): print(f"✅ Background thread started for tagging notifications (edited message)")
+Line 3679 (message): print(f"ℹ️ No tagged usernames found in edited message")
+Line 3683 (message): "message": updated[1],
+Line 3692 (message): print("Error updating message:", str(e))
+Line 3699 (message): @app.route('/api/update_ticket_message/<int:message_id>', methods=['PUT', 'POST', 'OPTIONS'])
+Line 3700 (message): def api_update_ticket_message(message_id):
+Line 3701 (message): return update_ticket_message(message_id)
+Line 3704 (attachments): @app.route('/get_ticket_attachments/<int:ticket_id>', methods=['GET', 'OPTIONS'])
+Line 3705 (attachments): def get_ticket_attachments(ticket_id):
+Line 3724 (attachments): FROM trueday.attachments a
+Line 3730 (attachments): attachments = cursor.fetchall()
+Line 3734 (attachments): for att in attachments:
+Line 3771 (attachments): print("Error fetching attachments:", str(e))
+Line 3860 (attachments): FROM trueday.attachments
+Line 3872 (attachments): DELETE FROM trueday.attachments
+Line 3880 (attachments): # Delete the file from the attachments directory
+Line 3907 (message): return jsonify({"message": "Attachment deleted successfully"}), 200
+Line 3949 (message): return jsonify({"message": f"Status '{status}' deleted successfully and associated tickets marked as deleted"}), 200
+Line 4055 (message): return jsonify({"message": "Tag constraint added successfully"}), 200
+Line 4166 (message): "message": "Status added successfully",
+Line 4225 (message): "message": "Status deleted successfully and associated tickets marked as deleted",
+Line 4289 (message): "message": "Ticket restored successfully",
+Line 4436 (attachments): @app.route('/api/attachments/<int:ticket_id>', methods=['GET'])
+Line 4437 (attachments): def list_attachments(ticket_id):
+Line 4443 (attachments): FROM attachments WHERE ticket_id = %s
+Line 4449 (attachments): attachments = [
+Line 4462 (attachments): return jsonify(attachments)
+Line 4466 (attachments): @app.route('/attachments/<filename>', methods=['GET'])
+Line 4695 (message): # Create messages table
+Line 4697 (message): CREATE TABLE IF NOT EXISTS trueday.messages (
+Line 4701 (message): message_text TEXT,
+Line 4702 (message): parent_id INTEGER REFERENCES trueday.messages(id),
+Line 4727 (comments): comments TEXT,
+Line 4759 (message): # Add parent_id column to messages table if it doesn't exist
+Line 4766 (message): AND table_name = 'messages'
+Line 4769 (message): ALTER TABLE trueday.messages ADD COLUMN parent_id INTEGER REFERENCES trueday.messages(id);
+Line 4833 (message): @app.route("/message")
+Line 4834 (message): def message_page():
+Line 5027 (message): return redirect("/message")   # redirects to message.html
+Line 5302 (message): return jsonify({'message': 'Status order updated (frontend only, not persisted)'}), 200
+Line 5444 (message): response = jsonify({"message": "Status updated successfully"})
+Line 5509 (message): return jsonify({'message': 'Notification email sent'}), 200
+Line 5563 (message): user_id, title, message, notification_type, priority, status,
+Line 5617 (message): return jsonify({"message": "All 'General' tags updated to 'Task' successfully"}), 200
+Line 5898 (message): 'message': 'Project created successfully'
+Line 5959 (message): return jsonify({'success': True, 'message': 'Project updated successfully'})
+Line 6008 (message): return jsonify({'success': True, 'message': 'Project deleted successfully'})
+Line 6088 (message): 'message': 'User added to project successfully'
+Line 6150 (message): return jsonify({'success': True, 'message': 'User removed from project successfully'})
+Line 6192 (message): return jsonify({'success': True, 'message': 'User role updated successfully'})
+Line 6533 (comments): "comments": ""
+Line 6552 (comments): (ticket_id, what_did_you_do, challenge, what_you_learned, similar_tickets, comments)
+Line 6559 (comments): comments = EXCLUDED.comments
+Line 6566 (comments): data.get('comments', '')
+Line 6660 (comments): FROM trueday.comments c
+Line 6665 (comments): comments = cur.fetchall()
+Line 6686 (comments): 'comments':        [dict(r) for r in comments],
+Line 6697 (comments): # 3. POST /api/comments  ─── Add a comment to a ticket
+Line 6698 (comments): @app.route('/api/comments', methods=['POST'])
+Line 6721 (comments): INSERT INTO trueday.comments (task_id, user_id, comment_text)

@@ -1,0 +1,65 @@
+2025-05-26 21:23:52,683 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2025-05-26 21:23:52,706 - __main__ - INFO - Database connection successful!
+2025-05-26 21:23:52,740 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-05-26 21:23:52,741 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2025-05-26 21:23:52,741 - apscheduler.scheduler - INFO - Scheduler started
+2025-05-26 21:23:52,741 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-05-26 21:23:52,742 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-05-27 12:00:00+05:30 (in 7567.257523 seconds)
+2025-05-26 21:23:52,753 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5009
+ * Running on http://5.9.122.188:5009
+2025-05-26 21:23:52,753 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-26 21:23:52,755 - werkzeug - INFO -  * Restarting with stat
+2025-05-26 21:23:53,007 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2025-05-26 21:23:53,030 - __main__ - INFO - Database connection successful!
+2025-05-26 21:23:53,067 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-05-26 21:23:53,068 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2025-05-26 21:23:53,068 - apscheduler.scheduler - INFO - Scheduler started
+2025-05-26 21:23:53,068 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-05-26 21:23:53,069 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-05-27 12:00:00+05:30 (in 7566.930268 seconds)
+2025-05-26 21:23:53,073 - werkzeug - WARNING -  * Debugger is active!
+2025-05-26 21:23:53,076 - werkzeug - INFO -  * Debugger PIN: 124-790-202
+2025-12-31 17:53:07,492 - __main__ - DEBUG - Attempting to connect to database: TruedayMac on localhost:5433
+2025-12-31 17:53:07,504 - __main__ - INFO - Database connection successful!
+2025-12-31 17:53:07,506 - __main__ - DEBUG - Attempting to connect to database: TruedayMac on localhost:5433
+2025-12-31 17:53:07,512 - __main__ - INFO - Database connection successful!
+2025-12-31 17:53:07,525 - __main__ - DEBUG - Attempting to connect to database: TruedayMac on localhost:5433
+2025-12-31 17:53:07,532 - __main__ - INFO - Database connection successful!
+2025-12-31 17:53:07,561 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-12-31 17:53:07,562 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2025-12-31 17:53:07,562 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-31 17:53:07,562 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-31 17:53:07,562 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-31 18:00:00+05:30 (in 412.437069 seconds)
+2025-12-31 17:54:18,122 - __main__ - DEBUG - Attempting to connect to database: TruedayMac on localhost:5433
+2025-12-31 17:54:18,133 - __main__ - INFO - Database connection successful!
+2025-12-31 17:54:18,135 - __main__ - DEBUG - Attempting to connect to database: TruedayMac on localhost:5433
+2025-12-31 17:54:18,141 - __main__ - INFO - Database connection successful!
+2025-12-31 17:54:18,151 - __main__ - DEBUG - Attempting to connect to database: TruedayMac on localhost:5433
+2025-12-31 17:54:18,156 - __main__ - INFO - Database connection successful!
+2025-12-31 17:54:18,173 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-12-31 17:54:18,174 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2025-12-31 17:54:18,174 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-31 17:54:18,174 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-31 17:54:18,175 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-31 18:00:00+05:30 (in 341.824718 seconds)
+2025-12-31 17:54:23,182 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5010
+ * Running on http://192.168.29.30:5010
+2025-12-31 17:54:23,182 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-31 17:54:23,183 - werkzeug - INFO -  * Restarting with stat
+2025-12-31 17:54:23,342 - __main__ - DEBUG - Attempting to connect to database: TruedayMac on localhost:5433
+2025-12-31 17:54:23,354 - __main__ - INFO - Database connection successful!
+2025-12-31 17:54:23,355 - __main__ - DEBUG - Attempting to connect to database: TruedayMac on localhost:5433
+2025-12-31 17:54:23,362 - __main__ - INFO - Database connection successful!
+2025-12-31 17:54:23,373 - __main__ - DEBUG - Attempting to connect to database: TruedayMac on localhost:5433
+2025-12-31 17:54:23,378 - __main__ - INFO - Database connection successful!
+2025-12-31 17:54:23,392 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-12-31 17:54:23,393 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2025-12-31 17:54:23,393 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-31 17:54:23,393 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-31 17:54:23,393 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-31 18:00:00+05:30 (in 336.606156 seconds)
+2025-12-31 17:54:23,395 - werkzeug - WARNING -  * Debugger is active!
+2025-12-31 17:54:23,405 - werkzeug - INFO -  * Debugger PIN: 352-563-959
+2026-05-19 13:20:04,720 - app - DEBUG - Attempting to connect to database: None on None:None
+2026-05-19 13:20:05,044 - app - ERROR - Error connecting to the database: connection failed: connection to server at "localhost" (::1), port 5432 failed: fe_sendauth: no password supplied

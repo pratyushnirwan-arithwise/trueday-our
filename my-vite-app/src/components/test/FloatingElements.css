@@ -1,0 +1,116 @@
+/* Floating Elements Styles */
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Gradient overlay */
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(235, 240, 255, 0.8) 0%,
+    rgba(246, 239, 255, 0.8) 50%,
+    rgba(255, 240, 247, 0.8) 100%);
+  z-index: 1;
+}
+
+/* Bubble animation */
+@keyframes float {
+  0% {
+    transform: translateY(100vh) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Individual bubble styling */
+.bubble {
+  position: absolute;
+  bottom: -100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, 
+    rgba(53, 99, 233, 0.6) 0%,
+    rgba(151, 71, 255, 0.6) 100%);
+  animation-name: float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  z-index: 2;
+  filter: blur(3px);
+}
+
+/* Decorative shape styling */
+.shape {
+  position: absolute;
+  z-index: 2;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  filter: blur(30px);
+}
+
+.shape-1 {
+  top: 15%;
+  right: 10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, 
+    rgba(53, 99, 233, 0.2) 0%, 
+    rgba(151, 71, 255, 0.1) 100%);
+  animation: pulse 15s infinite alternate;
+}
+
+.shape-2 {
+  bottom: 20%;
+  left: 5%;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, 
+    rgba(246, 112, 199, 0.2) 0%, 
+    rgba(53, 99, 233, 0.1) 100%);
+  animation: pulse 12s infinite alternate-reverse;
+}
+
+.shape-3 {
+  top: 40%;
+  left: 25%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, 
+    rgba(151, 71, 255, 0.2) 0%, 
+    rgba(246, 112, 199, 0.1) 100%);
+  animation: pulse 18s infinite alternate;
+}
+
+/* Keyframes for shape animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(10deg);
+  }
+  100% {
+    transform: scale(0.9) rotate(-10deg);
+  }
+}
