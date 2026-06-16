@@ -1235,11 +1235,11 @@ const ProjectListDrawer = ({ isOpen, onClose, onProjectUpdated }) => {
 };
 
 const DashBoard = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
-  const [editingTicket, setEditingTicket] = useState(location.state?.returnToTicket || null);
+  const [editingTicket, setEditingTicket] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
   const { username } = useParams();
   const { currentUser, forceRefreshUser } = useUser();
   const [tickets, setTickets] = useState([]);
@@ -1382,36 +1382,21 @@ const DashBoard = () => {
 
   // Force refresh user data on mount to ensure role is loaded
   useEffect(() => {
-    let shouldNavigate = false;
-    let navOptions = { replace: true };
-    let targetUrl = location.pathname + location.search;
-
-    if (location.state?.returnToTicket) {
-      // Clear the state so it doesn't reopen on refresh
-      const newState = { ...location.state };
-      delete newState.returnToTicket;
-      navOptions.state = newState;
-      shouldNavigate = true;
+    const userId = localStorage.getItem('userId');
+    if (userId && (!currentUser || !currentUser.role)) {
+      forceRefreshUser();
     }
+  }, [currentUser, forceRefreshUser]);
 
+  useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (!params.toString() && localStorage.getItem('dashboardFilters')) {
       const storedFilters = JSON.parse(localStorage.getItem('dashboardFilters'));
       const storedSearch = localStorage.getItem('dashboardSearchTerm') || '';
       const urlParams = new URLSearchParams({ ...storedFilters, search: storedSearch }).toString();
-      targetUrl = `/dashboard?${urlParams}`;
-      shouldNavigate = true;
+      navigate(`/dashboard?${urlParams}`);
     }
-
-    if (shouldNavigate) {
-      navigate(targetUrl, navOptions);
-    }
-
-    const userId = localStorage.getItem('userId');
-    if (userId && (!currentUser || !currentUser.role)) {
-      forceRefreshUser();
-    }
-  }, [currentUser, forceRefreshUser, location.pathname, location.search, location.state, navigate]);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -1996,24 +1981,26 @@ const DashBoard = () => {
       const isProjectScoped = filters.project_id && filters.project_id !== 'all';
       let scopedAssignees = [];
 
-      if (isAdmin && !isProjectScoped) {
-        scopedAssignees = assignees;
-      } else {
-        // Filter by the specific project or all assigned projects
+      if (isProjectScoped && projectUsers.length > 0) {
+        scopedAssignees = projectUsers.map((u) => ({
+          id: u.id,
+          name: u.username || u.display_name || u.email || u.name || 'Unknown User'
+        })).filter((u) => u.id !== undefined && u.id !== null);
+      } else if (!isAdmin && assignedProjectIds.length > 0) {
+        // If "All Projects" and not admin, filter global assignees list by those who belong to ANY of the user's assigned projects
         scopedAssignees = assignees.filter(a => {
           if (!a.project_ids || a.project_ids.length === 0) return false;
-          if (isProjectScoped) {
-            return a.project_ids.includes(String(filters.project_id));
-          } else {
-            return a.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
-          }
+          return a.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
         });
 
-        // Fallback: if list is empty but tickets exist, show users present in those tickets
+        // Final fallback: if filtering by project results in zero users, but there are tickets, 
+        // at least show users who appear in the tickets to avoid a blank dropdown.
         if (scopedAssignees.length === 0 && tickets.length > 0) {
           const ticketUserIds = new Set(tickets.map(t => String(t.assignee_id)));
           scopedAssignees = assignees.filter(a => ticketUserIds.has(String(a.id)));
         }
+      } else {
+        scopedAssignees = assignees;
       }
 
       return (
@@ -2397,11 +2384,8 @@ const DashBoard = () => {
             </button>
           </div>
 
-          {isLoading && (
-            <div className="loading-overlay">
-              <div className="loading-spinner" />
-            </div>
-          )}
+          {/* Loading overlay spinner removed */}
+
 
           {error && (
             <></>
@@ -2508,17 +2492,15 @@ const DashBoard = () => {
                           const isProjectScoped = filters.project_id && filters.project_id !== 'all';
                           let scopedApprovers = [];
 
-                          if (isAdmin && !isProjectScoped) {
-                            scopedApprovers = approvers;
+                          if (isProjectScoped && projectUsers.length > 0) {
+                            scopedApprovers = approvers.filter(a => projectUsers.some(u => (u.username === a.username || u.name === a.username)));
+                          } else if (!isAdmin) {
+                            // Filter approvers by user's assigned projects
+                            scopedApprovers = approvers.filter(a =>
+                              a.project_ids && a.project_ids.some(pid => assignedProjectIds.includes(String(pid)))
+                            );
                           } else {
-                            scopedApprovers = approvers.filter(a => {
-                              if (!a.project_ids || a.project_ids.length === 0) return false;
-                              if (isProjectScoped) {
-                                return a.project_ids.includes(String(filters.project_id));
-                              } else {
-                                return a.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
-                              }
-                            });
+                            scopedApprovers = approvers;
                           }
 
                           return scopedApprovers.map(a => (
@@ -2588,22 +2570,22 @@ const DashBoard = () => {
                           const isProjectScoped = filters.project_id && filters.project_id !== 'all';
                           let scopedCreators = [];
 
-                          if (isAdmin && !isProjectScoped) {
-                            scopedCreators = creators;
-                          } else {
+                          if (isProjectScoped && projectUsers.length > 0) {
+                            scopedCreators = creators.filter(c => projectUsers.some(u => String(u.id) === String(c.id)));
+                          } else if (!isAdmin && assignedProjectIds.length > 0) {
+                            // Filter creators by user's assigned projects
                             scopedCreators = creators.filter(c => {
                               if (!c.project_ids || c.project_ids.length === 0) return false;
-                              if (isProjectScoped) {
-                                return c.project_ids.includes(String(filters.project_id));
-                              } else {
-                                return c.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
-                              }
+                              return c.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
                             });
 
+                            // Fallback to ticket creators if list is empty
                             if (scopedCreators.length === 0 && tickets.length > 0) {
                               const ticketCreatorNames = new Set(tickets.map(t => t.creator_name));
                               scopedCreators = creators.filter(c => ticketCreatorNames.has(c.name));
                             }
+                          } else {
+                            scopedCreators = creators;
                           }
 
                           return (scopedCreators || []).map(creator => (
@@ -2726,7 +2708,6 @@ const DashBoard = () => {
         <EditTicket
           isModal={true}
           ticketId={editingTicket.id}
-          initialTicketData={editingTicket}
           onClose={() => setEditingTicket(null)}
           onSave={async () => {
             await loadTickets();

@@ -24,6 +24,7 @@ import "./App.css"; // Import the CSS file
 import { UserProvider, useUser } from './contexts/UserContext';
 import { getSecureUserId, initializeSecureAuth, cleanInsecureUrl, handleAuthFailure } from './utils/secureAuth';
 import { handleCrossDomainAuth, hasValidJWTToken } from './utils/crossDomainAuth';
+import LoadingScreen from "./components/LoadingScreen";
 
 // Protected Route Component with Cross-Domain Authentication
 const ProtectedRoute = ({ children }) => {
@@ -87,47 +88,78 @@ const ProtectedRoute = ({ children }) => {
 
   // Show loading while checking authentication OR while UserContext is initializing
   if (isAuthenticating || userLoading) {
-    return (
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        gap: '24px',
-        background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
-      }}>
-        <div style={{
-          width: '48px',
-          height: '48px',
-          border: '4px solid rgba(99, 102, 241, 0.1)',
-          borderTop: '4px solid #6366f1',
-          borderRadius: '50%',
-          animation: 'spin 0.8s linear infinite'
-        }}></div>
-        <div style={{
-          fontSize: '18px',
-          fontWeight: '600',
-          color: '#1e293b',
-          letterSpacing: '-0.025em'
-        }}>
-          {userLoading ? 'Preparing your dashboard...' : 'Securing your session...'}
-        </div>
-        <style>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    );
+    return <div style={{ minHeight: "100vh", backgroundColor: "#ffffff" }} />;
   }
 
   return children;
 };
 
 function App() {
+  const { loading: userLoading, error: userError } = useUser();
+  const [appLoading, setAppLoading] = React.useState(true);
+  const [serverOnline, setServerOnline] = React.useState(true);
+  const [minPlayTimeElapsed, setMinPlayTimeElapsed] = React.useState(false);
+  const [onlineStatus, setOnlineStatus] = React.useState(navigator.onLine);
+
+  // Track browser online/offline status
+  React.useEffect(() => {
+    const handleOnline = () => setOnlineStatus(true);
+    const handleOffline = () => setOnlineStatus(false);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  // Minimum play time of 2 seconds for check.gif
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setMinPlayTimeElapsed(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Poll backend health check
+  React.useEffect(() => {
+    let active = true;
+    const checkServer = async () => {
+      try {
+        const res = await fetch("/test");
+        if (active) {
+          setServerOnline(res.ok);
+        }
+      } catch (err) {
+        if (active) {
+          setServerOnline(false);
+        }
+      }
+    };
+
+    checkServer();
+    const interval = setInterval(checkServer, 3000);
+
+    return () => {
+      active = false;
+      clearInterval(interval);
+    };
+  }, []);
+
+  // Determine if there is a blocking network or connection error
+  const hasError = !onlineStatus || !serverOnline || !!userError;
+  const isLoadedAndStable = minPlayTimeElapsed && !userLoading && !hasError;
+
+  React.useEffect(() => {
+    if (isLoadedAndStable) {
+      setAppLoading(false);
+    }
+  }, [isLoadedAndStable]);
+
+  if (appLoading) {
+    return <LoadingScreen continueLoading={userLoading || hasError} />;
+  }
+
   return (
     <Router>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">

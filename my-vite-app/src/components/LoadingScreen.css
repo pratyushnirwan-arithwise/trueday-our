@@ -1,0 +1,44 @@
+.tls-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  overflow: hidden;
+  z-index: 99999;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.tls-gif-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+}
+
+.tls-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.tls-error-text {
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  text-align: center;
+  animation: tlsPulseOpacity 1.5s ease-in-out infinite;
+  max-width: 80%;
+}
+
+@keyframes tlsPulseOpacity {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
