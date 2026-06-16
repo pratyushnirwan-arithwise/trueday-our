@@ -41,7 +41,7 @@
 /* Header tweaks for Jira spacing */
 /* .ET-jira-header .ET-ticket-info { gap:6px; } */
 .ET-jira-header .ET-ticket-id {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .ET-jira-header .ET-ticket-title {
@@ -80,7 +80,7 @@
   padding: 6px 12px;
   border-radius: 4px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   margin-left: auto;
@@ -88,7 +88,7 @@
 
 .ET-ticket-title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   /* Updated title styling for better visibility */
   /* border: 1px solid #d0d0d0; */
   border: white;
@@ -122,7 +122,7 @@
   display: flex;
   gap: 8px;
   margin-left: auto;
-  margin-right: 16px;
+  margin-right: 8px;
 }
 
 .ET-btn-compact {
@@ -130,7 +130,7 @@
   border: 1px solid transparent;
   border-radius: 8px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   text-transform: capitalize;
@@ -231,7 +231,7 @@
   border: 1px solid #d0d0d0;
   background: #fff;
   color: #71876b;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -266,7 +266,7 @@
 
 .ET-status-step.active .ET-status-label {
   color: #111827;
-  font-weight: 600
+  font-weight: 500
 }
 
 /* Collapsible sections */
@@ -282,7 +282,7 @@
   cursor: pointer;
   padding: 0 0 12px 0;
   margin-bottom: 8px;
-  font-weight: 600;
+  font-weight: 500;
   color: #374151
 }
 
@@ -317,34 +317,67 @@
   pointer-events: none
 }
 
-/* Activity tabs */
+/* Activity tabs - Modern Segmented Control */
 .ET-activity-tabs {
-  display: flex;
-  gap: 4px;
-  border-bottom: 1px solid #e6eaeb;
-  margin: 6px 0 4px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  background: #f1f5f9;
+  /* Soft gray container */
+  border-radius: 12px;
+  padding: 4px;
+  width: fit-content;
+  border: none;
+  gap: 0;
+  margin: 6px 0 12px 0;
+  z-index: 1;
+}
+
+/* The sliding active indicator */
+.ET-activity-tabs::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 4);
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(calc(100% * var(--active-index, 0)));
+  z-index: -1;
 }
 
 .ET-activity-tab {
+  position: relative;
   background: transparent;
   border: none;
-  padding: 8px 12px;
+  padding: 4px 9px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  /* Slate 500 */
   cursor: pointer;
-  color: #6b7280;
-  border-bottom: 2px solid transparent;
-  border-radius: 6px 6px 0 0
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  border-radius: 8px;
+  flex: none;
+  width: auto;
+  min-width: 50px;
 }
 
 .ET-activity-tab:hover {
-  background: #f6f7f9;
-  color: #374151
+  color: #0f172a;
+  /* Slate 900 */
+  background: transparent;
 }
 
 .ET-activity-tab.active {
-  color: #111827;
-  border-color: #71876b;
-  font-weight: 600;
-  background: #fff
+  color: #0f172a;
+  /* Slate 900 */
+  background: transparent;
+  border: none;
 }
 
 /* Right panel read-like fields */
@@ -429,7 +462,7 @@
 
 .ET-section-header {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: #666666;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -581,7 +614,7 @@
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   color: #000000;
   border: 1px solid #cccccc;
   flex-shrink: 0;
@@ -1340,32 +1373,35 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(4px);
+  z-index: 2000;
 }
 
 .ET-image-preview-content {
-  background: white;
-  border-radius: 8px;
-  max-width: 90vw;
-  max-height: 90vh;
+  background: #f9fafb;
+  border-radius: 12px;
+  width: fit-content;
+  max-width: 88vw;
+  max-height: 86vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.32);
+  position: relative;
 }
 
 .ET-image-preview-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 16px;
-  border-bottom: 1px solid #e5e7eb;
-  background: #f9fafb;
+  padding: 10px 56px 10px 16px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  min-height: 48px;
 }
 
 .ET-close-preview-btn {
@@ -1385,6 +1421,40 @@
 .ET-close-preview-btn:hover {
   background: #e5e7eb;
   color: #333333;
+}
+
+/* Floating close button — top-right corner of preview panel */
+.ET-preview-close-float {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #374151;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ET-preview-close-float:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+}
+
+.ET-preview-close-float svg {
+  display: block;
+  stroke: currentColor;
+  pointer-events: none;
 }
 
 .ET-image-preview-controls {
@@ -1423,22 +1493,24 @@
 }
 
 .ET-image-preview-body {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  overflow: auto;
+  padding: 20px 20px 20px 20px;
+  overflow: hidden;
   background: #f9fafb;
 }
 
 .ET-preview-image {
-  max-width: 100%;
-  max-height: 100%;
+  display: block;
+  max-width: min(80vw, 1100px);
+  max-height: calc(86vh - 48px - 40px);
+  width: auto;
+  height: auto;
   object-fit: contain;
   transition: transform 0.2s ease;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 /* Modal Styles */
@@ -1487,7 +1559,7 @@
 .ET-modal-header h3 {
   margin: 0;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   color: #111827;
 }
 
@@ -1576,29 +1648,62 @@
 
 /* Attachments Modal Styles */
 .ET-attachments-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
 }
 
 .ET-attachment-item {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 16px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #ffffff;
   transition: all 0.2s ease;
-  gap: 12px;
+  overflow: hidden;
 }
 
 .ET-attachment-item:hover {
   border-color: #d1d5db;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.ET-attachment-thumbnail-wrapper {
+  width: 100%;
+  height: 140px;
+  flex-shrink: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ET-attachment-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ET-attachment-icon-placeholder {
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ET-attachment-icon-placeholder svg {
+  width: 48px;
+  height: 48px;
 }
 
 .ET-attachment-info {
+  padding: 12px 12px 8px 12px;
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -1628,7 +1733,61 @@
   gap: 6px;
   align-items: center;
   flex-shrink: 0;
-  margin-left: 12px;
+  margin-left: 0;
+  padding: 0 12px 12px 12px;
+}
+
+/* Clean icon-only attachment buttons */
+.ET-att-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.ET-att-icon-btn svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.ET-att-icon-btn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.ET-att-preview:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.ET-att-download:hover {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #15803d;
+}
+
+.ET-att-delete:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
 }
 
 .ET-attachment-action-btn {
@@ -1802,7 +1961,7 @@
 }
 
 .ET-history-action {
-  font-weight: 600;
+  font-weight: 500;
   color: #3a0a34;
   margin-bottom: 2px;
   font-size: 13px;
@@ -1945,7 +2104,7 @@
 }
 
 .ET-toolbar-btn strong {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .ET-toolbar-btn em {
@@ -1969,7 +2128,7 @@
   border: none;
   cursor: pointer;
   padding: 10px 4px;
-  font-weight: 600;
+  font-weight: 500;
   color: #374151;
   transition: none;
 }
@@ -1989,33 +2148,7 @@
   align-items: center;
 }
 
-.ET-activity-tabs {
-  display: flex;
-  gap: 8px;
-  border-bottom: none;
-  margin: 0;
-  width: auto;
-}
-
-.ET-activity-tab {
-  background: #f3f4f6;
-  border: 1px solid #d1d5db;
-  padding: 6px 12px;
-  cursor: pointer;
-  color: #374151;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 13px;
-  transition: all .15s;
-  flex: none;
-  text-align: center;
-}
-
-.ET-activity-tab:hover {
-  background: #e5e7eb;
-}
-
-/* .ET-activity-tab.active { background:#e0ecff; color:#1d4ed8; border-color:#93c5fd; } */
+/* Cleaned up old redundant tab styles */
 
 /* Unified activity area styling */
 .ET-unified-activity-area {
@@ -2227,7 +2360,7 @@
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -2290,7 +2423,7 @@
 .ET-status-dropdown-item.active {
   background: #e8f0ff;
   color: #4a90e2;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .ET-status-dot {
@@ -2322,7 +2455,7 @@
   border: none !important;
   cursor: pointer;
   padding: 20px 4px;
-  font-weight: 600;
+  font-weight: 500;
   color: #374151;
   transition: none !important;
 }
@@ -2476,7 +2609,7 @@
   padding: 0 12px;
   border-radius: 4px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .ET-cancel-edit-btn {
@@ -2505,7 +2638,7 @@
   padding: 0 12px;
   border-radius: 4px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .ET-cancel-reply-btn {
@@ -2575,16 +2708,7 @@
   justify-content: flex-start;
 }
 
-.ET-activity-tabs {
-  width: auto;
-  gap: 8px;
-}
-
-.ET-activity-tab {
-  padding: 6px 12px;
-  width: auto;
-  max-width: none;
-}
+/* Cleaned up old redundant tab styles */
 
 /* Mic blink animation when recording */
 .ET-mic-on .ET-mic-icon {
@@ -2613,8 +2737,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin: 24px auto;
-  padding: 16px 20px;
+  margin: 8px auto 0;
+  padding: 8px 20px;
   /* background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -2623,19 +2747,18 @@
 }
 
 .ET-worklog-clock svg {
-  filter: drop-shadow(0 2px 6px rgba(37, 99, 235, 0.25));
   border-radius: 9999px;
 }
 
 .ET-worklog-title {
-  font-weight: 600;
+  font-weight: 500;
   color: #111827;
   margin-top: 8px;
 }
 
 .ET-worklog-days {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
   color: #78176b;
   /* highlight the time */
 }
@@ -2679,7 +2802,7 @@
 }
 
 .ET-worklog-empty-text {
-  margin-top: 24px;
+  margin-top: 8px;
 }
 
 .ET-worklog-log-time-btn {
@@ -2735,7 +2858,7 @@
 }
 
 .ET-worklog-username {
-  font-weight: 600;
+  font-weight: 500;
   color: #111827;
   font-size: 14px;
   margin-bottom: 4px;
@@ -2814,7 +2937,7 @@
 .ET-worklog-modal-header h3 {
   margin: 0;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   color: #111827;
 }
 
@@ -2893,7 +3016,7 @@
 
 .ET-worklog-form-field label {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   color: #374151;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -3033,7 +3156,7 @@
   padding: 10px 20px;
   border-radius: 6px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -3276,7 +3399,7 @@ body:has(.ET-modal-content-wrapper) {
   align-items: center;
   justify-content: center;
   font-size: 9px;
-  font-weight: 700;
+  font-weight: 500;
   color: #ffffff;
   flex-shrink: 0;
   z-index: 2;
@@ -3292,7 +3415,7 @@ body:has(.ET-modal-content-wrapper) {
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   color: #6b7280;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -3336,7 +3459,7 @@ body:has(.ET-modal-content-wrapper) {
   min-width: 120px;
   flex-shrink: 0;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -3473,7 +3596,7 @@ body:has(.ET-modal-content-wrapper) {
   padding: 3px 12px;
   border-radius: 16px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .ET-priority-badge.ET-priority-high,
@@ -3613,4 +3736,33 @@ body:has(.ET-modal-content-wrapper) {
 
 .ET-modal-content-wrapper .custom-select-dropdown {
   animation: none !important;
+}
+
+.ET-selected-file {
+  margin-top: 16px;
+  padding: 12px;
+  background: #e0f2fe;
+  border-radius: 6px;
+  border: 1px solid #b3e5fc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ET-remove-file-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.ET-remove-file-btn:hover {
+  background: #bae6fd;
+  color: #0f172a;
 }

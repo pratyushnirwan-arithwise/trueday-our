@@ -26,6 +26,10 @@ export default defineConfig({
         target: 'http://127.0.0.1:5009',
         changeOrigin: true,
       },
+      '/attachments': {
+        target: 'http://127.0.0.1:5009',
+        changeOrigin: true,
+      },
       '/add_ticket_message': {
         target: 'http://127.0.0.1:5009',
         changeOrigin: true,

@@ -334,7 +334,7 @@ body {
 
 .header-title {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
   display: flex;
   align-items: center;
@@ -405,7 +405,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
   padding: 0 !important;
   flex: 0 0 28px !important;
@@ -641,7 +641,7 @@ body {
 }
 
 .status-title {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.875rem;
   color: var(--text-primary);
   display: flex;
@@ -655,7 +655,7 @@ body {
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   min-width: 20px;
   text-align: center;
 }
@@ -749,7 +749,7 @@ body {
 }
 
 .ticket-title {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.875rem;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
@@ -781,7 +781,7 @@ body {
 
 .ticket-due-date.overdue {
   color: #ef4444;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .ticket-created-date {
@@ -832,7 +832,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: white;
   background-color: #6db1ae;
 }
@@ -854,7 +854,7 @@ body {
   top: 0.5rem;
   left: 0.5rem;
   font-size: 0.625rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 0.125rem 0.5rem;
   border-radius: 4px;
   color: white;
@@ -866,7 +866,7 @@ body {
   top: 0.5rem;
   right: 0.5rem;
   font-size: 0.625rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 0.125rem 0.5rem;
   border-radius: 4px;
   background-color: var(--bg-secondary);
@@ -1067,7 +1067,7 @@ body {
 
 .modal-header h2 {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
 }
 
@@ -1171,7 +1171,7 @@ body {
   color: #8a4b20;
   border-radius: 10px;
   font-size: 0.88rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1;
   padding: 0.5rem 0.85rem;
   min-height: 36px;
@@ -1213,7 +1213,7 @@ body {
 .add-status-modal .input-group label {
   display: block;
   margin-bottom: 0.4rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #374151;
 }
 
@@ -1254,7 +1254,7 @@ body {
   border-radius: 999px;
   padding: 0.32rem 0.65rem;
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #1f2937;
 }
 
@@ -1435,7 +1435,7 @@ body {
 
 .add-users-label {
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #374151;
 }
 
@@ -1518,7 +1518,7 @@ body {
 
 .deleted-tickets-header h2 {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
 }
 
@@ -1542,7 +1542,7 @@ body {
 
 .deleted-ticket-info-modal h3 {
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
@@ -1701,7 +1701,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.125rem;
   color: var(--text-primary);
 }
@@ -1718,7 +1718,7 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
-  font-weight: bold;
+  font-weight: 500;
   flex-shrink: 0;
 }
 
@@ -1818,7 +1818,7 @@ body {
 .dashboard-sidebar .nav-title {
   padding: 0 1rem 0.5rem;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1979,7 +1979,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.875rem;
   flex-shrink: 0;
   transition: var(--transition);
@@ -2505,7 +2505,7 @@ body {
   margin: 0;
   font-size: 1.15rem;
   color: #111827;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .drawer-close {
@@ -2714,7 +2714,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.875rem;
   margin-right: 14px;
 }
@@ -2727,7 +2727,7 @@ body {
 
 .member-name {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #111827;
   white-space: nowrap;
   overflow: hidden;
@@ -2783,7 +2783,7 @@ body {
   border: none;
   padding: 10px 32px;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s;

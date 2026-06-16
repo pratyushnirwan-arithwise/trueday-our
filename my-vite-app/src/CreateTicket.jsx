@@ -43,7 +43,9 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
     if (currentUser?.role === 'Admin') return users;
 
     return users.filter(u => {
-      const uProjectIds = Array.isArray(u.project_ids) ? u.project_ids.map(pid => String(pid)) : [];
+      const uProjectIds = Array.isArray(u.project_ids)
+        ? u.project_ids.map(pid => String(pid))
+        : [];
       return uProjectIds.some(pid => assignedProjectIds.includes(pid));
     });
   }, [users, assignedProjectIds, currentUser]);
@@ -504,7 +506,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
                     setFormData(prev => ({
                       ...prev,
                       assignee_id: id || null,
-                      assignee: user ? (user.name || user.username) : ''
+                      assignee: user ? user.username : ''
                     }));
                   }}
                   className="jira-form-select"
@@ -512,7 +514,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
                   <option value="">Select Assignee</option>
                   {(selectedProjectId ? projectUsers : scopedUsers).map(user => (
                     <option key={user.id} value={user.id}>
-                      {user.name || user.username}
+                      {user.username}
                     </option>
                   ))}
                 </select>
@@ -563,7 +565,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
                     setFormData(prev => ({
                       ...prev,
                       collaborator_id: id || null,
-                      collaborator: user ? (user.name || user.username) : ''
+                      collaborator: user ? user.username : ''
                     }));
                   }}
                   className="jira-form-select"
@@ -571,7 +573,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
                   <option value="">Select Collaborator</option>
                   {(selectedProjectId ? projectUsers : scopedUsers).map(user => (
                     <option key={user.id} value={user.id}>
-                      {user.name || user.username}
+                      {user.username}
                     </option>
                   ))}
                 </select>
@@ -589,7 +591,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
                     setFormData(prev => ({
                       ...prev,
                       approver_id: id || null,
-                      approver: user ? (user.name || user.username) : ''
+                      approver: user ? user.username : ''
                     }));
                   }}
                   className="jira-form-select"
@@ -597,7 +599,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
                   <option value="">Select Approver</option>
                   {(selectedProjectId ? projectUsers : scopedUsers).map(user => (
                     <option key={user.id} value={user.id}>
-                      {user.name || user.username}
+                      {user.username}
                     </option>
                   ))}
                 </select>

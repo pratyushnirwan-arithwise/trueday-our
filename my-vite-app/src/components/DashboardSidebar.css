@@ -72,8 +72,8 @@
 }
 
 .ds-nav-item.active {
-  color: #1d2928;
-  /* Active purple color matching the design */
+  color: #6db1ae;
+  /* Active color matching the hover highlight */
 }
 
 .ds-nav-item:hover {

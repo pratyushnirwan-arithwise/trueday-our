@@ -328,8 +328,8 @@ body,
   padding: 0.5rem 0.85rem 0.5rem 0.65rem;
   background: var(--card);
   border-radius: 8px;
-  border: none;
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  box-shadow: none;
   transition: transform 0.15s, box-shadow 0.15s;
   min-width: 0;
 }
@@ -387,10 +387,6 @@ body,
   color: #EF4444;
 }
 
-.rpt-kpi:not(:last-child) {
-  border-right: 1px solid var(--border);
-  border-radius: 0;
-}
 
 /* Override text colors inside colored cards */
 .rpt-kpi.indigo .rpt-kpi-number,
@@ -414,7 +410,7 @@ body,
 
 .rpt-kpi-number {
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--t1);
   letter-spacing: -0.5px;
   line-height: 1.2;
@@ -436,7 +432,7 @@ body,
   display: inline-flex;
   align-items: center;
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.01em;
   padding: 0.05rem 0.3rem;
   border-radius: 4px;
@@ -924,13 +920,7 @@ body,
   }
 
   .rpt-kpi {
-    border-right: none;
-    border-bottom: 1.5px dashed var(--border);
     padding: 0.85rem 1.25rem;
-  }
-
-  .rpt-kpi:nth-child(2n) {
-    border-right: none;
   }
 
   .rpt-charts-3 {

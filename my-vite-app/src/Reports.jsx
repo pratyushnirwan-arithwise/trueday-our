@@ -196,11 +196,29 @@ const statusChartOpts = {
 
 const DOUGHNUT_OPTS = {
   responsive: true, maintainAspectRatio: false,
+  layout: { padding: 30 },
   cutout: '76%',
   animation: { duration: 500 },
   plugins: {
     legend: { position: 'bottom', labels: { boxWidth: 10, padding: 20, font: { ...FONT, size: 12 }, usePointStyle: true, pointStyle: 'circle' } },
-    tooltip: { ...TOOLTIP, callbacks: { label: ctx => { const t = ctx.dataset.data.reduce((a, b) => a + b, 0); return ` ${ctx.label.split(' ')[0]}: ${ctx.raw} (${t > 0 ? ((ctx.raw / t) * 100).toFixed(1) : 0}%)`; } } },
+    tooltip: { 
+      ...TOOLTIP, 
+      xAlign: (ctx) => {
+        const tooltip = ctx.tooltip;
+        if (!tooltip || !tooltip.dataPoints || !tooltip.dataPoints.length) return 'center';
+        
+        const chart = tooltip.chart;
+        if (!chart || !chart.chartArea) return 'center';
+        
+        const chartCenter = (chart.chartArea.left + chart.chartArea.right) / 2;
+        const elementX = tooltip.dataPoints[0].element.tooltipPosition().x;
+        
+        // If slice is on the left half, point arrow rightwards (box goes left)
+        // If slice is on the right half, point arrow leftwards (box goes right)
+        return elementX < chartCenter ? 'right' : 'left';
+      },
+      callbacks: { label: ctx => { const t = ctx.dataset.data.reduce((a, b) => a + b, 0); return ` ${ctx.label.split(' ')[0]}: ${ctx.raw} (${t > 0 ? ((ctx.raw / t) * 100).toFixed(1) : 0}%)`; } } 
+    },
   },
 };
 
@@ -244,7 +262,7 @@ const yAxisAvatarPlugin = {
 
     ctx.save();
     ctx.textBaseline = 'middle';
-    
+
     chart.getDatasetMeta(0).data.forEach((bar, index) => {
       const label = labels[index] || '';
       const parts = label.trim().split(' ').filter(Boolean);
@@ -255,10 +273,10 @@ const yAxisAvatarPlugin = {
         initials = parts[0].substring(0, 2).toUpperCase();
       }
       const rawColor = dataset.dotColors?.[index] || dataset.backgroundColor?.[index] || '#6366F1';
-      
+
       const cy = bar.y;
       const startX = chartArea.left - 200; // increased from 180 to 200 to give space for ranking number
-      
+
       // Ranking Number
       ctx.font = '600 12px Inter, system-ui, sans-serif';
       ctx.fillStyle = '#94a3b8'; // Slate-400 color for subtle ranking number
@@ -399,8 +417,15 @@ export default function Reports() {
     if (selectedEmployee !== 'all') p.append('employee', selectedEmployee);
     if (selectedPriority !== 'all') p.append('priority', selectedPriority);
     if (selectedStatus !== 'all') p.append('status', selectedStatus);
-    if (globalStartDate) p.append('start_date', globalStartDate);
-    if (globalEndDate) p.append('end_date', globalEndDate);
+    
+    const formatDt = d => {
+      if (!d) return '';
+      const dt = new Date(d);
+      return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+    };
+
+    if (globalStartDate) p.append('start_date', formatDt(globalStartDate));
+    if (globalEndDate) p.append('end_date', formatDt(globalEndDate));
     return p;
   }, [selectedEmployee, selectedPriority, selectedStatus, globalStartDate, globalEndDate]);
 
@@ -419,8 +444,16 @@ export default function Reports() {
     const p = new URLSearchParams();
     if (selectedEmployee !== 'all') p.append('employee', selectedEmployee);
     if (selectedPriority !== 'all') p.append('priority', selectedPriority);
-    if (globalStartDate) { p.append('start_year', globalStartDate.split('-')[0]); p.append('start_month', globalStartDate.split('-')[1]); }
-    if (globalEndDate) { p.append('end_year', globalEndDate.split('-')[0]); p.append('end_month', globalEndDate.split('-')[1]); }
+    
+    const formatDt = d => {
+      if (!d) return '';
+      const dt = new Date(d);
+      return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+    };
+
+    if (globalStartDate) p.append('start_date', formatDt(globalStartDate));
+    if (globalEndDate) p.append('end_date', formatDt(globalEndDate));
+    
     fetch(`/api/company-performance-line?${p}`).then(r => r.json()).then(setCompanyLineData).catch(() => { });
   }, [selectedEmployee, selectedPriority, globalStartDate, globalEndDate]);
 
@@ -565,7 +598,7 @@ export default function Reports() {
 
             {/* Date range */}
             <div className="rpt-date-range" style={{ padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
-              <CustomDatePicker 
+              <CustomDatePicker
                 selectsRange={true}
                 startDate={globalStartDate}
                 endDate={globalEndDate}
@@ -573,7 +606,7 @@ export default function Reports() {
                   setGlobalStartDate(start);
                   setGlobalEndDate(end);
                 }}
-                placeholder="Select Date Range" 
+                placeholder="Select Date Range"
               />
             </div>
 

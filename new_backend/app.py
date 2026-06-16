@@ -185,6 +185,58 @@ def get_db_connection():
 def test_endpoint():
     return jsonify({"status": "Backend is running", "timestamp": datetime.now().isoformat()}), 200
 
+# ---------------------------------------------------------------
+# DEV ONLY — auto-login bypass for local testing
+# Usage: GET /dev/auto-login?user_id=<id>
+# Blocked if app.debug is False (i.e. never works in production)
+# ---------------------------------------------------------------
+@app.route('/dev/auto-login', methods=['GET'])
+def dev_auto_login():
+    if not app.debug:
+        return jsonify({'error': 'Not available in production'}), 403
+
+    user_id = request.args.get('user_id', type=int)
+    if not user_id:
+        # No user_id given — list available users to pick from
+        try:
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute("SELECT id, username, email, role FROM trueday.users ORDER BY id LIMIT 20;")
+            users = [dict(row) for row in cur.fetchall()]
+            cur.close()
+            conn.close()
+            return jsonify({
+                'message': 'Pass ?user_id=<id> to auto-login. Available users:',
+                'users': users
+            }), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT id, username, email, role FROM trueday.users WHERE id = %s", (user_id,))
+        user = cur.fetchone()
+        cur.close()
+        conn.close()
+
+        if not user:
+            return jsonify({'error': f'No user with id={user_id}'}), 404
+
+        session.permanent = True
+        session['user_id'] = user['id']
+        session['name']    = user['username']
+        session['email']   = user['email']
+        session['role']    = user['role']
+
+        return jsonify({
+            'message': f"Dev session set — logged in as '{user['username']}' (id={user['id']}, role={user['role']})",
+            'user': dict(user)
+        }), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 # @app.route('/', defaults={'path': ''})
 # @app.route('/<path:path>')
 # def serve(path):
@@ -780,23 +832,65 @@ def update_ticket(ticket_id):
                 return jsonify({"error": f"Only the assigned approver can mark this ticket as completed"}), 403
 
         # Update the ticket in the database
-        cursor.execute("""
-            UPDATE trueday.tickets
-            SET title = %s, description = %s, priority = %s, status = %s, due_date = %s, 
-                assignee_id = %s, collaborator_id = %s, approver_id = %s, project_id = %s
-            WHERE ticket_id = %s
-        """, (
-            title.strip(),  # Use trimmed title
-            data.get('description', ''),
-            data.get('priority', 'Medium'),
-            data.get('status', 'New'),
-            data.get('due_date'),
-            data.get('assignee_id'),
-            data.get('collaborator_id'),
-            data.get('approver_id'),
-            data.get('project_id'),
-            ticket_id
-        ))
+        start_date = data.get('start_date')
+        if start_date:
+            try:
+                start_date_val = datetime.strptime(start_date, "%Y-%m-%d")
+            except ValueError:
+                start_date_val = None
+        else:
+            start_date_val = None
+
+        label_id = data.get('label_id')
+        if label_id == "" or label_id == "null":
+            label_id = None
+        else:
+            try:
+                label_id = int(label_id) if label_id is not None else None
+            except ValueError:
+                label_id = None
+
+        if start_date_val:
+            cursor.execute("""
+                UPDATE trueday.tickets
+                SET title = %s, description = %s, priority = %s, status = %s, due_date = %s, 
+                    assignee_id = %s, collaborator_id = %s, approver_id = %s, project_id = %s,
+                    created_at = %s, label_id = %s
+                WHERE ticket_id = %s
+            """, (
+                title.strip(),
+                data.get('description', ''),
+                data.get('priority', 'Medium'),
+                data.get('status', 'New'),
+                data.get('due_date'),
+                data.get('assignee_id'),
+                data.get('collaborator_id'),
+                data.get('approver_id'),
+                data.get('project_id'),
+                start_date_val,
+                label_id,
+                ticket_id
+            ))
+        else:
+            cursor.execute("""
+                UPDATE trueday.tickets
+                SET title = %s, description = %s, priority = %s, status = %s, due_date = %s, 
+                    assignee_id = %s, collaborator_id = %s, approver_id = %s, project_id = %s,
+                    label_id = %s
+                WHERE ticket_id = %s
+            """, (
+                title.strip(),
+                data.get('description', ''),
+                data.get('priority', 'Medium'),
+                data.get('status', 'New'),
+                data.get('due_date'),
+                data.get('assignee_id'),
+                data.get('collaborator_id'),
+                data.get('approver_id'),
+                data.get('project_id'),
+                label_id,
+                ticket_id
+            ))
 
         # Get current user information from request body or session
         current_user_id = data.get('user_id') or session.get('user_id')
@@ -2185,27 +2279,48 @@ def get_metrics():
 def get_employee_name():
     try:
         conn = get_db_connection()
-        cur = conn.cursor()  #  no cursor_factory needed
+        cur = conn.cursor()
 
-        
-        # Simple query to get all users
-        query = """
-            SELECT id, username 
-            FROM trueday.users 
+        # Fetch all users
+        cur.execute("""
+            SELECT id, username
+            FROM trueday.users
             ORDER BY username;
-        """
-        
-        cur.execute(query)
-        users = cur.fetchall()
-        
+        """)
+        user_rows = cur.fetchall()
+
+        # Fetch all project memberships separately (avoids psycopg3 ARRAY type casting issues)
+        cur.execute("""
+            SELECT user_id, project_id
+            FROM trueday.project_users;
+        """)
+        membership_rows = cur.fetchall()
+
         cur.close()
         conn.close()
-        
+
+        # Build a map: user_id -> [project_ids]
+        project_map = {}
+        for m in membership_rows:
+            uid = m['user_id']
+            pid = m['project_id']
+            if uid not in project_map:
+                project_map[uid] = []
+            project_map[uid].append(pid)
+
+        users = [
+            {
+                'id': row['id'],
+                'username': row['username'],
+                'project_ids': project_map.get(row['id'], [])
+            }
+            for row in user_rows
+        ]
         return jsonify(users)
 
     except Exception as e:
         print(f"Error: {str(e)}")
-        return jsonify({'error': str(e)}), 500         
+        return jsonify({'error': str(e)}), 500
 
 
 
@@ -2249,6 +2364,28 @@ def get_user_by_id(user_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/project/<int:project_id>/users', methods=['GET'])
+def get_project_members(project_id):
+    """Return all users assigned to a given project."""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT u.id, u.username
+            FROM trueday.users u
+            JOIN trueday.project_users pu ON pu.user_id = u.id
+            WHERE pu.project_id = %s
+            ORDER BY u.username;
+        """, (project_id,))
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        users = [{'id': row['id'], 'username': row['username']} for row in rows]
+        return jsonify(users)
+    except Exception as e:
+        print(f"Error in get_project_users: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/create_ticket', methods=['POST'])
 def create_ticket():
     try:
@@ -2265,6 +2402,8 @@ def create_ticket():
         creator_id = data.get("creator_id")
         project_name = data.get("project_name")
         label_id = data.get("label_id")
+        collaborator_id = data.get("collaborator_id")
+        approver_id = data.get("approver_id")
 
         # -------------------
         # Validate title
@@ -2386,10 +2525,11 @@ def create_ticket():
         cursor.execute("""
             INSERT INTO trueday.tickets (
                 title, description, priority, assignee_id,
-                due_date, status, tag, creator_id, project_id, label_id
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                due_date, status, tag, creator_id, project_id, label_id,
+                collaborator_id, approver_id
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             RETURNING ticket_id;
-        """, (title.strip(), description, priority, assignee_id, due_date, status, tag, creator_id, project_id, label_id))
+        """, (title.strip(), description, priority, assignee_id, due_date, status, tag, creator_id, project_id, label_id, collaborator_id, approver_id))
         ticket_row = cursor.fetchone()
         ticket_id = ticket_row.get('ticket_id') if isinstance(ticket_row, dict) else ticket_row[0]
 
@@ -3066,7 +3206,13 @@ def upload_attachment():
         ticket_id = request.form.get('ticket_id')
         user_id = request.form.get('user_id')
        
-        if not all([file, ticket_id, user_id]):
+        # Clean up string 'undefined' or 'null' passed from frontend FormData
+        if ticket_id in ('undefined', 'null', ''):
+            ticket_id = None
+        if user_id in ('undefined', 'null', ''):
+            user_id = None
+
+        if not all([file, ticket_id]):
             return jsonify({"error": "Missing required fields"}), 400
            
         if file.filename == '':
@@ -6446,6 +6592,8 @@ def get_ticket_creation_frequency():
         employee = request.args.get('employee')
         priority = request.args.get('priority')
         status = request.args.get('status')
+        start_date = request.args.get('start_date')
+        end_date = request.args.get('end_date')
         
         query = """
             SELECT 
@@ -6466,6 +6614,13 @@ def get_ticket_creation_frequency():
         if status and status != 'all':
             query += " AND LOWER(t.status) = LOWER(%s)"
             params.append(status)
+            
+        if start_date:
+            query += " AND t.created_at >= %s"
+            params.append(start_date)
+        if end_date:
+            query += " AND t.created_at <= %s"
+            params.append(end_date)
             
         query += """
             GROUP BY TO_CHAR(t.created_at, 'YYYY-MM'), creator
@@ -6692,13 +6847,17 @@ def get_timeline_by_ticket(ticket_id):
         if not ticket:
             return jsonify({'error': 'Ticket not found'}), 404
 
-        # Timeline entries
-        cur.execute("""
-            SELECT * FROM trueday.timeline_entries
-            WHERE ticket_id = %s
-            ORDER BY created_at DESC
-        """, (ticket_id,))
-        timeline = cur.fetchall()
+        # Timeline entries — table may not exist yet, handle gracefully
+        try:
+            cur.execute("""
+                SELECT * FROM trueday.timeline_entries
+                WHERE ticket_id = %s
+                ORDER BY created_at DESC
+            """, (ticket_id,))
+            timeline = cur.fetchall()
+        except Exception:
+            conn.rollback()  # clear the failed transaction so cursor stays usable
+            timeline = []
 
         # Comments (map existing schema columns)
         cur.execute("""
@@ -6767,14 +6926,17 @@ def add_timeline_comment():
                 (user_name,)
             )
             row     = cursor.fetchone()
-            user_id = row[0] if row else None
+            if row:
+                user_id = row['id'] if isinstance(row, dict) else row[0]
+            else:
+                user_id = None
 
         # Fallback 1: If user_name is Anonymous or user could not be found, try to look up user "Anonymous"
         if not user_id:
             cursor.execute("SELECT id FROM trueday.users WHERE username ILIKE 'Anonymous' LIMIT 1")
             row = cursor.fetchone()
             if row:
-                user_id = row[0]
+                user_id = row['id'] if isinstance(row, dict) else row[0]
             else:
                 # Create a default Anonymous user
                 try:
@@ -6783,12 +6945,16 @@ def add_timeline_comment():
                         VALUES ('Anonymous', 'anonymous@trueday.com', 'anonymous')
                         RETURNING id;
                     """)
-                    user_id = cursor.fetchone()[0]
+                    inserted_row = cursor.fetchone()
+                    user_id = inserted_row['id'] if isinstance(inserted_row, dict) else inserted_row[0]
                 except Exception:
                     # Fallback 2: fetch the first available user in DB
                     cursor.execute("SELECT id FROM trueday.users LIMIT 1")
                     row = cursor.fetchone()
-                    user_id = row[0] if row else None
+                    if row:
+                        user_id = row['id'] if isinstance(row, dict) else row[0]
+                    else:
+                        user_id = None
 
         cursor.execute("""
             INSERT INTO trueday.comments (task_id, user_id, comment_text)
@@ -6797,10 +6963,14 @@ def add_timeline_comment():
         """, (ticket_id, user_id, comment))
         result = cursor.fetchone()
         conn.commit()
+
+        r_id = result['id'] if isinstance(result, dict) else result[0]
+        r_created_at = result['created_at'] if isinstance(result, dict) else result[1]
+
         return jsonify({
             'success': True,
-            'id':         result[0],
-            'created_at': result[1].isoformat() if result[1] else None
+            'id':         r_id,
+            'created_at': r_created_at.isoformat() if r_created_at else None
         }), 201
     except Exception as e:
         print(f"Error adding comment: {e}")
@@ -6840,7 +7010,12 @@ def update_ticket_comment(comment_id):
             cursor.close(); conn.close()
             return jsonify({"error": "Comment not found"}), 404
 
-        ticket_id, owner_user_id, old_comment_text = row
+        if isinstance(row, dict):
+            ticket_id = row['task_id']
+            owner_user_id = row['user_id']
+            old_comment_text = row['comment_text']
+        else:
+            ticket_id, owner_user_id, old_comment_text = row
         
         if str(owner_user_id) != str(user_id):
             cursor.close(); conn.close()
@@ -6854,10 +7029,17 @@ def update_ticket_comment(comment_id):
         """, (new_comment, comment_id))
         updated = cursor.fetchone()
 
+        updated_id = updated['id'] if isinstance(updated, dict) else updated[0]
+        updated_comment_text = updated['comment_text'] if isinstance(updated, dict) else updated[1]
+        updated_created_at = updated['created_at'] if isinstance(updated, dict) else updated[2]
+        updated_user_id = updated['user_id'] if isinstance(updated, dict) else updated[3]
+
         # Fetch username
-        cursor.execute("SELECT username FROM trueday.users WHERE id = %s", (updated[3],))
+        cursor.execute("SELECT username FROM trueday.users WHERE id = %s", (updated_user_id,))
         username_row = cursor.fetchone()
-        username = username_row[0] if username_row else ''
+        username = ''
+        if username_row:
+            username = username_row['username'] if isinstance(username_row, dict) else username_row[0]
 
         # Record comment edit in history
         try:
@@ -6875,14 +7057,14 @@ def update_ticket_comment(comment_id):
                 'comment_edit',
                 old_snippet,
                 new_snippet,
-                json.dumps({"comment_id": updated[0]})
+                json.dumps({"comment_id": updated_id})
             ))
         except Exception as e:
             print(f"⚠️ Failed to record comment edit history: {e}")
 
         conn.commit()
         cursor.close(); conn.close()
-        return jsonify({"success": True, "comment_id": updated[0], "comment_text": updated[1]})
+        return jsonify({"success": True, "comment_id": updated_id, "comment_text": updated_comment_text})
     except Exception as e:
         print(f"❌ Error updating comment: {str(e)}")
         return jsonify({"error": str(e)}), 500

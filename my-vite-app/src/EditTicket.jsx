@@ -58,7 +58,7 @@ const formatDateObj = (dateObj) => {
   return `${year}-${month}-${day}`;
 };
 
-const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) => {
+const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, initialTicketData = null }) => {
   const params = useParams()
   const id = ticketId || params.id
   const navigate = useNavigate()
@@ -113,6 +113,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
   const [imageScale, setImageScale] = useState(1)
   const [showUploadModal, setShowUploadModal] = useState(false)
   const [showAttachmentsModal, setShowAttachmentsModal] = useState(false)
+  const [previewFromAttachments, setPreviewFromAttachments] = useState(false)
   const [showHistoryModal, setShowHistoryModal] = useState(false)
   const [attachments, setAttachments] = useState([])
   const [history, setHistory] = useState([])
@@ -122,6 +123,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
   const [pastingImage, setPastingImage] = useState(false)
   const [showUnsupportedFileModal, setShowUnsupportedFileModal] = useState(false)
   const [unsupportedFileMessage, setUnsupportedFileMessage] = useState("")
+  const [isDragging, setIsDragging] = useState(false)
 
   // UI only: collapsible sections and tabs
   const [isDescOpen, setIsDescOpen] = useState(true)
@@ -210,6 +212,22 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
     try {
       setLoading(true)
       setError(null)
+
+      if (initialTicketData) {
+        const ticketData = initialTicketData
+        setTicket(ticketData)
+        setTicketTitle(ticketData.title || "")
+        setDescription(ticketData.description || "")
+        setAssignee(ticketData.assignee_id?.toString() || "")
+        setCollaborator(ticketData.collaborator_id?.toString() || "")
+        setApprover(ticketData.approver_id?.toString() || "")
+        setProject(ticketData.project_id?.toString() || "")
+        setStatus(ticketData.status || "Open")
+        setPriority(ticketData.priority || "Medium")
+        setDueDate(ticketData.due_date || "")
+        setLoading(false)
+        return
+      }
 
       if (location.state?.ticket) {
         const ticketData = location.state.ticket
@@ -634,7 +652,13 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
       const formData = new FormData()
       formData.append("file", file)
       formData.append("ticket_id", id)
-      formData.append("user_id", currentUser?.id || currentUser?.user_id || localStorage.getItem("userId"))
+
+      const userId = currentUser?.id || currentUser?.user_id || localStorage.getItem("userId")
+      if (userId && userId !== "undefined" && userId !== "null") {
+        formData.append("user_id", userId)
+      } else {
+        formData.append("user_id", "")
+      }
 
       const response = await fetch("/upload_attachment", {
         method: "POST",
@@ -659,9 +683,9 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
 
       const messageData = {
         ticket_id: Number.parseInt(id),
-        user_id: currentUser?.id || currentUser?.user_id || localStorage.getItem("userId"),
+        user_id: userId,
         message: `[Image uploaded: ${file.name}]`,
-        attachment_id: result.attachment_id,
+        attachment_id: result.id || result.attachment_id,
       }
 
       await addMessage(messageData)
@@ -686,6 +710,10 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
     setShowImagePreview(false)
     setPreviewImage("")
     setImageScale(1)
+    if (previewFromAttachments) {
+      setShowAttachmentsModal(true)
+      setPreviewFromAttachments(false)
+    }
   }
 
   const handleImageZoom = (delta) => {
@@ -975,7 +1003,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                 : comment.timestamp
                   ? new Date(comment.timestamp).toLocaleString()
                   : ""}
-              {isEditing && <span style={{ marginLeft: "8px", color: "#78176b", fontWeight: "bold" }}>(editing...)</span>}
+              {isEditing && <span style={{ marginLeft: "8px", color: "#78176b", fontWeight: 500 }}>(editing...)</span>}
             </div>
             {!isEditing && !hideActions && mine && (
               <div className="ET-comment-actions-inline">
@@ -1508,7 +1536,13 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
       const formData = new FormData()
       formData.append("file", selectedFile)
       formData.append("ticket_id", id)
-      formData.append("user_id", currentUser?.id || currentUser?.user_id || localStorage.getItem("userId"))
+
+      const userId = currentUser?.id || currentUser?.user_id || localStorage.getItem("userId")
+      if (userId && userId !== "undefined" && userId !== "null") {
+        formData.append("user_id", userId)
+      } else {
+        formData.append("user_id", "")
+      }
 
       const response = await fetch("/upload_attachment", {
         method: "POST",
@@ -1545,6 +1579,46 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
       setSelectedFile(file)
     }
   }
+  const handleDragOver = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(true)
+  }
+
+  const handleDragLeave = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setSelectedFile(e.dataTransfer.files[0])
+    }
+  }
+
+  useEffect(() => {
+    if (!showUploadModal) return
+
+    const handlePaste = (e) => {
+      // Don't intercept paste if user is typing in an input field elsewhere (though modal overlay usually blocks this)
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return
+
+      if (e.clipboardData && e.clipboardData.files && e.clipboardData.files.length > 0) {
+        e.preventDefault()
+        e.stopPropagation()
+        setSelectedFile(e.clipboardData.files[0])
+      }
+    }
+
+    window.addEventListener('paste', handlePaste)
+    return () => {
+      window.removeEventListener('paste', handlePaste)
+    }
+  }, [showUploadModal])
 
   const handleFileDownload = async (filePath, fileName) => {
     try {
@@ -1566,7 +1640,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
       } else {
         throw new Error("Download failed")
       }
-    } catch (error) {
+        } catch (error) {
       console.error("Error downloading file:", error)
       setError("Failed to download file. Please try again.")
     }
@@ -1576,10 +1650,11 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
     const fileType = attachment.file_type?.toLowerCase() || ""
 
     if (fileType.startsWith("image/")) {
+      setPreviewFromAttachments(showAttachmentsModal)
+      setShowAttachmentsModal(false)
       setPreviewImage(`/attachments/${attachment.file_path}`)
       setShowImagePreview(true)
       setImageScale(1)
-      setShowAttachmentsModal(false)
     } else {
       window.open(`/attachments/${attachment.file_path}`, "_blank")
     }
@@ -2215,6 +2290,12 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
     return String(currentUser.id) === String(ticket.approver_id)
   }
 
+  const handleMinimize = () => {
+    if (!isModal) {
+      navigate('/dashboard', { state: { returnToTicket: { ...(ticket || {}), id: id, ticket_id: id } } });
+    }
+  };
+
   const getCompleterName = () => {
     if (!ticket?.approver_id) {
       return "Anyone"
@@ -2264,7 +2345,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
     })
 
     const mentionRegex = /@([A-Za-z]+\s+[A-Za-z]+)(?=\s|$|\.|,|;|:|!|\?|<\/)/g
-    formatted = formatted.replace(mentionRegex, '@<span style="color: #78176b; font-weight: 700;">$1</span>')
+    formatted = formatted.replace(mentionRegex, '@<span style="color: #78176b; font-weight: 500;">$1</span>')
 
     return formatted
   }
@@ -2556,20 +2637,22 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
           />
         </div>
         <div className="ET-header-actions">
-          <button className="ET-btn-compact ET-btn-primary" onClick={handleSave} disabled={saving}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-              <polyline points="17 21 17 13 7 13 7 21" />
-              <polyline points="7 3 7 8 15 8" />
-            </svg>
-            {saving ? "Saving..." : "Save"}
+          <button className="ET-btn-compact ET-btn-primary" title="Save" onClick={handleSave} disabled={saving} style={{ padding: "8px" }}>
+            {saving ? (
+              <div style={{ width: "16px", height: "16px", borderRadius: "50%", border: "2px solid white", borderTopColor: "transparent", animation: "spin 1s linear infinite" }} />
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                <polyline points="17 21 17 13 7 13 7 21" />
+                <polyline points="7 3 7 8 15 8" />
+              </svg>
+            )}
           </button>
-          <button className="ET-btn-compact ET-btn-danger" onClick={handleDelete}>
+          <button className="ET-btn-compact ET-btn-danger" title="Delete" onClick={handleDelete} style={{ padding: "8px" }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="3 6 5 6 21 6" />
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
             </svg>
-            Delete
           </button>
         </div>
         <div className="ET-header-icons">
@@ -2597,7 +2680,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                   height: "18px",
                   lineHeight: "18px",
                   fontSize: "11px",
-                  fontWeight: 700,
+                  fontWeight: 500,
                   boxShadow: "0 0 0 2px #fff",
                 }}
               >
@@ -2613,13 +2696,28 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
             </svg>
           </div>
           {isModal && (
-            <div className="ET-icon-button" title="Close" onClick={handleBack}>
+            <div className="ET-icon-button" title="Open Full Screen" onClick={() => {
+              if (onClose) onClose();
+              navigate(`/edit-ticket/${id}`);
+            }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
               </svg>
             </div>
           )}
+          {!isModal && (
+            <div className="ET-icon-button" title="Minimize to Popup" onClick={handleMinimize}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
+              </svg>
+            </div>
+          )}
+          <div className="ET-icon-button" title="Close" onClick={handleBack}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -2709,7 +2807,16 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                 </svg>
                 <span>Activity</span>
               </div>
-              <div className="ET-activity-tabs">
+              <div
+                className="ET-activity-tabs"
+                style={{
+                  '--active-index':
+                    activeActivityTab === 'all' ? 0 :
+                      activeActivityTab === 'comments' ? 1 :
+                        activeActivityTab === 'history' ? 2 :
+                          activeActivityTab === 'worklog' ? 3 : 0
+                }}
+              >
                 <button
                   className={`ET-activity-tab ${activeActivityTab === "all" ? "active" : ""}`}
                   onClick={() => setActiveActivityTab("all")}
@@ -2838,7 +2945,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                     {editingMessageId && (
                       <div className="ET-comment-suggestions">
                         <div className="ET-edit-indicator" style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%' }}>
-                          <span style={{ color: '#78176b', fontSize: '13px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span style={{ color: '#78176b', fontSize: '13px', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '4px' }}>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                               <path d="M12 20h9" />
                               <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
@@ -2857,7 +2964,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                               fontSize: '12px',
                               cursor: 'pointer',
                               color: '#c62828',
-                              fontWeight: 600,
+                              fontWeight: 500,
                               transition: 'all 0.15s ease',
                               flex: 'initial',
                               width: 'auto'
@@ -2978,7 +3085,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                     {/* Send Button and Toolbar */}
                     <div className="ET-comment-toolbar">
                       <div className="ET-formatting-toolbar">
-                        <button type="button" className="ET-toolbar-btn" style={{ fontWeight: 'bold' }} onMouseDown={(e) => { e.preventDefault(); const el = document.getElementById('comment-input'); if (el) { el.focus(); document.execCommand('bold', false, null); setNewComment(el.innerHTML); } }}>B</button>
+                        <button type="button" className="ET-toolbar-btn" style={{ fontWeight: 500 }} onMouseDown={(e) => { e.preventDefault(); const el = document.getElementById('comment-input'); if (el) { el.focus(); document.execCommand('bold', false, null); setNewComment(el.innerHTML); } }}>B</button>
                         <button type="button" className="ET-toolbar-btn" style={{ fontStyle: 'italic' }} onMouseDown={(e) => { e.preventDefault(); const el = document.getElementById('comment-input'); if (el) { el.focus(); document.execCommand('italic', false, null); setNewComment(el.innerHTML); } }}>I</button>
                         <button type="button" className="ET-toolbar-btn" style={{ textDecoration: 'underline' }} onMouseDown={(e) => { e.preventDefault(); const el = document.getElementById('comment-input'); if (el) { el.focus(); document.execCommand('underline', false, null); setNewComment(el.innerHTML); } }}>U</button>
                         <button type="button" className="ET-toolbar-btn" onMouseDown={(e) => { e.preventDefault(); const el = document.getElementById('comment-input'); if (el) { el.focus(); document.execCommand('insertUnorderedList', false, null); setNewComment(el.innerHTML); } }}>•</button>
@@ -3033,26 +3140,22 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                   {workLogs.length === 0 ? (
                     <div className="ET-worklog-empty">
                       <div className="ET-worklog-clock">
-                        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
-                          <circle cx="12" cy="12" r="10" fill="#f3f4f6" stroke="#9ca3af" />
-                          <circle cx="12" cy="12" r="8" fill="#ffffff" stroke="#d1d5db" />
-                          {[...Array(12)].map((_, i) => {
-                            const angle = (i * 30 - 90) * (Math.PI / 180)
-                            const x1 = 12 + 7 * Math.cos(angle)
-                            const y1 = 12 + 7 * Math.sin(angle)
-                            const x2 = 12 + 8 * Math.cos(angle)
-                            const y2 = 12 + 8 * Math.sin(angle)
-                            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#6b7280" strokeWidth="1.5" />
-                          })}
-                          <line x1="12" y1="12" x2="12" y2="6" stroke="#111827" strokeWidth="2" strokeLinecap="round" />
-                          <circle cx="12" cy="12" r="1.5" fill="#111827" />
-                          <rect x="10" y="2" width="4" height="2" rx="1" fill="#9ca3af" />
-                          <circle cx="8" cy="4" r="1" fill="#6b7280" />
-                          <circle cx="16" cy="4" r="1" fill="#9ca3af" />
+                        <svg
+                          width="64"
+                          height="64"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#5e0954ff"
+                          strokeWidth="1.3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 15.5 14" />
                         </svg>
                       </div>
                       <div className="ET-worklog-empty-text">
-                        <div style={{ fontSize: "16px", fontWeight: 600, color: "#111827", marginBottom: "8px" }}>
+                        <div style={{ fontSize: "16px", fontWeight: 500, color: "#111827", marginBottom: "8px" }}>
                           No time was logged for this Story yet.
                         </div>
                         <div style={{ fontSize: "14px", color: "#6b7280", marginBottom: "16px" }}>
@@ -3427,13 +3530,14 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
       {showImagePreview && (
         <div className="ET-image-preview-modal" onClick={closeImagePreview} style={{ zIndex: 2000 }}>
           <div className="ET-image-preview-content" onClick={(e) => e.stopPropagation()}>
+            {/* Floating × close button — top right corner */}
+            <button className="ET-preview-close-float" onClick={closeImagePreview} title="Close preview">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
             <div className="ET-image-preview-header">
-              <button className="ET-close-preview-btn" onClick={closeImagePreview}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
               <div className="ET-image-preview-controls">
                 <button className="ET-zoom-btn" onClick={() => handleImageZoom(0.2)} title="Zoom In">
                   ➕
@@ -3471,7 +3575,12 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
               </button>
             </div>
             <div className="ET-modal-body">
-              <div className="ET-upload-area">
+              <div
+                className={`ET-upload-area ${isDragging ? "dragging" : ""}`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
                 <input type="file" id="file-upload" onChange={handleFileSelect} style={{ display: "none" }} />
                 <label htmlFor="file-upload" className="ET-file-upload-label">
                   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -3484,8 +3593,26 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                 </label>
                 {selectedFile && (
                   <div className="ET-selected-file">
-                    <span>Selected: {selectedFile.name}</span>
-                    <span className="ET-file-size">({formatFileSize(selectedFile.size)})</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span>Selected: {selectedFile.name}</span>
+                      <span className="ET-file-size">({formatFileSize(selectedFile.size)})</span>
+                    </div>
+                    <button
+                      className="ET-remove-file-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        setSelectedFile(null);
+                        const fileInput = document.getElementById('file-upload');
+                        if (fileInput) fileInput.value = '';
+                      }}
+                      title="Remove file"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
+                    </button>
                   </div>
                 )}
               </div>
@@ -3528,6 +3655,22 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                 ) : (
                   attachments.map((attachment) => (
                     <div key={attachment.id} className="ET-attachment-item">
+                      <div className="ET-attachment-thumbnail-wrapper">
+                        {attachment.file_type && attachment.file_type.startsWith('image/') ? (
+                          <img
+                            src={`/attachments/${attachment.file_path}`}
+                            alt={attachment.file_name}
+                            className="ET-attachment-thumbnail"
+                          />
+                        ) : (
+                          <div className="ET-attachment-icon-placeholder">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                              <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                       <div className="ET-attachment-info">
                         <div className="ET-attachment-name" title={attachment.file_name}>
                           {attachment.file_name}
@@ -3544,25 +3687,35 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp }) 
                       </div>
                       <div className="ET-attachment-actions">
                         <button
-                          className="ET-attachment-action-btn ET-preview-btn"
+                          className="ET-att-icon-btn ET-att-preview"
                           onClick={() => handleFilePreview(attachment)}
                           title="Preview"
                         >
-                          👁️
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
                         </button>
                         <button
-                          className="ET-attachment-action-btn ET-download-btn"
+                          className="ET-att-icon-btn ET-att-download"
                           onClick={() => handleFileDownload(attachment.file_path, attachment.file_name)}
                           title="Download"
                         >
-                          ⬇️
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                          </svg>
                         </button>
                         <button
-                          className="ET-attachment-action-btn ET-delete-btn"
+                          className="ET-att-icon-btn ET-att-delete"
                           onClick={() => handleFileDelete(attachment.id)}
                           title="Delete"
                         >
-                          🗑️
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                          </svg>
                         </button>
                       </div>
                     </div>
