@@ -190,53 +190,53 @@ def test_endpoint():
 # Usage: GET /dev/auto-login?user_id=<id>
 # Blocked if app.debug is False (i.e. never works in production)
 # ---------------------------------------------------------------
-@app.route('/dev/auto-login', methods=['GET'])
-def dev_auto_login():
-    if not app.debug:
-        return jsonify({'error': 'Not available in production'}), 403
-
-    user_id = request.args.get('user_id', type=int)
-    if not user_id:
-        # No user_id given — list available users to pick from
-        try:
-            conn = get_db_connection()
-            cur = conn.cursor()
-            cur.execute("SELECT id, username, email, role FROM trueday.users ORDER BY id LIMIT 20;")
-            users = [dict(row) for row in cur.fetchall()]
-            cur.close()
-            conn.close()
-            return jsonify({
-                'message': 'Pass ?user_id=<id> to auto-login. Available users:',
-                'users': users
-            }), 200
-        except Exception as e:
-            return jsonify({'error': str(e)}), 500
-
-    try:
-        conn = get_db_connection()
-        cur = conn.cursor()
-        cur.execute("SELECT id, username, email, role FROM trueday.users WHERE id = %s", (user_id,))
-        user = cur.fetchone()
-        cur.close()
-        conn.close()
-
-        if not user:
-            return jsonify({'error': f'No user with id={user_id}'}), 404
-
-        session.permanent = True
-        session['user_id'] = user['id']
-        session['name']    = user['username']
-        session['email']   = user['email']
-        session['role']    = user['role']
-
-        return jsonify({
-            'message': f"Dev session set — logged in as '{user['username']}' (id={user['id']}, role={user['role']})",
-            'user': dict(user)
-        }), 200
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
+#@app.route('/dev/auto-login', methods=['GET'])
+#def dev_auto_login():
+#    if not app.debug:
+#        return jsonify({'error': 'Not available in production'}), 403
+#
+#    user_id = request.args.get('user_id', type=int)
+#    if not user_id:
+#        # No user_id given — list available users to pick from
+#        try:
+#            conn = get_db_connection()
+#            cur = conn.cursor()
+#            cur.execute("SELECT id, username, email, role FROM trueday.users ORDER BY id LIMIT 20;")
+#            users = [dict(row) for row in cur.fetchall()]
+#            cur.close()
+#            conn.close()
+#            return jsonify({
+#                'message': 'Pass ?user_id=<id> to auto-login. Available users:',
+#                'users': users
+#            }), 200
+#        except Exception as e:
+#            return jsonify({'error': str(e)}), 500
+#
+#    try:
+#        conn = get_db_connection()
+#        cur = conn.cursor()
+#        cur.execute("SELECT id, username, email, role FROM trueday.users WHERE id = %s", (user_id,))
+#        user = cur.fetchone()
+#        cur.close()
+#        conn.close()
+#
+#        if not user:
+#            return jsonify({'error': f'No user with id={user_id}'}), 404
+#
+#        session.permanent = True
+#        session['user_id'] = user['id']
+#        session['name']    = user['username']
+#        session['email']   = user['email']
+#        session['role']    = user['role']
+#
+#        return jsonify({
+#            'message': f"Dev session set — logged in as '{user['username']}' (id={user['id']}, role={user['role']})",
+#            'user': dict(user)
+#        }), 200
+#
+#    except Exception as e:
+#        return jsonify({'error': str(e)}), 500
+#
 # @app.route('/', defaults={'path': ''})
 # @app.route('/<path:path>')
 # def serve(path):
@@ -1779,6 +1779,19 @@ def get_user(user_id):
     logger.info(f"get_user called for user_id: {user_id}")
     conn = get_db_connection()
     cursor = conn.cursor()
+    
+    # Sync user role from ariths_accesses foreign table
+    try:
+        cursor.execute("""
+            UPDATE trueday.users u
+            SET role = a.access_type
+            FROM trueday.ariths_accesses a
+            WHERE u.id = %s AND a.user_id = %s AND a.tool_id = 2 AND u.role IS DISTINCT FROM a.access_type;
+        """, (user_id, user_id))
+        conn.commit()
+    except Exception as sync_err:
+        logger.warning(f"Failed to sync user role via FDW: {sync_err}")
+
     cursor.execute("""
         SELECT id, username, email, role, phone, location, department, join_date
         FROM trueday.users
@@ -5133,12 +5146,34 @@ def validate_jwt_endpoint():
         conn = get_db_connection()
         cur = conn.cursor()
 
+        # Sync user role from ariths_accesses foreign table
+        try:
+            cur.execute("""
+                UPDATE trueday.users u
+                SET role = a.access_type
+                FROM trueday.ariths_accesses a
+                WHERE u.id = %s AND a.user_id = %s AND a.tool_id = 2 AND u.role IS DISTINCT FROM a.access_type;
+            """, (user_id, user_id))
+            conn.commit()
+        except Exception as sync_err:
+            logger.warning(f"Failed to sync user role via FDW: {sync_err}")
+
         cur.execute("SELECT id, username, email, role FROM trueday.users WHERE id = %s", (user_id,))
         user_data = cur.fetchone()
         
         if not user_data:
             logger.info(f"Syncing new user from JWT: {username} ({user_id})")
             # Create user in trueday database using the ID from the token
+            # Try to get default role from foreign table first
+            default_role = "User"
+            try:
+                cur.execute("SELECT access_type FROM trueday.ariths_accesses WHERE user_id = %s AND tool_id = 2;", (user_id,))
+                row = cur.fetchone()
+                if row:
+                    default_role = row.get('access_type') if isinstance(row, dict) else row[0]
+            except Exception:
+                pass
+
             cur.execute("""
                 INSERT INTO trueday.users (id, username, email, password, role)
                 VALUES (%s, %s, %s, %s, %s)
@@ -5146,7 +5181,7 @@ def validate_jwt_endpoint():
                     username = EXCLUDED.username,
                     email = EXCLUDED.email
                 RETURNING id, username, email, role;
-            """, (user_id, username, email, "sso_managed", "User"))
+            """, (user_id, username, email, "sso_managed", default_role))
             user_data = cur.fetchone()
             conn.commit()
         
@@ -7271,6 +7306,14 @@ def patch_ticket_dates(ticket_id_patch):
 
 
 if __name__ == '__main__':
+    # Automate running setup_fdw.py on startup
+    try:
+        print("Initializing FDW setup mapping...")
+        import subprocess
+        subprocess.run(["python", "new_backend/setup_fdw.py"], check=False)
+    except Exception as startup_err:
+        print(f"FDW startup auto-run skipped/failed: {startup_err}")
+
     print("Starting Flask server...")
     # Allow overriding the port via the PORT environment variable for flexibility
     port = int(os.getenv('PORT', '5009'))
