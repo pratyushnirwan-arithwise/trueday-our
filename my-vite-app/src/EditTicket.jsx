@@ -354,9 +354,9 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
       const projectsData = await getProjects()
       let data = projectsData || []
 
-      if (currentUser && currentUser.role !== 'Admin') {
+      if (currentUser && currentUser.role?.toLowerCase() !== 'admin') {
         const assignedIds = currentUser.assigned_projects || []
-        data = data.filter(p => assignedIds.includes(p.id))
+        data = data.filter(p => assignedIds.includes(String(p.id)))
       }
 
       setProjects(data)

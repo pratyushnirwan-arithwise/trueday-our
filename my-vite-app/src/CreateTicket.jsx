@@ -40,7 +40,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
   // Scoped users for when no project is selected yet
   const scopedUsers = useMemo(() => {
     if (!users || users.length === 0) return [];
-    if (currentUser?.role === 'Admin') return users;
+    if (currentUser?.role?.toLowerCase() === 'admin') return users;
 
     return users.filter(u => {
       const uProjectIds = Array.isArray(u.project_ids)
@@ -139,9 +139,9 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
       const data = await response.json();
       if (Array.isArray(data)) {
         let filteredData = data;
-        if (currentUser && currentUser.role !== 'Admin') {
+        if (currentUser && currentUser.role?.toLowerCase() !== 'admin') {
           const assignedIds = currentUser.assigned_projects || [];
-          filteredData = data.filter(p => assignedIds.includes(p.id));
+          filteredData = data.filter(p => assignedIds.includes(String(p.id)));
         }
         setProjects(filteredData);
       }

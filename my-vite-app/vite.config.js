@@ -14,6 +14,10 @@ export default defineConfig({
         target: 'http://127.0.0.1:5009',
         changeOrigin: true,
       },
+      '/users': {
+        target: 'http://127.0.0.1:5009',
+        changeOrigin: true,
+      },
       '/register': {
         target: 'http://127.0.0.1:5009',
         changeOrigin: true,
