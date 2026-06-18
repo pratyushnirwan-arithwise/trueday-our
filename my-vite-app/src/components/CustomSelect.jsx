@@ -27,7 +27,7 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
     <div className="custom-select-container" ref={containerRef}>
       <button 
         type="button" 
-        className={`custom-select-trigger ${isOpen ? 'open' : ''}`}
+        className={`custom-select-trigger ${isOpen ? 'open' : ''} ${selectedOption.color ? 'has-color' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
         style={selectedOption.color ? { backgroundColor: `${selectedOption.color}20`, color: selectedOption.color, borderColor: `${selectedOption.color}40` } : {}}
       >

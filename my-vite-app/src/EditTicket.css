@@ -3766,3 +3766,9 @@ body:has(.ET-modal-content-wrapper) {
   background: #bae6fd;
   color: #0f172a;
 }
+
+/* Priority custom select pill padding fix */
+.ET-form-field.ET-readlike .custom-select-trigger.has-color {
+  padding: 3px 10px !important;
+  border-radius: 12px;
+}
