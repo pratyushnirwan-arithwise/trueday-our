@@ -834,8 +834,7 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
             gap: '4px',
             padding: '2px 8px',
             backgroundColor: ticket.priority === 'High' ? '#fee2e2' : ticket.priority === 'Medium' ? '#fef3c7' : '#dcfce7',
-            borderRadius: '12px',
-            border: `1px solid ${ticket.priority === 'High' ? '#fca5a5' : ticket.priority === 'Medium' ? '#fcd34d' : '#86efac'}`
+            borderRadius: '12px'
           }}>
             <span style={{ color: ticket.priority === 'High' ? '#ef4444' : ticket.priority === 'Medium' ? '#f59e0b' : '#22c55e', fontSize: '10px' }}>●</span>
             <span style={{ fontWeight: 600, color: ticket.priority === 'High' ? '#b91c1c' : ticket.priority === 'Medium' ? '#b45309' : '#15803d', fontSize: '0.75rem' }}>{ticket.priority}</span>
@@ -868,33 +867,23 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
         </div>
       </div>
       {/* Project name band at the bottom */}
-      {projectName && (() => {
-        let hash = 0;
-        for (let i = 0; i < projectName.length; i++) {
-          hash = projectName.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        const h = Math.abs(hash) % 360;
-        const bgColor = `hsl(${h}, 70%, 85%)`;
-        const textColor = `hsl(${h}, 80%, 25%)`;
-        
-        return (
-          <div style={{
-            backgroundColor: bgColor,
-            color: textColor,
-            fontSize: '0.75rem',
-            fontWeight: '600',
-            textAlign: 'center',
-            padding: '6px',
-            marginTop: 'auto',
-            marginLeft: '-1rem',
-            marginRight: '-1rem',
-            marginBottom: '-1rem',
-            borderTop: '1px solid #e2e8f0'
-          }}>
-            {projectName}
-          </div>
-        );
-      })()}
+      {projectName && (
+        <div style={{
+          backgroundColor: '#f3f4f6',
+          color: '#000000',
+          fontSize: '0.75rem',
+          fontWeight: '600',
+          textAlign: 'center',
+          padding: '6px',
+          marginTop: 'auto',
+          marginLeft: '-1rem',
+          marginRight: '-1rem',
+          marginBottom: '-1rem',
+          borderTop: '1px solid #e2e8f0'
+        }}>
+          {projectName}
+        </div>
+      )}
     </div>
   );
 };
