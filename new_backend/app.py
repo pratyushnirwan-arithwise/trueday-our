@@ -7339,7 +7339,7 @@ if __name__ == '__main__':
     try:
         print("Initializing FDW setup mapping...")
         import subprocess
-        subprocess.run(["python", "new_backend/setup_fdw.py"], check=False)
+        subprocess.run(["python", "setup_fdw.py"], check=False)
     except Exception as startup_err:
         print(f"FDW startup auto-run skipped/failed: {startup_err}")
 
