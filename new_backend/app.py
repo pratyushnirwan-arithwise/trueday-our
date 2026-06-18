@@ -4466,8 +4466,8 @@ def update_ticket_status(ticket_id):
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Get the current status and ticket details before updating
-        cursor.execute("SELECT status, approver_id, assignee_id, creator_id FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
+        # Get the current status and approver before updating
+        cursor.execute("SELECT status, approver_id FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
         current_ticket = cursor.fetchone()
         if not current_ticket:
             return jsonify({"error": "Ticket not found"}), 404
@@ -4476,43 +4476,14 @@ def update_ticket_status(ticket_id):
         if isinstance(current_ticket, dict):
             old_status = current_ticket.get('status')
             ticket_approver_id = current_ticket.get('approver_id')
-            ticket_assignee_id = current_ticket.get('assignee_id')
-            ticket_creator_id = current_ticket.get('creator_id')
         else:
             old_status = current_ticket[0]
             ticket_approver_id = current_ticket[1]
-            ticket_assignee_id = current_ticket[2]
-            ticket_creator_id = current_ticket[3]
-
-        # Get user role
-        user_role = 'user'
-        if current_user_id:
-            cursor.execute("SELECT role FROM trueday.users WHERE id = %s", (current_user_id,))
-            user_row = cursor.fetchone()
-            if user_row:
-                user_role = str(user_row.get('role') if isinstance(user_row, dict) else user_row[0]).lower()
-
-        is_admin = user_role in ['admin', 'superadmin', 'superuser']
-        current_uid_str = str(current_user_id) if current_user_id else None
-
-        # Check general move permissions
-        is_authorized = False
-        if is_admin:
-            is_authorized = True
-        elif current_uid_str and current_uid_str == str(ticket_assignee_id):
-            is_authorized = True
-        elif current_uid_str and current_uid_str == str(ticket_creator_id):
-            is_authorized = True
-        elif current_uid_str and current_uid_str == str(ticket_approver_id):
-            is_authorized = True
-
-        if not is_authorized:
-            return jsonify({"error": "Only the assignee, creator, approver, or an admin can move this ticket."}), 403
-
+        
         # Validate approver permissions for COMPLETED status
         if new_status == 'COMPLETED' and ticket_approver_id:
             # If there is an approver assigned, only that approver can complete the ticket
-            if not current_uid_str or (current_uid_str != str(ticket_approver_id) and not is_admin):
+            if not current_user_id or str(current_user_id) != str(ticket_approver_id):
                 return jsonify({"error": f"Only the assigned approver can mark this ticket as completed"}), 403
 
         # Update the ticket status and set deleted_at if status is DELETED
