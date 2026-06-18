@@ -461,7 +461,7 @@ label {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem 2rem;
-  align-items: start;
+  align-items: stretch;
   width: 100%;
 }
 
@@ -471,28 +471,47 @@ label {
   gap: 0.9rem;
 }
 
+.jira-form-col-right {
+  justify-content: space-between;
+}
+
 .jira-form-header {
   width: 100%;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  gap: 1rem;
+}
+
+.header-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: #f3e8ff;
+  color: #5e145e;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
-  margin-bottom: 1.2rem;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.jira-form-header>div:last-child {
+  display: flex;
+  flex-direction: column;
 }
 
 .jira-form-header h2 {
-  font-size: 1.8rem;
-  font-weight: 800;
-  letter-spacing: -1px;
-  background: #5e145e;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-  margin: 0 auto 0.4rem auto;
-  text-align: center;
-  padding-bottom: 0.2rem;
-  border-bottom: 3px solid #5e145e;
-  width: fit-content;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+  border: none;
+  background: none;
+  -webkit-text-fill-color: initial;
 }
 
 .jira-form-actions.jira-form-actions-row {
@@ -538,10 +557,33 @@ label {
 }
 
 .jira-form-group label {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #374151;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.input-icon-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.input-icon-wrapper:focus-within .input-icon {
+  color: #4f46e5;
 }
 
 .jira-form-input,
@@ -549,14 +591,30 @@ label {
 .jira-form-textarea {
   width: 100%;
   padding: 0.6rem 0.9rem;
-  border: 1px solid #e0e7ff;
-  /* Restore subtle border */
-  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
   font-size: 0.95rem;
-  color: #1f2937;
-  background-color: #f8fafc;
+  color: #111827;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   transition: all 0.2s;
   outline: none;
+}
+
+.input-icon-wrapper .jira-form-input,
+.input-icon-wrapper .jira-form-select,
+.input-icon-wrapper .custom-select-trigger {
+  padding-left: 2.25rem;
+}
+
+.input-icon-wrapper .jira-form-input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .jira-form-input:focus,
@@ -572,6 +630,75 @@ label {
   max-height: 177px;
   resize: vertical;
   line-height: 1.6;
+}
+
+.jira-form-group-description {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.textarea-wrapper-custom {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.textarea-wrapper-custom:focus-within {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.textarea-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.textarea-toolbar button {
+  background: none;
+  border: none;
+  color: #4b5563;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.textarea-toolbar button:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.custom-textarea {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  min-height: 120px;
+  resize: none;
+  flex: 1;
+}
+
+.custom-textarea:focus {
+  box-shadow: none;
+}
+
+.textarea-footer {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  padding: 0.25rem 0.75rem 0.5rem;
+  background: #fff;
 }
 
 .jira-submit-btn,

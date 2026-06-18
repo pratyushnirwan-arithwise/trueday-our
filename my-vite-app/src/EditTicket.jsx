@@ -3256,6 +3256,26 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
             <div className="ET-ticket-id" style={{ marginLeft: 'auto' }}>TICKET #{id}</div>
           </div>
           <div className="ET-form-fields-block">
+            <div className="ET-form-field ET-readlike" style={{ cursor: "default" }}>
+              <svg className="ET-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <label>CREATOR</label>
+              {ticket?.creator_name ? (
+                <>
+                  <div className="ET-detail-avatar" style={{ backgroundColor: stringToColor(ticket.creator_name) }}>
+                    {getInitials(ticket.creator_name)}
+                  </div>
+                  <div style={{ paddingLeft: "28px", color: "#111827", fontSize: "13px", fontWeight: 500 }}>
+                    {ticket.creator_name}
+                  </div>
+                </>
+              ) : (
+                <div style={{ color: "#6b7280", fontSize: "13px" }}>Unknown</div>
+              )}
+            </div>
+
             <div className="ET-form-field ET-readlike" onClick={() => setEditingField("assignee")}>
               <svg className="ET-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -3402,10 +3422,10 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
               <label>PRIORITY</label>
               <CustomSelect
                 options={[
-                  { label: "Low", value: "Low" },
-                  { label: "Medium", value: "Medium" },
-                  { label: "High", value: "High" },
-                  { label: "Critical", value: "Critical" },
+                  { label: "Low", value: "Low", color: "#10b981" },
+                  { label: "Medium", value: "Medium", color: "#f59e0b" },
+                  { label: "High", value: "High", color: "#ef4444" },
+                  { label: "Critical", value: "Critical", color: "#b91c1c" },
                 ]}
                 value={priority}
                 onChange={(val) => {

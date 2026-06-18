@@ -10,7 +10,10 @@ export default function CustomDatePicker({
   placeholder = 'Select date...',
   selectsRange = false,
   startDate = null,
-  endDate = null
+  endDate = null,
+  hAlign = 'right',
+  vAlign = 'bottom',
+  icon = null
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [viewMode, setViewMode] = useState('days'); // 'days' or 'years'
@@ -197,7 +200,10 @@ export default function CustomDatePicker({
           if (isOpen) setViewMode('days');
         }}
       >
-        <span>{displayValue}</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {icon && <span style={{ color: '#000', display: 'flex', alignItems: 'center', fontSize: '1.1em' }}>{icon}</span>}
+          {displayValue}
+        </span>
         {((selectsRange && (startDate || endDate)) || (!selectsRange && value)) && (
           <span className="dp-clear-icon" onClick={handleClear} title="Clear selection">
             <X size={14} />
@@ -206,7 +212,12 @@ export default function CustomDatePicker({
       </button>
 
       {isOpen && (
-        <div className="custom-select-dropdown dp-popup">
+        <div className="custom-select-dropdown dp-popup" style={{ 
+          left: hAlign === 'left' ? 0 : 'auto', 
+          right: hAlign === 'right' ? 0 : 'auto',
+          top: vAlign === 'bottom' ? 'calc(100% + 4px)' : 'auto',
+          bottom: vAlign === 'top' ? 'calc(100% + 4px)' : 'auto'
+        }}>
           <div className="dp-header">
             <button className="dp-nav" onClick={handlePrevMonth}><ChevronLeft size={16} /></button>
             <div 
