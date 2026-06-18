@@ -788,25 +788,29 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
 
   return (
     <div className={`ticket-card${isOverdue ? ' overdue' : ''}`} draggable={canMoveTickets} onDragStart={handleDragStart} onClick={() => onEdit(ticket)} data-priority={ticket.priority}>
-      {/* Project and Ticket ID group at top left */}
-      <div className="ticket-project-id-group" style={{
-        position: 'absolute',
-        top: 8,
-        left: 8,
-        zIndex: 10,
+      {/* Header row with ID and Tag */}
+      <div style={{
         display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        gap: '8px',
+        marginBottom: '4px'
       }}>
-        {projectName && <span className="ticket-project-label">{projectName}</span>}
-        <span className="ticket-id-custom">{ticket.ticket_id}</span>
+        <div className="ticket-project-id-group" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}>
+          <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: '500' }}>#{ticket.ticket_id}</span>
+        </div>
+        {/* Tag badge */}
+        {ticket.tag && (
+          <div className="ticket-tag-badge" data-tag={ticket.tag} style={{ position: 'relative', top: 'auto', right: 'auto' }}>
+            {ticket.tag}
+          </div>
+        )}
       </div>
-      {/* Tag badge at top right */}
-      {ticket.tag && (
-        <div className="ticket-tag-badge" data-tag={ticket.tag}>{ticket.tag}</div>
-      )}
       {/* Title at the top with proper spacing for top elements */}
-      <div className="ticket-title jira-title-multiline" style={{ marginTop: '10px' }}>{ticket.title}</div>
+      <div className="ticket-title jira-title-multiline">{ticket.title}</div>
       {/* Show creator name below title, keep all other UI unchanged */}
       <div className="jira-assignee-name">{ticket.creator_name || 'Unknown'}</div>
       {/* Group due date, created date and priority together for minimal gap */}
@@ -824,9 +828,17 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6px', width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ color: ticket.priority === 'High' ? '#e74c3c' : ticket.priority === 'Medium' ? '#f39c12' : '#27ae60', fontSize: '18px', marginRight: '4px' }}>●</span>
-            <span style={{ fontWeight: 500, color: '#222', fontSize: '1rem' }}>{ticket.priority}</span>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '4px',
+            padding: '2px 8px',
+            backgroundColor: ticket.priority === 'High' ? '#fee2e2' : ticket.priority === 'Medium' ? '#fef3c7' : '#dcfce7',
+            borderRadius: '12px',
+            border: `1px solid ${ticket.priority === 'High' ? '#fca5a5' : ticket.priority === 'Medium' ? '#fcd34d' : '#86efac'}`
+          }}>
+            <span style={{ color: ticket.priority === 'High' ? '#ef4444' : ticket.priority === 'Medium' ? '#f59e0b' : '#22c55e', fontSize: '10px' }}>●</span>
+            <span style={{ fontWeight: 600, color: ticket.priority === 'High' ? '#b91c1c' : ticket.priority === 'Medium' ? '#b45309' : '#15803d', fontSize: '0.75rem' }}>{ticket.priority}</span>
           </div>
           <div className="avatar-container" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '4px' }}>
             {/* Assignee Avatar */}
@@ -855,7 +867,34 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
           </div>
         </div>
       </div>
-      {/* Remove the bottom row since avatar is now in the priority row */}
+      {/* Project name band at the bottom */}
+      {projectName && (() => {
+        let hash = 0;
+        for (let i = 0; i < projectName.length; i++) {
+          hash = projectName.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const h = Math.abs(hash) % 360;
+        const bgColor = `hsl(${h}, 70%, 85%)`;
+        const textColor = `hsl(${h}, 80%, 25%)`;
+        
+        return (
+          <div style={{
+            backgroundColor: bgColor,
+            color: textColor,
+            fontSize: '0.75rem',
+            fontWeight: '600',
+            textAlign: 'center',
+            padding: '6px',
+            marginTop: 'auto',
+            marginLeft: '-1rem',
+            marginRight: '-1rem',
+            marginBottom: '-1rem',
+            borderTop: '1px solid #e2e8f0'
+          }}>
+            {projectName}
+          </div>
+        );
+      })()}
     </div>
   );
 };
