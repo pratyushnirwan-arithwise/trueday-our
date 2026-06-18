@@ -724,7 +724,7 @@ body {
   background-color: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  padding: 0.5rem 1rem 1rem;
+  padding: 1rem;
   cursor: pointer;
   transition: var(--transition);
   position: relative;
@@ -732,8 +732,8 @@ body {
   /* Make all cards equal height so the grid looks uniform */
   display: flex;
   flex-direction: column;
-  /* Fixed height tuned to comfortably fit two title lines + meta rows + project band */
-  height: 200px;
+  /* Fixed height tuned to comfortably fit two title lines + meta rows */
+  height: 180px;
   overflow: hidden;
 }
 
@@ -759,8 +759,8 @@ body {
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  padding-top: 0;
-  margin-top: 0;
+  padding-top: 0.25rem;
+  margin-top: 0.25rem;
   /* Reserve vertical space for two lines even if the title is one line */
   min-height: calc(1.4em * 2);
 }

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './CustomSelect.css'; // We'll add this next, or add to Reports.css
 
-export default function CustomSelect({ options, value, onChange, placeholder = 'Select...', searchable = false, hAlign = 'left', vAlign = 'bottom', icon = null }) {
+export default function CustomSelect({ options, value, onChange, placeholder = 'Select...', searchable = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const containerRef = useRef(null);
@@ -29,22 +29,13 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
         type="button" 
         className={`custom-select-trigger ${isOpen ? 'open' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
-        style={selectedOption.color ? { backgroundColor: `${selectedOption.color}20`, color: selectedOption.color, borderColor: `${selectedOption.color}40` } : {}}
       >
-        <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {icon && <span style={{ color: '#000', display: 'flex', alignItems: 'center', fontSize: '1.1em' }}>{icon}</span>}
-          {selectedOption.label}
-        </span>
+        <span>{selectedOption.label}</span>
         <span className="custom-select-arrow">▾</span>
       </button>
 
       {isOpen && (
-        <div className="custom-select-dropdown" style={{ 
-          left: hAlign === 'left' ? 0 : 'auto', 
-          right: hAlign === 'right' ? 0 : 'auto',
-          top: vAlign === 'bottom' ? 'calc(100% + 4px)' : 'auto',
-          bottom: vAlign === 'top' ? 'calc(100% + 4px)' : 'auto'
-        }}>
+        <div className="custom-select-dropdown">
           {searchable && (
             <div className="custom-select-search-wrapper">
               <input
@@ -69,11 +60,8 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
                   setIsOpen(false);
                   setSearchQuery('');
                 }}
-                style={opt.color ? { backgroundColor: `${opt.color}20`, color: opt.color } : {}}
               >
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {opt.label}
-                </div>
+                {opt.label}
               </div>
             )) : (
               <div className="custom-select-no-results">No results found</div>
