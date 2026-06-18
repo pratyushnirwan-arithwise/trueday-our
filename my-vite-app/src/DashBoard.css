@@ -2816,8 +2816,9 @@ body {
 /* Force header elements into a single line without scrolling, and exactly the same size */
 .main-header-row {
   flex-wrap: nowrap !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1000 !important;
   justify-content: flex-start !important;
   gap: 0.75rem !important;
   /* increased space between boxes */
@@ -3022,4 +3023,173 @@ select::-webkit-scrollbar-thumb {
 select::-webkit-scrollbar-track {
   display: none !important;
   background: transparent !important;
+}
+
+/* CustomSelect overrides in dashboard filter group */
+.main-header-row .custom-select-container {
+  position: relative !important;
+  flex: 1 1 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: 32px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  z-index: 9999 !important;
+}
+
+.main-header-row .custom-select-trigger {
+  width: 100% !important;
+  height: 100% !important;
+  line-height: 30px !important;
+  padding: 0 10px 0 10px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  font-size: 11px !important;
+  box-shadow: none !important;
+  justify-content: space-between !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.main-header-row .custom-select-trigger:hover,
+.main-header-row .custom-select-trigger.open {
+  background-color: var(--bg-secondary) !important;
+  border-color: #5e145e !important;
+}
+
+.main-header-row .custom-select-trigger span span svg {
+  color: var(--text-secondary) !important;
+  width: 14px !important;
+  height: 14px !important;
+  display: inline-block !important;
+}
+
+.main-header-row .custom-select-dropdown {
+  background: var(--bg-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: 4px !important;
+  z-index: 99999 !important;
+}
+
+.main-header-row .custom-select-option {
+  color: var(--text-primary) !important;
+  font-size: 11px !important;
+  border-radius: 4px !important;
+}
+
+.main-header-row .custom-select-option:hover {
+  background: var(--bg-secondary) !important;
+  color: #5e145e !important;
+}
+
+.main-header-row .custom-select-option.selected {
+  background: rgba(94, 20, 94, 0.1) !important;
+  color: #5e145e !important;
+  font-weight: 500 !important;
+}
+
+/* Admin Dropdown Styling */
+.admin-dropdown-container {
+  position: relative;
+  display: inline-block;
+  z-index: 1001;
+}
+
+.admin-dropdown-trigger {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  font-weight: 400 !important; /* maximum font-weight 400 as per user styling rules */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  box-sizing: border-box;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.admin-dropdown-trigger:hover,
+.admin-dropdown-trigger.open {
+  background-color: #5e145e !important;
+  border-color: #5e145e !important;
+  color: #fff !important;
+}
+
+.admin-dropdown-arrow {
+  font-size: 0.9em;
+  transition: transform 0.2s ease;
+  margin-left: 2px;
+}
+
+.admin-dropdown-trigger.open .admin-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.admin-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 170px;
+  background: var(--bg-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: adminDropdownFadeIn 0.15s ease-out;
+  z-index: 999999 !important;
+}
+
+@keyframes adminDropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-dropdown-item {
+  width: 100%;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.admin-dropdown-item:hover {
+  background: var(--bg-secondary) !important;
+  color: #5e145e !important;
+}
+
+.admin-dropdown-item.active {
+  background: rgba(94, 20, 94, 0.1) !important;
+  color: #5e145e !important;
+  font-weight: 500 !important;
+}
+
+.admin-icon {
+  font-size: 0.85rem;
 }

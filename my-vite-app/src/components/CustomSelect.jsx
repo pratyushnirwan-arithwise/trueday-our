@@ -4,7 +4,9 @@ import './CustomSelect.css'; // We'll add this next, or add to Reports.css
 export default function CustomSelect({ options, value, onChange, placeholder = 'Select...', searchable = false, hAlign = 'left', vAlign = 'bottom', icon = null }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef(null);
+  const listRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -17,14 +19,73 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const selectedOption = options.find(o => o.value === value) || { label: placeholder, value: '' };
+  useEffect(() => {
+    setActiveIndex(-1);
+  }, [searchQuery, isOpen]);
 
   const filteredOptions = searchable && searchQuery
     ? options.filter(o => o.label.toLowerCase().includes(searchQuery.toLowerCase()))
     : options;
 
+  useEffect(() => {
+    if (activeIndex >= 0 && listRef.current) {
+      const listElement = listRef.current;
+      const activeElement = listElement.children[activeIndex];
+      if (activeElement) {
+        const listRect = listElement.getBoundingClientRect();
+        const activeRect = activeElement.getBoundingClientRect();
+
+        if (activeRect.bottom > listRect.bottom) {
+          listElement.scrollTop += activeRect.bottom - listRect.bottom;
+        } else if (activeRect.top < listRect.top) {
+          listElement.scrollTop -= listRect.top - activeRect.top;
+        }
+      }
+    }
+  }, [activeIndex]);
+
+  const handleKeyDown = (e) => {
+    if (!isOpen) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter') {
+        e.preventDefault();
+        setIsOpen(true);
+      }
+      return;
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveIndex((prev) => {
+        const next = prev + 1;
+        return next >= filteredOptions.length ? 0 : next;
+      });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIndex((prev) => {
+        const next = prev - 1;
+        return next < 0 ? filteredOptions.length - 1 : next;
+      });
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeIndex >= 0 && activeIndex < filteredOptions.length) {
+        const opt = filteredOptions[activeIndex];
+        if (!opt.disabled) {
+          onChange(opt.value);
+          setIsOpen(false);
+          setSearchQuery('');
+        }
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setIsOpen(false);
+      setSearchQuery('');
+    }
+  };
+
+  const selectedOption = options.find(o => o.value === value) || { label: placeholder, value: '' };
+
   return (
-    <div className="custom-select-container" ref={containerRef}>
+    <div className="custom-select-container" ref={containerRef} onKeyDown={handleKeyDown}>
       <button 
         type="button" 
         className={`custom-select-trigger ${isOpen ? 'open' : ''} ${selectedOption.color ? 'has-color' : ''}`}
@@ -58,17 +119,18 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
               />
             </div>
           )}
-          <div className="custom-select-options-list">
+          <div className="custom-select-options-list" ref={listRef}>
             {filteredOptions.length > 0 ? filteredOptions.map((opt, i) => (
               <div 
                 key={`${opt.value}-${i}`} 
-                className={`custom-select-option ${opt.value === value ? 'selected' : ''} ${opt.disabled ? 'disabled' : ''}`}
+                className={`custom-select-option ${opt.value === value ? 'selected' : ''} ${opt.disabled ? 'disabled' : ''} ${i === activeIndex ? 'active' : ''}`}
                 onClick={() => {
                   if (opt.disabled) return;
                   onChange(opt.value);
                   setIsOpen(false);
                   setSearchQuery('');
                 }}
+                onMouseEnter={() => setActiveIndex(i)}
                 style={opt.color ? { backgroundColor: `${opt.color}20`, color: opt.color } : {}}
               >
                 <div style={{ display: 'flex', alignItems: 'center' }}>

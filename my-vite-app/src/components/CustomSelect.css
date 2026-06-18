@@ -134,7 +134,8 @@
   display: none;
 }
 
-.custom-select-option:hover {
+.custom-select-option:hover,
+.custom-select-option.active {
   background: rgba(99, 102, 241, 0.08);
   color: var(--indigo);
 }

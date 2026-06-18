@@ -3253,7 +3253,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
               <line x1="12" y1="8" x2="12.01" y2="8" />
             </svg>
             DETAILS
-            <div className="ET-ticket-id" style={{ marginLeft: 'auto' }}>TICKET #{id}</div>
+            <div className="ET-ticket-id" style={{ marginLeft: 'auto' }}>#{id}</div>
           </div>
           <div className="ET-form-fields-block">
             <div className="ET-form-field ET-readlike" style={{ cursor: "default" }}>

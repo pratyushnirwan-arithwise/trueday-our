@@ -75,7 +75,7 @@
 }
 
 .ET-ticket-id {
-  background: #3a2e3a;
+  background: #6b7280;
   color: #ffffff;
   padding: 6px 12px;
   border-radius: 4px;
@@ -141,13 +141,14 @@
 }
 
 .ET-btn-compact.ET-btn-primary {
-  background: #402b3c;
+  background: #5e145e;
   color: #ffffff;
-  border-color: #402b3c;
+  border-color: #5e145e;
 }
 
 .ET-btn-compact.ET-btn-primary:hover {
-  background: #2e1e2b;
+  background: #7e217e;
+  border-color: #7e217e;
 }
 
 .ET-btn-compact.ET-btn-secondary {
