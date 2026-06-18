@@ -70,45 +70,7 @@ const UserProvider = ({ children }) => {
           hostname.startsWith('172.')
         );
 
-        // 1. LOCALHOST / LAN TRUST POLICY
-        if (isLocal) {
-          console.log('UserContext - Local network detected, using cached data + background refresh');
-          const cachedUserId = localStorage.getItem('userId');
-          const cachedUsername = localStorage.getItem('username') || 'User';
-          const cachedRole = localStorage.getItem('userRole') || 'User';
-          const cachedProjects = safeJSONParse(localStorage.getItem('assignedProjects'), '[]');
-
-          // Unblock UI immediately with cached values (even if empty, loading is false)
-          setCurrentUser(cachedUserId ? {
-            id: cachedUserId,
-            username: cachedUsername,
-            role: cachedRole,
-            assigned_projects: cachedProjects,
-            project_roles: safeJSONParse(localStorage.getItem('projectRoles'), '{}')
-          } : null);
-          setLoading(false);
-
-          // Background refresh: only if we have a real userId (don't default to '1')
-          if (cachedUserId) {
-            fetchUserBySessionId(cachedUserId).then(freshData => {
-              if (freshData) {
-                console.log('UserContext - Local background refresh success:', freshData);
-                localStorage.setItem('userId', String(freshData.id));
-                localStorage.setItem('username', freshData.username);
-                localStorage.setItem('userRole', freshData.role || cachedRole);
-                localStorage.setItem('assignedProjects', JSON.stringify(freshData.assigned_projects || []));
-                localStorage.setItem('projectRoles', JSON.stringify(freshData.project_roles || {}));
-                setCurrentUser({
-                  ...freshData
-                });
-              }
-            }).catch(err => console.warn('UserContext - Local background refresh failed:', err));
-          }
-
-          return;
-        }
-
-        // 2. JWT TOKEN STRATEGY (Ariths SSO)
+        // 1. JWT TOKEN STRATEGY (Ariths SSO)
         const jwtUserData = getCurrentUserFromJWT();
         const jwtToken = localStorage.getItem('jwt_token');
 
@@ -186,7 +148,45 @@ const UserProvider = ({ children }) => {
           }
         }
 
-        // 5. CACHED DATA FALLBACK
+        // 5. LOCALHOST / LAN TRUST POLICY
+        if (isLocal) {
+          console.log('UserContext - Local network detected, using cached data + background refresh');
+          const cachedUserId = localStorage.getItem('userId');
+          const cachedUsername = localStorage.getItem('username') || 'User';
+          const cachedRole = localStorage.getItem('userRole') || 'User';
+          const cachedProjects = safeJSONParse(localStorage.getItem('assignedProjects'), '[]');
+
+          // Unblock UI immediately with cached values (even if empty, loading is false)
+          setCurrentUser(cachedUserId ? {
+            id: cachedUserId,
+            username: cachedUsername,
+            role: cachedRole,
+            assigned_projects: cachedProjects,
+            project_roles: safeJSONParse(localStorage.getItem('projectRoles'), '{}')
+          } : null);
+          setLoading(false);
+
+          // Background refresh: only if we have a real userId (don't default to '1')
+          if (cachedUserId) {
+            fetchUserBySessionId(cachedUserId).then(freshData => {
+              if (freshData) {
+                console.log('UserContext - Local background refresh success:', freshData);
+                localStorage.setItem('userId', String(freshData.id));
+                localStorage.setItem('username', freshData.username);
+                localStorage.setItem('userRole', freshData.role || cachedRole);
+                localStorage.setItem('assignedProjects', JSON.stringify(freshData.assigned_projects || []));
+                localStorage.setItem('projectRoles', JSON.stringify(freshData.project_roles || {}));
+                setCurrentUser({
+                  ...freshData
+                });
+              }
+            }).catch(err => console.warn('UserContext - Local background refresh failed:', err));
+          }
+
+          return;
+        }
+
+        // 6. CACHED DATA FALLBACK
         const cachedUserId = localStorage.getItem('userId');
         const cachedUsername = localStorage.getItem('username');
         if (cachedUserId && cachedUsername) {

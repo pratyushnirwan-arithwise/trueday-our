@@ -36,14 +36,6 @@ const ProtectedRoute = ({ children }) => {
   React.useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        if (isLocal) {
-          console.log('App - Localhost detected, granting access');
-          setAuthChecked(true);
-          setIsAuthenticating(false);
-          return;
-        }
-        // -----------------------------
-
         // Handle cross-domain authentication first
         const jwtProcessed = handleCrossDomainAuth();
 
@@ -53,6 +45,14 @@ const ProtectedRoute = ({ children }) => {
           window.location.reload();
           return;
         }
+
+        if (isLocal) {
+          console.log('App - Localhost detected, granting access');
+          setAuthChecked(true);
+          setIsAuthenticating(false);
+          return;
+        }
+        // -----------------------------
 
         // Clean insecure URL parameters
         cleanInsecureUrl();
