@@ -788,29 +788,25 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
 
   return (
     <div className={`ticket-card${isOverdue ? ' overdue' : ''}`} draggable={canMoveTickets} onDragStart={handleDragStart} onClick={() => onEdit(ticket)} data-priority={ticket.priority}>
-      {/* Header row with ID and Tag */}
-      <div style={{
+      {/* Project and Ticket ID group at top left */}
+      <div className="ticket-project-id-group" style={{
+        position: 'absolute',
+        top: 8,
+        left: 8,
+        zIndex: 10,
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: '4px'
+        gap: '8px',
       }}>
-        <div className="ticket-project-id-group" style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}>
-          <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: '500' }}>#{ticket.ticket_id}</span>
-        </div>
-        {/* Tag badge */}
-        {ticket.tag && (
-          <div className="ticket-tag-badge" data-tag={ticket.tag} style={{ position: 'relative', top: 'auto', right: 'auto' }}>
-            {ticket.tag}
-          </div>
-        )}
+        {projectName && <span className="ticket-project-label">{projectName}</span>}
+        <span className="ticket-id-custom">{ticket.ticket_id}</span>
       </div>
+      {/* Tag badge at top right */}
+      {ticket.tag && (
+        <div className="ticket-tag-badge" data-tag={ticket.tag}>{ticket.tag}</div>
+      )}
       {/* Title at the top with proper spacing for top elements */}
-      <div className="ticket-title jira-title-multiline">{ticket.title}</div>
+      <div className="ticket-title jira-title-multiline" style={{ marginTop: '10px' }}>{ticket.title}</div>
       {/* Show creator name below title, keep all other UI unchanged */}
       <div className="jira-assignee-name">{ticket.creator_name || 'Unknown'}</div>
       {/* Group due date, created date and priority together for minimal gap */}
@@ -828,17 +824,9 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6px', width: '100%' }}>
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '4px',
-            padding: '2px 8px',
-            backgroundColor: ticket.priority === 'High' ? '#fee2e2' : ticket.priority === 'Medium' ? '#fef3c7' : '#dcfce7',
-            borderRadius: '12px',
-            border: `1px solid ${ticket.priority === 'High' ? '#fca5a5' : ticket.priority === 'Medium' ? '#fcd34d' : '#86efac'}`
-          }}>
-            <span style={{ color: ticket.priority === 'High' ? '#ef4444' : ticket.priority === 'Medium' ? '#f59e0b' : '#22c55e', fontSize: '10px' }}>●</span>
-            <span style={{ fontWeight: 600, color: ticket.priority === 'High' ? '#b91c1c' : ticket.priority === 'Medium' ? '#b45309' : '#15803d', fontSize: '0.75rem' }}>{ticket.priority}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ color: ticket.priority === 'High' ? '#e74c3c' : ticket.priority === 'Medium' ? '#f39c12' : '#27ae60', fontSize: '18px', marginRight: '4px' }}>●</span>
+            <span style={{ fontWeight: 500, color: '#222', fontSize: '1rem' }}>{ticket.priority}</span>
           </div>
           <div className="avatar-container" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '4px' }}>
             {/* Assignee Avatar */}
@@ -867,34 +855,7 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
           </div>
         </div>
       </div>
-      {/* Project name band at the bottom */}
-      {projectName && (() => {
-        let hash = 0;
-        for (let i = 0; i < projectName.length; i++) {
-          hash = projectName.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        const h = Math.abs(hash) % 360;
-        const bgColor = `hsl(${h}, 70%, 85%)`;
-        const textColor = `hsl(${h}, 80%, 25%)`;
-        
-        return (
-          <div style={{
-            backgroundColor: bgColor,
-            color: textColor,
-            fontSize: '0.75rem',
-            fontWeight: '600',
-            textAlign: 'center',
-            padding: '6px',
-            marginTop: 'auto',
-            marginLeft: '-1rem',
-            marginRight: '-1rem',
-            marginBottom: '-1rem',
-            borderTop: '1px solid #e2e8f0'
-          }}>
-            {projectName}
-          </div>
-        );
-      })()}
+      {/* Remove the bottom row since avatar is now in the priority row */}
     </div>
   );
 };
@@ -1274,11 +1235,11 @@ const ProjectListDrawer = ({ isOpen, onClose, onProjectUpdated }) => {
 };
 
 const DashBoard = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
-  const [editingTicket, setEditingTicket] = useState(location.state?.returnToTicket || null);
+  const [editingTicket, setEditingTicket] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
   const { username } = useParams();
   const { currentUser, forceRefreshUser } = useUser();
   const [tickets, setTickets] = useState([]);
@@ -1421,36 +1382,21 @@ const DashBoard = () => {
 
   // Force refresh user data on mount to ensure role is loaded
   useEffect(() => {
-    let shouldNavigate = false;
-    let navOptions = { replace: true };
-    let targetUrl = location.pathname + location.search;
-
-    if (location.state?.returnToTicket) {
-      // Clear the state so it doesn't reopen on refresh
-      const newState = { ...location.state };
-      delete newState.returnToTicket;
-      navOptions.state = newState;
-      shouldNavigate = true;
+    const userId = localStorage.getItem('userId');
+    if (userId && (!currentUser || !currentUser.role)) {
+      forceRefreshUser();
     }
+  }, [currentUser, forceRefreshUser]);
 
+  useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (!params.toString() && localStorage.getItem('dashboardFilters')) {
       const storedFilters = JSON.parse(localStorage.getItem('dashboardFilters'));
       const storedSearch = localStorage.getItem('dashboardSearchTerm') || '';
       const urlParams = new URLSearchParams({ ...storedFilters, search: storedSearch }).toString();
-      targetUrl = `/dashboard?${urlParams}`;
-      shouldNavigate = true;
+      navigate(`/dashboard?${urlParams}`);
     }
-
-    if (shouldNavigate) {
-      navigate(targetUrl, navOptions);
-    }
-
-    const userId = localStorage.getItem('userId');
-    if (userId && (!currentUser || !currentUser.role)) {
-      forceRefreshUser();
-    }
-  }, [currentUser, forceRefreshUser, location.pathname, location.search, location.state, navigate]);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -2035,24 +1981,26 @@ const DashBoard = () => {
       const isProjectScoped = filters.project_id && filters.project_id !== 'all';
       let scopedAssignees = [];
 
-      if (isAdmin && !isProjectScoped) {
-        scopedAssignees = assignees;
-      } else {
-        // Filter by the specific project or all assigned projects
+      if (isProjectScoped && projectUsers.length > 0) {
+        scopedAssignees = projectUsers.map((u) => ({
+          id: u.id,
+          name: u.username || u.display_name || u.email || u.name || 'Unknown User'
+        })).filter((u) => u.id !== undefined && u.id !== null);
+      } else if (!isAdmin && assignedProjectIds.length > 0) {
+        // If "All Projects" and not admin, filter global assignees list by those who belong to ANY of the user's assigned projects
         scopedAssignees = assignees.filter(a => {
           if (!a.project_ids || a.project_ids.length === 0) return false;
-          if (isProjectScoped) {
-            return a.project_ids.includes(String(filters.project_id));
-          } else {
-            return a.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
-          }
+          return a.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
         });
 
-        // Fallback: if list is empty but tickets exist, show users present in those tickets
+        // Final fallback: if filtering by project results in zero users, but there are tickets, 
+        // at least show users who appear in the tickets to avoid a blank dropdown.
         if (scopedAssignees.length === 0 && tickets.length > 0) {
           const ticketUserIds = new Set(tickets.map(t => String(t.assignee_id)));
           scopedAssignees = assignees.filter(a => ticketUserIds.has(String(a.id)));
         }
+      } else {
+        scopedAssignees = assignees;
       }
 
       return (
@@ -2436,11 +2384,8 @@ const DashBoard = () => {
             </button>
           </div>
 
-          {isLoading && (
-            <div className="loading-overlay">
-              <div className="loading-spinner" />
-            </div>
-          )}
+          {/* Loading overlay spinner removed */}
+
 
           {error && (
             <></>
@@ -2547,17 +2492,15 @@ const DashBoard = () => {
                           const isProjectScoped = filters.project_id && filters.project_id !== 'all';
                           let scopedApprovers = [];
 
-                          if (isAdmin && !isProjectScoped) {
-                            scopedApprovers = approvers;
+                          if (isProjectScoped && projectUsers.length > 0) {
+                            scopedApprovers = approvers.filter(a => projectUsers.some(u => (u.username === a.username || u.name === a.username)));
+                          } else if (!isAdmin) {
+                            // Filter approvers by user's assigned projects
+                            scopedApprovers = approvers.filter(a =>
+                              a.project_ids && a.project_ids.some(pid => assignedProjectIds.includes(String(pid)))
+                            );
                           } else {
-                            scopedApprovers = approvers.filter(a => {
-                              if (!a.project_ids || a.project_ids.length === 0) return false;
-                              if (isProjectScoped) {
-                                return a.project_ids.includes(String(filters.project_id));
-                              } else {
-                                return a.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
-                              }
-                            });
+                            scopedApprovers = approvers;
                           }
 
                           return scopedApprovers.map(a => (
@@ -2627,22 +2570,22 @@ const DashBoard = () => {
                           const isProjectScoped = filters.project_id && filters.project_id !== 'all';
                           let scopedCreators = [];
 
-                          if (isAdmin && !isProjectScoped) {
-                            scopedCreators = creators;
-                          } else {
+                          if (isProjectScoped && projectUsers.length > 0) {
+                            scopedCreators = creators.filter(c => projectUsers.some(u => String(u.id) === String(c.id)));
+                          } else if (!isAdmin && assignedProjectIds.length > 0) {
+                            // Filter creators by user's assigned projects
                             scopedCreators = creators.filter(c => {
                               if (!c.project_ids || c.project_ids.length === 0) return false;
-                              if (isProjectScoped) {
-                                return c.project_ids.includes(String(filters.project_id));
-                              } else {
-                                return c.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
-                              }
+                              return c.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
                             });
 
+                            // Fallback to ticket creators if list is empty
                             if (scopedCreators.length === 0 && tickets.length > 0) {
                               const ticketCreatorNames = new Set(tickets.map(t => t.creator_name));
                               scopedCreators = creators.filter(c => ticketCreatorNames.has(c.name));
                             }
+                          } else {
+                            scopedCreators = creators;
                           }
 
                           return (scopedCreators || []).map(creator => (
@@ -2765,7 +2708,6 @@ const DashBoard = () => {
         <EditTicket
           isModal={true}
           ticketId={editingTicket.id}
-          initialTicketData={editingTicket}
           onClose={() => setEditingTicket(null)}
           onSave={async () => {
             await loadTickets();
