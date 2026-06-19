@@ -2192,7 +2192,7 @@ const DashBoard = () => {
     }
 
     const assigneeOptions = [
-      { value: '', label: 'Assignees' },
+      { value: '', label: 'All Assignees', triggerLabel: 'Assignees', className: 'is-default' },
       ...scopedAssignees.map(assignee => ({ value: String(assignee.id), label: assignee.name }))
     ];
 
@@ -2659,7 +2659,7 @@ const DashBoard = () => {
                     {/* Projects Filter */}
                     <CustomSelect
                       options={[
-                        { value: 'all', label: 'Projects' },
+                        { value: 'all', label: 'All Projects', triggerLabel: 'Projects', className: 'is-default' },
                         ...visibleProjects.map(project => ({ value: String(project.id), label: project.name }))
                       ]}
                       value={filters.project_id}
@@ -2696,7 +2696,7 @@ const DashBoard = () => {
                       }
 
                       const requestorOptions = [
-                        { value: '', label: 'Requestors' },
+                        { value: '', label: 'All Requestors', triggerLabel: 'Requestors', className: 'is-default' },
                         ...(scopedCreators || []).map(creator => ({ value: String(creator.id), label: creator.name }))
                       ];
 
@@ -2731,7 +2731,7 @@ const DashBoard = () => {
                       }
 
                       const approverOptions = [
-                        { value: '', label: 'Approvers' },
+                        { value: '', label: 'All Approvers', triggerLabel: 'Approvers', className: 'is-default' },
                         ...scopedApprovers.map(a => ({ value: a.username, label: a.username }))
                       ];
 
@@ -2750,7 +2750,7 @@ const DashBoard = () => {
                     {/* Priority Filter */}
                     <CustomSelect
                       options={[
-                        { value: '', label: 'Priority' },
+                        { value: '', label: 'All Priorities', triggerLabel: 'Priority', className: 'is-default' },
                         { value: 'High', label: 'High' },
                         { value: 'Medium', label: 'Medium' },
                         { value: 'Low', label: 'Low' }
@@ -2764,7 +2764,7 @@ const DashBoard = () => {
                     {/* Tags Filter */}
                     <CustomSelect
                       options={[
-                        { value: '', label: 'Tags' },
+                        { value: '', label: 'All Tags', triggerLabel: 'Tags', className: 'is-default' },
                         { value: 'Tasks', label: 'Tasks' },
                         { value: 'Bug', label: 'Bug' },
                         { value: 'Research', label: 'Research' }
@@ -2778,7 +2778,7 @@ const DashBoard = () => {
                     {/* Labels Filter */}
                     <CustomSelect
                       options={[
-                        { value: '', label: 'Labels' },
+                        { value: '', label: 'All Labels', triggerLabel: 'Labels', className: 'is-default' },
                         ...uniqueLabelNames.map(labelName => ({ value: labelName, label: labelName }))
                       ]}
                       value={filters.label_name}

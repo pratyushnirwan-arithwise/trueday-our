@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FaBars } from 'react-icons/fa';
 import DashboardSidebar from './components/DashboardSidebar';
 import { useUser } from './contexts/UserContext';
+import CustomSelect from './components/CustomSelect';
 import './Timeline.css';
 
 /* ─── helpers ─── */
@@ -486,26 +487,30 @@ const Timeline = () => {
 
                 <div className="tl-left-header-controls">
                   <div className="tl-left-header-row">
-                    <select
-                      className="tl-select"
-                      value={filterStatus}
-                      onChange={e => setFilterStatus(e.target.value)}
-                    >
-                      <option value="all">All Statuses</option>
-                      {STATUS_OPTIONS.map(s => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                    <select
-                      className="tl-select"
-                      value={filterEmployee}
-                      onChange={e => setFilterEmployee(e.target.value)}
-                    >
-                      <option value="all">All Assignees</option>
-                      {employees.map(e => (
-                        <option key={e.id} value={e.id}>{e.username}</option>
-                      ))}
-                    </select>
+                    <div style={{ width: '160px' }}>
+                      <CustomSelect
+                        options={[
+                          { label: 'All Statuses', value: 'all', triggerLabel: 'Statuses', className: 'is-default' },
+                          ...STATUS_OPTIONS.map(s => ({ label: s.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '), value: s }))
+                        ]}
+                        value={filterStatus}
+                        onChange={(val) => setFilterStatus(val)}
+                        placeholder="Statuses"
+                        searchable={true}
+                      />
+                    </div>
+                    <div style={{ width: '160px' }}>
+                      <CustomSelect
+                        options={[
+                          { label: 'All Assignees', value: 'all', triggerLabel: 'Assignees', className: 'is-default' },
+                          ...employees.map(e => ({ label: e.username, value: String(e.id) }))
+                        ]}
+                        value={filterEmployee}
+                        onChange={(val) => setFilterEmployee(val)}
+                        placeholder="Assignees"
+                        searchable={true}
+                      />
+                    </div>
                   </div>
                   <div className="tl-left-header-row">
                     <div className="tl-zoom-group">

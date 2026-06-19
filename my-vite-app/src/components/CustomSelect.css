@@ -19,7 +19,7 @@
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 8px;
-  font-size: 0.78rem;
+  font-size: 12.48px;
   font-weight: 500;
   color: var(--t1);
   cursor: pointer;
@@ -82,12 +82,18 @@
 
 .custom-select-option {
   padding: 8px 12px;
-  font-size: 0.78rem;
+  font-size: 12.48px;
   color: var(--t1);
   cursor: pointer;
   border-radius: 6px;
   transition: background 0.1s ease;
   white-space: nowrap;
+}
+
+.custom-select-option.is-default {
+  color: #6b7280 !important;
+  opacity: 0.6 !important;
+  font-style: italic;
 }
 
 .custom-select-search-wrapper {
@@ -99,7 +105,7 @@
 .custom-select-search {
   width: 100%;
   padding: 6px 10px;
-  font-size: 0.78rem;
+  font-size: 12.48px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 6px;
   outline: none;
@@ -116,7 +122,7 @@
 
 .custom-select-no-results {
   padding: 12px;
-  font-size: 0.78rem;
+  font-size: 12.48px;
   color: var(--t3);
   text-align: center;
 }

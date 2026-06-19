@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../contexts/UserContext';
 import { 
   LayoutDashboard, 
+  SquareKanban,
   History, 
   BarChart2, 
   Activity,
@@ -239,10 +240,9 @@ const DashboardSidebar = ({ collapsed, onToggleCollapse, open, setOpen }) => {
   };
 
   const navItems = [
-    { path: '/dashboard', icon: LayoutDashboard, label: 'Kanban' },
+    { path: '/dashboard', icon: SquareKanban, label: 'Kanban' },
     { path: '/Tickets', icon: History, label: 'Timeline' },
     { path: '/ProgressPulse', icon: Activity, label: 'Progress Pulse' },
-    { path: '#', icon: Bell, label: 'Notifications', hasBadge: true, isPanelTrigger: true },
     { path: '/Reports', icon: BarChart2, label: 'Analytics' }
   ];
 
@@ -314,7 +314,30 @@ const DashboardSidebar = ({ collapsed, onToggleCollapse, open, setOpen }) => {
           })}
         </nav>
 
-        <div style={{ marginTop: 'auto', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ marginTop: 'auto', marginBottom: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+          
+          {/* Notifications Trigger */}
+          <div
+            className={`ds-nav-item ${showPanel ? 'active' : ''}`}
+            onClick={() => setShowPanel(prev => !prev)}
+            title="Notifications"
+          >
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Bell size={24} strokeWidth={showPanel ? 2.5 : 2} className="ds-icon" />
+              {unreadCount > 0 && !showPanel && (
+                <span className="ds-badge" style={{
+                  position: 'absolute',
+                  top: '-4px',
+                  right: '-4px',
+                  width: '10px',
+                  height: '10px',
+                  backgroundColor: '#ef4444',
+                  borderRadius: '50%'
+                }} />
+              )}
+            </div>
+          </div>
+
           <div className="settings-item">
             <button
               type="button"

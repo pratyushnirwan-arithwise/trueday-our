@@ -2897,7 +2897,7 @@ body {
   outline: none !important;
   background: transparent !important;
   color: var(--text-primary) !important;
-  font-size: 11px !important;
+  font-size: 12.48px !important;
   vertical-align: middle !important;
   text-align: center !important;
   text-align-last: center !important;
@@ -2926,7 +2926,7 @@ body {
 .search-wrapper .search-input::placeholder {
   color: var(--text-secondary) !important;
   vertical-align: middle !important;
-  font-size: 11px !important;
+  font-size: 12.48px !important;
 }
 
 /* Ensure search icon is correctly positioned */
@@ -3048,7 +3048,7 @@ select::-webkit-scrollbar-track {
   border-radius: 4px !important;
   background-color: var(--bg-primary) !important;
   color: var(--text-primary) !important;
-  font-size: 11px !important;
+  font-size: 12.48px !important;
   box-shadow: none !important;
   justify-content: space-between !important;
   backdrop-filter: none !important;
@@ -3080,7 +3080,7 @@ select::-webkit-scrollbar-track {
 
 .main-header-row .custom-select-option {
   color: var(--text-primary) !important;
-  font-size: 11px !important;
+  font-size: 12.48px !important;
   border-radius: 4px !important;
 }
 
@@ -3093,6 +3093,17 @@ select::-webkit-scrollbar-track {
   background: rgba(94, 20, 94, 0.1) !important;
   color: #5e145e !important;
   font-weight: 500 !important;
+}
+
+.main-header-row .custom-select-option.is-default {
+  color: #6b7280 !important;
+  opacity: 0.6 !important;
+  font-style: italic !important;
+}
+
+.main-header-row .custom-select-option.is-default.selected {
+  background: rgba(107, 114, 128, 0.1) !important;
+  color: #6b7280 !important;
 }
 
 /* Admin Dropdown Styling */
@@ -3173,7 +3184,7 @@ select::-webkit-scrollbar-track {
   background: transparent;
   border: none;
   border-radius: 4px;
-  font-size: 11px !important;
+  font-size: 12.48px !important;
   font-weight: 400 !important;
   color: var(--text-primary);
   text-align: left;

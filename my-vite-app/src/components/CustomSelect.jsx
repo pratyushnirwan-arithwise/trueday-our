@@ -1,5 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './CustomSelect.css'; // We'll add this next, or add to Reports.css
+import './CustomSelect.css';
+
+const escapeRegExp = (string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
+const highlightMatch = (text, query) => {
+  if (!query) return text;
+  const parts = text.split(new RegExp(`(${escapeRegExp(query)})`, 'gi'));
+  return (
+    <>
+      {parts.map((part, index) =>
+        part.toLowerCase() === query.toLowerCase()
+          ? <strong key={index} style={{ fontWeight: '700' }}>{part}</strong>
+          : part
+      )}
+    </>
+  );
+};
 
 export default function CustomSelect({ options, value, onChange, placeholder = 'Select...', searchable = false, hAlign = 'left', vAlign = 'bottom', icon = null }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,6 +25,8 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
   const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef(null);
   const listRef = useRef(null);
+  const triggerRef = useRef(null);
+  const lastTypeTimeRef = useRef(0);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -19,13 +39,28 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    setActiveIndex(-1);
-  }, [searchQuery, isOpen]);
-
   const filteredOptions = searchable && searchQuery
-    ? options.filter(o => o.label.toLowerCase().includes(searchQuery.toLowerCase()))
+    ? options.filter(o => String(o.label).toLowerCase().includes(searchQuery.toLowerCase()))
     : options;
+
+  useEffect(() => {
+    if (isOpen) {
+      if (searchQuery) {
+        setActiveIndex(filteredOptions.length > 0 ? 0 : -1);
+      } else {
+        const selectedIdx = filteredOptions.findIndex(o => o.value === value);
+        setActiveIndex(selectedIdx >= 0 ? selectedIdx : -1);
+      }
+    } else {
+      setActiveIndex(-1);
+    }
+  }, [searchQuery, isOpen, value, options]);
+
+  useEffect(() => {
+    if (isOpen && triggerRef.current) {
+      triggerRef.current.focus();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (activeIndex >= 0 && listRef.current) {
@@ -46,7 +81,7 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
 
   const handleKeyDown = (e) => {
     if (!isOpen) {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter') {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         setIsOpen(true);
       }
@@ -55,12 +90,14 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
+      if (filteredOptions.length === 0) return;
       setActiveIndex((prev) => {
         const next = prev + 1;
         return next >= filteredOptions.length ? 0 : next;
       });
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
+      if (filteredOptions.length === 0) return;
       setActiveIndex((prev) => {
         const next = prev - 1;
         return next < 0 ? filteredOptions.length - 1 : next;
@@ -79,6 +116,23 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
       e.preventDefault();
       setIsOpen(false);
       setSearchQuery('');
+    } else if (e.key === 'Backspace') {
+      if (searchable) {
+        e.preventDefault();
+        setSearchQuery((prev) => prev.slice(0, -1));
+        lastTypeTimeRef.current = Date.now();
+      }
+    } else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+      if (searchable) {
+        e.preventDefault();
+        const now = Date.now();
+        if (now - lastTypeTimeRef.current > 1500) {
+          setSearchQuery(e.key);
+        } else {
+          setSearchQuery((prev) => prev + e.key);
+        }
+        lastTypeTimeRef.current = now;
+      }
     }
   };
 
@@ -86,44 +140,39 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
 
   return (
     <div className="custom-select-container" ref={containerRef} onKeyDown={handleKeyDown}>
-      <button 
-        type="button" 
+      <button
+        ref={triggerRef}
+        type="button"
         className={`custom-select-trigger ${isOpen ? 'open' : ''} ${selectedOption.color ? 'has-color' : ''}`}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (isOpen) {
+            setIsOpen(false);
+            setSearchQuery('');
+          } else {
+            setIsOpen(true);
+          }
+        }}
         style={selectedOption.color ? { backgroundColor: `${selectedOption.color}20`, color: selectedOption.color, borderColor: `${selectedOption.color}40` } : {}}
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {icon && <span style={{ color: '#000', display: 'flex', alignItems: 'center', fontSize: '1.1em' }}>{icon}</span>}
-          {selectedOption.label}
+          {selectedOption.triggerLabel || selectedOption.label}
         </span>
         <span className="custom-select-arrow">▾</span>
       </button>
 
       {isOpen && (
-        <div className="custom-select-dropdown" style={{ 
-          left: hAlign === 'left' ? 0 : 'auto', 
+        <div className="custom-select-dropdown" style={{
+          left: hAlign === 'left' ? 0 : 'auto',
           right: hAlign === 'right' ? 0 : 'auto',
           top: vAlign === 'bottom' ? 'calc(100% + 4px)' : 'auto',
           bottom: vAlign === 'top' ? 'calc(100% + 4px)' : 'auto'
         }}>
-          {searchable && (
-            <div className="custom-select-search-wrapper">
-              <input
-                type="text"
-                className="custom-select-search"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onClick={(e) => e.stopPropagation()}
-                autoFocus
-              />
-            </div>
-          )}
           <div className="custom-select-options-list" ref={listRef}>
             {filteredOptions.length > 0 ? filteredOptions.map((opt, i) => (
-              <div 
-                key={`${opt.value}-${i}`} 
-                className={`custom-select-option ${opt.value === value ? 'selected' : ''} ${opt.disabled ? 'disabled' : ''} ${i === activeIndex ? 'active' : ''}`}
+              <div
+                key={`${opt.value}-${i}`}
+                className={`custom-select-option ${opt.value === value ? 'selected' : ''} ${opt.disabled ? 'disabled' : ''} ${i === activeIndex ? 'active' : ''} ${opt.className || ''}`}
                 onClick={() => {
                   if (opt.disabled) return;
                   onChange(opt.value);
@@ -134,7 +183,7 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
                 style={opt.color ? { backgroundColor: `${opt.color}20`, color: opt.color } : {}}
               >
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {opt.label}
+                  {highlightMatch(String(opt.label), searchQuery)}
                 </div>
               </div>
             )) : (
