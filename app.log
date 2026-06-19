@@ -63,3 +63,54 @@
 2025-12-31 17:54:23,405 - werkzeug - INFO -  * Debugger PIN: 352-563-959
 2026-05-19 13:20:04,720 - app - DEBUG - Attempting to connect to database: None on None:None
 2026-05-19 13:20:05,044 - app - ERROR - Error connecting to the database: connection failed: connection to server at "localhost" (::1), port 5432 failed: fe_sendauth: no password supplied
+2026-06-19 01:04:00,862 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:04:00,895 - app - INFO - Database connection successful!
+2026-06-19 01:04:00,899 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:04:00,929 - app - INFO - Database connection successful!
+2026-06-19 01:04:00,937 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:04:00,969 - app - INFO - Database connection successful!
+2026-06-19 01:04:01,014 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-19 01:04:01,014 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-19 01:04:01,014 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-19 01:04:01,016 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-19 01:04:01,024 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-19 12:00:00+05:30 (in 39358.975163 seconds)
+2026-06-19 01:04:01,325 - app - DEBUG - Announcing notification for user_id=13 to active SSE clients
+2026-06-19 01:04:20,769 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:04:20,804 - app - INFO - Database connection successful!
+2026-06-19 01:04:20,808 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:04:20,834 - app - INFO - Database connection successful!
+2026-06-19 01:04:20,841 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:04:20,871 - app - INFO - Database connection successful!
+2026-06-19 01:04:20,915 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-19 01:04:20,916 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-19 01:04:20,916 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-19 01:04:20,918 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-19 01:04:20,918 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-19 12:00:00+05:30 (in 39339.081974 seconds)
+2026-06-19 01:04:20,926 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:04:20,955 - app - INFO - Database connection successful!
+2026-06-19 01:05:45,550 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:05:45,590 - app - INFO - Database connection successful!
+2026-06-19 01:05:45,596 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:05:45,737 - app - INFO - Database connection successful!
+2026-06-19 01:05:45,745 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:05:45,774 - app - INFO - Database connection successful!
+2026-06-19 01:05:45,820 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-19 01:05:45,821 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-19 01:05:45,821 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-19 01:05:45,822 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-19 01:05:45,822 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-19 12:00:00+05:30 (in 39254.177070 seconds)
+2026-06-19 01:05:45,831 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:05:45,858 - app - INFO - Database connection successful!
+2026-06-19 01:05:52,319 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:05:52,354 - app - INFO - Database connection successful!
+2026-06-19 01:05:52,357 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:05:52,385 - app - INFO - Database connection successful!
+2026-06-19 01:05:52,393 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:05:52,424 - app - INFO - Database connection successful!
+2026-06-19 01:05:52,470 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-19 01:05:52,471 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-19 01:05:52,471 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-19 01:05:52,472 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-19 01:05:52,472 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-19 12:00:00+05:30 (in 39247.527595 seconds)
+2026-06-19 01:05:52,480 - app - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5432
+2026-06-19 01:05:52,513 - app - INFO - Database connection successful!

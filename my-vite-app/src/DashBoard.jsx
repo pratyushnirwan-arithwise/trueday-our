@@ -942,9 +942,9 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6px', width: '100%' }}>
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
             gap: '4px',
             padding: '2px 8px',
             backgroundColor: ticket.priority === 'High' ? '#fee2e2' : ticket.priority === 'Medium' ? '#fef3c7' : '#dcfce7',
@@ -2621,7 +2621,7 @@ const DashBoard = () => {
               <div className="main-header">
                 {/* Header and Filters Combined */}
                 <div className="main-header-row">
-                  <div className="header-actions" style={{ order: 2, marginLeft: 'auto' }}>
+                  <div className="header-actions" style={{ order: 2, marginLeft: '20px' }}>
                     <div className="search-wrapper">
                       <FaSearch
                         className="search-icon"
@@ -2672,6 +2672,46 @@ const DashBoard = () => {
                     {/* Assignee Filter */}
                     {renderAssigneeDropdown()}
 
+                    {/* Requestors Filter */}
+                    {(() => {
+                      const isProjectScoped = filters.project_id && filters.project_id !== 'all';
+                      let scopedCreators = [];
+
+                      if (isAdmin && !isProjectScoped) {
+                        scopedCreators = creators;
+                      } else {
+                        scopedCreators = creators.filter(c => {
+                          if (!c.project_ids || c.project_ids.length === 0) return false;
+                          if (isProjectScoped) {
+                            return c.project_ids.includes(String(filters.project_id));
+                          } else {
+                            return c.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
+                          }
+                        });
+
+                        if (scopedCreators.length === 0 && tickets.length > 0) {
+                          const ticketCreatorNames = new Set(tickets.map(t => t.creator_name));
+                          scopedCreators = creators.filter(c => ticketCreatorNames.has(c.name));
+                        }
+                      }
+
+                      const requestorOptions = [
+                        { value: '', label: 'Requestors' },
+                        ...(scopedCreators || []).map(creator => ({ value: String(creator.id), label: creator.name }))
+                      ];
+
+                      return (
+                        <CustomSelect
+                          options={requestorOptions}
+                          value={filters.requestor}
+                          onChange={(val) => handleFilterChange({ ...filters, requestor: val })}
+                          placeholder="Requestors"
+                          icon={<FaUser />}
+                          searchable={true}
+                        />
+                      );
+                    })()}
+
                     {/* Approver Filter */}
                     {(() => {
                       const isProjectScoped = filters.project_id && filters.project_id !== 'all';
@@ -2721,18 +2761,6 @@ const DashBoard = () => {
                       icon={<FaExclamationCircle />}
                     />
 
-                    {/* Labels Filter */}
-                    <CustomSelect
-                      options={[
-                        { value: '', label: 'Labels' },
-                        ...uniqueLabelNames.map(labelName => ({ value: labelName, label: labelName }))
-                      ]}
-                      value={filters.label_name}
-                      onChange={(val) => handleFilterChange({ ...filters, label_name: val })}
-                      placeholder="Labels"
-                      icon={<FaTag />}
-                    />
-
                     {/* Tags Filter */}
                     <CustomSelect
                       options={[
@@ -2747,45 +2775,17 @@ const DashBoard = () => {
                       icon={<FaTag />}
                     />
 
-                    {/* Requestors Filter */}
-                    {(() => {
-                      const isProjectScoped = filters.project_id && filters.project_id !== 'all';
-                      let scopedCreators = [];
-
-                      if (isAdmin && !isProjectScoped) {
-                        scopedCreators = creators;
-                      } else {
-                        scopedCreators = creators.filter(c => {
-                          if (!c.project_ids || c.project_ids.length === 0) return false;
-                          if (isProjectScoped) {
-                            return c.project_ids.includes(String(filters.project_id));
-                          } else {
-                            return c.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
-                          }
-                        });
-
-                        if (scopedCreators.length === 0 && tickets.length > 0) {
-                          const ticketCreatorNames = new Set(tickets.map(t => t.creator_name));
-                          scopedCreators = creators.filter(c => ticketCreatorNames.has(c.name));
-                        }
-                      }
-
-                      const requestorOptions = [
-                        { value: '', label: 'Requestors' },
-                        ...(scopedCreators || []).map(creator => ({ value: String(creator.id), label: creator.name }))
-                      ];
-
-                      return (
-                        <CustomSelect
-                          options={requestorOptions}
-                          value={filters.requestor}
-                          onChange={(val) => handleFilterChange({ ...filters, requestor: val })}
-                          placeholder="Requestors"
-                          icon={<FaUser />}
-                          searchable={true}
-                        />
-                      );
-                    })()}
+                    {/* Labels Filter */}
+                    <CustomSelect
+                      options={[
+                        { value: '', label: 'Labels' },
+                        ...uniqueLabelNames.map(labelName => ({ value: labelName, label: labelName }))
+                      ]}
+                      value={filters.label_name}
+                      onChange={(val) => handleFilterChange({ ...filters, label_name: val })}
+                      placeholder="Labels"
+                      icon={<FaTag />}
+                    />
 
                   </div>
                 </div>

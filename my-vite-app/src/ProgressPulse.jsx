@@ -108,8 +108,9 @@ export default function ProgressPulse() {
 
   // Load tickets + users
   useEffect(() => {
+    if (!currentUser) return;
     Promise.all([
-      fetch(`${API}/api/progress-pulse/tickets`).then(r => r.json()).catch(() => []),
+      fetch(`${API}/api/progress-pulse/tickets?user_id=${currentUser.id}`).then(r => r.json()).catch(() => []),
       fetch(`${API}/api/users`).then(r => r.json()).catch(() => []),
     ]).then(([td, ud]) => {
       if (Array.isArray(td)) {
@@ -119,7 +120,7 @@ export default function ProgressPulse() {
       if (Array.isArray(ud)) setUsers(ud);
       setLoading(false);
     });
-  }, []);
+  }, [currentUser]);
 
   // Load history
   const loadHistory = useCallback((id) => {
@@ -242,7 +243,7 @@ export default function ProgressPulse() {
       <div
         className="pp-app-frame"
         style={{
-          marginLeft: sidebarCollapsed ? 'var(--sidebar-collapsed-width, 60px)' : 'var(--sidebar-width, 210px)',
+          marginLeft: '50px',
           transition: 'margin-left 0.2s ease-in-out, width 0.2s ease-in-out',
           width: `calc(100vw - ${sidebarCollapsed ? 'var(--sidebar-collapsed-width, 60px)' : 'var(--sidebar-width, 210px)'})`
         }}
@@ -250,7 +251,7 @@ export default function ProgressPulse() {
 
         {/* TICKET LIST SIDEBAR */}
         <div className="pp-ticket-pane">
-<div className="pp-ticket-head">
+          <div className="pp-ticket-head">
             <div className="pp-search-container">
               <Search className="pp-search-icon" size={14} />
               <input
@@ -365,58 +366,58 @@ export default function ProgressPulse() {
 
               {/* TAB BODY */}
               <div className="pp-tabs-body">
-                 {detailLoading ? (
-                   <p style={{ textAlign: 'center', color: '#64748b', margin: '20px 0' }}>Loading...</p>
-                 ) : activeTab === 'log' ? (
-                   <div className="pp-log-tab-content">
-                     {history[0]?.review_comment && (
-                       <div className="pp-latest-review-box">
-                         <div className="pp-latest-review-header">
-                           <MessageSquare size={16} style={{ color: '#6d117e' }} />
-                           <span>Admin Review Comment</span>
-                         </div>
-                         <div className="pp-latest-review-content">
-                           {history[0].review_comment}
-                         </div>
-                       </div>
-                     )}
+                {detailLoading ? (
+                  <p style={{ textAlign: 'center', color: '#64748b', margin: '20px 0' }}>Loading...</p>
+                ) : activeTab === 'log' ? (
+                  <div className="pp-log-tab-content">
+                    {history[0]?.review_comment && (
+                      <div className="pp-latest-review-box">
+                        <div className="pp-latest-review-header">
+                          <MessageSquare size={16} style={{ color: '#6d117e' }} />
+                          <span>Admin Review Comment</span>
+                        </div>
+                        <div className="pp-latest-review-content">
+                          {history[0].review_comment}
+                        </div>
+                      </div>
+                    )}
 
-                     <div className="pp-entry-vertical-list">
-                       {[
-                         { title: "1. What was accomplished?", value: draft.what_did_you_do, key: "what_did_you_do", placeholder: "List key completed tasks..." },
-                         { title: "2. What were the main challenges?", value: draft.challenge, key: "challenge", placeholder: "Describe any roadblocks..." },
-                         { title: "3. What did you learn?", value: draft.what_you_learned, key: "what_you_learned", placeholder: "Note key insights..." },
-                       ].map((card, index) => (
-                         <div key={index} className="pp-entry-field-group">
-                           <label className="pp-entry-field-label">{card.title}</label>
-                           <textarea
-                             rows={4}
-                             value={card.value || ''}
-                             onChange={(e) => setDraft({ ...draft, [card.key]: e.target.value })}
-                             className="pp-entry-field-textarea"
-                             placeholder={card.placeholder}
-                           />
-                         </div>
-                       ))}
-                     </div>
+                    <div className="pp-entry-vertical-list">
+                      {[
+                        { title: "1. What was accomplished?", value: draft.what_did_you_do, key: "what_did_you_do", placeholder: "List key completed tasks..." },
+                        { title: "2. What were the main challenges?", value: draft.challenge, key: "challenge", placeholder: "Describe any roadblocks..." },
+                        { title: "3. What did you learn?", value: draft.what_you_learned, key: "what_you_learned", placeholder: "Note key insights..." },
+                      ].map((card, index) => (
+                        <div key={index} className="pp-entry-field-group">
+                          <label className="pp-entry-field-label">{card.title}</label>
+                          <textarea
+                            rows={4}
+                            value={card.value || ''}
+                            onChange={(e) => setDraft({ ...draft, [card.key]: e.target.value })}
+                            className="pp-entry-field-textarea"
+                            placeholder={card.placeholder}
+                          />
+                        </div>
+                      ))}
+                    </div>
 
-                     <div className="pp-submit-row">
-                       <button
-                         onClick={handleSaveDraft}
-                         disabled={saving}
-                         className="pp-draft-btn"
-                       >
-                         Save Draft
-                       </button>
-                       <button
-                         onClick={handleSubmitLog}
-                         disabled={saving}
-                         className="pp-submit-btn"
-                       >
-                         Submit Log
-                       </button>
-                     </div>
-                   </div>
+                    <div className="pp-submit-row">
+                      <button
+                        onClick={handleSaveDraft}
+                        disabled={saving}
+                        className="pp-draft-btn"
+                      >
+                        Save Draft
+                      </button>
+                      <button
+                        onClick={handleSubmitLog}
+                        disabled={saving}
+                        className="pp-submit-btn"
+                      >
+                        Submit Log
+                      </button>
+                    </div>
+                  </div>
                 ) : (
                   <div className="pp-history-tab-content">
 

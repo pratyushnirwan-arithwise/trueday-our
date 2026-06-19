@@ -1,5 +1,6 @@
-from flask import Flask, jsonify, request, make_response, session, redirect, send_from_directory, jsonify
+from flask import Flask, jsonify, request, make_response, session, redirect, send_from_directory, Response
 import os
+import queue
 import psycopg
 from psycopg.rows import dict_row
 from psycopg2.extras import RealDictCursor
@@ -180,10 +181,60 @@ def get_db_connection():
         logger.error(f"Error connecting to the database: {e}")
         raise
 
+# Global list of active SSE client queues
+sse_clients = []
+
+def announce_notification(user_id):
+    def delay_announce():
+        try:
+            import time
+            time.sleep(1.0)  # Wait for database transaction to commit
+            logger.debug(f"Announcing notification for user_id={user_id} to active SSE clients")
+            for client_queue, client_user_id in list(sse_clients):
+                if str(client_user_id) == str(user_id):
+                    try:
+                        client_queue.put_nowait("refresh")
+                    except Exception:
+                        pass
+        except Exception as e:
+            logger.error(f"Error in delay_announce: {e}")
+    try:
+        from threading import Thread
+        Thread(target=delay_announce).start()
+    except Exception as e:
+        logger.error(f"Error starting announce thread: {e}")
+
+def create_notification(cursor, user_id, title, message, notification_type, related_entity_id=None, priority='Medium'):
+    if not user_id:
+        return
+    try:
+        cursor.execute("""
+            INSERT INTO trueday.notifications (
+                user_id, title, message, notification_type, priority, status, created_at, related_entity_type, related_entity_id
+            ) VALUES (%s, %s, %s, %s, %s, 'unread', NOW(), 'ticket', %s)
+        """, (user_id, title, message, notification_type, priority, related_entity_id))
+        logger.info(f"Notification created for user {user_id}: {title}")
+        announce_notification(user_id)
+    except Exception as e:
+        logger.error(f"Error creating notification: {e}")
+
 # # Test route to check if the app is running
 @app.route('/test', methods=['GET'])
 def test_endpoint():
     return jsonify({"status": "Backend is running", "timestamp": datetime.now().isoformat()}), 200
+
+@app.route('/api/debug/sse_clients', methods=['GET'])
+def debug_sse_clients():
+    clients_info = []
+    for q, uid in sse_clients:
+        clients_info.append({
+            'user_id': uid,
+            'queue_size': q.qsize()
+        })
+    return jsonify({
+        'active_clients': clients_info,
+        'count': len(sse_clients)
+    }), 200
 
 # ---------------------------------------------------------------
 # DEV ONLY — auto-login bypass for local testing
@@ -789,7 +840,7 @@ def update_ticket(ticket_id):
 
         # Check if the ticket exists and get current values
         cursor.execute("""
-            SELECT ticket_id, assignee_id, title, description, priority, status, due_date, project_id, collaborator_id, approver_id
+            SELECT ticket_id, assignee_id, title, description, priority, status, due_date, project_id, collaborator_id, approver_id, creator_id
             FROM trueday.tickets
             WHERE ticket_id = %s
         """, (ticket_id,))
@@ -901,6 +952,57 @@ def update_ticket(ticket_id):
         logger.info(f"DEBUG: User info from request: user_id={data.get('user_id')}, username={data.get('username')}")
         logger.info(f"DEBUG: User info from session: user_id={session.get('user_id')}, name={session.get('name')}")
         logger.info(f"DEBUG: Final user info: current_user_id={current_user_id}, current_username={current_username}")
+        
+        # Trigger notifications for updates
+        old_assignee_id = _col(current_ticket, 'assignee_id', 1)
+        new_assignee_id = data.get('assignee_id')
+        assignee_changed = str(old_assignee_id) != str(new_assignee_id)
+        
+        old_status = _col(current_ticket, 'status', 5)
+        new_status = data.get('status')
+        status_changed = str(old_status) != str(new_status)
+        
+        creator_id = _col(current_ticket, 'creator_id', 10)
+        ticket_title = _col(current_ticket, 'title', 2) or title.strip()
+        
+        # 1. Assignment notification
+        if assignee_changed and new_assignee_id and str(new_assignee_id) != str(current_user_id):
+            create_notification(
+                cursor,
+                new_assignee_id,
+                "New Ticket Assigned",
+                f'{current_username} assigned you the ticket: \'{ticket_title}\'',
+                "assignment",
+                ticket_id,
+                data.get('priority', 'Medium')
+            )
+            
+        # 2. Status change notifications
+        if status_changed:
+            msg = f'{current_username} moved ticket \'{ticket_title}\' from {old_status} to {new_status}'
+            # Notify assignee
+            notify_assignee_id = new_assignee_id or old_assignee_id
+            if notify_assignee_id and str(notify_assignee_id) != str(current_user_id):
+                create_notification(
+                    cursor,
+                    notify_assignee_id,
+                    "Ticket Moved",
+                    msg,
+                    "status_change",
+                    ticket_id,
+                    data.get('priority', 'Medium')
+                )
+            # Notify creator
+            if creator_id and str(creator_id) != str(current_user_id) and str(creator_id) != str(notify_assignee_id):
+                create_notification(
+                    cursor,
+                    creator_id,
+                    "Ticket Moved",
+                    msg,
+                    "status_change",
+                    ticket_id,
+                    data.get('priority', 'Medium')
+                )
         
         # Record status change in history if needed
         status_changed = str(_col(current_ticket, 'status', 5)) != str(data.get('status'))
@@ -1430,6 +1532,15 @@ def get_team_performance():
         if conn:
             conn.close()
 
+def get_project_ids_list():
+    project_ids_str = request.args.get('project_ids')
+    if project_ids_str and project_ids_str != 'all':
+        try:
+            return [int(x) for x in project_ids_str.split(',') if x.strip().isdigit()]
+        except ValueError:
+            return None
+    return None
+
 @app.route('/api/metricscards')
 def get_metrics_cards(): 
     try:
@@ -1468,6 +1579,11 @@ def get_metrics_cards():
         if start_date and end_date:
             query += " AND t.created_at BETWEEN %s AND %s"
             params.extend([start_date, end_date])
+
+        p_ids = get_project_ids_list()
+        if p_ids:
+            query += " AND t.project_id = ANY(%s)"
+            params.append(p_ids)
 
         cur.execute(query, params)
         metrics = cur.fetchone()
@@ -1925,6 +2041,11 @@ def get_task_status_distribution():
             query += " AND t.created_at BETWEEN %s AND %s"
             params.extend([start_date, end_date])
 
+        p_ids = get_project_ids_list()
+        if p_ids:
+            query += " AND t.project_id = ANY(%s)"
+            params.append(p_ids)
+
         # Group and order by UPPER(s.status_name)
         query += """
             GROUP BY UPPER(s.status_name)
@@ -2102,6 +2223,11 @@ def get_priority_distribution():
         if start_date and end_date:
             query += " AND t.created_at BETWEEN %s AND %s"
             params.extend([start_date, end_date])
+
+        p_ids = get_project_ids_list()
+        if p_ids:
+            query += " AND t.project_id = ANY(%s)"
+            params.append(p_ids)
 
         query += """
             GROUP BY t.priority
@@ -2545,6 +2671,18 @@ def create_ticket():
         """, (title.strip(), description, priority, assignee_id, due_date, status, tag, creator_id, project_id, label_id, collaborator_id, approver_id))
         ticket_row = cursor.fetchone()
         ticket_id = ticket_row.get('ticket_id') if isinstance(ticket_row, dict) else ticket_row[0]
+
+        # Create assignment notification
+        if assignee_id and str(assignee_id) != str(creator_id):
+            create_notification(
+                cursor,
+                assignee_id,
+                "New Ticket Assigned",
+                f'{creator_username} assigned you the ticket: \'{title.strip()}\'',
+                "assignment",
+                ticket_id,
+                priority
+            )
 
         # Record creation in ticket_history
         cursor.execute("""
@@ -3318,6 +3456,38 @@ def upload_attachment():
             ))
         except Exception as e:
             print(f"⚠️ Failed to record attachment add history: {e}")
+
+        # Trigger attachment notifications
+        try:
+            cursor.execute("SELECT assignee_id, creator_id, title FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
+            t_row = cursor.fetchone()
+            if t_row:
+                t_assignee_id = t_row.get('assignee_id') if isinstance(t_row, dict) else t_row[0]
+                t_creator_id = t_row.get('creator_id') if isinstance(t_row, dict) else t_row[1]
+                t_title = t_row.get('title') if isinstance(t_row, dict) else t_row[2]
+                
+                # Notify assignee
+                if t_assignee_id and str(t_assignee_id) != str(user_id):
+                    create_notification(
+                        cursor,
+                        t_assignee_id,
+                        f'New Attachment on \'{t_title}\'',
+                        f'{uploader_name} attached \'{filename}\'',
+                        'attachment',
+                        ticket_id
+                    )
+                # Notify creator
+                if t_creator_id and str(t_creator_id) != str(user_id) and str(t_creator_id) != str(t_assignee_id):
+                    create_notification(
+                        cursor,
+                        t_creator_id,
+                        f'New Attachment on \'{t_title}\'',
+                        f'{uploader_name} attached \'{filename}\'',
+                        'attachment',
+                        ticket_id
+                    )
+        except Exception as notify_err:
+            print(f"⚠️ Error triggering attachment notifications: {notify_err}")
 
         conn.commit()
         cursor.close()
@@ -4467,7 +4637,7 @@ def update_ticket_status(ticket_id):
         cursor = conn.cursor()
 
         # Get the current status and ticket details before updating
-        cursor.execute("SELECT status, approver_id, assignee_id, creator_id FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
+        cursor.execute("SELECT status, approver_id, assignee_id, creator_id, title FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
         current_ticket = cursor.fetchone()
         if not current_ticket:
             return jsonify({"error": "Ticket not found"}), 404
@@ -4478,11 +4648,13 @@ def update_ticket_status(ticket_id):
             ticket_approver_id = current_ticket.get('approver_id')
             ticket_assignee_id = current_ticket.get('assignee_id')
             ticket_creator_id = current_ticket.get('creator_id')
+            ticket_title = current_ticket.get('title')
         else:
             old_status = current_ticket[0]
             ticket_approver_id = current_ticket[1]
             ticket_assignee_id = current_ticket[2]
             ticket_creator_id = current_ticket[3]
+            ticket_title = current_ticket[4]
 
         # Get user role
         user_role = 'user'
@@ -4545,6 +4717,29 @@ def update_ticket_status(ticket_id):
                     ) VALUES (%s, %s, %s, %s, %s, NOW())
                 """, (ticket_id, current_username, 'status', old_status, new_status))
                 print(f"DEBUG: History record inserted successfully")
+
+                # Trigger status change notifications
+                msg = f'{current_username} moved ticket \'{ticket_title}\' from {old_status} to {new_status}'
+                # Notify assignee
+                if ticket_assignee_id and str(ticket_assignee_id) != str(current_user_id):
+                    create_notification(
+                        cursor,
+                        ticket_assignee_id,
+                        "Ticket Moved",
+                        msg,
+                        "status_change",
+                        ticket_id
+                    )
+                # Notify creator
+                if ticket_creator_id and str(ticket_creator_id) != str(current_user_id) and str(ticket_creator_id) != str(ticket_assignee_id):
+                    create_notification(
+                        cursor,
+                        ticket_creator_id,
+                        "Ticket Moved",
+                        msg,
+                        "status_change",
+                        ticket_id
+                    )
             except Exception as e:
                 print(f"DEBUG: Error inserting history record: {e}")
                 conn.rollback()
@@ -5331,6 +5526,12 @@ def get_company_performance_line():
             query += " AND EXTRACT(YEAR FROM t.created_at) = %s AND EXTRACT(MONTH FROM t.created_at) = %s"
             params.append(int(year))
             params.append(int(month))
+
+        p_ids = get_project_ids_list()
+        if p_ids:
+            query += " AND t.project_id = ANY(%s)"
+            params.append(p_ids)
+
         query += " GROUP BY month, t.status ORDER BY month, t.status"
         cur.execute(query, params)
         results = cur.fetchall()
@@ -6685,6 +6886,11 @@ def get_ticket_creation_frequency():
         if end_date:
             query += " AND t.created_at <= %s"
             params.append(end_date)
+
+        p_ids = get_project_ids_list()
+        if p_ids:
+            query += " AND t.project_id = ANY(%s)"
+            params.append(p_ids)
             
         query += """
             GROUP BY TO_CHAR(t.created_at, 'YYYY-MM'), creator
@@ -6743,12 +6949,20 @@ def get_recent_inprogress_tickets():
             FROM trueday.tickets t
             LEFT JOIN trueday.users u ON t.assignee_id = u.id
             WHERE LOWER(t.status) = 'in progress'
+        """
+        params = []
+        p_ids = get_project_ids_list()
+        if p_ids:
+            query += " AND t.project_id = ANY(%s)"
+            params.append(p_ids)
+
+        query += """
             ORDER BY t.updated_at DESC
             LIMIT 5
         """
         from psycopg.rows import dict_row
         cursor = conn.cursor(row_factory=dict_row)
-        cursor.execute(query)
+        cursor.execute(query, params)
         rows = cursor.fetchall()
         return jsonify({'tickets': rows})
     except Exception as e:
@@ -6763,17 +6977,51 @@ def get_recent_inprogress_tickets():
 @app.route('/api/progress-pulse/tickets', methods=['GET'])
 def get_pp_tickets():
     try:
+        user_id = request.args.get('user_id')
         conn = get_db_connection()
         from psycopg.rows import dict_row
         cursor = conn.cursor(row_factory=dict_row)
-        cursor.execute("""
+
+        # Check if the user is admin
+        is_admin = False
+        if user_id:
+            try:
+                cursor.execute("SELECT role FROM trueday.users WHERE id = %s", (int(user_id),))
+                user_row = cursor.fetchone()
+                if user_row:
+                    role = str(user_row.get('role', '')).lower()
+                    is_admin = role in ['admin', 'superadmin', 'superuser']
+            except ValueError:
+                pass
+
+        query = """
             SELECT t.*, u.username as assignee_name, u2.username as creator_name, p.project_name
             FROM trueday.tickets t
             LEFT JOIN trueday.users u ON t.assignee_id = u.id
             LEFT JOIN trueday.users u2 ON t.creator_id = u2.id
             LEFT JOIN trueday.project p ON t.project_id = p.project_id
-            ORDER BY t.ticket_id DESC
-        """)
+            WHERE UPPER(t.status) = 'COMPLETED'
+              AND (
+                EXISTS (
+                  SELECT 1 FROM trueday.ticket_history th 
+                  WHERE th.ticket_id = t.ticket_id 
+                    AND th.change_type = 'status' 
+                    AND UPPER(th.new_value) = 'COMPLETED' 
+                    AND th.changed_at::date = CURRENT_DATE
+                )
+                OR (t.created_at::date = CURRENT_DATE)
+              )
+        """
+        params = []
+        if not is_admin and user_id:
+            try:
+                query += " AND t.assignee_id = %s"
+                params.append(int(user_id))
+            except ValueError:
+                pass
+
+        query += " ORDER BY t.ticket_id DESC"
+        cursor.execute(query, params)
         tickets = cursor.fetchall()
         return jsonify(tickets)
     except Exception as e:
@@ -7026,6 +7274,43 @@ def add_timeline_comment():
             RETURNING id, created_at
         """, (ticket_id, user_id, comment))
         result = cursor.fetchone()
+
+        # Trigger comment notifications
+        try:
+            cursor.execute("SELECT assignee_id, creator_id, title FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
+            t_row = cursor.fetchone()
+            if t_row:
+                t_assignee_id = t_row.get('assignee_id') if isinstance(t_row, dict) else t_row[0]
+                t_creator_id = t_row.get('creator_id') if isinstance(t_row, dict) else t_row[1]
+                t_title = t_row.get('title') if isinstance(t_row, dict) else t_row[2]
+                
+                import re
+                clean_comment = re.sub(r'<[^>]*>', '', comment).replace('&nbsp;', ' ').strip()
+                comment_snippet = clean_comment[:50] + '...' if len(clean_comment) > 50 else clean_comment
+                
+                # Notify assignee
+                if t_assignee_id and str(t_assignee_id) != str(user_id):
+                    create_notification(
+                        cursor,
+                        t_assignee_id,
+                        f'New Comment on \'{t_title}\'',
+                        f'{user_name} commented: \'{comment_snippet}\'',
+                        'comment',
+                        ticket_id
+                    )
+                # Notify creator
+                if t_creator_id and str(t_creator_id) != str(user_id) and str(t_creator_id) != str(t_assignee_id):
+                    create_notification(
+                        cursor,
+                        t_creator_id,
+                        f'New Comment on \'{t_title}\'',
+                        f'{user_name} commented: \'{comment_snippet}\'',
+                        'comment',
+                        ticket_id
+                    )
+        except Exception as notify_err:
+            logger.error(f"Error triggering comment notifications: {notify_err}")
+
         conn.commit()
 
         r_id = result['id'] if isinstance(result, dict) else result[0]
@@ -7331,7 +7616,222 @@ def patch_ticket_dates(ticket_id_patch):
         return jsonify({'error': str(e)}), 500
     finally:
         if cursor: cursor.close()
-        if conn: conn.close()
+        if conn: conn.close()# ==========================================
+# NOTIFICATION API ENDPOINTS
+# ==========================================
+
+@app.route('/api/notifications', methods=['GET', 'OPTIONS'])
+def get_notifications():
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,OPTIONS')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response
+
+    try:
+        user_id = request.args.get('user_id') or session.get('user_id')
+        if not user_id:
+            return jsonify({'error': 'Unauthorized, no user_id found'}), 401
+            
+        limit = request.args.get('limit', 50, type=int)
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Delete seen/read notifications that are older than 24 hours
+        try:
+            cursor.execute("""
+                DELETE FROM trueday.notifications 
+                WHERE status = 'read' AND created_at < NOW() - INTERVAL '24 hours';
+            """)
+            conn.commit()
+        except Exception as clean_err:
+            logger.error(f"Error cleaning up old read notifications: {clean_err}")
+            conn.rollback()
+
+        cursor.execute("""
+            SELECT 
+                n.id, n.title, n.message, n.notification_type, n.priority, n.status, n.created_at, n.related_entity_type, n.related_entity_id,
+                t.priority AS ticket_priority,
+                t.due_date AS ticket_due_date,
+                p.project_name,
+                t.title AS ticket_title
+            FROM trueday.notifications n
+            LEFT JOIN trueday.tickets t ON n.related_entity_type = 'ticket' AND n.related_entity_id = t.ticket_id
+            LEFT JOIN trueday.project p ON t.project_id = p.project_id
+            WHERE n.user_id = %s 
+            ORDER BY n.created_at DESC 
+            LIMIT %s;
+        """, (user_id, limit))
+        rows = cursor.fetchall()
+        
+        notifications = []
+        for r in rows:
+            created_val = r.get('created_at') if isinstance(r, dict) else r[6]
+            due_val = r.get('ticket_due_date') if isinstance(r, dict) else r[10]
+            
+            notifications.append({
+                'id': r.get('id') if isinstance(r, dict) else r[0],
+                'title': r.get('title') if isinstance(r, dict) else r[1],
+                'message': r.get('message') if isinstance(r, dict) else r[2],
+                'notification_type': r.get('notification_type') if isinstance(r, dict) else r[3],
+                'priority': r.get('priority') if isinstance(r, dict) else r[4],
+                'status': r.get('status') if isinstance(r, dict) else r[5],
+                'created_at': created_val.isoformat() if hasattr(created_val, 'isoformat') else str(created_val),
+                'related_entity_type': r.get('related_entity_type') if isinstance(r, dict) else r[7],
+                'related_entity_id': r.get('related_entity_id') if isinstance(r, dict) else r[8],
+                'ticket_priority': r.get('ticket_priority') if isinstance(r, dict) else r[9],
+                'ticket_due_date': due_val.isoformat() if hasattr(due_val, 'isoformat') else (str(due_val) if due_val else None),
+                'project_name': r.get('project_name') if isinstance(r, dict) else r[11],
+                'ticket_title': r.get('ticket_title') if isinstance(r, dict) else r[12]
+            })
+            
+        cursor.close()
+        conn.close()
+        
+        response = jsonify(notifications)
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response, 200
+    except Exception as e:
+        logger.error(f"Error fetching notifications: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/notifications/<int:notification_id>/read', methods=['PUT', 'OPTIONS'])
+def mark_notification_read(notification_id):
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept')
+        response.headers.add('Access-Control-Allow-Methods', 'PUT,OPTIONS')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE trueday.notifications 
+            SET status = 'read', read_at = NOW() 
+            WHERE id = %s;
+        """, (notification_id,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        response = jsonify({'success': True})
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response, 200
+    except Exception as e:
+        logger.error(f"Error marking notification read: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/notifications/read-all', methods=['PUT', 'OPTIONS'])
+def mark_all_notifications_read():
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept')
+        response.headers.add('Access-Control-Allow-Methods', 'PUT,OPTIONS')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response
+
+    try:
+        user_id = request.args.get('user_id') or session.get('user_id')
+        if not user_id:
+            return jsonify({'error': 'Unauthorized, no user_id found'}), 401
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE trueday.notifications 
+            SET status = 'read', read_at = NOW() 
+            WHERE user_id = %s;
+        """, (user_id,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        response = jsonify({'success': True})
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response, 200
+    except Exception as e:
+        logger.error(f"Error marking all notifications read: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/notifications/<int:notification_id>', methods=['DELETE', 'OPTIONS'])
+def delete_notification(notification_id):
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept')
+        response.headers.add('Access-Control-Allow-Methods', 'DELETE,OPTIONS')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            DELETE FROM trueday.notifications 
+            WHERE id = %s;
+        """, (notification_id,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        response = jsonify({'success': True})
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response, 200
+    except Exception as e:
+        logger.error(f"Error deleting notification: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/notifications/stream', methods=['GET', 'OPTIONS'])
+def notifications_stream():
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,OPTIONS')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response
+
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'Missing user_id'}), 400
+        
+    client_queue = queue.Queue(maxsize=10)
+    sse_clients.append((client_queue, user_id))
+    
+    def event_generator():
+        try:
+            # Send initial message to confirm connection
+            yield f"data: init\n\n"
+            while True:
+                try:
+                    msg = client_queue.get(timeout=20)
+                    yield f"data: {msg}\n\n"
+                except queue.Empty:
+                    # Heartbeat
+                    yield ": keep-alive\n\n"
+        except GeneratorExit:
+            pass
+        finally:
+            if (client_queue, user_id) in sse_clients:
+                sse_clients.remove((client_queue, user_id))
+                
+    response = Response(event_generator(), mimetype='text/event-stream')
+    response.headers['Cache-Control'] = 'no-cache'
+    response.headers['X-Accel-Buffering'] = 'no'
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 
 
 if __name__ == '__main__':

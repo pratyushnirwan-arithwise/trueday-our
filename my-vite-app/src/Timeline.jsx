@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FaBars } from 'react-icons/fa';
 import DashboardSidebar from './components/DashboardSidebar';
+import { useUser } from './contexts/UserContext';
 import './Timeline.css';
 
 /* ─── helpers ─── */
@@ -158,6 +159,7 @@ function buildMonthCols(start, total) {
    MAIN COMPONENT
 ════════════════════════════════════════════════ */
 const Timeline = () => {
+  const { currentUser } = useUser();
   const [tickets, setTickets] = useState([]);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -201,6 +203,7 @@ const Timeline = () => {
 
   /* fetch tickets */
   const load = useCallback(() => {
+    if (!currentUser) return;
     setLoading(true);
     const p = new URLSearchParams();
     if (filterStatus !== 'all') p.append('status', filterStatus);
@@ -208,7 +211,11 @@ const Timeline = () => {
     fetch(`/api/tickets?${p}`)
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
       .then(data => {
-        const arr = Array.isArray(data) ? data : [];
+        let arr = Array.isArray(data) ? data : [];
+        if (currentUser.role !== 'Admin') {
+          const userProjectIds = (currentUser.assigned_projects || []).map(id => String(id));
+          arr = arr.filter(t => t.project_id && userProjectIds.includes(String(t.project_id)));
+        }
         setTickets(arr);
         lastSavedTicketsRef.current = JSON.parse(JSON.stringify(arr));
         setProjects(groupByProject(arr));
@@ -216,7 +223,7 @@ const Timeline = () => {
       })
       .catch(e => setError(String(e)))
       .finally(() => setLoading(false));
-  }, [filterStatus, filterEmployee]);
+  }, [filterStatus, filterEmployee, currentUser]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -503,10 +510,6 @@ const Timeline = () => {
                   <div className="tl-left-header-row">
                     <div className="tl-zoom-group">
                       <button
-                        className={`tl-zoom-btn tl-goto-today ${viewMode === 'today' ? 'active' : ''}`}
-                        onClick={() => { setViewMode('today'); setPixelsPerDay(48); }}
-                      >Today</button>
-                      <button
                         className={`tl-zoom-btn ${viewMode === 'month' ? 'active' : ''}`}
                         onClick={() => { setViewMode('month'); setPixelsPerDay(6); }}
                       >Month</button>
@@ -514,6 +517,10 @@ const Timeline = () => {
                         className={`tl-zoom-btn ${viewMode === 'day' ? 'active' : ''}`}
                         onClick={() => { setViewMode('day'); setPixelsPerDay(32); }}
                       >Day</button>
+                      <button
+                        className={`tl-zoom-btn tl-goto-today ${viewMode === 'today' ? 'active' : ''}`}
+                        onClick={() => { setViewMode('today'); setPixelsPerDay(48); }}
+                      >Today</button>
                     </div>
                   </div>
                 </div>

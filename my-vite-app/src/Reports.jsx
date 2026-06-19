@@ -8,6 +8,7 @@ import DashboardSidebar from './components/DashboardSidebar';
 import CustomSelect from './components/CustomSelect';
 import CustomDatePicker from './components/CustomDatePicker';
 import { Calendar, ClipboardList, CheckCircle2, Clock, BellRing, Download } from 'lucide-react';
+import { useUser } from './contexts/UserContext';
 import './Reports.css';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement,
@@ -201,23 +202,23 @@ const DOUGHNUT_OPTS = {
   animation: { duration: 500 },
   plugins: {
     legend: { position: 'bottom', labels: { boxWidth: 10, padding: 20, font: { ...FONT, size: 12 }, usePointStyle: true, pointStyle: 'circle' } },
-    tooltip: { 
-      ...TOOLTIP, 
+    tooltip: {
+      ...TOOLTIP,
       xAlign: (ctx) => {
         const tooltip = ctx.tooltip;
         if (!tooltip || !tooltip.dataPoints || !tooltip.dataPoints.length) return 'center';
-        
+
         const chart = tooltip.chart;
         if (!chart || !chart.chartArea) return 'center';
-        
+
         const chartCenter = (chart.chartArea.left + chart.chartArea.right) / 2;
         const elementX = tooltip.dataPoints[0].element.tooltipPosition().x;
-        
+
         // If slice is on the left half, point arrow rightwards (box goes left)
         // If slice is on the right half, point arrow leftwards (box goes right)
         return elementX < chartCenter ? 'right' : 'left';
       },
-      callbacks: { label: ctx => { const t = ctx.dataset.data.reduce((a, b) => a + b, 0); return ` ${ctx.label.split(' ')[0]}: ${ctx.raw} (${t > 0 ? ((ctx.raw / t) * 100).toFixed(1) : 0}%)`; } } 
+      callbacks: { label: ctx => { const t = ctx.dataset.data.reduce((a, b) => a + b, 0); return ` ${ctx.label.split(' ')[0]}: ${ctx.raw} (${t > 0 ? ((ctx.raw / t) * 100).toFixed(1) : 0}%)`; } }
     },
   },
 };
@@ -367,6 +368,7 @@ const HORIZONTAL_BAR_OPTS = {
 
 /* ═══════ MAIN ═══════ */
 export default function Reports() {
+  const { currentUser } = useUser();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [selectedEmployee, setSelectedEmployee] = useState('all');
@@ -408,16 +410,26 @@ export default function Reports() {
   }, []);
 
   useEffect(() => {
+    if (!currentUser) return;
     setInProgressLoading(true);
-    fetch('/api/recent-inprogress-tickets').then(r => r.ok ? r.json() : {}).then(d => setInProgressTickets(d.tickets || [])).catch(() => { }).finally(() => setInProgressLoading(false));
-  }, []);
+    const p = new URLSearchParams();
+    if (currentUser.role !== 'Admin') {
+      p.append('project_ids', (currentUser.assigned_projects || []).join(','));
+    }
+    fetch(`/api/recent-inprogress-tickets?${p}`).then(r => r.ok ? r.json() : {}).then(d => setInProgressTickets(d.tickets || [])).catch(() => { }).finally(() => setInProgressLoading(false));
+  }, [currentUser]);
 
   const buildParams = useCallback(() => {
     const p = new URLSearchParams();
-    if (selectedEmployee !== 'all') p.append('employee', selectedEmployee);
+    const targetEmployee = (currentUser && currentUser.role !== 'Admin') ? currentUser.id : selectedEmployee;
+    if (targetEmployee !== 'all') p.append('employee', targetEmployee);
     if (selectedPriority !== 'all') p.append('priority', selectedPriority);
     if (selectedStatus !== 'all') p.append('status', selectedStatus);
-    
+
+    if (currentUser && currentUser.role !== 'Admin') {
+      p.append('project_ids', (currentUser.assigned_projects || []).join(','));
+    }
+
     const formatDt = d => {
       if (!d) return '';
       const dt = new Date(d);
@@ -427,9 +439,10 @@ export default function Reports() {
     if (globalStartDate) p.append('start_date', formatDt(globalStartDate));
     if (globalEndDate) p.append('end_date', formatDt(globalEndDate));
     return p;
-  }, [selectedEmployee, selectedPriority, selectedStatus, globalStartDate, globalEndDate]);
+  }, [selectedEmployee, selectedPriority, selectedStatus, globalStartDate, globalEndDate, currentUser]);
 
   useEffect(() => {
+    if (!currentUser) return;
     const params = buildParams();
     setIsLoading(true);
     Promise.allSettled([
@@ -438,13 +451,19 @@ export default function Reports() {
       fetch(`/api/metricscards?${params}`).then(r => r.json()).then(setMetrics),
       fetch(`/api/ticket-creation-frequency?${params}`).then(r => r.json()).then(setCreationFreqData).catch(() => null),
     ]).finally(() => setIsLoading(false));
-  }, [buildParams]);
+  }, [buildParams, currentUser]);
 
   useEffect(() => {
+    if (!currentUser) return;
     const p = new URLSearchParams();
-    if (selectedEmployee !== 'all') p.append('employee', selectedEmployee);
+    const targetEmployee = currentUser.role !== 'Admin' ? currentUser.id : selectedEmployee;
+    if (targetEmployee !== 'all') p.append('employee', targetEmployee);
     if (selectedPriority !== 'all') p.append('priority', selectedPriority);
-    
+
+    if (currentUser.role !== 'Admin') {
+      p.append('project_ids', (currentUser.assigned_projects || []).join(','));
+    }
+
     const formatDt = d => {
       if (!d) return '';
       const dt = new Date(d);
@@ -453,9 +472,9 @@ export default function Reports() {
 
     if (globalStartDate) p.append('start_date', formatDt(globalStartDate));
     if (globalEndDate) p.append('end_date', formatDt(globalEndDate));
-    
+
     fetch(`/api/company-performance-line?${p}`).then(r => r.json()).then(setCompanyLineData).catch(() => { });
-  }, [selectedEmployee, selectedPriority, globalStartDate, globalEndDate]);
+  }, [selectedEmployee, selectedPriority, globalStartDate, globalEndDate, currentUser]);
 
   /* derived data */
   const mergedPriority = (() => {
@@ -543,12 +562,20 @@ export default function Reports() {
     { key: 'overdue', Icon: BellRing, iconCls: 'red', label: 'Overdue', value: metrics.overdueTasks, spark: sparks.overdue, color: '#ef4444', delta: 5 },
   ];
 
+  const filteredEmployees = (() => {
+    if (!currentUser || currentUser.role === 'Admin') return employees;
+    const userProjectIds = (currentUser.assigned_projects || []).map(id => String(id));
+    return employees.filter(e => {
+      return (e.project_ids || []).some(pid => userProjectIds.includes(String(pid)));
+    });
+  })();
+
   const today = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
 
   return (
     <div className="rpt-page">
       <DashboardSidebar collapsed={sidebarCollapsed} onToggleCollapse={setSidebarCollapsed} open={sidebarOpen} setOpen={setSidebarOpen} />
-      <div className="rpt-main" style={{ marginLeft: sidebarCollapsed ? '80px' : '250px', transition: 'margin-left 0.3s ease' }}>
+      <div className="rpt-main" style={{ marginLeft: '40px', transition: 'margin-left 0.3s ease' }}>
 
         {/* HEADER */}
         <header className="rpt-header">
@@ -563,22 +590,24 @@ export default function Reports() {
 
 
             {/* Employee */}
-            <CustomSelect
-              value={selectedEmployee}
-              onChange={setSelectedEmployee}
-              searchable={true}
-              options={[
-                { value: 'all', label: 'All Employees' },
-                ...employees.map(e => ({ value: e.id, label: e.username }))
-              ]}
-            />
+            {currentUser && currentUser.role === 'Admin' && (
+              <CustomSelect
+                value={selectedEmployee}
+                onChange={setSelectedEmployee}
+                searchable={true}
+                options={[
+                  { value: 'all', label: 'Employees' },
+                  ...filteredEmployees.map(e => ({ value: e.id, label: e.username }))
+                ]}
+              />
+            )}
 
             {/* Priority */}
             <CustomSelect
               value={selectedPriority}
               onChange={setSelectedPriority}
               options={[
-                { value: 'all', label: 'All Priorities' },
+                { value: 'all', label: 'Priorities' },
                 { value: 'high', label: 'High' },
                 { value: 'medium', label: 'Medium' },
                 { value: 'low', label: 'Low' }
@@ -592,7 +621,7 @@ export default function Reports() {
               options={
                 isLoadingStatus ? [{ value: 'loading', label: 'Loading…' }]
                   : statusError ? [{ value: 'error', label: 'Error' }]
-                    : [{ value: 'all', label: 'All Statuses' }, ...statuses.map(s => ({ value: s, label: s }))]
+                    : [{ value: 'all', label: 'Statuses' }, ...statuses.map(s => ({ value: s, label: s }))]
               }
             />
 
