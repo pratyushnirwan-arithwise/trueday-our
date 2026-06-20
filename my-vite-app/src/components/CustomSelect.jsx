@@ -19,7 +19,7 @@ const highlightMatch = (text, query) => {
   );
 };
 
-export default function CustomSelect({ options, value, onChange, placeholder = 'Select...', searchable = false, hAlign = 'left', vAlign = 'bottom', icon = null }) {
+export default function CustomSelect({ options, value, onChange, placeholder = 'Select...', searchable = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -139,36 +139,32 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
   const selectedOption = options.find(o => o.value === value) || { label: placeholder, value: '' };
 
   return (
-    <div className="custom-select-container" ref={containerRef} onKeyDown={handleKeyDown}>
-      <button
-        ref={triggerRef}
-        type="button"
-        className={`custom-select-trigger ${isOpen ? 'open' : ''} ${selectedOption.color ? 'has-color' : ''}`}
-        onClick={() => {
-          if (isOpen) {
-            setIsOpen(false);
-            setSearchQuery('');
-          } else {
-            setIsOpen(true);
-          }
-        }}
-        style={selectedOption.color ? { backgroundColor: `${selectedOption.color}20`, color: selectedOption.color, borderColor: `${selectedOption.color}40` } : {}}
+    <div className="custom-select-container" ref={containerRef}>
+      <button 
+        type="button" 
+        className={`custom-select-trigger ${isOpen ? 'open' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
       >
-        <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {icon && <span style={{ color: '#000', display: 'flex', alignItems: 'center', fontSize: '1.1em' }}>{icon}</span>}
-          {selectedOption.triggerLabel || selectedOption.label}
-        </span>
+        <span>{selectedOption.label}</span>
         <span className="custom-select-arrow">▾</span>
       </button>
 
       {isOpen && (
-        <div className="custom-select-dropdown" style={{
-          left: hAlign === 'left' ? 0 : 'auto',
-          right: hAlign === 'right' ? 0 : 'auto',
-          top: vAlign === 'bottom' ? 'calc(100% + 4px)' : 'auto',
-          bottom: vAlign === 'top' ? 'calc(100% + 4px)' : 'auto'
-        }}>
-          <div className="custom-select-options-list" ref={listRef}>
+        <div className="custom-select-dropdown">
+          {searchable && (
+            <div className="custom-select-search-wrapper">
+              <input
+                type="text"
+                className="custom-select-search"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                autoFocus
+              />
+            </div>
+          )}
+          <div className="custom-select-options-list">
             {filteredOptions.length > 0 ? filteredOptions.map((opt, i) => (
               <div
                 key={`${opt.value}-${i}`}
@@ -179,12 +175,8 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
                   setIsOpen(false);
                   setSearchQuery('');
                 }}
-                onMouseEnter={() => setActiveIndex(i)}
-                style={opt.color ? { backgroundColor: `${opt.color}20`, color: opt.color } : {}}
               >
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {highlightMatch(String(opt.label), searchQuery)}
-                </div>
+                {opt.label}
               </div>
             )) : (
               <div className="custom-select-no-results">No results found</div>

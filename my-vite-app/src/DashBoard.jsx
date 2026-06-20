@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './DashBoard.css';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { FaPaperclip, FaHistory, FaFile, FaDownload, FaUpload, FaEye, FaTrash, FaTimes, FaUserPlus, FaExchangeAlt, FaComment, FaCircle, FaPaperPlane, FaPlus, FaEllipsisV, FaEdit, FaLock, FaUnlock, FaSearch, FaFilter, FaList, FaExclamationCircle, FaUser, FaTag, FaFolderOpen, FaTrashAlt, FaSignOutAlt, FaBars, FaTimes as FaTimesIcon, FaTh, FaTicketAlt, FaChartBar, FaChartLine, FaClipboardList, FaTrophy, FaUserCheck, FaCheck, FaCog } from 'react-icons/fa';
+import { FaPaperclip, FaHistory, FaFile, FaDownload, FaUpload, FaEye, FaTrash, FaTimes, FaUserPlus, FaExchangeAlt, FaComment, FaCircle, FaPaperPlane, FaPlus, FaEllipsisV, FaEdit, FaLock, FaUnlock, FaSearch, FaFilter, FaList, FaExclamationCircle, FaUser, FaTag, FaFolderOpen, FaTrashAlt, FaSignOutAlt, FaBars, FaTimes as FaTimesIcon, FaTh, FaTicketAlt, FaChartBar, FaChartLine, FaClipboardList, FaTrophy, FaUserCheck, FaCheck } from 'react-icons/fa';
 import { useUser } from './contexts/UserContext';
 import EditTicket from './EditTicket';
 import CreateTicket from './CreateTicket';
 import DashboardSidebar from './components/DashboardSidebar';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import CustomSelect from './components/CustomSelect';
 
 // Define API URL
 const API_BASE_URL = '/api';
@@ -74,40 +73,43 @@ const AddStatusModal = ({ onClose, setCustomStatuses, setAllStatuses }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="jira-create-ticket-card single-card-centered" style={{ maxWidth: '500px', minHeight: 'auto', maxHeight: 'none' }}>
-        <button className="close-btn" onClick={onClose} title="Close">×</button>
-        <div className="jira-create-main" style={{ width: '100%' }}>
-          <div className="jira-form-header">
-            <div className="header-icon-box"><FaList /></div>
-            <div>
-              <h2>Add Bucket</h2>
-              <p className="form-subtitle">Create a new bucket (status column) for the board.</p>
-            </div>
-          </div>
-          {error && <div className="error-message">{error}</div>}
-          <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            <div className="jira-form-group">
-              <label htmlFor="statusName">Status Name <span className="required">*</span></label>
+      <div className="modal-content add-status-modal">
+        <div className="modal-header">
+          <h2>Add Bucket</h2>
+          <button
+            className="add-status-close"
+            onClick={onClose}
+          >
+            ×
+          </button>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="modal-body">
+            <div className="input-group">
+              <label htmlFor="statusName">Status Name</label>
               <input
                 type="text"
                 id="statusName"
                 value={newStatus}
                 onChange={(e) => setNewStatus(e.target.value)}
                 placeholder="Enter status name"
-                className={`jira-form-input ${error ? 'error' : ''}`}
-                required
+                className={error ? 'error' : ''}
               />
+              {error && <div className="error-message">{error}</div>}
             </div>
-            <div className="jira-form-actions jira-form-actions-row" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-              <button type="submit" className="jira-submit-btn" disabled={isSubmitting}>
-                {isSubmitting ? 'Adding...' : 'Add Status'}
-              </button>
-              <button type="button" className="jira-cancel-btn" onClick={onClose}>
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div className="modal-footer">
+            <button type="submit" className="save-btn">
+              Add Status
+            </button>
+            <button type="button" className="cancel-btn" onClick={onClose}>
+              Cancel
+            </button>
+            {/* <button type="submit" className="save-btn">
+              Add Status
+            </button> */}
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -179,83 +181,79 @@ const AddProjectModal = ({ onClose, onProjectCreated, onViewProjects, onAddLabel
 
   return (
     <div className="modal-overlay">
-      <div className="jira-create-ticket-card single-card-centered" style={{ maxWidth: '500px', minHeight: 'auto', maxHeight: 'none' }}>
-        <button className="close-btn" onClick={onClose} title="Close">×</button>
-        <div className="jira-create-main" style={{ width: '100%' }}>
-          <div className="jira-form-header" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div className="header-icon-box"><FaFolderOpen /></div>
-              <div>
-                <h2>Add Project</h2>
-                <p className="form-subtitle">Create a new project workspace.</p>
-              </div>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '28px' }}>
-              <button
-                type="button"
-                className="jira-cancel-btn"
-                onClick={onAddLabel}
-                style={{ width: 'auto', minWidth: 'auto', height: '30px', padding: '0 12px', fontSize: '11px', marginTop: 0 }}
-              >
-                Add Label
-              </button>
-              <button
-                type="button"
-                className="jira-cancel-btn"
-                onClick={onViewProjects}
-                style={{ width: 'auto', minWidth: 'auto', height: '30px', padding: '0 12px', fontSize: '11px', marginTop: 0 }}
-              >
-                View
-              </button>
-            </div>
+      <div className="modal-content add-status-modal">
+        <div className="modal-header">
+          <h2>Add Project</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <button
+              type="button"
+              className="small-btn primary"
+              onClick={onAddLabel}
+            >
+              Add Label
+            </button>
+            <button
+              type="button"
+              className="small-btn"
+              onClick={onViewProjects}
+            >
+              View
+            </button>
+            <button
+              className="add-status-close"
+              onClick={onClose}
+            >
+              ×
+            </button>
           </div>
-          {error && <div className="error-message">{error}</div>}
-          <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div className="jira-form-group">
-              <label htmlFor="projectName">Project Name <span className="required">*</span></label>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="modal-body">
+            <div className="input-group">
+              <label htmlFor="projectName">Project Name</label>
               <input
                 type="text"
                 id="projectName"
                 value={projectName}
                 onChange={(e) => setProjectName(e.target.value)}
                 placeholder="Enter project name"
-                className={`jira-form-input ${error && !projectName ? 'error' : ''}`}
-                required
+                className={error && !projectName ? 'error' : ''}
               />
             </div>
 
-            <div className="jira-form-group">
+            <div className="input-group">
               <label htmlFor="projectColor">Color</label>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <input
                   type="color"
                   id="projectColor"
                   value={color}
                   onChange={(e) => setColor(e.target.value)}
                   style={{
-                    width: '60px',
-                    height: '36px',
+                    width: '50px',
+                    height: '40px',
                     cursor: 'pointer',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '6px',
-                    padding: '2px',
-                    background: '#fff'
+                    border: 'none',
+                    borderRadius: '4px'
                   }}
                 />
-                <span style={{ fontSize: '0.9rem', color: '#4b5563', fontFamily: 'monospace' }}>{color}</span>
+                <span style={{ fontSize: '14px', color: '#666' }}>{color}</span>
               </div>
             </div>
 
-            <div className="jira-form-actions jira-form-actions-row" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-              <button type="submit" className="jira-submit-btn" disabled={isSubmitting}>
-                {isSubmitting ? 'Creating...' : 'Create Project'}
-              </button>
-              <button type="button" className="jira-cancel-btn" onClick={onClose}>
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+            {error && <div className="error-message">{error}</div>}
+          </div>
+
+          <div className="modal-footer">
+            <button type="submit" className="save-btn" disabled={isSubmitting}>
+              {isSubmitting ? 'Creating...' : 'Create Project'}
+            </button>
+            <button type="button" className="cancel-btn" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+        </form>
+
         {showToast && (
           <div className={`toast-notification ${toastType}`}>
             {toastMessage}
@@ -359,48 +357,46 @@ const AddLabelModal = ({ onClose, projects, labels, onLabelsCreated }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="jira-create-ticket-card single-card-centered" style={{ maxWidth: '600px', minHeight: 'auto', maxHeight: '90vh', overflowY: 'auto' }}>
-        <button className="close-btn" onClick={onClose} title="Close">×</button>
-        <div className="jira-create-main" style={{ width: '100%' }}>
-          <div className="jira-form-header" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div className="header-icon-box"><FaTag /></div>
-              <div>
-                <h2>Add Labels</h2>
-                <p className="form-subtitle">Create and manage labels for projects.</p>
-              </div>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '28px' }}>
-              <button
-                type="button"
-                className="jira-cancel-btn"
-                onClick={() => setShowExistingLabels(prev => !prev)}
-                style={{ width: 'auto', minWidth: 'auto', height: '30px', padding: '0 12px', fontSize: '11px', marginTop: 0 }}
-              >
-                {showExistingLabels ? 'Hide Labels' : 'View Labels'}
-              </button>
-            </div>
+      <div className="modal-content add-status-modal">
+        <div className="modal-header">
+          <h2>Add Labels</h2>
+          <div className="modal-header-actions">
+            <button
+              type="button"
+              className="small-btn primary"
+              onClick={() => setShowExistingLabels(prev => !prev)}
+            >
+              {showExistingLabels ? 'Hide Labels' : 'View Labels'}
+            </button>
+            <button
+              className="add-status-close"
+              onClick={onClose}
+            >
+              ×
+            </button>
           </div>
-          {error && <div className="error-message">{error}</div>}
-          <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div className="jira-form-group">
-              <label htmlFor="projectSelectForLabels">Project <span className="required">*</span></label>
-              <CustomSelect
-                options={(projects || []).map(project => ({
-                  label: project.project_name || project.name || '',
-                  value: String(project.id)
-                }))}
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="modal-body">
+            <div className="input-group">
+              <label htmlFor="projectSelectForLabels">Project</label>
+              <select
+                id="projectSelectForLabels"
                 value={selectedProject}
-                onChange={(val) => setSelectedProject(val)}
-                placeholder="Select a Project"
-                searchable={true}
-                icon={<FaFolderOpen />}
-              />
+                onChange={(e) => setSelectedProject(e.target.value)}
+                className={error && !selectedProject ? 'error' : ''}
+              >
+                <option value="">Select a project</option>
+                {projects && projects.map(project => (
+                  <option key={project.id} value={project.id}>
+                    {project.project_name || project.name || project.name}
+                  </option>
+                ))}
+              </select>
             </div>
-
-            <div className="jira-form-group">
-              <label htmlFor="labelName">Label Name <span className="required">*</span></label>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%' }}>
+            <div className="input-group">
+              <label htmlFor="labelName">Label Name</label>
+              <div className="label-input-row">
                 <input
                   type="text"
                   id="labelName"
@@ -412,126 +408,58 @@ const AddLabelModal = ({ onClose, projects, labels, onLabelsCreated }) => {
                       handleAddLabelItem();
                     }
                   }}
-                  placeholder="Type a label name"
-                  className={`jira-form-input ${error && !labelInput ? 'error' : ''}`}
-                  style={{ flex: 1 }}
+                  placeholder="Type a label name and click Add to list"
+                  className={error && !labelInput ? 'error' : ''}
                 />
                 <input
                   type="color"
                   value={labelColor}
                   onChange={(e) => setLabelColor(e.target.value)}
-                  style={{
-                    width: '44px',
-                    height: '36px',
-                    cursor: 'pointer',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '6px',
-                    padding: '2px',
-                    background: '#fff',
-                    flexShrink: 0
-                  }}
+                  className="color-input"
                 />
                 <button
                   type="button"
-                  className="jira-cancel-btn"
+                  className="small-btn primary"
                   onClick={handleAddLabelItem}
-                  style={{ width: 'auto', minWidth: 'auto', height: '36px', padding: '0 16px', marginTop: 0, flexShrink: 0 }}
                 >
                   Add to list
                 </button>
               </div>
-              <p className="form-subtitle" style={{ marginTop: '4px', fontSize: '0.8rem', color: '#64748b' }}>
-                You can add multiple label names for the selected project.
-              </p>
+              <div className="field-hint">You can add multiple label names for the selected project.</div>
             </div>
-
             {labelsToAdd.length > 0 && (
-              <div className="jira-form-group">
+              <div className="input-group">
                 <label>Labels to Create</label>
-                <div className="label-preview-list" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', padding: '8px', border: '1px solid #e2e8f0', borderRadius: '8px', background: '#f8fafc' }}>
+                <div className="label-preview-list">
                   {labelsToAdd.map((item, index) => (
-                    <div
-                      key={`${item.label_name}-${index}`}
-                      className="label-preview-pill"
-                      style={{
-                        background: item.color || '#e2e8f0',
-                        color: '#fff',
-                        fontWeight: 600,
-                        padding: '4px 10px',
-                        borderRadius: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        fontSize: '0.85rem',
-                        boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
-                      }}
-                    >
+                    <div key={`${item.label_name}-${index}`} className="label-preview-pill" style={{ background: item.color || '#e2e8f0' }}>
                       <span>{item.label_name}</span>
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveLabelItem(index)}
-                        style={{
-                          background: 'rgba(255,255,255,0.2)',
-                          border: 'none',
-                          color: '#fff',
-                          borderRadius: '50%',
-                          width: '16px',
-                          height: '16px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          cursor: 'pointer',
-                          fontSize: '10px',
-                          padding: 0
-                        }}
-                      >
-                        ×
-                      </button>
+                      <button type="button" className="pill-close" onClick={() => handleRemoveLabelItem(index)}>×</button>
                     </div>
                   ))}
                 </div>
               </div>
             )}
-
             {showExistingLabels && (
-              <div className="jira-form-group" style={{ borderTop: '1px solid #e5e7eb', paddingTop: '1rem', marginTop: '0.5rem' }}>
+              <div className="input-group existing-labels-section">
                 <label>Existing Labels</label>
                 {!selectedProject ? (
-                  <div style={{ color: '#64748b', fontSize: '0.85rem', padding: '12px 0' }}>
+                  <div className="empty-state-text">
                     Select a project to view labels.
                   </div>
                 ) : filteredLabels.length === 0 ? (
-                  <div style={{ color: '#64748b', fontSize: '0.85rem', padding: '12px 0' }}>
+                  <div className="empty-state-text">
                     No labels found for this project.
                   </div>
                 ) : (
-                  <div className="existing-labels-list" style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '180px', overflowY: 'auto', marginTop: '6px', paddingRight: '4px' }}>
+                  <div className="existing-labels-list">
                     {filteredLabels.map((label) => (
-                      <div
-                        key={label.label_id}
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          padding: '8px 12px',
-                          background: '#f9fafb',
-                          border: '1px solid #f3f4f6',
-                          borderRadius: '6px'
-                        }}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span
-                            style={{
-                              display: 'inline-block',
-                              width: '10px',
-                              height: '10px',
-                              borderRadius: '50%',
-                              background: label.color || '#cbd5e1'
-                            }}
-                          />
-                          <span style={{ fontSize: '0.9rem', color: '#374151', fontWeight: 500 }}>{label.label_name}</span>
+                      <div key={label.label_id} className="existing-label-row">
+                        <div className="existing-label-row-left">
+                          <span className="label-color-dot" style={{ background: label.color || '#cbd5e1' }} />
+                          <span>{label.label_name}</span>
                         </div>
-                        <span style={{ fontSize: '0.75rem', color: '#9ca3af' }}>
+                        <span className="existing-label-project">
                           {projectNameLookup[String(label.project_id)] || `Project ${label.project_id}`}
                         </span>
                       </div>
@@ -540,17 +468,17 @@ const AddLabelModal = ({ onClose, projects, labels, onLabelsCreated }) => {
                 )}
               </div>
             )}
-
-            <div className="jira-form-actions jira-form-actions-row" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-              <button type="submit" className="jira-submit-btn" disabled={isSubmitting}>
-                {isSubmitting ? 'Saving...' : 'Create Labels'}
-              </button>
-              <button type="button" className="jira-cancel-btn" onClick={onClose}>
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+            {error && <div className="error-message">{error}</div>}
+          </div>
+          <div className="modal-footer">
+            <button type="submit" className="save-btn small" disabled={isSubmitting}>
+              {isSubmitting ? 'Saving...' : 'Create Labels'}
+            </button>
+            <button type="button" className="cancel-btn small" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+        </form>
         {showToast && (
           <div className={`toast-notification ${toastType}`}>
             {toastMessage}
@@ -696,66 +624,58 @@ const AddUsersToProjectModal = ({ onClose, onUserAdded }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="jira-create-ticket-card single-card-centered" style={{ maxWidth: '600px', minHeight: 'auto', maxHeight: 'none' }}>
-        <button className="close-btn" onClick={onClose} title="Close">×</button>
-        <div className="jira-create-main" style={{ width: '100%' }}>
-          <div className="jira-form-header">
-            <div className="header-icon-box"><FaUserPlus /></div>
-            <div>
-              <h2>Add Users to Project</h2>
-              <p className="form-subtitle">Assign users to project workspaces.</p>
-            </div>
-          </div>
-          {error && <div className="error-message">{error}</div>}
-          <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div className="jira-form-group">
-              <label htmlFor="projectSelect">Project <span className="required">*</span></label>
-              <CustomSelect
-                options={allowedProjectsForManagement.map(project => ({ label: project.name, value: String(project.id) }))}
+      <div className="modal-content add-status-modal">
+        <div className="modal-header">
+          <h2>Add User to Project</h2>
+          <button
+            className="add-status-close"
+            onClick={onClose}
+          >
+            ×
+          </button>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="modal-body">
+            <div className="input-group add-users-field">
+              <label htmlFor="projectSelect" className="add-users-label">Project</label>
+              <select
+                id="projectSelect"
                 value={selectedProject}
-                onChange={(val) => setSelectedProject(val)}
-                placeholder="Select a Project"
-                searchable={true}
-                icon={<FaFolderOpen />}
-              />
+                onChange={(e) => setSelectedProject(e.target.value)}
+                className={`add-users-project-select ${error && !selectedProject ? 'error' : ''}`}
+              >
+                <option value="">Select a Project</option>
+                {allowedProjectsForManagement.map(project => (
+                  <option key={project.id} value={project.id}>
+                    {project.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="jira-form-group">
-              <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                <span>Users <span className="required">*</span></span>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <button
-                    type="button"
-                    className="jira-cancel-btn"
-                    onClick={() => setSelectedUsers(allUsers.map((user) => String(user.id)))}
-                    style={{ width: 'auto', minWidth: 'auto', height: '28px', padding: '0 10px', fontSize: '11px', marginTop: 0 }}
-                  >
-                    Select All
-                  </button>
-                  <button
-                    type="button"
-                    className="jira-cancel-btn"
-                    onClick={() => setSelectedUsers([])}
-                    style={{ width: 'auto', minWidth: 'auto', height: '28px', padding: '0 10px', fontSize: '11px', marginTop: 0 }}
-                  >
-                    Clear
-                  </button>
-                </div>
-              </label>
+            <div className="input-group">
+              <label>User</label>
+              <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem' }}>
+                <button
+                  type="button"
+                  className="small-btn primary"
+                  onClick={() => setSelectedUsers(allUsers.map((user) => String(user.id)))}
+                >
+                  Select All
+                </button>
+                <button
+                  type="button"
+                  className="small-btn"
+                  onClick={() => setSelectedUsers([])}
+                >
+                  Clear
+                </button>
+              </div>
               <div
                 className={`user-checkbox-list ${error && !selectedUsers.length ? 'error' : ''}`}
-                style={{
-                  maxHeight: '220px',
-                  overflowY: 'auto',
-                  marginTop: '8px',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '8px',
-                  background: '#ffffff',
-                  boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)'
-                }}
               >
                 {allUsers.length === 0 ? (
-                  <div style={{ padding: '16px', textAlign: 'center', color: '#64748b', fontSize: '0.85rem' }}>No users found</div>
+                  <div style={{ color: '#64748b', fontSize: '0.85rem' }}>No users found</div>
                 ) : (
                   allUsers.map((user) => {
                     const userId = String(user.id);
@@ -764,50 +684,13 @@ const AddUsersToProjectModal = ({ onClose, onUserAdded }) => {
                       <label
                         key={user.id}
                         className={`user-checkbox-item ${isChecked ? 'checked' : ''}`}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          padding: '10px 16px',
-                          borderBottom: '1px solid #f1f5f9',
-                          cursor: 'pointer',
-                          background: isChecked ? '#f5f3ff' : '#fff',
-                          gap: '12px',
-                          height: '42px',
-                          minHeight: '42px',
-                          boxSizing: 'border-box',
-                          width: '100%',
-                          transition: 'none',
-                          transform: 'none',
-                          fontSize: '0.9rem',
-                          color: '#374151'
-                        }}
                       >
                         <input
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => toggleUserSelection(userId)}
-                          style={{
-                            width: '16px',
-                            height: '16px',
-                            cursor: 'pointer',
-                            accentColor: '#5e145e',
-                            margin: 0,
-                            flexShrink: 0,
-                            transition: 'none',
-                            transform: 'none'
-                          }}
                         />
-                        <span
-                          className="user-checkbox-name"
-                          style={{
-                            fontSize: '0.9rem',
-                            color: '#374151',
-                            userSelect: 'none',
-                            marginLeft: '4px',
-                            transition: 'none',
-                            transform: 'none'
-                          }}
-                        >
+                        <span className="user-checkbox-name">
                           {user.username || user.display_name || user.email}
                         </span>
                       </label>
@@ -817,16 +700,19 @@ const AddUsersToProjectModal = ({ onClose, onUserAdded }) => {
               </div>
             </div>
 
-            <div className="jira-form-actions jira-form-actions-row" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
-              <button type="submit" className="jira-submit-btn" disabled={isSubmitting}>
-                {isSubmitting ? 'Adding...' : `Add User${selectedUsers.length > 1 ? 's' : ''}`}
-              </button>
-              <button type="button" className="jira-cancel-btn" onClick={onClose}>
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+            {error && <div className="error-message">{error}</div>}
+          </div>
+
+          <div className="modal-footer">
+            <button type="submit" className="save-btn" disabled={isSubmitting}>
+              {isSubmitting ? 'Adding...' : `Add User${selectedUsers.length > 1 ? 's' : ''}`}
+            </button>
+            <button type="button" className="cancel-btn" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+        </form>
+
         {showToast && (
           <div className={`toast-notification ${toastType}`}>
             {toastMessage}
@@ -902,29 +788,25 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
 
   return (
     <div className={`ticket-card${isOverdue ? ' overdue' : ''}`} draggable={canMoveTickets} onDragStart={handleDragStart} onClick={() => onEdit(ticket)} data-priority={ticket.priority}>
-      {/* Header row with ID and Tag */}
-      <div style={{
+      {/* Project and Ticket ID group at top left */}
+      <div className="ticket-project-id-group" style={{
+        position: 'absolute',
+        top: 8,
+        left: 8,
+        zIndex: 10,
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: '4px'
+        gap: '8px',
       }}>
-        <div className="ticket-project-id-group" style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}>
-          <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: '500' }}>#{ticket.ticket_id}</span>
-        </div>
-        {/* Tag badge */}
-        {ticket.tag && (
-          <div className="ticket-tag-badge" data-tag={ticket.tag} style={{ position: 'relative', top: 'auto', right: 'auto' }}>
-            {ticket.tag}
-          </div>
-        )}
+        {projectName && <span className="ticket-project-label">{projectName}</span>}
+        <span className="ticket-id-custom">{ticket.ticket_id}</span>
       </div>
+      {/* Tag badge at top right */}
+      {ticket.tag && (
+        <div className="ticket-tag-badge" data-tag={ticket.tag}>{ticket.tag}</div>
+      )}
       {/* Title at the top with proper spacing for top elements */}
-      <div className="ticket-title jira-title-multiline">{ticket.title}</div>
+      <div className="ticket-title jira-title-multiline" style={{ marginTop: '10px' }}>{ticket.title}</div>
       {/* Show creator name below title, keep all other UI unchanged */}
       <div className="jira-assignee-name">{ticket.creator_name || 'Unknown'}</div>
       {/* Group due date, created date and priority together for minimal gap */}
@@ -942,16 +824,9 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6px', width: '100%' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            padding: '2px 8px',
-            backgroundColor: ticket.priority === 'High' ? '#fee2e2' : ticket.priority === 'Medium' ? '#fef3c7' : '#dcfce7',
-            borderRadius: '12px'
-          }}>
-            <span style={{ color: ticket.priority === 'High' ? '#ef4444' : ticket.priority === 'Medium' ? '#f59e0b' : '#22c55e', fontSize: '10px' }}>●</span>
-            <span style={{ fontWeight: 600, color: ticket.priority === 'High' ? '#b91c1c' : ticket.priority === 'Medium' ? '#b45309' : '#15803d', fontSize: '0.75rem' }}>{ticket.priority}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ color: ticket.priority === 'High' ? '#e74c3c' : ticket.priority === 'Medium' ? '#f39c12' : '#27ae60', fontSize: '18px', marginRight: '4px' }}>●</span>
+            <span style={{ fontWeight: 500, color: '#222', fontSize: '1rem' }}>{ticket.priority}</span>
           </div>
           <div className="avatar-container" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '4px' }}>
             {/* Assignee Avatar */}
@@ -980,24 +855,7 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
           </div>
         </div>
       </div>
-      {/* Project name band at the bottom */}
-      {projectName && (
-        <div style={{
-          backgroundColor: '#f3f4f6',
-          color: '#000000',
-          fontSize: '0.75rem',
-          fontWeight: '600',
-          textAlign: 'center',
-          padding: '6px',
-          marginTop: 'auto',
-          marginLeft: '-1rem',
-          marginRight: '-1rem',
-          marginBottom: '-1rem',
-          borderTop: '1px solid #e2e8f0'
-        }}>
-          {projectName}
-        </div>
-      )}
+      {/* Remove the bottom row since avatar is now in the priority row */}
     </div>
   );
 };
@@ -1377,23 +1235,15 @@ const ProjectListDrawer = ({ isOpen, onClose, onProjectUpdated }) => {
 };
 
 const DashBoard = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
-  const [editingTicket, setEditingTicket] = useState(location.state?.returnToTicket || null);
+  const [editingTicket, setEditingTicket] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
   const { username } = useParams();
   const { currentUser, forceRefreshUser } = useUser();
   const [tickets, setTickets] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('search') || localStorage.getItem('dashboardSearchTerm') || '';
-  });
-  const [searchInputVal, setSearchInputVal] = useState(searchTerm);
-
-  useEffect(() => {
-    setSearchInputVal(searchTerm);
-  }, [searchTerm]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
     priority: '',
     assignee: '',
@@ -1532,36 +1382,21 @@ const DashBoard = () => {
 
   // Force refresh user data on mount to ensure role is loaded
   useEffect(() => {
-    let shouldNavigate = false;
-    let navOptions = { replace: true };
-    let targetUrl = location.pathname + location.search;
-
-    if (location.state?.returnToTicket) {
-      // Clear the state so it doesn't reopen on refresh
-      const newState = { ...location.state };
-      delete newState.returnToTicket;
-      navOptions.state = newState;
-      shouldNavigate = true;
+    const userId = localStorage.getItem('userId');
+    if (userId && (!currentUser || !currentUser.role)) {
+      forceRefreshUser();
     }
+  }, [currentUser, forceRefreshUser]);
 
+  useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (!params.toString() && localStorage.getItem('dashboardFilters')) {
       const storedFilters = JSON.parse(localStorage.getItem('dashboardFilters'));
       const storedSearch = localStorage.getItem('dashboardSearchTerm') || '';
       const urlParams = new URLSearchParams({ ...storedFilters, search: storedSearch }).toString();
-      targetUrl = `/dashboard?${urlParams}`;
-      shouldNavigate = true;
+      navigate(`/dashboard?${urlParams}`);
     }
-
-    if (shouldNavigate) {
-      navigate(targetUrl, navOptions);
-    }
-
-    const userId = localStorage.getItem('userId');
-    if (userId && (!currentUser || !currentUser.role)) {
-      forceRefreshUser();
-    }
-  }, [currentUser, forceRefreshUser, location.pathname, location.search, location.state, navigate]);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -1572,7 +1407,6 @@ const DashBoard = () => {
     const tag = params.get('tag') || ''; // Get tag from URL params
     const requestor = params.get('requestor') || ''; // Get requestor from URL params
     const approver = params.get('approver') || ''; // Get approver from URL params
-    const searchParam = params.get('search') || '';
 
     // Clear assignee filter if it's not a valid ID (contains non-numeric characters)
     if (assignee && !/^\d+$/.test(assignee)) {
@@ -1580,16 +1414,9 @@ const DashBoard = () => {
       assignee = '';
     }
 
-    console.log('🔗 URL params loaded:', { priority, assignee, label_name, project_id, tag, requestor, approver, search: searchParam });
+    console.log('🔗 URL params loaded:', { priority, assignee, label_name, project_id, tag, requestor, approver });
 
     setFilters({ priority, assignee, label_name, project_id, tag, requestor, approver });
-
-    setSearchTerm(prev => {
-      if (prev.toLowerCase() !== searchParam.toLowerCase()) {
-        return searchParam;
-      }
-      return prev;
-    });
   }, [location.search]);
 
   useEffect(() => {
@@ -1599,20 +1426,6 @@ const DashBoard = () => {
   useEffect(() => {
     localStorage.setItem('dashboardSearchTerm', searchTerm);
   }, [searchTerm]);
-
-  // Sync URL search parameter with searchTerm
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const currentSearch = params.get('search') || '';
-    if (currentSearch.toLowerCase() !== searchTerm.toLowerCase()) {
-      if (searchTerm) {
-        params.set('search', searchTerm);
-      } else {
-        params.delete('search');
-      }
-      navigate(`/dashboard?${params.toString()}`, { replace: true });
-    }
-  }, [searchTerm, navigate]);
 
   // Load tickets automatically whenever filters or search term changes
   useEffect(() => {
@@ -1857,13 +1670,9 @@ const DashBoard = () => {
   }, [filters.project_id, projectUsers, filters.assignee]);
 
   const handleSearch = (e) => {
-    setSearchInputVal(e.target.value);
-  };
-
-  const handleSearchKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      setSearchTerm(searchInputVal.trim().toLowerCase());
-    }
+    setSearchTerm(e.target.value.toLowerCase());
+    const params = new URLSearchParams({ ...filters, search: e.target.value.toLowerCase() }).toString();
+    navigate(`/dashboard?${params}`);
   };
 
   const filterTickets = useMemo(() => {
@@ -2167,46 +1976,50 @@ const DashBoard = () => {
     }
   };
 
-  const renderAssigneeDropdown = () => {
-    const isProjectScoped = filters.project_id && filters.project_id !== 'all';
-    let scopedAssignees = [];
+  const renderAssigneeDropdown = () => (
+    (() => {
+      const isProjectScoped = filters.project_id && filters.project_id !== 'all';
+      let scopedAssignees = [];
 
-    if (isAdmin && !isProjectScoped) {
-      scopedAssignees = assignees;
-    } else {
-      // Filter by the specific project or all assigned projects
-      scopedAssignees = assignees.filter(a => {
-        if (!a.project_ids || a.project_ids.length === 0) return false;
-        if (isProjectScoped) {
-          return a.project_ids.includes(String(filters.project_id));
-        } else {
+      if (isProjectScoped && projectUsers.length > 0) {
+        scopedAssignees = projectUsers.map((u) => ({
+          id: u.id,
+          name: u.username || u.display_name || u.email || u.name || 'Unknown User'
+        })).filter((u) => u.id !== undefined && u.id !== null);
+      } else if (!isAdmin && assignedProjectIds.length > 0) {
+        // If "All Projects" and not admin, filter global assignees list by those who belong to ANY of the user's assigned projects
+        scopedAssignees = assignees.filter(a => {
+          if (!a.project_ids || a.project_ids.length === 0) return false;
           return a.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
+        });
+
+        // Final fallback: if filtering by project results in zero users, but there are tickets, 
+        // at least show users who appear in the tickets to avoid a blank dropdown.
+        if (scopedAssignees.length === 0 && tickets.length > 0) {
+          const ticketUserIds = new Set(tickets.map(t => String(t.assignee_id)));
+          scopedAssignees = assignees.filter(a => ticketUserIds.has(String(a.id)));
         }
-      });
-
-      // Fallback: if list is empty but tickets exist, show users present in those tickets
-      if (scopedAssignees.length === 0 && tickets.length > 0) {
-        const ticketUserIds = new Set(tickets.map(t => String(t.assignee_id)));
-        scopedAssignees = assignees.filter(a => ticketUserIds.has(String(a.id)));
+      } else {
+        scopedAssignees = assignees;
       }
-    }
 
-    const assigneeOptions = [
-      { value: '', label: 'All Assignees', triggerLabel: 'Assignees', className: 'is-default' },
-      ...scopedAssignees.map(assignee => ({ value: String(assignee.id), label: assignee.name }))
-    ];
-
-    return (
-      <CustomSelect
-        options={assigneeOptions}
-        value={filters.assignee}
-        onChange={(val) => handleFilterChange({ ...filters, assignee: val })}
-        placeholder="Assignees"
-        icon={<FaUser />}
-        searchable={true}
-      />
-    );
-  };
+      return (
+        <select
+          className="filter-select"
+          name="assignee"
+          value={filters.assignee}
+          onChange={(e) => handleFilterChange({ ...filters, assignee: e.target.value })}
+        >
+          <option value="">All Assignees</option>
+          {scopedAssignees.map((assignee) => (
+            <option key={assignee.id} value={assignee.id}>
+              {assignee.name}
+            </option>
+          ))}
+        </select>
+      );
+    })()
+  );
 
   const restoreTicket = async (ticketId) => {
     try {
@@ -2555,41 +2368,6 @@ const DashBoard = () => {
     return Array.from(new Set(filteredLabels.map(l => l.label_name).filter(Boolean)));
   }, [labels, filters.project_id, assignedProjectIds, isAdmin]);
 
-  const adminOptions = useMemo(() => {
-    const opts = [];
-    if (isAdmin) {
-      opts.push({ value: 'add_bucket', label: 'Add Bucket' });
-      opts.push({ value: 'add_project', label: 'Add Project' });
-    }
-    if (isAdmin || isSuperuser) {
-      opts.push({ value: 'add_users', label: 'Add Users' });
-    }
-    if (isAdmin) {
-      opts.push({
-        value: 'deleted_tickets',
-        label: (
-          <span style={{ display: 'flex', alignItems: 'center', gap: '6px', width: '100%', fontStyle: 'normal' }}>
-            {showDeletedTickets && <FaCheck style={{ fontSize: '0.85em', color: '#5e145e', flexShrink: 0 }} />}
-            {showDeletedTickets ? 'Hide Deleted' : 'Deleted Tickets'}
-          </span>
-        )
-      });
-    }
-    return opts;
-  }, [isAdmin, isSuperuser, showDeletedTickets]);
-
-  const handleAdminActionChange = (action) => {
-    if (action === 'add_bucket') {
-      setShowAddStatusModal(true);
-    } else if (action === 'add_project') {
-      setShowAddProjectModal(true);
-    } else if (action === 'add_users') {
-      setShowAddUsersModal(true);
-    } else if (action === 'deleted_tickets') {
-      setShowDeletedTickets(!showDeletedTickets);
-    }
-  };
-
   return (
     <div className="dashboard-container">
       <DashboardSidebar open={sidebarOpen} setOpen={setSidebarOpen} />
@@ -2606,11 +2384,8 @@ const DashBoard = () => {
             </button>
           </div>
 
-          {isLoading && (
-            <div className="loading-overlay">
-              <div className="loading-spinner" />
-            </div>
-          )}
+          {/* Loading overlay spinner removed */}
+
 
           {error && (
             <></>
@@ -2621,20 +2396,15 @@ const DashBoard = () => {
               <div className="main-header">
                 {/* Header and Filters Combined */}
                 <div className="main-header-row">
-                  <div className="header-actions" style={{ order: 2, marginLeft: '20px' }}>
+                  <div className="header-actions" style={{ order: 2, marginLeft: 'auto' }}>
                     <div className="search-wrapper">
-                      <FaSearch
-                        className="search-icon"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => setSearchTerm(searchInputVal.trim().toLowerCase())}
-                      />
+                      <FaSearch className="search-icon" />
                       <input
                         type="text"
                         className="search-input"
                         placeholder="Search Tickets"
-                        value={searchInputVal}
+                        value={searchTerm}
                         onChange={handleSearch}
-                        onKeyDown={handleSearchKeyDown}
                       />
                     </div>
 
@@ -2644,148 +2414,188 @@ const DashBoard = () => {
                     >
                       Create Ticket
                     </button>
+                    {isAdmin && (
+                      <>
+                        <button
+                          className="add-status-btn dashboard-action-btn"
+                          onClick={() => setShowAddStatusModal(true)}
+                          title="Add a new bucket"
+                          style={{ textAlign: 'center' }}
+                        >
+                          Add Bucket
+                        </button>
+                        <button
+                          className="add-status-btn dashboard-action-btn"
+                          onClick={() => setShowAddProjectModal(true)}
+                          title="Add a new project"
+                          style={{ textAlign: 'center' }}
+                        >
+                          Add Project
+                        </button>
+                      </>
+                    )}
+
                     {(isAdmin || isSuperuser) && (
-                      <CustomSelect
-                        options={adminOptions}
-                        value=""
-                        onChange={handleAdminActionChange}
-                        placeholder="Admin Panel"
-                        icon={<FaCog />}
-                        hAlign="right"
-                      />
+                      <button
+                        className="add-status-btn dashboard-action-btn"
+                        onClick={() => setShowAddUsersModal(true)}
+                        title="Add users to projects"
+                        style={{ textAlign: 'center' }}
+                      >
+                        Add Users
+                      </button>
+                    )}
+
+                    {isAdmin && (
+                      <button
+                        className={`view-deleted-btn dashboard-action-btn ${showDeletedTickets ? 'active' : ''}`}
+                        onClick={() => setShowDeletedTickets(!showDeletedTickets)}
+                        title={showDeletedTickets ? 'Hide Deleted' : 'Deleted Tickets'}
+                        style={{ textAlign: 'center', justifyContent: 'center' }}
+                      >
+                        {showDeletedTickets ? 'Hide Deleted' : 'Deleted Tickets'}
+                      </button>
                     )}
                   </div>
                   <div className="filter-group" style={{ order: 1 }}>
-                    {/* Projects Filter */}
-                    <CustomSelect
-                      options={[
-                        { value: 'all', label: 'All Projects', triggerLabel: 'Projects', className: 'is-default' },
-                        ...visibleProjects.map(project => ({ value: String(project.id), label: project.name }))
-                      ]}
-                      value={filters.project_id}
-                      onChange={(val) => handleFilterChange({ ...filters, project_id: val })}
-                      placeholder="Projects"
-                      icon={<FaFolderOpen />}
-                      searchable={true}
-                    />
+                    <div className="filter-item-wrapper">
+                      <FaFolderOpen className="filter-icon" />
+                      <select
+                        value={filters.project_id}
+                        onChange={(e) => handleFilterChange({ ...filters, project_id: e.target.value })}
+                        className="filter-select"
+                      >
+                        <option value="all">{isAdmin ? 'All Projects' : 'All My Projects'}</option>
+                        {visibleProjects.map(project => (
+                          <option key={project.id} value={project.id}>
+                            {project.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                    {/* Assignee Filter */}
-                    {renderAssigneeDropdown()}
+                    <div className="filter-item-wrapper">
+                      <FaUser className="filter-icon" />
+                      {renderAssigneeDropdown()}
+                    </div>
 
-                    {/* Requestors Filter */}
-                    {(() => {
-                      const isProjectScoped = filters.project_id && filters.project_id !== 'all';
-                      let scopedCreators = [];
+                    <div className="filter-item-wrapper">
+                      <FaUserCheck className="filter-icon" />
+                      <select
+                        className="filter-select"
+                        name="approver"
+                        value={filters.approver}
+                        onChange={(e) => handleFilterChange({ ...filters, approver: e.target.value })}
+                      >
+                        <option value="">All Approvers</option>
+                        {(() => {
+                          const isProjectScoped = filters.project_id && filters.project_id !== 'all';
+                          let scopedApprovers = [];
 
-                      if (isAdmin && !isProjectScoped) {
-                        scopedCreators = creators;
-                      } else {
-                        scopedCreators = creators.filter(c => {
-                          if (!c.project_ids || c.project_ids.length === 0) return false;
-                          if (isProjectScoped) {
-                            return c.project_ids.includes(String(filters.project_id));
+                          if (isProjectScoped && projectUsers.length > 0) {
+                            scopedApprovers = approvers.filter(a => projectUsers.some(u => (u.username === a.username || u.name === a.username)));
+                          } else if (!isAdmin) {
+                            // Filter approvers by user's assigned projects
+                            scopedApprovers = approvers.filter(a =>
+                              a.project_ids && a.project_ids.some(pid => assignedProjectIds.includes(String(pid)))
+                            );
                           } else {
-                            return c.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
+                            scopedApprovers = approvers;
                           }
-                        });
 
-                        if (scopedCreators.length === 0 && tickets.length > 0) {
-                          const ticketCreatorNames = new Set(tickets.map(t => t.creator_name));
-                          scopedCreators = creators.filter(c => ticketCreatorNames.has(c.name));
-                        }
-                      }
+                          return scopedApprovers.map(a => (
+                            <option key={a.username} value={a.username}>
+                              {a.username}
+                            </option>
+                          ));
+                        })()}
+                      </select>
+                    </div>
 
-                      const requestorOptions = [
-                        { value: '', label: 'All Requestors', triggerLabel: 'Requestors', className: 'is-default' },
-                        ...(scopedCreators || []).map(creator => ({ value: String(creator.id), label: creator.name }))
-                      ];
+                    <div className="filter-item-wrapper">
+                      <FaExclamationCircle className="filter-icon" />
+                      <select
+                        className="filter-select"
+                        name="priority"
+                        value={filters.priority}
+                        onChange={(e) => handleFilterChange({ ...filters, priority: e.target.value })}
+                      >
+                        <option value="">All Priority</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                      </select>
+                    </div>
 
-                      return (
-                        <CustomSelect
-                          options={requestorOptions}
-                          value={filters.requestor}
-                          onChange={(val) => handleFilterChange({ ...filters, requestor: val })}
-                          placeholder="Requestors"
-                          icon={<FaUser />}
-                          searchable={true}
-                        />
-                      );
-                    })()}
+                    <div className="filter-item-wrapper">
+                      <FaTag className="filter-icon" />
+                      <select
+                        className="filter-select"
+                        name="label_name"
+                        value={filters.label_name}
+                        onChange={(e) => handleFilterChange({ ...filters, label_name: e.target.value })}
+                      >
+                        <option value="">All Labels</option>
+                        {uniqueLabelNames.map(labelName => (
+                          <option key={labelName} value={labelName}>{labelName}</option>
+                        ))}
+                      </select>
+                    </div>
 
-                    {/* Approver Filter */}
-                    {(() => {
-                      const isProjectScoped = filters.project_id && filters.project_id !== 'all';
-                      let scopedApprovers = [];
+                    <div className="filter-item-wrapper">
+                      <FaTag className="filter-icon" />
+                      <select
+                        className="filter-select"
+                        name="tag"
+                        value={filters.tag || ''}
+                        onChange={(e) => handleFilterChange({ ...filters, tag: e.target.value })}
+                      >
+                        <option value="">All Tags</option>
+                        <option value="Tasks">Tasks</option>
+                        <option value="Bug">Bug</option>
+                        <option value="Research">Research</option>
+                      </select>
+                    </div>
 
-                      if (isAdmin && !isProjectScoped) {
-                        scopedApprovers = approvers;
-                      } else {
-                        scopedApprovers = approvers.filter(a => {
-                          if (!a.project_ids || a.project_ids.length === 0) return false;
-                          if (isProjectScoped) {
-                            return a.project_ids.includes(String(filters.project_id));
+                    <div className="filter-item-wrapper">
+                      <FaUser className="filter-icon" />
+                      <select
+                        className="filter-select"
+                        name="requestor"
+                        value={filters.requestor}
+                        onChange={(e) => handleFilterChange({ ...filters, requestor: e.target.value })}
+                      >
+                        <option value="">All Requestors</option>
+                        {(() => {
+                          const isProjectScoped = filters.project_id && filters.project_id !== 'all';
+                          let scopedCreators = [];
+
+                          if (isProjectScoped && projectUsers.length > 0) {
+                            scopedCreators = creators.filter(c => projectUsers.some(u => String(u.id) === String(c.id)));
+                          } else if (!isAdmin && assignedProjectIds.length > 0) {
+                            // Filter creators by user's assigned projects
+                            scopedCreators = creators.filter(c => {
+                              if (!c.project_ids || c.project_ids.length === 0) return false;
+                              return c.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
+                            });
+
+                            // Fallback to ticket creators if list is empty
+                            if (scopedCreators.length === 0 && tickets.length > 0) {
+                              const ticketCreatorNames = new Set(tickets.map(t => t.creator_name));
+                              scopedCreators = creators.filter(c => ticketCreatorNames.has(c.name));
+                            }
                           } else {
-                            return a.project_ids.some(pid => assignedProjectIds.includes(String(pid)));
+                            scopedCreators = creators;
                           }
-                        });
-                      }
 
-                      const approverOptions = [
-                        { value: '', label: 'All Approvers', triggerLabel: 'Approvers', className: 'is-default' },
-                        ...scopedApprovers.map(a => ({ value: a.username, label: a.username }))
-                      ];
-
-                      return (
-                        <CustomSelect
-                          options={approverOptions}
-                          value={filters.approver}
-                          onChange={(val) => handleFilterChange({ ...filters, approver: val })}
-                          placeholder="Approvers"
-                          icon={<FaUserCheck />}
-                          searchable={true}
-                        />
-                      );
-                    })()}
-
-                    {/* Priority Filter */}
-                    <CustomSelect
-                      options={[
-                        { value: '', label: 'All Priorities', triggerLabel: 'Priority', className: 'is-default' },
-                        { value: 'High', label: 'High' },
-                        { value: 'Medium', label: 'Medium' },
-                        { value: 'Low', label: 'Low' }
-                      ]}
-                      value={filters.priority}
-                      onChange={(val) => handleFilterChange({ ...filters, priority: val })}
-                      placeholder="Priority"
-                      icon={<FaExclamationCircle />}
-                    />
-
-                    {/* Tags Filter */}
-                    <CustomSelect
-                      options={[
-                        { value: '', label: 'All Tags', triggerLabel: 'Tags', className: 'is-default' },
-                        { value: 'Tasks', label: 'Tasks' },
-                        { value: 'Bug', label: 'Bug' },
-                        { value: 'Research', label: 'Research' }
-                      ]}
-                      value={filters.tag || ''}
-                      onChange={(val) => handleFilterChange({ ...filters, tag: val })}
-                      placeholder="Tags"
-                      icon={<FaTag />}
-                    />
-
-                    {/* Labels Filter */}
-                    <CustomSelect
-                      options={[
-                        { value: '', label: 'All Labels', triggerLabel: 'Labels', className: 'is-default' },
-                        ...uniqueLabelNames.map(labelName => ({ value: labelName, label: labelName }))
-                      ]}
-                      value={filters.label_name}
-                      onChange={(val) => handleFilterChange({ ...filters, label_name: val })}
-                      placeholder="Labels"
-                      icon={<FaTag />}
-                    />
+                          return (scopedCreators || []).map(creator => (
+                            <option key={creator.id} value={creator.id}>
+                              {creator.name}
+                            </option>
+                          ));
+                        })()}
+                      </select>
+                    </div>
 
                   </div>
                 </div>
@@ -2795,84 +2605,64 @@ const DashBoard = () => {
             <div className="scrollable-section">
               {showDeletedTickets ? (
                 <div className="modal-overlay">
-                  <div className="jira-create-ticket-card single-card-centered" style={{ maxWidth: '800px', minHeight: '400px', maxHeight: '80vh' }}>
-                    <button className="close-btn" onClick={() => setShowDeletedTickets(false)} title="Close">×</button>
-                    <div className="jira-create-main" style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-                      <div className="jira-form-header">
-                        <div className="header-icon-box" style={{ backgroundColor: '#ffe4e6', color: '#ef4444' }}><FaTrashAlt /></div>
-                        <div>
-                          <h2>Deleted Tickets</h2>
-                          <p className="form-subtitle">Manage recently deleted tickets. You can restore them or permanently delete them.</p>
-                        </div>
-                      </div>
-                      <div className="deleted-tickets-list-modal" style={{ flex: 1, overflowY: 'auto', paddingRight: '4px', marginTop: '1rem' }}>
-                        {tickets
-                          .filter(ticket => ticket.status === DELETED_STATUS)
-                          .map(ticket => (
-                            <div
-                              key={ticket.ticket_id}
-                              className="deleted-ticket-item-modal"
-                              style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                padding: '12px 16px',
-                                border: '1px solid #e2e8f0',
-                                borderRadius: '8px',
-                                marginBottom: '8px',
-                                background: '#f8fafc'
-                              }}
-                            >
-                              <div className="deleted-ticket-info-modal">
-                                <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#1f2937', marginBottom: '4px' }}>{ticket.title}</h3>
-                                <div className="deleted-ticket-meta-modal" style={{ display: 'flex', gap: '16px', fontSize: '0.8rem', color: '#64748b' }}>
-                                  <span>Priority: {ticket.priority}</span>
-                                  <span>
-                                    Deleted on: {ticket.deleted_at
-                                      ? (isNaN(Date.parse(ticket.deleted_at))
-                                        ? ticket.deleted_at
-                                        : new Date(ticket.deleted_at).toLocaleString())
-                                      : 'N/A'}
-                                  </span>
-                                </div>
-                              </div>
-                              <div className="deleted-ticket-actions-modal" style={{ display: 'flex', gap: '8px' }}>
-                                <button
-                                  className="jira-submit-btn"
-                                  onClick={() => restoreTicket(ticket.ticket_id)}
-                                  style={{ height: '32px', minWidth: '90px', maxWidth: '100px', fontSize: '12px' }}
-                                >
-                                  Restore
-                                </button>
-                                <button
-                                  className="jira-cancel-btn"
-                                  onClick={() => {
-                                    if (window.confirm('Are you sure you want to permanently delete this ticket? This action cannot be undone.')) {
-                                      deleteTicketPermanently(ticket.ticket_id);
-                                    }
-                                  }}
-                                  style={{
-                                    height: '32px',
-                                    minWidth: '130px',
-                                    maxWidth: '140px',
-                                    fontSize: '12px',
-                                    color: '#ef4444',
-                                    borderColor: '#fca5a5',
-                                    backgroundColor: '#fff',
-                                    marginTop: 0
-                                  }}
-                                >
-                                  Delete Permanently
-                                </button>
+                  <div className="deleted-tickets-modal">
+                    <div className="deleted-tickets-header">
+                      <h2>Deleted Tickets</h2>
+                      <button
+                        className="close-btn"
+                        onClick={() => setShowDeletedTickets(false)}
+                      >
+                        ×
+                      </button>
+                    </div>
+                    <div className="deleted-tickets-list-modal">
+                      {tickets
+                        .filter(ticket => ticket.status === DELETED_STATUS)
+                        .map(ticket => (
+                          <div
+                            key={ticket.ticket_id}
+                            className="deleted-ticket-item-modal"
+                          >
+                            <div className="deleted-ticket-info-modal">
+                              <h3>{ticket.title}</h3>
+                              <div className="deleted-ticket-meta-modal">
+                                <span>Priority: {ticket.priority}</span>
+                                <span>
+                                  Deleted on: {ticket.deleted_at
+                                    ? (isNaN(Date.parse(ticket.deleted_at))
+                                      ? ticket.deleted_at
+                                      : new Date(ticket.deleted_at).toLocaleString())
+                                    : 'N/A'}
+                                </span>
                               </div>
                             </div>
-                          ))}
-                        {tickets.filter(ticket => ticket.status === DELETED_STATUS).length === 0 && (
-                          <div className="no-deleted-tickets-modal" style={{ textAlign: 'center', padding: '40px 0', color: '#64748b' }}>
-                            No deleted tickets found
+                            <div className="deleted-ticket-actions-modal" style={{ display: 'flex', gap: '0.7rem', justifyContent: 'center', alignItems: 'center' }}>
+                              <button
+                                className="restore-btn"
+                                onClick={() => restoreTicket(ticket.ticket_id)}
+                                style={{ minWidth: '110px' }}
+                              >
+                                Restore
+                              </button>
+                              <button
+                                className="delete-btn"
+                                style={{ minWidth: '110px' }}
+                                onClick={() => {
+                                  if (window.confirm('Are you sure you want to permanently delete this ticket? This action cannot be undone.')) {
+                                    deleteTicketPermanently(ticket.ticket_id);
+                                  }
+                                }}
+                              >
+                                Delete Permanently
+                              </button>
+                            </div>
                           </div>
-                        )}
-                      </div>
+                        ))}
+                      {tickets.filter(ticket => ticket.status === DELETED_STATUS).length === 0 && (
+                        <div className="no-deleted-tickets-modal">
+                          No deleted tickets found
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -2918,7 +2708,6 @@ const DashBoard = () => {
         <EditTicket
           isModal={true}
           ticketId={editingTicket.id}
-          initialTicketData={editingTicket}
           onClose={() => setEditingTicket(null)}
           onSave={async () => {
             await loadTickets();
