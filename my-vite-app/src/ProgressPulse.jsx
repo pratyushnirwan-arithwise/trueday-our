@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import DashboardSidebar from './components/DashboardSidebar';
-import { Search, Check, Save, MessageSquare } from "lucide-react";
+import CustomSelect from './components/CustomSelect';
+import { Search, Check, Save, MessageSquare, FolderOpen, Activity, Users } from "lucide-react";
 import { FaBars } from 'react-icons/fa';
 import { useUser } from './contexts/UserContext';
 import './Progresspulse.css';
@@ -320,20 +321,42 @@ export default function ProgressPulse() {
             </div>
 
             <div className="pp-filter-row">
-              <select className="pp-filter-select" value={fProj} onChange={e => setFProj(e.target.value)}>
-                <option value="all">All Projects</option>
-                {PROJS.map(p => <option key={p} value={p}>{p}</option>)}
-              </select>
+              <CustomSelect
+                options={[
+                  { value: 'all', label: 'All Projects', triggerLabel: 'Projects', className: 'is-default' },
+                  ...PROJS.map(p => ({ value: p, label: p }))
+                ]}
+                value={fProj}
+                onChange={val => setFProj(val)}
+                placeholder="Projects"
+                icon={<FolderOpen size={14} />}
+                searchable={true}
+              />
 
-              <select className="pp-filter-select" value={fSt} onChange={e => setFSt(e.target.value)}>
-                <option value="all">All Status</option>
-                {STATS.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
+              <CustomSelect
+                options={[
+                  { value: 'all', label: 'All Statuses', triggerLabel: 'Status', className: 'is-default' },
+                  ...STATS.map(s => ({ value: s, label: s }))
+                ]}
+                value={fSt}
+                onChange={val => setFSt(val)}
+                placeholder="Status"
+                icon={<Activity size={14} />}
+              />
 
-              <select className="pp-filter-select" style={{ display: window.innerWidth > 640 ? 'block' : 'none' }} value={fUser} onChange={e => setFUser(e.target.value)}>
-                <option value="all">All Assignees</option>
-                {users.map(u => <option key={u.id} value={String(u.id)}>{u.username}</option>)}
-              </select>
+              {isAdmin && (
+                <CustomSelect
+                  options={[
+                    { value: 'all', label: 'All Assignees', triggerLabel: 'Assignees', className: 'is-default' },
+                    ...users.map(u => ({ value: String(u.id), label: u.username }))
+                  ]}
+                  value={fUser}
+                  onChange={val => setFUser(val)}
+                  placeholder="Assignees"
+                  icon={<Users size={14} />}
+                  searchable={true}
+                />
+              )}
             </div>
           </div>
 

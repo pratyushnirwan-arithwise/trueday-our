@@ -216,7 +216,8 @@ def create_notification(cursor, user_id, title, message, notification_type, rela
         logger.info(f"Notification created for user {user_id}: {title}")
         announce_notification(user_id)
     except Exception as e:
-        logger.error(f"Error creating notification: {e}")
+        logger.error(f"Error creating notification for user_id={user_id}: {e}")
+        print(f"!! NOTIFICATION ERROR for user_id={user_id}: {e}")
 
 # # Test route to check if the app is running
 @app.route('/test', methods=['GET'])
@@ -980,9 +981,14 @@ def update_ticket(ticket_id):
         # 2. Status change notifications
         if status_changed:
             msg = f'{current_username} moved ticket \'{ticket_title}\' from {old_status} to {new_status}'
-            # Notify assignee
             notify_assignee_id = new_assignee_id or old_assignee_id
-            if notify_assignee_id and str(notify_assignee_id) != str(current_user_id):
+            approver_id_val = _col(current_ticket, 'approver_id', 9)
+            collaborator_id_val = _col(current_ticket, 'collaborator_id', 8)
+            notified_ids = {str(current_user_id)}
+            print(f"DEBUG BLOCK1 NOTIF: assignee={notify_assignee_id}, creator={creator_id}, approver={approver_id_val}, collaborator={collaborator_id_val}, current_user={current_user_id}")
+
+            # Notify assignee
+            if notify_assignee_id and str(notify_assignee_id) not in notified_ids:
                 create_notification(
                     cursor,
                     notify_assignee_id,
@@ -992,8 +998,9 @@ def update_ticket(ticket_id):
                     ticket_id,
                     data.get('priority', 'Medium')
                 )
+                notified_ids.add(str(notify_assignee_id))
             # Notify creator
-            if creator_id and str(creator_id) != str(current_user_id) and str(creator_id) != str(notify_assignee_id):
+            if creator_id and str(creator_id) not in notified_ids:
                 create_notification(
                     cursor,
                     creator_id,
@@ -1003,6 +1010,31 @@ def update_ticket(ticket_id):
                     ticket_id,
                     data.get('priority', 'Medium')
                 )
+                notified_ids.add(str(creator_id))
+            # Notify approver
+            if approver_id_val and str(approver_id_val) not in notified_ids:
+                create_notification(
+                    cursor,
+                    approver_id_val,
+                    "Ticket Moved",
+                    msg,
+                    "status_change",
+                    ticket_id,
+                    data.get('priority', 'Medium')
+                )
+                notified_ids.add(str(approver_id_val))
+            # Notify collaborator
+            if collaborator_id_val and str(collaborator_id_val) not in notified_ids:
+                create_notification(
+                    cursor,
+                    collaborator_id_val,
+                    "Ticket Moved",
+                    msg,
+                    "status_change",
+                    ticket_id,
+                    data.get('priority', 'Medium')
+                )
+                notified_ids.add(str(collaborator_id_val))
         
         # Record status change in history if needed
         status_changed = str(_col(current_ticket, 'status', 5)) != str(data.get('status'))
@@ -4637,7 +4669,7 @@ def update_ticket_status(ticket_id):
         cursor = conn.cursor()
 
         # Get the current status and ticket details before updating
-        cursor.execute("SELECT status, approver_id, assignee_id, creator_id, title FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
+        cursor.execute("SELECT status, approver_id, assignee_id, creator_id, title, collaborator_id FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
         current_ticket = cursor.fetchone()
         if not current_ticket:
             return jsonify({"error": "Ticket not found"}), 404
@@ -4649,12 +4681,14 @@ def update_ticket_status(ticket_id):
             ticket_assignee_id = current_ticket.get('assignee_id')
             ticket_creator_id = current_ticket.get('creator_id')
             ticket_title = current_ticket.get('title')
+            ticket_collaborator_id = current_ticket.get('collaborator_id')
         else:
             old_status = current_ticket[0]
             ticket_approver_id = current_ticket[1]
             ticket_assignee_id = current_ticket[2]
             ticket_creator_id = current_ticket[3]
             ticket_title = current_ticket[4]
+            ticket_collaborator_id = current_ticket[5] if len(current_ticket) > 5 else None
 
         # Get user role
         user_role = 'user'
@@ -4720,8 +4754,11 @@ def update_ticket_status(ticket_id):
 
                 # Trigger status change notifications
                 msg = f'{current_username} moved ticket \'{ticket_title}\' from {old_status} to {new_status}'
+                notified_ids_2 = {str(current_user_id)}
+                print(f"DEBUG NOTIF: assignee={ticket_assignee_id}, creator={ticket_creator_id}, approver={ticket_approver_id}, collaborator={ticket_collaborator_id}, current_user={current_user_id}")
+
                 # Notify assignee
-                if ticket_assignee_id and str(ticket_assignee_id) != str(current_user_id):
+                if ticket_assignee_id and str(ticket_assignee_id) not in notified_ids_2:
                     create_notification(
                         cursor,
                         ticket_assignee_id,
@@ -4730,8 +4767,9 @@ def update_ticket_status(ticket_id):
                         "status_change",
                         ticket_id
                     )
+                    notified_ids_2.add(str(ticket_assignee_id))
                 # Notify creator
-                if ticket_creator_id and str(ticket_creator_id) != str(current_user_id) and str(ticket_creator_id) != str(ticket_assignee_id):
+                if ticket_creator_id and str(ticket_creator_id) not in notified_ids_2:
                     create_notification(
                         cursor,
                         ticket_creator_id,
@@ -4740,6 +4778,29 @@ def update_ticket_status(ticket_id):
                         "status_change",
                         ticket_id
                     )
+                    notified_ids_2.add(str(ticket_creator_id))
+                # Notify approver
+                if ticket_approver_id and str(ticket_approver_id) not in notified_ids_2:
+                    create_notification(
+                        cursor,
+                        ticket_approver_id,
+                        "Ticket Moved",
+                        msg,
+                        "status_change",
+                        ticket_id
+                    )
+                    notified_ids_2.add(str(ticket_approver_id))
+                # Notify collaborator
+                if ticket_collaborator_id and str(ticket_collaborator_id) not in notified_ids_2:
+                    create_notification(
+                        cursor,
+                        ticket_collaborator_id,
+                        "Ticket Moved",
+                        msg,
+                        "status_change",
+                        ticket_id
+                    )
+                    notified_ids_2.add(str(ticket_collaborator_id))
             except Exception as e:
                 print(f"DEBUG: Error inserting history record: {e}")
                 conn.rollback()
@@ -5358,7 +5419,13 @@ def validate_jwt_endpoint():
             if not user_id:
                 return jsonify({"error": "Invalid token: missing user identifier"}), 401
                 
-            username = (payload.get('username') or payload.get('name') or 
+            # Combine first_name and last_name if present
+            first_name = payload.get('first_name') or payload.get('given_name') or ''
+            last_name = payload.get('last_name') or payload.get('family_name') or ''
+            full_name_constructed = f"{first_name} {last_name}".strip()
+            
+            username = (full_name_constructed or 
+                        payload.get('username') or payload.get('name') or 
                         payload.get('full_name') or payload.get('nickname') or 
                         payload.get('display_name') or payload.get('user_name') or 
                         f"User_{user_id}")
@@ -5384,6 +5451,13 @@ def validate_jwt_endpoint():
 
         cur.execute("SELECT id, username, email, role FROM trueday.users WHERE id = %s", (user_id,))
         user_data = cur.fetchone()
+        
+        # Fallback: Find user by email to prevent duplicate accounts when SSO IDs don't match legacy IDs
+        if not user_data and email:
+            cur.execute("SELECT id, username, email, role FROM trueday.users WHERE email = %s", (email,))
+            user_data = cur.fetchone()
+            if user_data:
+                logger.info(f"Found legacy user by email {email}. Using legacy ID instead of SSO ID {user_id}.")
         
         if not user_data:
             logger.info(f"Syncing new user from JWT: {username} ({user_id})")
@@ -5428,6 +5502,13 @@ def validate_jwt_endpoint():
 
         cur.close()
         conn.close()
+        
+        # Set session cookie for /api/projects and other protected routes
+        session.permanent = True
+        session['user_id'] = uid
+        session['email'] = uemail
+        session['name'] = uname
+        session['role'] = urole
         
         return jsonify({
             "valid": True,
@@ -7001,15 +7082,12 @@ def get_pp_tickets():
             LEFT JOIN trueday.users u2 ON t.creator_id = u2.id
             LEFT JOIN trueday.project p ON t.project_id = p.project_id
             WHERE UPPER(t.status) = 'COMPLETED'
-              AND (
-                EXISTS (
-                  SELECT 1 FROM trueday.ticket_history th 
-                  WHERE th.ticket_id = t.ticket_id 
-                    AND th.change_type = 'status' 
-                    AND UPPER(th.new_value) = 'COMPLETED' 
-                    AND th.changed_at::date = CURRENT_DATE
-                )
-                OR (t.created_at::date = CURRENT_DATE)
+              AND EXISTS (
+                SELECT 1 FROM trueday.ticket_history th 
+                WHERE th.ticket_id = t.ticket_id 
+                  AND th.change_type = 'status' 
+                  AND UPPER(th.new_value) = 'COMPLETED' 
+                  AND th.changed_at::date = CURRENT_DATE
               )
         """
         params = []
