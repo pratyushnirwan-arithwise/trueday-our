@@ -8,7 +8,7 @@ export function handleCrossDomainAuth() {
   if (typeof window === 'undefined') return;
 
   const urlParams = new URLSearchParams(window.location.search);
-  const jwtToken = urlParams.get('jwt');
+  const jwtToken = urlParams.get('jwt') || urlParams.get('token');
 
   if (jwtToken) {
     console.log('JWT token found in URL, storing for authentication');
@@ -40,6 +40,7 @@ export function handleCrossDomainAuth() {
     // Clean the URL by removing the JWT parameter
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.delete('jwt');
+    newUrl.searchParams.delete('token');
     window.history.replaceState({}, '', newUrl.toString());
 
     return true; // JWT token was found and processed

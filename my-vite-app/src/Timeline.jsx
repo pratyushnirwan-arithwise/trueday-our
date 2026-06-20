@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FaBars } from 'react-icons/fa';
 import DashboardSidebar from './components/DashboardSidebar';
+import { useUser } from './contexts/UserContext';
+import CustomSelect from './components/CustomSelect';
 import './Timeline.css';
 
 /* ─── helpers ─── */
@@ -158,6 +160,7 @@ function buildMonthCols(start, total) {
    MAIN COMPONENT
 ════════════════════════════════════════════════ */
 const Timeline = () => {
+  const { currentUser } = useUser();
   const [tickets, setTickets] = useState([]);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -201,6 +204,7 @@ const Timeline = () => {
 
   /* fetch tickets */
   const load = useCallback(() => {
+    if (!currentUser) return;
     setLoading(true);
     const p = new URLSearchParams();
     if (filterStatus !== 'all') p.append('status', filterStatus);
@@ -208,7 +212,11 @@ const Timeline = () => {
     fetch(`/api/tickets?${p}`)
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
       .then(data => {
-        const arr = Array.isArray(data) ? data : [];
+        let arr = Array.isArray(data) ? data : [];
+        if (currentUser.role !== 'Admin') {
+          const userProjectIds = (currentUser.assigned_projects || []).map(id => String(id));
+          arr = arr.filter(t => t.project_id && userProjectIds.includes(String(t.project_id)));
+        }
         setTickets(arr);
         lastSavedTicketsRef.current = JSON.parse(JSON.stringify(arr));
         setProjects(groupByProject(arr));
@@ -216,7 +224,7 @@ const Timeline = () => {
       })
       .catch(e => setError(String(e)))
       .finally(() => setLoading(false));
-  }, [filterStatus, filterEmployee]);
+  }, [filterStatus, filterEmployee, currentUser]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -479,33 +487,33 @@ const Timeline = () => {
 
                 <div className="tl-left-header-controls">
                   <div className="tl-left-header-row">
-                    <select
-                      className="tl-select"
-                      value={filterStatus}
-                      onChange={e => setFilterStatus(e.target.value)}
-                    >
-                      <option value="all">All Statuses</option>
-                      {STATUS_OPTIONS.map(s => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                    <select
-                      className="tl-select"
-                      value={filterEmployee}
-                      onChange={e => setFilterEmployee(e.target.value)}
-                    >
-                      <option value="all">All Assignees</option>
-                      {employees.map(e => (
-                        <option key={e.id} value={e.id}>{e.username}</option>
-                      ))}
-                    </select>
+                    <div style={{ width: '160px' }}>
+                      <CustomSelect
+                        options={[
+                          { label: 'All Statuses', value: 'all', triggerLabel: 'Statuses', className: 'is-default' },
+                          ...STATUS_OPTIONS.map(s => ({ label: s.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '), value: s }))
+                        ]}
+                        value={filterStatus}
+                        onChange={(val) => setFilterStatus(val)}
+                        placeholder="Statuses"
+                        searchable={true}
+                      />
+                    </div>
+                    <div style={{ width: '160px' }}>
+                      <CustomSelect
+                        options={[
+                          { label: 'All Assignees', value: 'all', triggerLabel: 'Assignees', className: 'is-default' },
+                          ...employees.map(e => ({ label: e.username, value: String(e.id) }))
+                        ]}
+                        value={filterEmployee}
+                        onChange={(val) => setFilterEmployee(val)}
+                        placeholder="Assignees"
+                        searchable={true}
+                      />
+                    </div>
                   </div>
                   <div className="tl-left-header-row">
                     <div className="tl-zoom-group">
-                      <button
-                        className={`tl-zoom-btn tl-goto-today ${viewMode === 'today' ? 'active' : ''}`}
-                        onClick={() => { setViewMode('today'); setPixelsPerDay(48); }}
-                      >Today</button>
                       <button
                         className={`tl-zoom-btn ${viewMode === 'month' ? 'active' : ''}`}
                         onClick={() => { setViewMode('month'); setPixelsPerDay(6); }}
@@ -514,6 +522,10 @@ const Timeline = () => {
                         className={`tl-zoom-btn ${viewMode === 'day' ? 'active' : ''}`}
                         onClick={() => { setViewMode('day'); setPixelsPerDay(32); }}
                       >Day</button>
+                      <button
+                        className={`tl-zoom-btn tl-goto-today ${viewMode === 'today' ? 'active' : ''}`}
+                        onClick={() => { setViewMode('today'); setPixelsPerDay(48); }}
+                      >Today</button>
                     </div>
                   </div>
                 </div>

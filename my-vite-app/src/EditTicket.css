@@ -75,7 +75,7 @@
 }
 
 .ET-ticket-id {
-  background: #3a2e3a;
+  background: #6b7280;
   color: #ffffff;
   padding: 6px 12px;
   border-radius: 4px;
@@ -141,13 +141,14 @@
 }
 
 .ET-btn-compact.ET-btn-primary {
-  background: #402b3c;
+  background: #5e145e;
   color: #ffffff;
-  border-color: #402b3c;
+  border-color: #5e145e;
 }
 
 .ET-btn-compact.ET-btn-primary:hover {
-  background: #2e1e2b;
+  background: #7e217e;
+  border-color: #7e217e;
 }
 
 .ET-btn-compact.ET-btn-secondary {
@@ -3765,4 +3766,10 @@ body:has(.ET-modal-content-wrapper) {
 .ET-remove-file-btn:hover {
   background: #bae6fd;
   color: #0f172a;
+}
+
+/* Priority custom select pill padding fix */
+.ET-form-field.ET-readlike .custom-select-trigger.has-color {
+  padding: 3px 10px !important;
+  border-radius: 12px;
 }

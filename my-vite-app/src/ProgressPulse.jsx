@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import DashboardSidebar from './components/DashboardSidebar';
-import { Search, Check, Save, MessageSquare } from "lucide-react";
+import CustomSelect from './components/CustomSelect';
+import { Search, Check, Save, MessageSquare, FolderOpen, Activity, Users } from "lucide-react";
 import { FaBars } from 'react-icons/fa';
 import { useUser } from './contexts/UserContext';
 import './Progresspulse.css';
@@ -108,8 +109,9 @@ export default function ProgressPulse() {
 
   // Load tickets + users
   useEffect(() => {
+    if (!currentUser) return;
     Promise.all([
-      fetch(`${API}/api/progress-pulse/tickets`).then(r => r.json()).catch(() => []),
+      fetch(`${API}/api/progress-pulse/tickets?user_id=${currentUser.id}`).then(r => r.json()).catch(() => []),
       fetch(`${API}/api/users`).then(r => r.json()).catch(() => []),
     ]).then(([td, ud]) => {
       if (Array.isArray(td)) {
@@ -119,7 +121,7 @@ export default function ProgressPulse() {
       if (Array.isArray(ud)) setUsers(ud);
       setLoading(false);
     });
-  }, []);
+  }, [currentUser]);
 
   // Load history
   const loadHistory = useCallback((id) => {
@@ -242,7 +244,7 @@ export default function ProgressPulse() {
       <div
         className="pp-app-frame"
         style={{
-          marginLeft: sidebarCollapsed ? 'var(--sidebar-collapsed-width, 60px)' : 'var(--sidebar-width, 210px)',
+          marginLeft: '50px',
           transition: 'margin-left 0.2s ease-in-out, width 0.2s ease-in-out',
           width: `calc(100vw - ${sidebarCollapsed ? 'var(--sidebar-collapsed-width, 60px)' : 'var(--sidebar-width, 210px)'})`
         }}
@@ -250,7 +252,7 @@ export default function ProgressPulse() {
 
         {/* TICKET LIST SIDEBAR */}
         <div className="pp-ticket-pane">
-<div className="pp-ticket-head">
+          <div className="pp-ticket-head">
             <div className="pp-search-container">
               <Search className="pp-search-icon" size={14} />
               <input
@@ -319,20 +321,42 @@ export default function ProgressPulse() {
             </div>
 
             <div className="pp-filter-row">
-              <select className="pp-filter-select" value={fProj} onChange={e => setFProj(e.target.value)}>
-                <option value="all">All Projects</option>
-                {PROJS.map(p => <option key={p} value={p}>{p}</option>)}
-              </select>
+              <CustomSelect
+                options={[
+                  { value: 'all', label: 'All Projects', triggerLabel: 'Projects', className: 'is-default' },
+                  ...PROJS.map(p => ({ value: p, label: p }))
+                ]}
+                value={fProj}
+                onChange={val => setFProj(val)}
+                placeholder="Projects"
+                icon={<FolderOpen size={14} />}
+                searchable={true}
+              />
 
-              <select className="pp-filter-select" value={fSt} onChange={e => setFSt(e.target.value)}>
-                <option value="all">All Status</option>
-                {STATS.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
+              <CustomSelect
+                options={[
+                  { value: 'all', label: 'All Statuses', triggerLabel: 'Status', className: 'is-default' },
+                  ...STATS.map(s => ({ value: s, label: s }))
+                ]}
+                value={fSt}
+                onChange={val => setFSt(val)}
+                placeholder="Status"
+                icon={<Activity size={14} />}
+              />
 
-              <select className="pp-filter-select" style={{ display: window.innerWidth > 640 ? 'block' : 'none' }} value={fUser} onChange={e => setFUser(e.target.value)}>
-                <option value="all">All Assignees</option>
-                {users.map(u => <option key={u.id} value={String(u.id)}>{u.username}</option>)}
-              </select>
+              {isAdmin && (
+                <CustomSelect
+                  options={[
+                    { value: 'all', label: 'All Assignees', triggerLabel: 'Assignees', className: 'is-default' },
+                    ...users.map(u => ({ value: String(u.id), label: u.username }))
+                  ]}
+                  value={fUser}
+                  onChange={val => setFUser(val)}
+                  placeholder="Assignees"
+                  icon={<Users size={14} />}
+                  searchable={true}
+                />
+              )}
             </div>
           </div>
 
@@ -365,58 +389,58 @@ export default function ProgressPulse() {
 
               {/* TAB BODY */}
               <div className="pp-tabs-body">
-                 {detailLoading ? (
-                   <p style={{ textAlign: 'center', color: '#64748b', margin: '20px 0' }}>Loading...</p>
-                 ) : activeTab === 'log' ? (
-                   <div className="pp-log-tab-content">
-                     {history[0]?.review_comment && (
-                       <div className="pp-latest-review-box">
-                         <div className="pp-latest-review-header">
-                           <MessageSquare size={16} style={{ color: '#6d117e' }} />
-                           <span>Admin Review Comment</span>
-                         </div>
-                         <div className="pp-latest-review-content">
-                           {history[0].review_comment}
-                         </div>
-                       </div>
-                     )}
+                {detailLoading ? (
+                  <p style={{ textAlign: 'center', color: '#64748b', margin: '20px 0' }}>Loading...</p>
+                ) : activeTab === 'log' ? (
+                  <div className="pp-log-tab-content">
+                    {history[0]?.review_comment && (
+                      <div className="pp-latest-review-box">
+                        <div className="pp-latest-review-header">
+                          <MessageSquare size={16} style={{ color: '#6d117e' }} />
+                          <span>Admin Review Comment</span>
+                        </div>
+                        <div className="pp-latest-review-content">
+                          {history[0].review_comment}
+                        </div>
+                      </div>
+                    )}
 
-                     <div className="pp-entry-vertical-list">
-                       {[
-                         { title: "1. What was accomplished?", value: draft.what_did_you_do, key: "what_did_you_do", placeholder: "List key completed tasks..." },
-                         { title: "2. What were the main challenges?", value: draft.challenge, key: "challenge", placeholder: "Describe any roadblocks..." },
-                         { title: "3. What did you learn?", value: draft.what_you_learned, key: "what_you_learned", placeholder: "Note key insights..." },
-                       ].map((card, index) => (
-                         <div key={index} className="pp-entry-field-group">
-                           <label className="pp-entry-field-label">{card.title}</label>
-                           <textarea
-                             rows={4}
-                             value={card.value || ''}
-                             onChange={(e) => setDraft({ ...draft, [card.key]: e.target.value })}
-                             className="pp-entry-field-textarea"
-                             placeholder={card.placeholder}
-                           />
-                         </div>
-                       ))}
-                     </div>
+                    <div className="pp-entry-vertical-list">
+                      {[
+                        { title: "1. What was accomplished?", value: draft.what_did_you_do, key: "what_did_you_do", placeholder: "List key completed tasks..." },
+                        { title: "2. What were the main challenges?", value: draft.challenge, key: "challenge", placeholder: "Describe any roadblocks..." },
+                        { title: "3. What did you learn?", value: draft.what_you_learned, key: "what_you_learned", placeholder: "Note key insights..." },
+                      ].map((card, index) => (
+                        <div key={index} className="pp-entry-field-group">
+                          <label className="pp-entry-field-label">{card.title}</label>
+                          <textarea
+                            rows={4}
+                            value={card.value || ''}
+                            onChange={(e) => setDraft({ ...draft, [card.key]: e.target.value })}
+                            className="pp-entry-field-textarea"
+                            placeholder={card.placeholder}
+                          />
+                        </div>
+                      ))}
+                    </div>
 
-                     <div className="pp-submit-row">
-                       <button
-                         onClick={handleSaveDraft}
-                         disabled={saving}
-                         className="pp-draft-btn"
-                       >
-                         Save Draft
-                       </button>
-                       <button
-                         onClick={handleSubmitLog}
-                         disabled={saving}
-                         className="pp-submit-btn"
-                       >
-                         Submit Log
-                       </button>
-                     </div>
-                   </div>
+                    <div className="pp-submit-row">
+                      <button
+                        onClick={handleSaveDraft}
+                        disabled={saving}
+                        className="pp-draft-btn"
+                      >
+                        Save Draft
+                      </button>
+                      <button
+                        onClick={handleSubmitLog}
+                        disabled={saving}
+                        className="pp-submit-btn"
+                      >
+                        Submit Log
+                      </button>
+                    </div>
+                  </div>
                 ) : (
                   <div className="pp-history-tab-content">
 

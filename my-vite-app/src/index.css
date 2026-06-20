@@ -119,3 +119,8 @@ select, select option {
   text-align-last: center !important;
 }
 
+/* Global max font-weight override */
+*, *::before, *::after {
+  font-weight: 400 !important;
+}
+
