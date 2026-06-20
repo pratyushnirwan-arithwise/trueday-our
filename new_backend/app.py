@@ -5449,15 +5449,21 @@ def validate_jwt_endpoint():
         except Exception as sync_err:
             logger.warning(f"Failed to sync user role via FDW: {sync_err}")
 
-        cur.execute("SELECT id, username, email, role FROM trueday.users WHERE id = %s", (user_id,))
-        user_data = cur.fetchone()
-        
-        # Fallback: Find user by email to prevent duplicate accounts when SSO IDs don't match legacy IDs
-        if not user_data and email:
-            cur.execute("SELECT id, username, email, role FROM trueday.users WHERE email = %s", (email,))
+        # Search by email FIRST to catch already-created duplicates. We order by ID ASC to always prefer 
+        # the oldest legacy record (e.g., ID 15) over a newer duplicate SSO record.
+        user_data = None
+        if email:
+            cur.execute("SELECT id, username, email, role FROM trueday.users WHERE email = %s ORDER BY id ASC LIMIT 1", (email,))
             user_data = cur.fetchone()
             if user_data:
-                logger.info(f"Found legacy user by email {email}. Using legacy ID instead of SSO ID {user_id}.")
+                legacy_id = user_data.get('id') if isinstance(user_data, dict) else user_data[0]
+                if str(legacy_id) != str(user_id):
+                    logger.info(f"Found legacy user by email {email}. Forcing legacy ID {legacy_id} instead of SSO ID {user_id}.")
+        
+        # If no email match, fallback to ID lookup
+        if not user_data:
+            cur.execute("SELECT id, username, email, role FROM trueday.users WHERE id = %s", (user_id,))
+            user_data = cur.fetchone()
         
         if not user_data:
             logger.info(f"Syncing new user from JWT: {username} ({user_id})")
