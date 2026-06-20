@@ -5437,15 +5437,23 @@ def validate_jwt_endpoint():
         conn = get_db_connection()
         cur = conn.cursor()
 
+        # Safe integer cast for user_id to prevent Postgres errors with UUIDs
+        safe_user_id = None
+        try:
+            safe_user_id = int(user_id) if user_id else None
+        except (ValueError, TypeError):
+            pass
+
         # Sync user role from ariths_accesses foreign table
         try:
-            cur.execute("""
-                UPDATE trueday.users u
-                SET role = a.access_type
-                FROM trueday.ariths_accesses a
-                WHERE u.id = %s AND a.user_id = %s AND a.tool_id = 2 AND u.role IS DISTINCT FROM a.access_type;
-            """, (user_id, user_id))
-            conn.commit()
+            if safe_user_id is not None:
+                cur.execute("""
+                    UPDATE trueday.users u
+                    SET role = a.access_type
+                    FROM trueday.ariths_accesses a
+                    WHERE u.id = %s AND a.user_id = %s AND a.tool_id = 2 AND u.role IS DISTINCT FROM a.access_type;
+                """, (safe_user_id, safe_user_id))
+                conn.commit()
         except Exception as sync_err:
             logger.warning(f"Failed to sync user role via FDW: {sync_err}")
 
@@ -5453,7 +5461,7 @@ def validate_jwt_endpoint():
         # the oldest legacy record (e.g., ID 15) over a newer duplicate SSO record.
         user_data = None
         if email:
-            cur.execute("SELECT id, username, email, role FROM trueday.users WHERE email = %s ORDER BY id ASC LIMIT 1", (email,))
+            cur.execute("SELECT id, username, email, role FROM trueday.users WHERE LOWER(email) = LOWER(%s) ORDER BY id ASC LIMIT 1", (email,))
             user_data = cur.fetchone()
             if user_data:
                 legacy_id = user_data.get('id') if isinstance(user_data, dict) else user_data[0]
@@ -5461,31 +5469,39 @@ def validate_jwt_endpoint():
                     logger.info(f"Found legacy user by email {email}. Forcing legacy ID {legacy_id} instead of SSO ID {user_id}.")
         
         # If no email match, fallback to ID lookup
-        if not user_data:
-            cur.execute("SELECT id, username, email, role FROM trueday.users WHERE id = %s", (user_id,))
+        if not user_data and safe_user_id is not None:
+            cur.execute("SELECT id, username, email, role FROM trueday.users WHERE id = %s", (safe_user_id,))
             user_data = cur.fetchone()
         
         if not user_data:
             logger.info(f"Syncing new user from JWT: {username} ({user_id})")
-            # Create user in trueday database using the ID from the token
             # Try to get default role from foreign table first
             default_role = "User"
             try:
-                cur.execute("SELECT access_type FROM trueday.ariths_accesses WHERE user_id = %s AND tool_id = 2;", (user_id,))
-                row = cur.fetchone()
-                if row:
-                    default_role = row.get('access_type') if isinstance(row, dict) else row[0]
+                if safe_user_id is not None:
+                    cur.execute("SELECT access_type FROM trueday.ariths_accesses WHERE user_id = %s AND tool_id = 2;", (safe_user_id,))
+                    row = cur.fetchone()
+                    if row:
+                        default_role = row.get('access_type') if isinstance(row, dict) else row[0]
             except Exception:
                 pass
 
-            cur.execute("""
-                INSERT INTO trueday.users (id, username, email, password, role)
-                VALUES (%s, %s, %s, %s, %s)
-                ON CONFLICT (id) DO UPDATE SET 
-                    username = EXCLUDED.username,
-                    email = EXCLUDED.email
-                RETURNING id, username, email, role;
-            """, (user_id, username, email, "sso_managed", default_role))
+            if safe_user_id is not None:
+                cur.execute("""
+                    INSERT INTO trueday.users (id, username, email, password, role)
+                    VALUES (%s, %s, %s, %s, %s)
+                    ON CONFLICT (id) DO UPDATE SET 
+                        username = EXCLUDED.username,
+                        email = EXCLUDED.email
+                    RETURNING id, username, email, role;
+                """, (safe_user_id, username, email, "sso_managed", default_role))
+            else:
+                cur.execute("""
+                    INSERT INTO trueday.users (username, email, password, role)
+                    VALUES (%s, %s, %s, %s)
+                    RETURNING id, username, email, role;
+                """, (username, email, "sso_managed", default_role))
+                
             user_data = cur.fetchone()
             conn.commit()
         
