@@ -966,6 +966,14 @@ def update_ticket(ticket_id):
         creator_id = _col(current_ticket, 'creator_id', 10)
         ticket_title = _col(current_ticket, 'title', 2) or title.strip()
         
+        old_collaborator_id = _col(current_ticket, 'collaborator_id', 8)
+        new_collaborator_id = data.get('collaborator_id')
+        collaborator_changed = str(old_collaborator_id) != str(new_collaborator_id)
+
+        old_approver_id = _col(current_ticket, 'approver_id', 9)
+        new_approver_id = data.get('approver_id')
+        approver_changed = str(old_approver_id) != str(new_approver_id)
+
         # 1. Assignment notification
         if assignee_changed and new_assignee_id and str(new_assignee_id) != str(current_user_id):
             create_notification(
@@ -978,6 +986,30 @@ def update_ticket(ticket_id):
                 data.get('priority', 'Medium')
             )
             
+        # Collaborator assignment notification
+        if collaborator_changed and new_collaborator_id and str(new_collaborator_id) != str(current_user_id):
+            create_notification(
+                cursor,
+                new_collaborator_id,
+                "Collaborator Assignment",
+                f'{current_username} added you as a collaborator on ticket: \'{ticket_title}\'',
+                "assignment",
+                ticket_id,
+                data.get('priority', 'Medium')
+            )
+
+        # Approver assignment notification
+        if approver_changed and new_approver_id and str(new_approver_id) != str(current_user_id):
+            create_notification(
+                cursor,
+                new_approver_id,
+                "Approver Assignment",
+                f'{current_username} added you as an approver on ticket: \'{ticket_title}\'',
+                "assignment",
+                ticket_id,
+                data.get('priority', 'Medium')
+            )
+
         # 2. Status change notifications
         if status_changed:
             msg = f'{current_username} moved ticket \'{ticket_title}\' from {old_status} to {new_status}'
@@ -2711,6 +2743,30 @@ def create_ticket():
                 assignee_id,
                 "New Ticket Assigned",
                 f'{creator_username} assigned you the ticket: \'{title.strip()}\'',
+                "assignment",
+                ticket_id,
+                priority
+            )
+
+        # Create collaborator notification
+        if collaborator_id and str(collaborator_id) != str(creator_id):
+            create_notification(
+                cursor,
+                collaborator_id,
+                "Collaborator Assignment",
+                f'{creator_username} added you as a collaborator on ticket: \'{title.strip()}\'',
+                "assignment",
+                ticket_id,
+                priority
+            )
+
+        # Create approver notification
+        if approver_id and str(approver_id) != str(creator_id):
+            create_notification(
+                cursor,
+                approver_id,
+                "Approver Assignment",
+                f'{creator_username} added you as an approver on ticket: \'{title.strip()}\'',
                 "assignment",
                 ticket_id,
                 priority
@@ -6637,6 +6693,27 @@ def add_user_to_project():
             project_users_id = result['project_users_id']
         else:
             project_users_id = result[0]
+            
+        # Create notification for project assignment
+        try:
+            cursor.execute("SELECT project_name FROM trueday.project WHERE project_id = %s", (project_id,))
+            project_row = cursor.fetchone()
+            if isinstance(project_row, dict):
+                project_name = project_row.get('project_name') or f"#{project_id}"
+            else:
+                project_name = project_row[0] if project_row else f"#{project_id}"
+                
+            create_notification(
+                cursor,
+                user_id,
+                "Project Assignment",
+                f"You have been added to project: '{project_name}'",
+                "assignment",
+                project_id,
+                "Medium"
+            )
+        except Exception as e:
+            logger.error(f"Error creating project assignment notification: {e}")
         
         conn.commit()
         cursor.close()

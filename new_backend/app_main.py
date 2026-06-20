@@ -834,6 +834,20 @@ def update_ticket(ticket_id):
                         None
                     ))
                     
+                    if new_assignee_id:
+                        cursor_history.execute("""
+                            INSERT INTO trueday.notifications (
+                                user_id, title, message, notification_type, priority, status, created_at, related_entity_type, related_entity_id
+                            ) VALUES (%s, %s, %s, %s, %s, 'unread', NOW(), 'ticket', %s)
+                        """, (
+                            new_assignee_id,
+                            f"Ticket Assigned: #{ticket_id}",
+                            f"{current_username} assigned ticket #{ticket_id} to you",
+                            "assignment",
+                            "High",
+                            ticket_id
+                        ))
+
                     conn_history.commit()
                     cursor_history.close()
                     conn_history.close()
@@ -884,6 +898,20 @@ def update_ticket(ticket_id):
                         None
                     ))
 
+                    if new_collaborator_id:
+                        cursor_history.execute("""
+                            INSERT INTO trueday.notifications (
+                                user_id, title, message, notification_type, priority, status, created_at, related_entity_type, related_entity_id
+                            ) VALUES (%s, %s, %s, %s, %s, 'unread', NOW(), 'ticket', %s)
+                        """, (
+                            new_collaborator_id,
+                            f"Collaborator Assignment: Ticket #{ticket_id}",
+                            f"{current_username} added you as a collaborator on ticket #{ticket_id}",
+                            "assignment",
+                            "Medium",
+                            ticket_id
+                        ))
+
                     conn_history.commit()
                     cursor_history.close()
                     conn_history.close()
@@ -932,6 +960,20 @@ def update_ticket(ticket_id):
                         new_name,
                         None
                     ))
+
+                    if new_approver_id:
+                        cursor_history.execute("""
+                            INSERT INTO trueday.notifications (
+                                user_id, title, message, notification_type, priority, status, created_at, related_entity_type, related_entity_id
+                            ) VALUES (%s, %s, %s, %s, %s, 'unread', NOW(), 'ticket', %s)
+                        """, (
+                            new_approver_id,
+                            f"Approver Assignment: Ticket #{ticket_id}",
+                            f"{current_username} added you as an approver on ticket #{ticket_id}",
+                            "assignment",
+                            "Medium",
+                            ticket_id
+                        ))
 
                     conn_history.commit()
                     cursor_history.close()
