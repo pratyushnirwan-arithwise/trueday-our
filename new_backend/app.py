@@ -3623,45 +3623,53 @@ def clean_message_for_email(message_text):
 def extract_tagged_usernames(message_text):
     """Extract usernames that are tagged with @ symbol from message text"""
     import re
-    print(f"🔍 Extracting usernames from message: {message_text}")
-    print(f"📝 Message type: {type(message_text)}")
-    print(f"📝 Message length: {len(message_text) if message_text else 0}")
+    print(f"[MENTIONS] Extracting usernames from message: {message_text}")
     
     if not message_text:
-        print("❌ Message text is empty or None")
         return []
     
     # Extract text content from HTML if present
     if '<' in message_text and '>' in message_text:
-        print(f"🔍 Message contains HTML tags, extracting text content...")
         html_pattern = r'<[^>]+>'
         text_content = re.sub(html_pattern, '', message_text)
-        print(f"🔍 Text content after HTML removal: {text_content}")
     else:
         text_content = message_text
-    
-    # Pattern to match exactly 2 words after @ (firstname lastname)
-    # This will match @firstname lastname and stop at word boundaries
-    pattern = r'@([a-zA-Z]+\s+[a-zA-Z]+)(?=\s|$|\.|,|;|:|!|\?|<\/)'
-    print(f"🔍 Using pattern: {pattern}")
-    print(f"🔍 Text content: '{text_content}'")
-    matches = re.findall(pattern, text_content)
-    print(f"🔍 Raw regex matches: {matches}")
-    
-    # Clean up matches - remove extra whitespace and filter out empty matches
-    cleaned_matches = []
-    for match in matches:
-        # Remove trailing spaces from the username
-        cleaned = match.strip()
-        if cleaned and len(cleaned) > 0:
-            cleaned_matches.append(cleaned)
-    
-    unique_matches = list(set(cleaned_matches))  # Remove duplicates
-    
-    print(f"📝 Found usernames with improved regex: {unique_matches}")
-    print(f"🔍 Raw matches: {matches}")
-    print(f"🔍 Cleaned matches: {cleaned_matches}")
-    
+        
+    candidates = [c.rstrip('.,;:!?') for c in re.findall(r'@([a-zA-Z0-9_\-\.]+)', text_content)]
+    if not candidates:
+        return []
+        
+    # Query database for users whose username starts with any of the candidates
+    conn = None
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        clauses = []
+        params = []
+        for c in candidates:
+            clauses.append("username ILIKE %s")
+            params.append(f"{c}%")
+        query = f"SELECT username FROM trueday.users WHERE {' OR '.join(clauses)}"
+        cursor.execute(query, params)
+        db_usernames = [row['username'] if isinstance(row, dict) else row[0] for row in cursor.fetchall()]
+        cursor.close()
+    except Exception as e:
+        print(f"[WARNING] Error querying database in extract_tagged_usernames: {e}")
+        db_usernames = []
+    finally:
+        if conn:
+            conn.close()
+            
+    # Match database usernames against text_content case-insensitively with flexible spaces
+    tagged = []
+    normalized_text = re.sub(r'\s+', ' ', text_content).lower()
+    for db_user in db_usernames:
+        normalized_username = re.sub(r'\s+', ' ', db_user).lower()
+        if f'@{normalized_username}' in normalized_text:
+            tagged.append(db_user)
+            
+    unique_matches = list(set(tagged))
+    print(f"[MENTIONS] Extracted tagged usernames: {unique_matches}")
     return unique_matches
     
 
@@ -3669,59 +3677,70 @@ def extract_tagged_usernames(message_text):
 # Function to send tagging notification emails
 def send_tagging_notifications(tagged_usernames, ticket_id, commenter_username, message_text):
     """Send email notifications to tagged users"""
-    print(f"🔍 Starting tagging notification process...")
-    print(f"📝 Tagged usernames: {tagged_usernames}")
-    print(f"🎫 Ticket ID: {ticket_id}")
-    print(f"👤 Commenter: {commenter_username}")
-    print(f"💬 Full Message: {message_text}")
-    print(f"💬 Message length: {len(message_text)}")
-    print(f"💬 Message type: {type(message_text)}")
-    print(f"📧 Mail configuration: server={app.config['MAIL_SERVER']}, port={app.config['MAIL_PORT']}, username={app.config['MAIL_USERNAME']}")
-    print(f"🔍 Function called with args: tagged_usernames={tagged_usernames}, ticket_id={ticket_id}, commenter_username={commenter_username}")
+    print(f"[MENTIONS] Starting tagging notification process...")
+    print(f"[MENTIONS] Tagged usernames: {tagged_usernames}")
+    print(f"[MENTIONS] Ticket ID: {ticket_id}")
+    print(f"[MENTIONS] Commenter: {commenter_username}")
+    print(f"[MENTIONS] Full Message: {message_text}")
+    print(f"[MENTIONS] Message length: {len(message_text)}")
+    print(f"[MENTIONS] Message type: {type(message_text)}")
+    print(f"[MENTIONS] Mail configuration: server={app.config['MAIL_SERVER']}, port={app.config['MAIL_PORT']}, username={app.config['MAIL_USERNAME']}")
+    print(f"[MENTIONS] Function called with args: tagged_usernames={tagged_usernames}, ticket_id={ticket_id}, commenter_username={commenter_username}")
     
     # Clean the message for email display
     cleaned_message = clean_message_for_email(message_text)
-    print(f"🧹 Cleaned Message: {cleaned_message}")
+    print(f"[MENTIONS] Cleaned Message: {cleaned_message}")
     
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
         
+        # Helper to extract value safely from dictionary or list/tuple
+        def safe_get(row, key, index=0):
+            if row is None:
+                return None
+            if isinstance(row, dict):
+                return row.get(key)
+            try:
+                return row[index]
+            except Exception:
+                return None
+
         # Get ticket information
         cursor.execute("SELECT title FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
         ticket_row = cursor.fetchone()
         if not ticket_row:
-            print(f"❌ Ticket {ticket_id} not found in database")
+            print(f"[WARNING] Ticket {ticket_id} not found in database")
             cursor.close()
             conn.close()
             return
-        ticket_title = ticket_row[0]
-        print(f"📋 Ticket title: {ticket_title}")
+        ticket_title = safe_get(ticket_row, 'title', 0)
+        print(f"[MENTIONS] Ticket title: {ticket_title}")
         
         # Get commenter information
         cursor.execute("SELECT username FROM trueday.users WHERE username = %s", (commenter_username,))
         commenter_row = cursor.fetchone()
-        commenter_name = commenter_row[0] if commenter_row else commenter_username
-        print(f"👤 Commenter name: {commenter_name}")
+        commenter_name = safe_get(commenter_row, 'username', 0) or commenter_username
+        print(f"[MENTIONS] Commenter name: {commenter_name}")
         
         # Send email to each tagged user
-        print(f"🔍 Total tagged usernames to process: {len(tagged_usernames)}")
+        print(f"[MENTIONS] Total tagged usernames to process: {len(tagged_usernames)}")
         
         # Debug: List all users in database to see what's available
         cursor.execute("SELECT username, email FROM trueday.users LIMIT 10")
         all_users = cursor.fetchall()
-        print(f"🔍 Sample users in database: {all_users}")
+        print(f"[MENTIONS] Sample users in database: {all_users}")
         
         # Also check for the specific tagged user
         for username in tagged_usernames:
-            print(f"🔍 Looking for user: '{username}' in database...")
+            print(f"[MENTIONS] Looking for user: '{username}' in database...")
             cursor.execute("SELECT username, email FROM trueday.users WHERE username ILIKE %s", (f"%{username}%",))
             matching_users = cursor.fetchall()
-            print(f"🔍 Users matching '{username}': {matching_users}")
+            print(f"[MENTIONS] Users matching '{username}': {matching_users}")
         
         for username in tagged_usernames:
-            print(f"🔍 Looking up user: {username}")
-            print(f"🔍 Username type: {type(username)}, length: {len(username)}")
+            print(f"[MENTIONS] Looking up user: {username}")
+            print(f"[MENTIONS] Username type: {type(username)}, length: {len(username)}")
             
             # Try multiple lookup strategies
             user_row = None
@@ -3731,17 +3750,17 @@ def send_tagging_notifications(tagged_usernames, ticket_id, commenter_username, 
             cursor.execute("SELECT username, email FROM trueday.users WHERE username = %s", (username,))
             user_row = cursor.fetchone()
             if user_row:
-                print(f"✅ Found user {username} by exact username match")
-                print(f"📧 User email: {user_row[1]}")
+                print(f"[MENTIONS] Found user {username} by exact username match")
+                print(f"[MENTIONS] User email: {safe_get(user_row, 'email', 1)}")
             
             # Strategy 2: Partial username match (if exact didn't work)
             if not user_row:
-                print(f"🔍 Trying partial username match for: {username}")
+                print(f"[MENTIONS] Trying partial username match for: {username}")
                 cursor.execute("SELECT username, email FROM trueday.users WHERE username ILIKE %s", (f"%{username}%",))
                 user_row = cursor.fetchone()
                 if user_row:
-                    print(f"✅ Found user {username} by partial username match")
-                    print(f"📧 User email: {user_row[1]}")
+                    print(f"[MENTIONS] Found user {username} by partial username match")
+                    print(f"[MENTIONS] User email: {safe_get(user_row, 'email', 1)}")
                     lookup_strategy = "partial_username"
             
             # Strategy 3: Try without schema prefix
@@ -3749,19 +3768,46 @@ def send_tagging_notifications(tagged_usernames, ticket_id, commenter_username, 
                 cursor.execute("SELECT username, email FROM users WHERE username = %s", (username,))
                 user_row = cursor.fetchone()
                 if user_row:
-                    print(f"✅ Found user {username} in users table (without schema)")
+                    print(f"[MENTIONS] Found user {username} in users table (without schema)")
                     lookup_strategy = "no_schema"
             
             if not user_row:
-                print(f"❌ User {username} not found in any table with any strategy")
+                print(f"[WARNING] User {username} not found in any table with any strategy")
                 continue
             
-            if user_row and user_row[1]:  # user_row[1] is email
-                user_email = user_row[1]
-                actual_username = user_row[0]
-                print(f"📧 Found email for {username} (actual username: {actual_username}): {user_email}")
-                print(f"🔍 Lookup strategy used: {lookup_strategy}")
-                
+            user_email = safe_get(user_row, 'email', 1)
+            actual_username = safe_get(user_row, 'username', 0)
+            if user_email:
+                print(f"[MENTIONS] Found email for {username} (actual username: {actual_username}): {user_email}")
+                print(f"[MENTIONS] Lookup strategy used: {lookup_strategy}")
+
+                # ── In-app notification (bell icon) ──────────────────────────
+                try:
+                    cursor.execute("SELECT id FROM trueday.users WHERE username = %s LIMIT 1", (actual_username,))
+                    uid_row = cursor.fetchone()
+                    mentioned_user_id = (uid_row.get('id') if isinstance(uid_row, dict) else uid_row[0]) if uid_row else None
+                    if mentioned_user_id:
+                        snippet = clean_message_for_email(message_text)
+                        snippet = (snippet[:60] + '…') if len(snippet) > 60 else snippet
+                        notif_conn = get_db_connection()
+                        notif_cursor = notif_conn.cursor()
+                        create_notification(
+                            notif_cursor,
+                            mentioned_user_id,
+                            f'You were mentioned in ticket #{ticket_id}',
+                            f'{commenter_username} mentioned you: "{snippet}"',
+                            'comment',
+                            ticket_id,
+                            priority='High'
+                        )
+                        notif_conn.commit()
+                        notif_cursor.close()
+                        notif_conn.close()
+                        print(f"[MENTIONS] In-app notification created for mentioned user {actual_username} (id={mentioned_user_id})")
+                except Exception as notif_err:
+                    print(f"[WARNING] Failed to create in-app notification for {actual_username}: {notif_err}")
+                # ─────────────────────────────────────────────────────────────
+
                 # Create beautiful HTML email message like collaborator notifications
                 subject = f"[TD] You were tagged in ticket #{ticket_id}"
                 html = f"""
@@ -3778,10 +3824,10 @@ def send_tagging_notifications(tagged_usernames, ticket_id, commenter_username, 
  </div>
 """
                 
-                print(f"📤 Attempting to send email to {user_email}...")
+                print(f"[MENTIONS] Attempting to send email to {user_email}...")
                 
                 try:
-                    print(f"📧 Creating email message for {user_email}...")
+                    print(f"[MENTIONS] Creating email message for {user_email}...")
                     # Create a new Flask app context for the background thread
                     with app.app_context():
                         msg = Message(
@@ -3789,23 +3835,23 @@ def send_tagging_notifications(tagged_usernames, ticket_id, commenter_username, 
                             recipients=[user_email],
                             html=html
                         )
-                        print(f"📧 Email message created, attempting to send...")
+                        print(f"[MENTIONS] Email message created, attempting to send...")
                         mail.send(msg)
-                        print(f"📧 Email sent successfully!")
-                    print(f"✅ Tagging notification sent successfully to {username} ({user_email})")
+                        print(f"[MENTIONS] Email sent successfully!")
+                    print(f"[MENTIONS] Tagging notification sent successfully to {username} ({user_email})")
                 except Exception as email_error:
-                    print(f"❌ Failed to send email to {user_email}: {email_error}")
-                    print(f"❌ Email error type: {type(email_error)}")
+                    print(f"[ERROR] Failed to send email to {user_email}: {email_error}")
+                    print(f"[ERROR] Email error type: {type(email_error)}")
                     import traceback
                     traceback.print_exc()
             else:
-                print(f"❌ No email found for username: {username}")
+                print(f"[WARNING] No email found for username: {username}")
         
         cursor.close()
         conn.close()
-        print(f"🎉 Tagging notification process completed")
+        print(f"[MENTIONS] Tagging notification process completed")
     except Exception as e:
-        print(f"❌ Error sending tagging notifications: {e}")
+        print(f"[ERROR] Error sending tagging notifications: {e}")
         import traceback
         traceback.print_exc()
         logger.error(f"Error sending tagging notifications: {e}")
@@ -3940,17 +3986,14 @@ def add_ticket_message():
         cursor.close()
         conn.close()
 
-        # Extract tagged usernames and send notifications
+        # Extract tagged usernames and send notifications in background
         try:
             tagged_usernames = extract_tagged_usernames(message)
             if tagged_usernames:
-                # Fire-and-forget is okay here; but keep it synchronous for now to preserve context
-                try:
-                    send_tagging_notifications(tagged_usernames, ticket_id, username, message)
-                except Exception as email_error:
-                    print(f"❌ Error sending email notifications: {email_error}")
+                print(f"[MENTIONS] Starting background thread for tagging notifications...")
+                Thread(target=send_tagging_notifications, args=(tagged_usernames, ticket_id, username, message)).start()
         except Exception as e:
-            print(f"🔍 Error extracting/sending tagging notifications: {e}")
+            print(f"[ERROR] Error extracting/sending tagging notifications: {e}")
 
         # Ensure created_at is JSON serializable
         try:
@@ -7490,6 +7533,15 @@ def add_timeline_comment():
 
         conn.commit()
 
+        # Extract tagged usernames and send notifications in background
+        try:
+            tagged_usernames = extract_tagged_usernames(comment)
+            if tagged_usernames:
+                print(f"[MENTIONS] Starting background thread for tagging notifications (comment)...")
+                Thread(target=send_tagging_notifications, args=(tagged_usernames, ticket_id, user_name, comment)).start()
+        except Exception as e:
+            print(f"[ERROR] Error extracting/sending tagging notifications for comment: {e}")
+
         r_id = result['id'] if isinstance(result, dict) else result[0]
         r_created_at = result['created_at'] if isinstance(result, dict) else result[1]
 
@@ -7590,6 +7642,16 @@ def update_ticket_comment(comment_id):
 
         conn.commit()
         cursor.close(); conn.close()
+
+        # Extract tagged usernames and send notifications in background for edited comment
+        try:
+            tagged_usernames = extract_tagged_usernames(new_comment)
+            if tagged_usernames:
+                print(f"[MENTIONS] Starting background thread for tagging notifications (edited comment)...")
+                Thread(target=send_tagging_notifications, args=(tagged_usernames, ticket_id, username, new_comment)).start()
+        except Exception as e:
+            print(f"[ERROR] Error extracting/sending tagging notifications for edited comment: {e}")
+
         return jsonify({"success": True, "comment_id": updated_id, "comment_text": updated_comment_text})
     except Exception as e:
         print(f"❌ Error updating comment: {str(e)}")
