@@ -1506,7 +1506,7 @@ const DashBoard = () => {
         return;
       }
 
-      if (e.key === 'c' || e.key === 'C') {
+      if ((e.key === 'c' || e.key === 'C') && !e.ctrlKey && !e.metaKey && !e.altKey) {
         e.preventDefault();
         setShowCreateTicketModal(true);
       }
@@ -2912,8 +2912,23 @@ const DashBoard = () => {
                         className="clear-filters-btn"
                         onClick={handleClearFilters}
                         title="Clear all active filters and search"
+                        style={{
+                          backgroundColor: '#fef2f2',
+                          color: '#ef4444',
+                          border: 'none',
+                          outline: 'none',
+                          boxShadow: 'none'
+                        }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.backgroundColor = '#ef4444';
+                          e.currentTarget.style.color = '#ffffff';
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.backgroundColor = '#fef2f2';
+                          e.currentTarget.style.color = '#ef4444';
+                        }}
                       >
-                        <FaTimes />
+                        <FaTimes /> Clear All
                       </button>
                     )}
                   </div>

@@ -3212,33 +3212,43 @@ select::-webkit-scrollbar-track {
 }
 
 /* Clear All Filters Button Styling */
+.main-header-row .clear-filters-btn,
 .clear-filters-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  height: 32px;
-  padding: 0 14px;
-  border: 1px dashed var(--border-color);
-  border-radius: 4px;
-  background-color: transparent;
-  color: var(--text-secondary);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  height: 32px !important;
+  padding: 0 14px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  background-color: #fef2f2 !important;
+  background: #fef2f2 !important;
+  color: #ef4444 !important;
   font-size: 12.48px !important;
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition);
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
   margin: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
+.main-header-row .clear-filters-btn:hover,
 .clear-filters-btn:hover {
-  background-color: rgba(239, 68, 68, 0.08) !important;
-  border-color: var(--danger-color) !important;
-  color: var(--danger-color) !important;
+  background-color: #ef4444 !important;
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
+.main-header-row .clear-filters-btn svg,
 .clear-filters-btn svg {
   width: 11px;
   height: 11px;
+  color: inherit !important;
+  fill: currentColor !important;
 }
