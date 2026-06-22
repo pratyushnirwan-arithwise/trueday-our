@@ -1394,6 +1394,7 @@ const DashBoard = () => {
   useEffect(() => {
     setSearchInputVal(searchTerm);
   }, [searchTerm]);
+
   const [filters, setFilters] = useState({
     priority: '',
     assignee: '',
@@ -1437,6 +1438,92 @@ const DashBoard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(true);
   const [showUserMenu, setShowUserMenu] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Only execute this keyboard shortcut when on the dashboard route
+      if (!location.pathname.startsWith('/dashboard')) return;
+
+      // Handle Escape key to close any active modal
+      if (e.key === 'Escape') {
+        let modalClosed = false;
+        if (isModalOpen) {
+          setIsModalOpen(false);
+          setSelectedTicket(null);
+          modalClosed = true;
+        }
+        if (editingTicket) {
+          setEditingTicket(null);
+          modalClosed = true;
+        }
+        if (showCreateTicketModal) {
+          setShowCreateTicketModal(false);
+          modalClosed = true;
+        }
+        if (showAddStatusModal) {
+          setShowAddStatusModal(false);
+          modalClosed = true;
+        }
+        if (showAddProjectModal) {
+          setShowAddProjectModal(false);
+          modalClosed = true;
+        }
+        if (showAddLabelModal) {
+          setShowAddLabelModal(false);
+          modalClosed = true;
+        }
+        if (showAddUsersModal) {
+          setShowAddUsersModal(false);
+          modalClosed = true;
+        }
+
+        if (modalClosed) {
+          e.preventDefault();
+        }
+        return;
+      }
+
+      const activeEl = document.activeElement;
+      const isTyping =
+        activeEl &&
+        (activeEl.tagName === 'INPUT' ||
+          activeEl.tagName === 'TEXTAREA' ||
+          activeEl.tagName === 'SELECT' ||
+          activeEl.hasAttribute('contenteditable') ||
+          activeEl.classList.contains('custom-select-trigger'));
+
+      if (isTyping) return;
+
+      if (
+        isModalOpen ||
+        showCreateTicketModal ||
+        showAddStatusModal ||
+        showAddProjectModal ||
+        showAddLabelModal ||
+        showAddUsersModal ||
+        editingTicket
+      ) {
+        return;
+      }
+
+      if (e.key === 'c' || e.key === 'C') {
+        e.preventDefault();
+        setShowCreateTicketModal(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [
+    location.pathname,
+    isModalOpen,
+    showCreateTicketModal,
+    showAddStatusModal,
+    showAddProjectModal,
+    showAddLabelModal,
+    showAddUsersModal,
+    editingTicket
+  ]);
 
   // Get user initials for avatar
   const getUserInitials = () => {
@@ -1837,6 +1924,38 @@ const DashBoard = () => {
     const params = new URLSearchParams({ ...newFilters, search: searchTerm }).toString();
     navigate(`/dashboard?${params}`);
   };
+
+  const handleClearFilters = () => {
+    const defaultFilters = {
+      priority: '',
+      assignee: '',
+      label_name: '',
+      project_id: 'all',
+      tag: '',
+      requestor: '',
+      approver: ''
+    };
+    setFilters(defaultFilters);
+    setSearchTerm('');
+    setSearchInputVal('');
+    localStorage.removeItem('dashboardFilters');
+    localStorage.removeItem('dashboardSearchTerm');
+    navigate('/dashboard', { replace: true });
+  };
+
+  const hasActiveFilters = useMemo(() => {
+    return (
+      filters.priority !== '' ||
+      filters.assignee !== '' ||
+      filters.label_name !== '' ||
+      filters.project_id !== 'all' ||
+      filters.tag !== '' ||
+      filters.requestor !== '' ||
+      filters.approver !== '' ||
+      searchTerm !== ''
+    );
+  }, [filters, searchTerm]);
+
 
   // If user already selected an assignee but switches project, clear assignee
   // when that assignee is not part of the chosen project's team.
@@ -2787,6 +2906,16 @@ const DashBoard = () => {
                       icon={<FaTag />}
                     />
 
+                    {/* Clear Filters Button */}
+                    {hasActiveFilters && (
+                      <button
+                        className="clear-filters-btn"
+                        onClick={handleClearFilters}
+                        title="Clear all active filters and search"
+                      >
+                        <FaTimes />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

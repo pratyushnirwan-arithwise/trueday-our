@@ -468,103 +468,103 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
             <div className="jira-form-row-flex">
               <div className="jira-form-group flex-half">
                 <label htmlFor="project">Project</label>
-                  <CustomSelect
-                    options={projects.map(project => ({ label: project.name, value: project.name }))}
-                    value={projectInput}
-                    onChange={(val) => handleProjectChange({ target: { value: val } })}
-                    placeholder="Select Project"
-                    searchable={true}
-                    icon={<FaBriefcase />}
-                  />
+                <CustomSelect
+                  options={projects.map(project => ({ label: project.name, value: project.name }))}
+                  value={projectInput}
+                  onChange={(val) => handleProjectChange({ target: { value: val } })}
+                  placeholder="Select Project"
+                  searchable={true}
+                  icon={<FaBriefcase />}
+                />
               </div>
               <div className="jira-form-group flex-half">
                 <label htmlFor="label_id">Label</label>
-                  <CustomSelect
-                    options={projectInput ? filteredLabels.map(label => ({ label: label.label_name, value: String(label.label_id) })) : []}
-                    value={selectedLabel}
-                    onChange={(val) => {
-                      setSelectedLabel(val);
-                      setFormData(prev => ({ ...prev, label_id: val }));
-                    }}
-                    placeholder="Select Label"
-                    searchable={true}
-                    icon={<FaTag />}
-                  />
+                <CustomSelect
+                  options={projectInput ? filteredLabels.map(label => ({ label: label.label_name, value: String(label.label_id) })) : []}
+                  value={selectedLabel}
+                  onChange={(val) => {
+                    setSelectedLabel(val);
+                    setFormData(prev => ({ ...prev, label_id: val }));
+                  }}
+                  placeholder="Select Label"
+                  searchable={true}
+                  icon={<FaTag />}
+                />
               </div>
             </div>
             <div className="jira-form-row-flex">
               <div className="jira-form-group flex-half">
                 <label htmlFor="assignee">Assignee</label>
-                  <CustomSelect
-                    options={(selectedProjectId ? projectUsers : scopedUsers).map(user => ({ label: user.username, value: String(user.id) }))}
-                    value={String(formData.assignee_id || '')}
-                    onChange={(val) => {
-                      const userList = selectedProjectId ? projectUsers : scopedUsers;
-                      const user = userList.find(u => String(u.id) === String(val));
-                      setFormData(prev => ({
-                        ...prev,
-                        assignee_id: val || null,
-                        assignee: user ? user.username : ''
-                      }));
-                    }}
-                    placeholder="Select Assignee"
-                    searchable={true}
-                    vAlign="top"
-                    icon={<FaUser />}
-                  />
+                <CustomSelect
+                  options={(selectedProjectId ? projectUsers : scopedUsers).map(user => ({ label: user.username, value: String(user.id) }))}
+                  value={String(formData.assignee_id || '')}
+                  onChange={(val) => {
+                    const userList = selectedProjectId ? projectUsers : scopedUsers;
+                    const user = userList.find(u => String(u.id) === String(val));
+                    setFormData(prev => ({
+                      ...prev,
+                      assignee_id: val || null,
+                      assignee: user ? user.username : ''
+                    }));
+                  }}
+                  placeholder="Select Assignee"
+                  searchable={true}
+                  vAlign="top"
+                  icon={<FaUser />}
+                />
               </div>
               <div className="jira-form-group flex-half">
                 <label htmlFor="due_date">Due Date <span className="required">*</span></label>
-                  <CustomDatePicker
-                    value={formData.due_date}
-                    onChange={(val) => handleChange({ target: { name: 'due_date', value: val } })}
-                    placeholder="dd-mm-yyyy"
-                    vAlign="top"
-                    icon={<FaCalendarAlt />}
-                  />
+                <CustomDatePicker
+                  value={formData.due_date}
+                  onChange={(val) => handleChange({ target: { name: 'due_date', value: val } })}
+                  placeholder="dd-mm-yyyy"
+                  vAlign="top"
+                  icon={<FaCalendarAlt />}
+                />
               </div>
             </div>
 
             <div className="jira-form-row-flex">
               <div className="jira-form-group flex-half">
                 <label htmlFor="collaborator">Collaborator</label>
-                  <CustomSelect
-                    options={(selectedProjectId ? projectUsers : scopedUsers).map(user => ({ label: user.username, value: String(user.id) }))}
-                    value={String(formData.collaborator_id || '')}
-                    onChange={(val) => {
-                      const userList = selectedProjectId ? projectUsers : scopedUsers;
-                      const user = userList.find(u => String(u.id) === String(val));
-                      setFormData(prev => ({
-                        ...prev,
-                        collaborator_id: val || null,
-                        collaborator: user ? user.username : ''
-                      }));
-                    }}
-                    placeholder="Select Collaborator"
-                    searchable={true}
-                    vAlign="top"
-                    icon={<FaUsers />}
-                  />
+                <CustomSelect
+                  options={(selectedProjectId ? projectUsers : scopedUsers).map(user => ({ label: user.username, value: String(user.id) }))}
+                  value={String(formData.collaborator_id || '')}
+                  onChange={(val) => {
+                    const userList = selectedProjectId ? projectUsers : scopedUsers;
+                    const user = userList.find(u => String(u.id) === String(val));
+                    setFormData(prev => ({
+                      ...prev,
+                      collaborator_id: val || null,
+                      collaborator: user ? user.username : ''
+                    }));
+                  }}
+                  placeholder="Select Collaborator"
+                  searchable={true}
+                  vAlign="top"
+                  icon={<FaUsers />}
+                />
               </div>
               <div className="jira-form-group flex-half">
                 <label htmlFor="approver">Approver</label>
-                  <CustomSelect
-                    options={(selectedProjectId ? projectUsers : scopedUsers).map(user => ({ label: user.username, value: String(user.id) }))}
-                    value={String(formData.approver_id || '')}
-                    onChange={(val) => {
-                      const userList = selectedProjectId ? projectUsers : scopedUsers;
-                      const user = userList.find(u => String(u.id) === String(val));
-                      setFormData(prev => ({
-                        ...prev,
-                        approver_id: val || null,
-                        approver: user ? user.username : ''
-                      }));
-                    }}
-                    placeholder="Select Approver"
-                    searchable={true}
-                    vAlign="top"
-                    icon={<FaShieldAlt />}
-                  />
+                <CustomSelect
+                  options={(selectedProjectId ? projectUsers : scopedUsers).map(user => ({ label: user.username, value: String(user.id) }))}
+                  value={String(formData.approver_id || '')}
+                  onChange={(val) => {
+                    const userList = selectedProjectId ? projectUsers : scopedUsers;
+                    const user = userList.find(u => String(u.id) === String(val));
+                    setFormData(prev => ({
+                      ...prev,
+                      approver_id: val || null,
+                      approver: user ? user.username : ''
+                    }));
+                  }}
+                  placeholder="Select Approver"
+                  searchable={true}
+                  vAlign="top"
+                  icon={<FaShieldAlt />}
+                />
               </div>
             </div>
           </div>
@@ -587,29 +587,29 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
             <div className="jira-form-row-flex">
               <div className="jira-form-group flex-half">
                 <label htmlFor="status">Status</label>
-                  <CustomSelect
-                    options={isLoadingStatuses ? [] : statusError ? [] : statuses.map(status => ({ label: status.name, value: status.name }))}
-                    value={formData.status}
-                    onChange={(val) => handleChange({ target: { name: 'status', value: val } })}
-                    placeholder={isLoadingStatuses ? 'Loading...' : statusError ? 'Error loading statuses' : 'Select Status'}
-                    vAlign="top"
-                    icon={<FaFlag />}
-                  />
+                <CustomSelect
+                  options={isLoadingStatuses ? [] : statusError ? [] : statuses.map(status => ({ label: status.name, value: status.name }))}
+                  value={formData.status}
+                  onChange={(val) => handleChange({ target: { name: 'status', value: val } })}
+                  placeholder={isLoadingStatuses ? 'Loading...' : statusError ? 'Error loading statuses' : 'Select Status'}
+                  vAlign="top"
+                  icon={<FaFlag />}
+                />
               </div>
               <div className="jira-form-group flex-half">
                 <label htmlFor="tag">Tag</label>
-                  <CustomSelect
-                    options={[
-                      { label: 'Tasks', value: 'Tasks' },
-                      { label: 'Bug', value: 'Bug' },
-                      { label: 'Research', value: 'Research' }
-                    ]}
-                    value={formData.tag}
-                    onChange={(val) => setFormData(prev => ({ ...prev, tag: val }))}
-                    placeholder="Select Tag"
-                    vAlign="top"
-                    icon={<FaHashtag />}
-                  />
+                <CustomSelect
+                  options={[
+                    { label: 'Tasks', value: 'Tasks' },
+                    { label: 'Bug', value: 'Bug' },
+                    { label: 'Research', value: 'Research' }
+                  ]}
+                  value={formData.tag}
+                  onChange={(val) => setFormData(prev => ({ ...prev, tag: val }))}
+                  placeholder="Select Tag"
+                  vAlign="top"
+                  icon={<FaHashtag />}
+                />
               </div>
             </div>
           </div>
@@ -626,7 +626,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
               disabled={isSubmitting}
               className="jira-submit-btn"
             >
-              {isSubmitting ? 'Creating...' : '+ Create Ticket'}
+              {isSubmitting ? 'Creating...' : 'Create Ticket'}
             </button>
           </div>
         </form>
