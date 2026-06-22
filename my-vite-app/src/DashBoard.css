@@ -517,13 +517,16 @@ body {
 .create-ticket-btn {
   background-color: #5e145e;
   color: white;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  padding: 0 16px !important;
 }
 
-/* .create-ticket-btn:hover {
+.create-ticket-btn:hover {
   background-color: #5e145e;
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
-} */
+}
 
 .add-status-btn {
   background-color: var(--bg-primary);
@@ -2854,7 +2857,7 @@ body {
   height: 32px !important;
   line-height: 32px !important;
   padding: 0 0.5rem !important;
-  font-size: 0.75rem !important;
+  font-size: 12.48px !important;
   border-radius: 4px !important;
   margin: 0 !important;
   box-sizing: border-box !important;
@@ -2885,30 +2888,30 @@ body {
   flex: 1 1 100% !important;
   width: 100% !important;
   max-width: none !important;
-  /* Remove max-width so arrow pushes to the right */
   min-width: 0 !important;
   height: 100% !important;
   line-height: 32px !important;
   box-sizing: border-box !important;
   margin: 0 !important;
   padding: 0 16px 0 28px !important;
-  /* Space for left icon */
   border: none !important;
   outline: none !important;
   background: transparent !important;
   color: var(--text-primary) !important;
   font-size: 12.48px !important;
   vertical-align: middle !important;
+  text-overflow: ellipsis !important;
+}
+
+.filter-item-wrapper .filter-select {
   text-align: center !important;
   text-align-last: center !important;
   cursor: pointer !important;
-  text-overflow: ellipsis !important;
-  /* Handle long option names */
 }
 
 .search-wrapper .search-input {
+  text-align: left !important;
   cursor: text !important;
-  width: 100% !important;
 }
 
 .filter-item-wrapper:focus-within,
@@ -3206,4 +3209,36 @@ select::-webkit-scrollbar-track {
 
 .admin-icon {
   font-size: 0.85rem;
+}
+
+/* Clear All Filters Button Styling */
+.clear-filters-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-size: 12.48px !important;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin: 0 !important;
+}
+
+.clear-filters-btn:hover {
+  background-color: rgba(239, 68, 68, 0.08) !important;
+  border-color: var(--danger-color) !important;
+  color: var(--danger-color) !important;
+}
+
+.clear-filters-btn svg {
+  width: 11px;
+  height: 11px;
 }
