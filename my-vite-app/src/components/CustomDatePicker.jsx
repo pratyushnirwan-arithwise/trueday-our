@@ -17,11 +17,11 @@ export default function CustomDatePicker({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [viewMode, setViewMode] = useState('days'); // 'days' or 'years'
-  
+
   const initialDateStr = selectsRange ? (startDate || endDate) : value;
   const currentValDate = initialDateStr ? new Date(initialDateStr + 'T12:00:00') : new Date();
   const [viewDate, setViewDate] = useState(new Date(currentValDate.getFullYear(), currentValDate.getMonth(), 1));
-  
+
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -220,7 +220,7 @@ export default function CustomDatePicker({
           className="custom-select-dropdown dp-popup"
           style={{
             position: 'absolute',
-            left: '50%',
+            left: '30%',
             transform: 'translateX(-50%)',
             top: vAlign === 'bottom' ? 'calc(100% + 4px)' : 'auto',
             bottom: vAlign === 'top' ? 'calc(100% + 4px)' : 'auto',
