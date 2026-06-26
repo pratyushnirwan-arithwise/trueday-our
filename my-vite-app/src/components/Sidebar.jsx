@@ -300,7 +300,7 @@ export default function Navbar() {
       {/* 3-column user/project/label panel */}
       {showUserPanel && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.18)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ display: 'flex', background: '#fff', borderRadius: 12, boxShadow: '0 4px 32px rgba(0,0,0,0.13)', width: '80vw', maxWidth: 1200, minHeight: 400, overflow: 'hidden' }}>
+          <div className="user-panel-modal" style={{ display: 'flex', background: '#fff', borderRadius: 12, boxShadow: '0 4px 32px rgba(0,0,0,0.13)', width: '80vw', maxWidth: 1200, minHeight: 400, overflow: 'hidden' }}>
             {/* Column 1: Users */}
             <div style={{ flex: 1, padding: 24, borderRight: '1px solid #eee', overflowY: 'auto' }}>
               <h3 style={{ marginBottom: 16 }}>Users</h3>

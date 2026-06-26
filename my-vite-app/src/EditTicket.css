@@ -51,7 +51,7 @@
 }
 
 .ET-jira-header .ET-ticket-title:focus {
-  border-color: #cbd5e1;
+  border-color: #cccccc;
   box-shadow: none;
 }
 
@@ -258,7 +258,7 @@
   width: 8px;
   height: 8px;
   border-radius: 9999px;
-  background: #cbd5e1
+  background: #cccccc
 }
 
 .ET-status-step.active .ET-status-dot {
@@ -357,7 +357,7 @@
   padding: 4px 9px;
   font-size: 14px;
   font-weight: 500;
-  color: #64748b;
+  color: #777777;
   /* Slate 500 */
   cursor: pointer;
   transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -369,13 +369,13 @@
 }
 
 .ET-activity-tab:hover {
-  color: #0f172a;
+  color: #111111;
   /* Slate 900 */
   background: transparent;
 }
 
 .ET-activity-tab.active {
-  color: #0f172a;
+  color: #111111;
   /* Slate 900 */
   background: transparent;
   border: none;
@@ -607,14 +607,14 @@
 }
 
 .ET-user-avatar {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   color: #000000;
   border: 1px solid #cccccc;
@@ -647,7 +647,7 @@
   color: #333333;
   line-height: 1.5;
   font-size: 14px;
-  margin-left: 44px;
+  margin-left: 32px;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
@@ -990,7 +990,7 @@
 /* updated form fields block to take full height */
 .ET-form-fields-block {
   flex: 1;
-  overflow-y: auto;
+
   padding-right: 8px;
 }
 
@@ -1401,7 +1401,7 @@
   align-items: center;
   padding: 10px 56px 10px 16px;
   background: #f1f5f9;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e0e0e0;
   min-height: 48px;
 }
 
@@ -2259,7 +2259,7 @@
 
 .ET-chip:hover {
   background: #e5e7eb;
-  border-color: #cbd5e1
+  border-color: #cccccc
 }
 
 /* Pro tip helper under input */
@@ -3225,7 +3225,7 @@ body:has(.ET-modal-overlay[data-main]) {
   max-width: 1200px;
   height: 88vh;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.06),
@@ -3311,12 +3311,7 @@ body:has(.ET-modal-overlay[data-main]) {
   }
 }
 
-/* Prevent scrollbar jank from shifting page when modal opens */
-/* scrollbar-gutter: stable keeps the scrollbar space reserved so
-   the page never shifts when overflow:hidden is toggled */
-html {
-  scrollbar-gutter: stable;
-}
+/* html scrollbar-gutter removed to prevent white strip on right edge */
 
 body:has(.ET-modal-content-wrapper) {
   overflow: hidden !important;
@@ -3362,7 +3357,7 @@ body:has(.ET-modal-content-wrapper) {
 }
 
 .react-datepicker__header {
-  background: #f8fafc !important;
+  background: #f0f0f0 !important;
   border-bottom: 1px solid #e5e7eb !important;
 }
 
@@ -3544,7 +3539,7 @@ body:has(.ET-modal-content-wrapper) {
 .ET-edit-ticket-container.ET-modal-mode {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
 }
 
@@ -3754,7 +3749,7 @@ body:has(.ET-modal-content-wrapper) {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #64748b;
+  color: #777777;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3765,11 +3760,559 @@ body:has(.ET-modal-content-wrapper) {
 
 .ET-remove-file-btn:hover {
   background: #bae6fd;
-  color: #0f172a;
+  color: #111111;
 }
 
 /* Priority custom select pill padding fix */
 .ET-form-field.ET-readlike .custom-select-trigger.has-color {
   padding: 3px 10px !important;
   border-radius: 12px;
+}
+
+/* Dark Mode Overrides */
+body.dark .ET-modal-content-wrapper,
+body.dark .ET-modal-content,
+body.dark .ET-image-preview-content,
+body.dark .ET-edit-ticket-container,
+body.dark .ET-jira .ET-jira-header,
+body.dark .ET-jira-right {
+  background-color: #1a1a1a !important;
+  color: #f0f0f0 !important;
+  border-color: #2e2e2e !important;
+}
+
+body.dark .ET-modal-content-wrapper>.ET-modal-close-btn {
+  background: #2a2a2a !important;
+  border-color: #3e3e3e !important;
+  color: #a0a0a0 !important;
+}
+
+body.dark .ET-modal-content-wrapper>.ET-modal-close-btn:hover {
+  background: #3a3a3a !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-image-preview-header,
+body.dark .ET-image-preview-body,
+body.dark .ET-left-section,
+body.dark .ET-right-section,
+body.dark .ET-comments-area,
+body.dark .ET-description-box,
+body.dark .ET-comment-input-container,
+body.dark .ET-worklog-modal-actions,
+body.dark .ET-comment-toolbar,
+body.dark .ET-worklog-description-editor {
+  background-color: #111111 !important;
+  color: #f0f0f0 !important;
+  border-color: #2e2e2e !important;
+}
+
+body.dark .ET-ticket-title,
+body.dark .ET-comment-input,
+body.dark .ET-comment-edit-input,
+body.dark .ET-form-field.ET-readlike select,
+body.dark .ET-form-field.ET-readlike input,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger {
+  color: #f0f0f0 !important;
+  background-color: transparent !important;
+}
+
+body.dark .ET-form-field.ET-readlike select:focus,
+body.dark .ET-form-field.ET-readlike input:focus,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger.open,
+body.dark .ET-form-field.ET-readlike .custom-select-dropdown {
+  background-color: #2a2a2a !important;
+  border-color: #444444 !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-form-field.ET-readlike .custom-select-option {
+  color: #e0e0e0 !important;
+}
+
+body.dark .ET-form-field.ET-readlike .custom-select-option:hover {
+  background-color: #3a3a3a !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-form-field label,
+body.dark .ET-right-section .ET-section-header,
+body.dark .ET-desc-edit-toggle,
+body.dark .ET-form-field.ET-readlike label {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-desc-edit-toggle:hover {
+  background: #2a2a2a !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-selected-file {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #e2e8f0 !important;
+}
+
+body.dark .ET-icon-button {
+  background: #2a2a2a !important;
+  border-color: #3e3e3e !important;
+  color: #e2e8f0 !important;
+}
+
+body.dark .ET-icon-button:hover {
+  background: #3a3a3a !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-unified-activity-area,
+body.dark .ET-activity-body-wrapper {
+  background: transparent !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-history-item {
+  background: #1e1e1e !important;
+  border-color: #333333 !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-history-item:hover {
+  background: #252525 !important;
+  border-color: #444444 !important;
+}
+
+body.dark .ET-history-action,
+body.dark .ET-form-field.ET-readlike,
+body.dark .ET-form-field.ET-readlike div,
+body.dark .ET-form-field.ET-readlike span {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-history-details,
+body.dark .ET-history-snippet {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-history-icon {
+  background: #2a1b2a !important;
+  border-color: #4a2b4a !important;
+  color: #d8b4d8 !important;
+}
+
+body.dark .ET-comment {
+  background-color: #1e1e1e !important;
+  border-color: #333333 !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-comment-username,
+body.dark .ET-comment-body,
+body.dark .ET-comment-timestamp {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-section-toggle,
+body.dark .ET-section-toggle span,
+body.dark .ET-description-read {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-section-toggle svg {
+  color: #c084fc !important;
+}
+
+body.dark .ET-activity-tabs {
+  background: #1e1e1e !important;
+}
+
+body.dark .ET-activity-tabs::before {
+  background: #3a3a3a !important;
+}
+
+body.dark .ET-activity-tab {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-activity-tab:hover,
+body.dark .ET-activity-tab.active {
+  color: #ffffff !important;
+}
+
+/* Unify Edit Ticket Modal Theme with Create Ticket Modal Theme */
+.ET-modal-content-wrapper {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  border: 1px solid #e0e7ff !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ET-modal-mode .ET-left-section,
+.ET-modal-mode .ET-right-section,
+.ET-modal-mode .ET-header-section,
+.ET-modal-mode .ET-edit-ticket-container,
+.ET-modal-mode .ET-main-body {
+  background: transparent !important;
+}
+
+/* Ensure Title is clean without boxed borders */
+.ET-modal-mode .ET-ticket-title,
+body.dark .ET-modal-mode .ET-ticket-title {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 8px 0 !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+}
+
+.ET-modal-mode .ET-ticket-title:focus,
+.ET-modal-mode .ET-ticket-title:hover,
+body.dark .ET-modal-mode .ET-ticket-title:focus,
+body.dark .ET-modal-mode .ET-ticket-title:hover {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.ET-modal-mode .ET-form-field select,
+.ET-modal-mode .ET-form-field input,
+.ET-modal-mode .ET-form-field .custom-select-trigger,
+.ET-modal-mode .ET-description-box textarea {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 6px !important;
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.95rem !important;
+  color: #111827 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s !important;
+}
+
+.ET-modal-mode .ET-form-field select:focus,
+.ET-modal-mode .ET-form-field input:focus,
+.ET-modal-mode .ET-form-field .custom-select-trigger.open,
+.ET-modal-mode .ET-description-box textarea:focus {
+  border-color: #6366f1 !important;
+  outline: none !important;
+}
+
+body.dark .ET-modal-content-wrapper {
+  background: #1a1a1a !important;
+  border-color: #2e2e2e !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.dark .ET-modal-mode .ET-left-section,
+body.dark .ET-modal-mode .ET-right-section,
+body.dark .ET-modal-mode .ET-header-section,
+body.dark .ET-modal-mode .ET-edit-ticket-container,
+body.dark .ET-modal-mode .ET-main-body,
+body.dark .ET-modal-mode .ET-comments-area,
+body.dark .ET-modal-mode .ET-description-box {
+  background: transparent !important;
+}
+
+body.dark .ET-modal-mode .ET-form-field select,
+body.dark .ET-modal-mode .ET-form-field input,
+body.dark .ET-modal-mode .ET-form-field .custom-select-trigger,
+body.dark .ET-modal-mode .ET-description-box textarea {
+  background-color: #111111 !important;
+  border-color: #2e2e2e !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-modal-mode .ET-form-field select:hover,
+body.dark .ET-modal-mode .ET-form-field input:hover,
+body.dark .ET-modal-mode .ET-form-field .custom-select-trigger:hover,
+body.dark .ET-modal-mode .ET-description-box textarea:hover {
+  border-color: #6366f1 !important;
+  background-color: #1a1a1a !important;
+}
+
+/* ============================================================
+   Final Overrides: Unboxed Title & Details Dropdowns + Kanban Size
+   ============================================================ */
+
+/* Ensure Title is completely unboxed */
+.ET-ticket-title,
+.ET-modal-mode .ET-ticket-title,
+body.dark .ET-ticket-title,
+body.dark .ET-modal-mode .ET-ticket-title {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Remove outer box from readlike rows on Details panel */
+.ET-form-field.ET-readlike,
+.ET-modal-mode .ET-form-field.ET-readlike,
+body.dark .ET-form-field.ET-readlike,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike,
+body.dark .ET-readlike {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 4px 0 !important;
+  margin-bottom: 6px !important;
+}
+
+/* Sentence case styling for labels */
+.ET-form-field.ET-readlike label,
+body.dark .ET-form-field.ET-readlike label {
+  text-transform: none !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: normal !important;
+  color: #888888 !important;
+}
+
+/* Remove dropdown box styling and match Kanban filter button size */
+.ET-form-field.ET-readlike .custom-select-trigger,
+.ET-form-field.ET-readlike select,
+.ET-form-field.ET-readlike input,
+.ET-form-field.ET-readlike .react-datepicker-wrapper input,
+.ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger,
+.ET-modal-mode .ET-form-field.ET-readlike select,
+.ET-modal-mode .ET-form-field.ET-readlike input,
+.ET-modal-mode .ET-form-field.ET-readlike .react-datepicker-wrapper input,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger,
+body.dark .ET-form-field.ET-readlike select,
+body.dark .ET-form-field.ET-readlike input,
+body.dark .ET-form-field.ET-readlike .react-datepicker-wrapper input,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike select,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike input,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike .react-datepicker-wrapper input {
+  height: 32px !important;
+  line-height: 30px !important;
+  padding: 0 10px !important;
+  font-size: 12.48px !important;
+  border-radius: 4px !important;
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  color: inherit !important;
+}
+
+/* Subtle soft hover feedback on rows */
+.ET-form-field.ET-readlike:hover .custom-select-trigger,
+.ET-form-field.ET-readlike:hover select,
+.ET-form-field.ET-readlike:hover input,
+.ET-form-field.ET-readlike:hover .react-datepicker-wrapper input,
+.ET-form-field.ET-readlike .custom-select-trigger.open {
+  background-color: var(--bg-secondary, rgba(128, 128, 128, 0.12)) !important;
+}
+
+/* ============================================================
+   Disable Height/Margin Shrink Animations & Fix Avatar Overlap
+   ============================================================ */
+
+/* Disable negative margins and height changes when dropdown is clicked/open */
+.ET-form-field.ET-readlike .custom-select-trigger,
+.ET-form-field.ET-readlike .custom-select-trigger.open,
+.ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger,
+.ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger.open,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger.open,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger.open {
+  margin: 0 !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+/* Ensure avatar does not overlap dropdown text */
+.ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger,
+.ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger.open,
+.ET-modal-mode .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger,
+.ET-modal-mode .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger.open,
+body.dark .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger,
+body.dark .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger.open,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger.open {
+  padding-left: 36px !important;
+  padding-right: 10px !important;
+}
+
+/* ============================================================
+   Priority Dropdown Options Explicit Colors (Red, Yellow, Green)
+   ============================================================ */
+body .modal-overlay .custom-select-option.ET-prio-high,
+body .jira-create-ticket-card .custom-select-option.ET-prio-high,
+body .ET-form-field.ET-readlike .custom-select-option.ET-prio-high,
+.custom-select-option.ET-prio-high {
+  background-color: rgba(239, 68, 68, 0.22) !important;
+  color: #ff4d4d !important;
+}
+
+body .modal-overlay .custom-select-option.ET-prio-medium,
+body .jira-create-ticket-card .custom-select-option.ET-prio-medium,
+body .ET-form-field.ET-readlike .custom-select-option.ET-prio-medium,
+.custom-select-option.ET-prio-medium {
+  background-color: rgba(234, 179, 8, 0.22) !important;
+  color: #facc15 !important;
+}
+
+body .modal-overlay .custom-select-option.ET-prio-low,
+body .jira-create-ticket-card .custom-select-option.ET-prio-low,
+body .ET-form-field.ET-readlike .custom-select-option.ET-prio-low,
+.custom-select-option.ET-prio-low {
+  background-color: rgba(34, 197, 94, 0.22) !important;
+  color: #4ade80 !important;
+}
+
+/* Selected Priority trigger text color override */
+body .modal-overlay .custom-select-trigger.trigger-ET-prio-high,
+body .jira-create-ticket-card .custom-select-trigger.trigger-ET-prio-high,
+.custom-select-trigger.trigger-ET-prio-high {
+  color: #ff4d4d !important;
+}
+
+body .modal-overlay .custom-select-trigger.trigger-ET-prio-medium,
+body .jira-create-ticket-card .custom-select-trigger.trigger-ET-prio-medium,
+.custom-select-trigger.trigger-ET-prio-medium {
+  color: #facc15 !important;
+}
+
+body .modal-overlay .custom-select-trigger.trigger-ET-prio-low,
+body .jira-create-ticket-card .custom-select-trigger.trigger-ET-prio-low,
+.custom-select-trigger.trigger-ET-prio-low {
+  color: #4ade80 !important;
+}
+
+/* Dark Mode Comment Text Visibility */
+body.dark .ET-comment-text,
+body.dark .ET-worklog-timestamp,
+body.dark .ET-worklog-time-info,
+body.dark .ET-comment-card .ET-history-details {
+  color: #e5e7eb !important;
+}
+
+body.dark .ET-comment-username,
+body.dark .ET-worklog-username,
+body.dark .ET-comment-card .ET-history-action {
+  color: #ffffff !important;
+}
+
+body.dark .ET-comment-timestamp,
+body.dark .ET-history-time,
+body.dark .ET-comment-card .ET-history-time {
+  color: #c084fc !important;
+}
+
+/* Light Mode Comment Card overrides */
+.ET-comment-card .ET-history-details {
+  color: #6b7280;
+}
+
+.ET-comment-card .ET-history-action {
+  color: #3a0a34;
+  font-weight: 500;
+}
+
+.ET-comment-card .ET-history-time {
+  color: #9b79a0;
+}
+
+/* Remove Card Boxes around Activity Log and Comments */
+.ET-history-item,
+body.dark .ET-history-item {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+body.dark .ET-history-item:hover,
+.ET-history-item:hover {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Remove hr horizontal divider lines under comments */
+.ET-comment-thread::after,
+.ET-comment-thread.ET-reply::after,
+.ET-comment-thread:not(.ET-reply)::after {
+  display: none !important;
+}
+
+/* Remove horizontal divider line under DETAILS sidebar header */
+.ET-right-section .ET-section-header {
+  border-bottom: none !important;
+}
+
+/* Remove white background from formatting icons toolbar */
+.ET-formatting-toolbar,
+body.dark .ET-formatting-toolbar {
+  background: transparent !important;
+}
+
+body.dark .ET-toolbar-btn {
+  color: #cccccc !important;
+}
+
+body.dark .ET-toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* Vertically center formatting toolbar icons with send button */
+.ET-comment-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 6px 12px !important;
+}
+
+.ET-formatting-toolbar {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Prevent pasted images from expanding comment composer box and pushing send button out of view */
+.ET-comment-input {
+  max-height: 180px !important;
+  overflow-y: auto !important;
+}
+
+.ET-comment-input img,
+.ET-comment-input .comment-image {
+  max-height: 160px !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}
+
+/* "Clear / No selection" option in EditTicket dropdowns — matches Kanban board filter style */
+.ET-form-field .custom-select-option.is-default,
+.ET-readlike .custom-select-option.is-default {
+  color: #6b7280 !important;
+  opacity: 0.65 !important;
+  font-style: italic !important;
+}
+
+.ET-form-field .custom-select-option.is-default.selected,
+.ET-readlike .custom-select-option.is-default.selected {
+  background: rgba(107, 114, 128, 0.1) !important;
+  color: #6b7280 !important;
+}
+
+body.dark .ET-form-field .custom-select-option.is-default,
+body.dark .ET-readlike .custom-select-option.is-default {
+  color: #9ca3af !important;
+  opacity: 0.65 !important;
+}
+
+body.dark .ET-form-field .custom-select-option.is-default.selected,
+body.dark .ET-readlike .custom-select-option.is-default.selected {
+  background: rgba(156, 163, 175, 0.1) !important;
+  color: #9ca3af !important;
 }

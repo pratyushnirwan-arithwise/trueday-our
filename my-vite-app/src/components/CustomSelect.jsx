@@ -48,7 +48,7 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
       if (searchQuery) {
         setActiveIndex(filteredOptions.length > 0 ? 0 : -1);
       } else {
-        const selectedIdx = filteredOptions.findIndex(o => o.value === value);
+        const selectedIdx = filteredOptions.findIndex(o => o.value === value || (value && String(o.value).toLowerCase() === String(value).toLowerCase()));
         setActiveIndex(selectedIdx >= 0 ? selectedIdx : -1);
       }
     } else {
@@ -136,14 +136,14 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
     }
   };
 
-  const selectedOption = options.find(o => o.value === value) || { label: placeholder, value: '' };
+  const selectedOption = options.find(o => o.value === value || (value && String(o.value).toLowerCase() === String(value).toLowerCase())) || { label: placeholder, value: '' };
 
   return (
     <div className="custom-select-container" ref={containerRef} onKeyDown={handleKeyDown}>
       <button
         ref={triggerRef}
         type="button"
-        className={`custom-select-trigger ${isOpen ? 'open' : ''} ${selectedOption.color ? 'has-color' : ''}`}
+        className={`custom-select-trigger ${isOpen ? 'open' : ''} ${selectedOption.color ? 'has-color' : ''} ${selectedOption.className ? `trigger-${selectedOption.className}` : ''}`}
         onClick={() => {
           if (isOpen) {
             setIsOpen(false);
@@ -152,10 +152,10 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
             setIsOpen(true);
           }
         }}
-        style={selectedOption.color ? { backgroundColor: `${selectedOption.color}20`, color: selectedOption.color, borderColor: `${selectedOption.color}40` } : {}}
+        style={selectedOption.color ? { backgroundColor: `${selectedOption.color}33`, color: selectedOption.color, borderColor: `${selectedOption.color}66` } : {}}
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {icon && <span style={{ color: '#000', display: 'flex', alignItems: 'center', fontSize: '1.1em' }}>{icon}</span>}
+          {icon && <span style={{ color: 'inherit', display: 'flex', alignItems: 'center', fontSize: '1.1em' }}>{icon}</span>}
           {selectedOption.triggerLabel || selectedOption.label}
         </span>
         <span className="custom-select-arrow">▾</span>
@@ -172,7 +172,7 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
             {filteredOptions.length > 0 ? filteredOptions.map((opt, i) => (
               <div
                 key={`${opt.value}-${i}`}
-                className={`custom-select-option ${opt.value === value ? 'selected' : ''} ${opt.disabled ? 'disabled' : ''} ${i === activeIndex ? 'active' : ''} ${opt.className || ''}`}
+                className={`custom-select-option ${(opt.value === value || (value && String(opt.value).toLowerCase() === String(value).toLowerCase())) ? 'selected' : ''} ${opt.disabled ? 'disabled' : ''} ${i === activeIndex ? 'active' : ''} ${opt.color ? 'has-color' : ''} ${opt.className || ''}`}
                 onClick={() => {
                   if (opt.disabled) return;
                   onChange(opt.value);
@@ -180,7 +180,7 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
                   setSearchQuery('');
                 }}
                 onMouseEnter={() => setActiveIndex(i)}
-                style={opt.color ? { backgroundColor: `${opt.color}20`, color: opt.color } : {}}
+                style={opt.color ? { backgroundColor: `${opt.color}33`, color: opt.color } : {}}
               >
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   {highlightMatch(String(opt.label), searchQuery)}

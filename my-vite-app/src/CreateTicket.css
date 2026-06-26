@@ -60,7 +60,8 @@
 
 /* Form subtitle */
 .form-subtitle {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  color: #64748b;
   opacity: 0.9;
   font-weight: 400;
 }
@@ -106,7 +107,7 @@ label {
   border-radius: 10px;
   font-size: 0.95rem;
   color: #1f2937;
-  background-color: #f8fafc;
+  background-color: #f0f0f0;
   transition: all 0.2s ease;
   outline: none;
 }
@@ -183,7 +184,7 @@ label {
   justify-content: flex-end;
   gap: 1rem;
   padding: 1.5rem;
-  background-color: #f8fafc;
+  background-color: #f0f0f0;
   border-top: 1px solid #e0e7ff;
   margin-top: 1.5rem;
 }
@@ -249,7 +250,8 @@ label {
 }
 
 /* Placeholder text */
-::placeholder {
+::placeholder,
+.custom-textarea::placeholder {
   color: #9ca3af;
   font-size: 0.95rem;
 }
@@ -430,7 +432,7 @@ label {
 
 .jira-create-ticket-card.single-card-centered {
   background: #fff;
-  border-radius: 14px;
+  border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
   border: 2px solid #fff;
   /* Remove purple border, use white (invisible) */
@@ -455,6 +457,7 @@ label {
   flex-direction: column;
   justify-content: flex-start;
   min-height: 0;
+  border-radius: 16px;
 }
 
 .jira-create-form.jira-create-form-grid {
@@ -620,9 +623,9 @@ label {
 .jira-form-input:focus,
 .jira-form-select:focus,
 .jira-form-textarea:focus {
-  border-color: #4f46e5;
-  /* Use a soft blue for focus, or #e0e7ff for no highlight */
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.08);
+  border-color: #d1d5db;
+  box-shadow: none;
+  outline: none;
 }
 
 .jira-form-textarea {
@@ -650,8 +653,8 @@ label {
 }
 
 .textarea-wrapper-custom:focus-within {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  border-color: var(--border-color, #d1d5db);
+  box-shadow: none;
 }
 
 .textarea-toolbar {
@@ -683,6 +686,7 @@ label {
 .custom-textarea {
   border: none;
   box-shadow: none;
+  outline: none;
   border-radius: 0;
   min-height: 120px;
   resize: none;
@@ -691,6 +695,7 @@ label {
 
 .custom-textarea:focus {
   box-shadow: none;
+  outline: none;
 }
 
 .textarea-footer {
@@ -747,18 +752,17 @@ label {
 }
 
 .jira-cancel-btn {
-  background: #e5e7eb !important;
-  /* grey */
-  color: #222 !important;
-  border-color: #e5e7eb !important;
+  background: #ffffff !important;
+  color: #374151 !important;
+  border: 1.5px solid #d1d5db !important;
   margin-top: 0;
   height: 36px;
 }
 
 .jira-cancel-btn:hover {
-  background: #d1d5db !important;
-  color: #111 !important;
-  border-color: #d1d5db !important;
+  background: #f3f4f6 !important;
+  color: #111827 !important;
+  border-color: #9ca3af !important;
 }
 
 /* Remove sidebar/grid styles for this page */
@@ -912,4 +916,396 @@ label {
 .jira-create-ticket-card.single-card-centered * {
   scrollbar-width: thin;
   scrollbar-color: #b0b0b0 transparent;
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES — Create Ticket Modal
+   Triggered by body.dark (JS toggle adds class to document.body)
+   ============================================================ */
+
+/* Modal card */
+body.dark .jira-create-ticket-card.single-card-centered {
+  background: #1a1a1a !important;
+  border-color: #2e2e2e !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Outer page background */
+body.dark .create-ticket-outer {
+  background: linear-gradient(135deg, #111111, #1a1a1a) !important;
+}
+
+/* Form main area */
+body.dark .jira-create-main {
+  background: #1a1a1a !important;
+  border-radius: 16px !important;
+}
+
+/* Form header */
+body.dark .jira-form-header {
+  border-bottom-color: #2e2e2e !important;
+}
+
+body.dark .jira-form-header h2 {
+  color: #f0f0f0 !important;
+}
+
+body.dark .form-subtitle {
+  color: #9ca3af !important;
+}
+
+/* Header icon box */
+body.dark .header-icon-box {
+  background-color: #2d1b45 !important;
+  color: #c084fc !important;
+}
+
+/* Labels */
+body.dark .jira-form-group label {
+  color: #909090 !important;
+}
+
+/* Inputs, selects, textareas */
+body.dark .jira-form-input,
+body.dark .jira-form-select,
+body.dark .jira-form-textarea {
+  background-color: #111111 !important;
+  color: #f0f0f0 !important;
+  border-color: #2e2e2e !important;
+}
+
+body.dark .jira-form-input:hover,
+body.dark .jira-form-select:hover,
+body.dark .jira-form-textarea:hover {
+  border-color: #6366f1 !important;
+  background-color: #1a1a1a !important;
+}
+
+body.dark .jira-form-input:focus,
+body.dark .jira-form-select:focus,
+body.dark .jira-form-textarea:focus {
+  border-color: #2e2e2e !important;
+  background-color: #1a1a1a !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Placeholder text */
+body.dark .jira-form-input::placeholder,
+body.dark .jira-form-textarea::placeholder,
+body.dark .custom-textarea::placeholder {
+  color: #555555 !important;
+}
+
+/* Input icon */
+body.dark .input-icon {
+  color: #555555 !important;
+}
+
+body.dark .input-icon-wrapper:focus-within .input-icon {
+  color: #818cf8 !important;
+}
+
+/* Description textarea wrapper */
+body.dark .textarea-wrapper-custom {
+  background: #111111 !important;
+  border-color: #2e2e2e !important;
+}
+
+body.dark .textarea-wrapper-custom:focus-within {
+  border-color: #2e2e2e !important;
+  box-shadow: none !important;
+}
+
+/* Textarea toolbar */
+body.dark .textarea-toolbar {
+  background: #1a1a1a !important;
+  border-bottom-color: #2e2e2e !important;
+}
+
+body.dark .textarea-toolbar button {
+  color: #909090 !important;
+}
+
+body.dark .textarea-toolbar button:hover {
+  background: #2e2e2e !important;
+  color: #f0f0f0 !important;
+}
+
+/* Custom textarea inside wrapper */
+body.dark .custom-textarea {
+  background-color: #111111 !important;
+  color: #f0f0f0 !important;
+}
+
+/* Textarea footer */
+body.dark .textarea-footer {
+  background: #111111 !important;
+  color: #555555 !important;
+}
+
+/* Action buttons row */
+body.dark .jira-form-actions {
+  background: transparent !important;
+}
+
+/* Cancel button — use body.dark + .jira-form-actions selector for higher specificity */
+body.dark .jira-form-actions .jira-cancel-btn,
+body.dark .jira-cancel-btn {
+  background: #2e2e2e !important;
+  color: #e0e0e0 !important;
+  border-color: #555555 !important;
+}
+
+body.dark .jira-form-actions .jira-cancel-btn:hover,
+body.dark .jira-cancel-btn:hover {
+  background: #555555 !important;
+  color: #f0f0f0 !important;
+  border-color: #777777 !important;
+}
+
+/* Close button */
+body.dark .close-btn {
+  color: #909090 !important;
+}
+
+body.dark .close-btn:hover {
+  background: #2e2e2e !important;
+  color: #f0f0f0 !important;
+}
+
+/* Assignee / collaborator suggestion dropdowns */
+body.dark .assignee-suggestions,
+body.dark .collaborator-suggestions {
+  background: #1a1a1a !important;
+  border-color: #2e2e2e !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark .assignee-suggestions li,
+body.dark .collaborator-suggestions li {
+  color: #818cf8 !important;
+  background: #1a1a1a !important;
+}
+
+body.dark .assignee-suggestions li:hover,
+body.dark .collaborator-suggestions li:hover,
+body.dark .collaborator-suggestions li.active {
+  background: #2d1b45 !important;
+  color: #c084fc !important;
+}
+
+/* Success popup */
+body.dark .success-content {
+  background-color: #1a1a1a !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .success-title {
+  color: #f0f0f0 !important;
+}
+
+body.dark .success-message {
+  color: #909090 !important;
+}
+
+/* Form actions bar */
+body.dark .form-actions {
+  background-color: #111111 !important;
+  border-top-color: #2e2e2e !important;
+}
+
+/* Old-style card & form (non-jira classes) */
+body.dark .ticket-card {
+  background: #1a1a1a !important;
+  border-color: #2e2e2e !important;
+}
+
+body.dark .create-ticket-form {
+  background-color: #1a1a1a !important;
+}
+
+body.dark label {
+  color: #909090 !important;
+}
+
+/* Scrollbar in dark mode */
+body.dark .jira-create-ticket-card.single-card-centered ::-webkit-scrollbar-thumb {
+  background: #555555 !important;
+}
+
+body.dark .jira-create-ticket-card.single-card-centered ::-webkit-scrollbar-thumb:hover {
+  background: #6366f1 !important;
+}
+
+/* ============================================================
+   Create Ticket — CustomSelect trigger styled like kanban filters
+   ============================================================ */
+
+/* Base trigger — match kanban filter button look */
+.jira-create-ticket-card .custom-select-trigger,
+.modal-overlay .custom-select-trigger {
+  background: var(--bg-primary) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 6px !important;
+  color: var(--text-primary) !important;
+  box-shadow: none !important;
+  font-size: 12.48px !important;
+  font-weight: 400 !important;
+  height: 36px !important;
+  line-height: 34px !important;
+}
+
+.jira-create-ticket-card .custom-select-trigger:hover,
+.jira-create-ticket-card .custom-select-trigger.open,
+.modal-overlay .custom-select-trigger:hover,
+.modal-overlay .custom-select-trigger.open {
+  background: var(--bg-secondary) !important;
+  border-color: #5e145e !important;
+  box-shadow: none !important;
+}
+
+/* Dropdown panel */
+.jira-create-ticket-card .custom-select-dropdown,
+.modal-overlay .custom-select-dropdown {
+  background: var(--bg-primary) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 6px !important;
+}
+
+/* Options */
+.jira-create-ticket-card .custom-select-option,
+.modal-overlay .custom-select-option {
+  color: var(--text-primary) !important;
+  font-size: 12.48px !important;
+}
+
+.jira-create-ticket-card .custom-select-option:hover:not(.has-color),
+.jira-create-ticket-card .custom-select-option.active:not(.has-color),
+.modal-overlay .custom-select-option:hover:not(.has-color),
+.modal-overlay .custom-select-option.active:not(.has-color) {
+  background: var(--bg-secondary) !important;
+  color: #5e145e !important;
+}
+
+.jira-create-ticket-card .custom-select-option.selected:not(.has-color),
+.modal-overlay .custom-select-option.selected:not(.has-color) {
+  background: rgba(94, 20, 94, 0.1) !important;
+  color: #5e145e !important;
+  font-weight: 500 !important;
+}
+
+/* Search input inside dropdown */
+.jira-create-ticket-card .custom-select-search,
+.modal-overlay .custom-select-search {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Arrow icon */
+.jira-create-ticket-card .custom-select-arrow,
+.modal-overlay .custom-select-arrow {
+  color: var(--text-secondary) !important;
+}
+
+/* Dark mode — keep dropdowns consistent */
+body.dark .jira-create-ticket-card .custom-select-trigger,
+body.dark .modal-overlay .custom-select-trigger {
+  background: var(--bg-primary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+body.dark .jira-create-ticket-card .custom-select-trigger:hover,
+body.dark .jira-create-ticket-card .custom-select-trigger.open,
+body.dark .modal-overlay .custom-select-trigger:hover,
+body.dark .modal-overlay .custom-select-trigger.open {
+  background: var(--bg-secondary) !important;
+  border-color: #5e145e !important;
+}
+
+body.dark .jira-create-ticket-card .custom-select-dropdown,
+body.dark .modal-overlay .custom-select-dropdown {
+  background: var(--bg-primary) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark .jira-create-ticket-card .custom-select-option,
+body.dark .modal-overlay .custom-select-option {
+  color: var(--text-primary) !important;
+}
+
+body.dark .jira-create-ticket-card .custom-select-option:hover:not(.has-color),
+body.dark .jira-create-ticket-card .custom-select-option.active:not(.has-color),
+body.dark .modal-overlay .custom-select-option:hover:not(.has-color),
+body.dark .modal-overlay .custom-select-option.active:not(.has-color) {
+  background: var(--bg-secondary) !important;
+  color: #c084fc !important;
+}
+
+body.dark .jira-create-ticket-card .custom-select-option.selected:not(.has-color),
+body.dark .modal-overlay .custom-select-option.selected:not(.has-color) {
+  background: rgba(192, 132, 252, 0.12) !important;
+  color: #c084fc !important;
+}
+
+body.dark .jira-create-ticket-card .custom-select-search,
+body.dark .modal-overlay .custom-select-search {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ============================================================
+   Priority Dropdown Options Explicit Colors (Red, Yellow, Green)
+   ============================================================ */
+body .modal-overlay .custom-select-option.ET-prio-high,
+body .jira-create-ticket-card .custom-select-option.ET-prio-high,
+body .ET-form-field.ET-readlike .custom-select-option.ET-prio-high,
+.custom-select-option.ET-prio-high {
+  background-color: rgba(239, 68, 68, 0.22) !important;
+  color: #ff4d4d !important;
+}
+
+body .modal-overlay .custom-select-option.ET-prio-medium,
+body .jira-create-ticket-card .custom-select-option.ET-prio-medium,
+body .ET-form-field.ET-readlike .custom-select-option.ET-prio-medium,
+.custom-select-option.ET-prio-medium {
+  background-color: rgba(234, 179, 8, 0.22) !important;
+  color: #facc15 !important;
+}
+
+body .modal-overlay .custom-select-option.ET-prio-low,
+body .jira-create-ticket-card .custom-select-option.ET-prio-low,
+body .ET-form-field.ET-readlike .custom-select-option.ET-prio-low,
+.custom-select-option.ET-prio-low {
+  background-color: rgba(34, 197, 94, 0.22) !important;
+  color: #4ade80 !important;
+}
+
+/* Selected Priority trigger text color override */
+body .modal-overlay .custom-select-trigger.trigger-ET-prio-high,
+body .jira-create-ticket-card .custom-select-trigger.trigger-ET-prio-high,
+.custom-select-trigger.trigger-ET-prio-high {
+  color: #ff4d4d !important;
+}
+
+body .modal-overlay .custom-select-trigger.trigger-ET-prio-medium,
+body .jira-create-ticket-card .custom-select-trigger.trigger-ET-prio-medium,
+.custom-select-trigger.trigger-ET-prio-medium {
+  color: #facc15 !important;
+}
+
+body .modal-overlay .custom-select-trigger.trigger-ET-prio-low,
+body .jira-create-ticket-card .custom-select-trigger.trigger-ET-prio-low,
+.custom-select-trigger.trigger-ET-prio-low {
+  color: #4ade80 !important;
 }

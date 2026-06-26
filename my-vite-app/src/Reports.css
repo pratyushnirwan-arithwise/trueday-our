@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 *,
 *::before,
@@ -14,9 +14,9 @@
   --card: #FFFFFF;
   --border: #E4E4F0;
   --border2: #ECECF8;
-  --t1: #0F172A;
-  --t2: #64748B;
-  --t3: #94A3B8;
+  --t1: #111111;
+  --t2: #777777;
+  --t3: #909090;
   --indigo: #6366F1;
   --indigo-lt: #EEF2FF;
   --green: #10B981;
@@ -794,11 +794,11 @@ body,
 
 .badge-default {
   background: #F1F5F9;
-  color: #64748B;
+  color: #777777;
 }
 
 .badge-default::before {
-  background: #94A3B8;
+  background: #909090;
 }
 
 /* ─── FOOTER ─── */

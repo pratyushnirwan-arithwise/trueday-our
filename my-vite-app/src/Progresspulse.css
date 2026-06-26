@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    PROGRESS PULSE MODERN PREMIUM STYLING
    ========================================================================== */
 
@@ -8,9 +8,9 @@
   --brand-purple-hover: #560e64;
   --bg-main: #f4f6f9;
   --white: #ffffff;
-  --border: #e2e8f0;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
+  --border: #e0e0e0;
+  --text-main: #1a1a1a;
+  --text-muted: #777777;
 
   /* Status Color Mappings */
   --status-new-bg: #e1effe;
@@ -93,7 +93,7 @@
 }
 
 .pp-mobile-sidebar-toggle:hover {
-  background: #e2e8f0;
+  background: #e0e0e0;
 }
 
 
@@ -126,7 +126,7 @@
 .pp-ticket-head-title {
   font-size: 14px;
   font-weight: 600;
-  color: #1e293b;
+  color: #1a1a1a;
   margin: 0;
 }
 
@@ -140,7 +140,7 @@
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
-  color: #94a3b8;
+  color: #909090;
   pointer-events: none;
 }
 
@@ -149,7 +149,7 @@
   height: 32px;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: #f8fafc;
+  background: #f0f0f0;
   padding-left: 32px;
   padding-right: 10px;
   outline: none;
@@ -159,7 +159,7 @@
 
 .pp-search-input::placeholder {
   font-size: 12px;
-  color: #94a3b8;
+  color: #909090;
 }
 
 .pp-search-input:focus {
@@ -178,11 +178,11 @@
   height: 34px;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: #f8fafc;
+  background: #f0f0f0;
   padding: 0 8px;
   font-size: 12px;
   font-weight: 600;
-  color: #475569;
+  color: #555555;
   outline: none;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -190,7 +190,7 @@
 
 .pp-sidebar-filter-select:hover {
   background: #f1f5f9;
-  border-color: #cbd5e1;
+  border-color: #cccccc;
 }
 
 .pp-sidebar-filter-select:focus {
@@ -216,7 +216,7 @@
 }
 
 .pp-ticket-item:hover {
-  border-color: #cbd5e1;
+  border-color: #cccccc;
   transform: translateY(-1px);
 }
 
@@ -279,7 +279,7 @@
 .pp-ticket-item-assignee-name {
   font-size: 12px;
   font-weight: 600;
-  color: #475569;
+  color: #555555;
 }
 
 /* ==========================================================================
@@ -387,7 +387,7 @@
 .pp-active-title {
   font-size: 18px;
   font-weight: 600;
-  color: #1e293b;
+  color: #1a1a1a;
   margin: 0;
   letter-spacing: -0.02em;
   display: flex;
@@ -418,7 +418,7 @@
   padding: 0 32px 0 12px;
   font-size: 13px;
   font-weight: 500;
-  color: #334155;
+  color: #2e2e2e;
   cursor: pointer;
   outline: none;
   appearance: none;
@@ -431,8 +431,8 @@
 }
 
 .pp-filter-select:hover {
-  background-color: #f8fafc;
-  border-color: #cbd5e1;
+  background-color: #f0f0f0;
+  border-color: #cccccc;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/></svg>");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -470,7 +470,7 @@
 .pp-log-title {
   font-size: 18px;
   font-weight: 800;
-  color: #1e293b;
+  color: #1a1a1a;
   margin: 0;
 }
 
@@ -490,7 +490,7 @@
 .pp-entry-card-title {
   font-size: 16px;
   font-weight: 700;
-  color: #0f172a;
+  color: #111111;
   margin: 0;
 }
 
@@ -509,7 +509,7 @@
 }
 
 .pp-entry-card-textarea::placeholder {
-  color: #94a3b8;
+  color: #909090;
 }
 
 .pp-entry-card-textarea:focus {
@@ -590,7 +590,7 @@
 .pp-detail-card-title {
   font-size: 16px;
   font-weight: 800;
-  color: #1e293b;
+  color: #1a1a1a;
   margin: 0 0 20px 0;
   border-bottom: 1px solid var(--border);
   padding-bottom: 12px;
@@ -619,7 +619,7 @@
 .pp-detail-val {
   font-size: 13px;
   font-weight: 700;
-  color: #1e293b;
+  color: #1a1a1a;
 }
 
 /* DESCRIPTION SCROLLABLE BOX */
@@ -637,7 +637,7 @@
   padding: 10px 12px;
   font-size: 12px;
   line-height: 1.5;
-  color: #334155;
+  color: #2e2e2e;
 }
 
 .pp-detail-desc-box.scrollable {
@@ -663,7 +663,7 @@
 .pp-history-title {
   font-size: 16px;
   font-weight: 800;
-  color: #1e293b;
+  color: #1a1a1a;
   margin: 0 0 20px 0;
   border-bottom: 1px solid var(--border);
   padding-bottom: 12px;
@@ -686,10 +686,10 @@
   padding: 12px 16px;
   font-size: 12px;
   letter-spacing: 0.03em;
-  color: #475569;
+  color: #555555;
   font-weight: 700;
   border-bottom: 1px solid var(--border);
-  background: #f8fafc;
+  background: #f0f0f0;
 }
 
 .pp-table td {
@@ -697,7 +697,7 @@
   border-bottom: 1px solid #f1f5f9;
   font-size: 12px;
   line-height: 1.5;
-  color: #334155;
+  color: #2e2e2e;
   vertical-align: top;
   word-break: break-word;
   overflow-wrap: break-word;
@@ -733,7 +733,7 @@
 
 .pp-table-username {
   font-weight: 600;
-  color: #1e293b;
+  color: #1a1a1a;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -973,7 +973,7 @@
 .pp-entry-field-textarea::placeholder {
   font-size: 11px;
   font-family: inherit;
-  color: #94a3b8;
+  color: #909090;
 }
 
 .pp-entry-field-textarea:focus {
@@ -1030,7 +1030,7 @@
 }
 
 .pp-review-textarea {
-  border-color: #cbd5e1;
+  border-color: #cccccc;
   background: var(--white);
 }
 
@@ -1125,7 +1125,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f8fafc;
+  background: #f0f0f0;
 }
 
 .pp-modal-header h2 {
@@ -1273,7 +1273,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  background: #f8fafc;
+  background: #f0f0f0;
 }
 
 .pp-modal-btn-close {
@@ -1359,7 +1359,7 @@
 .pp-latest-review-content {
   font-size: 13px;
   line-height: 1.5;
-  color: #334155;
+  color: #2e2e2e;
   white-space: pre-wrap;
 }
 

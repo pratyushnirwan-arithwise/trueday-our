@@ -1,17 +1,17 @@
-:root {
+﻿:root {
   --primary-color: #5e145e;
   --secondary-color: #5e145e;
   --success-color: #10b981;
   --warning-color: #f59e0b;
   --danger-color: #ef4444;
   --info-color: #5e145e;
-  --light-color: #f8fafc;
-  --dark-color: #1e293b;
-  --border-color: #e2e8f0;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
+  --light-color: #f0f0f0;
+  --dark-color: #1a1a1a;
+  --border-color: #e0e0e0;
+  --text-primary: #1a1a1a;
+  --text-secondary: #777777;
   --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
+  --bg-secondary: #f0f0f0;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -19,6 +19,8 @@
   --transition: all 0.2s ease-in-out;
   --sidebar-width: 60px;
   --sidebar-collapsed-width: 60px;
+  /* Prevent browser from auto-applying OS dark mode; the app's JS class system controls theme */
+  color-scheme: light;
 }
 
 * {
@@ -193,40 +195,24 @@ body {
 .dashboard-container {
   display: flex;
   height: 100vh;
+  width: 100%;
   background-color: var(--bg-secondary);
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
   transform-origin: top left;
   transition: transform 0.3s ease;
-  scrollbar-gutter: stable;
-  /* Reserve scrollbar space — prevents layout shift when modal opens */
 }
 
-/* Custom scrollbar styling for dashboard */
-.dashboard-container::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
 
-.dashboard-container::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
 
-.dashboard-container::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
-}
-
-.dashboard-container::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-
-/* Firefox scrollbar styling */
+/* Hide native scrollbar on the outer container — inner column tiles scroll independently */
 .dashboard-container {
-  scrollbar-width: thin;
-  scrollbar-color: #c1c1c1 #f1f1f1;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.dashboard-container::-webkit-scrollbar {
+  display: none;
 }
 
 .dashboard-layout {
@@ -237,6 +223,11 @@ body {
   overflow-x: hidden;
   margin-left: var(--sidebar-width);
   transition: margin-left 0.3s ease;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.dashboard-layout::-webkit-scrollbar {
+  display: none;
 }
 
 .dashboard-sidebar.collapsed+.dashboard-layout {
@@ -244,8 +235,7 @@ body {
 }
 
 .dashboard-sidebar.collapsed+.dashboard-layout .dashboard-main {
-  width: calc(100vw - var(--sidebar-collapsed-width));
-  min-width: calc(100vw - var(--sidebar-collapsed-width));
+  /* Let flex: 1 handle the width naturally */
 }
 
 /* Ensure content area is properly sized relative to sidebar */
@@ -275,8 +265,11 @@ body {
   overflow-x: hidden;
   background-color: var(--bg-primary);
   border-radius: 0;
-  width: calc(100vw - var(--sidebar-width));
-  min-width: calc(100vw - var(--sidebar-width));
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.dashboard-main::-webkit-scrollbar {
+  display: none;
 }
 
 .dashboard-content {
@@ -592,7 +585,7 @@ body {
   /* Fill available space under the fixed headers */
   min-height: 0;
   height: 100%;
-  padding: 0 1.25rem 1rem 0.5rem;
+  padding: 0 0.5rem;
   overflow-x: auto;
   overflow-y: hidden;
   /* prevent vertical scroll here */
@@ -608,14 +601,14 @@ body {
   min-height: 0;
   height: 100%;
   align-self: stretch;
+  flex: 1 1 0;
+  min-width: 280px;
 }
 
 .status-column {
   background-color: #f2f2f2;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
-  min-width: 280px;
-  max-width: 320px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -741,7 +734,7 @@ body {
 .ticket-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
-  border-color: #cbd5e1;
+  border-color: #cccccc;
 }
 
 /* Overdue ticket styling */
@@ -801,6 +794,20 @@ body {
   margin-right: 0.5rem;
   z-index: 0;
   /* below sidebar */
+}
+
+.ticket-project-band {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 6px;
+  margin-top: auto;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-bottom: -1rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .ticket-id-custom {
@@ -1228,7 +1235,7 @@ body {
 .color-input {
   width: 64px;
   height: 40px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #cccccc;
   border-radius: 8px;
   background: #fff;
   cursor: pointer;
@@ -1318,9 +1325,9 @@ body {
 }
 
 .empty-state-text {
-  border: 1px dashed #cbd5e1;
-  background: #f8fafc;
-  color: #64748b;
+  border: 1px dashed #cccccc;
+  background: #f0f0f0;
+  color: #777777;
   border-radius: 8px;
   padding: 0.75rem;
   text-align: center;
@@ -1417,7 +1424,7 @@ body {
 .user-checkbox-list {
   max-height: 250px;
   overflow-y: auto;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 0;
   background: #ffffff;
@@ -1445,7 +1452,7 @@ body {
   max-width: 340px;
   height: 38px;
   padding: 0.35rem 0.75rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #cccccc;
   border-radius: 8px;
   background-color: #fff;
   color: #111827;
@@ -1476,7 +1483,7 @@ body {
 }
 
 .user-checkbox-item:hover {
-  background-color: #f8fafc;
+  background-color: #f0f0f0;
 }
 
 .user-checkbox-item.checked {
@@ -1494,7 +1501,7 @@ body {
 .user-checkbox-name {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #334155;
+  color: #2e2e2e;
   text-align: left;
 }
 
@@ -2198,108 +2205,10 @@ body {
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #1e293b;
-    --bg-secondary: #0f172a;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --border-color: #334155;
-  }
-
-  .dashboard-container {
-    background-color: var(--bg-secondary);
-  }
-
-  .status-column {
-    background-color: var(--bg-primary);
-    border-color: var(--border-color);
-  }
-
-  .ticket-card {
-    background-color: var(--bg-primary);
-    border-color: var(--border-color);
-  }
-
-  .ticket-card:hover {
-    border-color: #5e145e;
-  }
-
-  .main-header {
-    background-color: var(--bg-primary);
-    border-color: var(--border-color);
-  }
-
-  .search-input,
-  .filter-select {
-    background-color: var(--bg-primary);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-  }
-
-  .search-input:focus,
-  .filter-select:focus {
-    border-color: #5e145e;
-  }
-
-  .add-status-btn,
-  .view-deleted-btn {
-    background-color: var(--bg-primary);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-  }
-
-  .add-status-btn:disabled,
-  .view-deleted-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: var(--bg-secondary);
-    color: var(--text-secondary);
-    border-color: var(--border-color);
-    pointer-events: none;
-  }
-
-  .add-status-btn:disabled:hover,
-  .view-deleted-btn:disabled:hover {
-    background-color: var(--bg-secondary);
-    color: var(--text-secondary);
-    border-color: var(--border-color);
-    transform: none;
-    box-shadow: none;
-  }
-
-  .modal-content {
-    background-color: var(--bg-primary);
-  }
-
-  .modal-header {
-    border-color: var(--border-color);
-  }
-
-  .modal-footer {
-    border-color: var(--border-color);
-  }
-
-  .cancel-btn {
-    background-color: var(--bg-primary);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-  }
-
-  .deleted-tickets-modal {
-    background-color: var(--bg-primary);
-  }
-
-  .deleted-tickets-header {
-    border-color: var(--border-color);
-  }
-
-  .deleted-ticket-item-modal {
-    background-color: var(--bg-secondary);
-    border-color: var(--border-color);
-  }
-}
+/* Dark mode is controlled exclusively by the body.dark JS class system (DashboardSidebar.jsx).
+   The @media prefers-color-scheme block has been intentionally removed to prevent
+   the browser from auto-applying partial dark vars when OS dark mode is on but
+   the app theme toggle hasn't been set, which caused mixed light/dark colors. */
 
 /* 1. Remove blue line/progress bar at bottom of sidebar (if any) */
 .dashboard-sidebar .sidebar-progress-bar,

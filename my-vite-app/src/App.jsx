@@ -130,7 +130,7 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <Router>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-col items-center justify-center  bg-gray-100 p-0">
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/login" element={<Login />} />
