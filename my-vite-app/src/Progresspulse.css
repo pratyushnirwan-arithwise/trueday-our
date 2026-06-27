@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    PROGRESS PULSE MODERN PREMIUM STYLING
    ========================================================================== */
 
@@ -1375,4 +1375,466 @@
   margin-top: 4px;
   font-style: italic;
   display: block;
+}
+
+/* ==========================================================================
+   PROGRESS PULSE DARK MODE OVERRIDES (UNIFORM WITH DASHBOARD)
+   ========================================================================== */
+body.dark {
+  --brand-purple: #c084fc; /* Lighter purple for dark mode visibility */
+  --brand-purple-light: rgba(168, 85, 247, 0.15); /* Light purple translucent background */
+  --brand-purple-hover: #a855f7;
+  --bg-main: var(--bg-secondary, #111111);
+  --white: var(--bg-primary, #1a1a1a);
+  --border: var(--border-color, #2e2e2e);
+  --text-main: var(--text-primary, #f0f0f0);
+  --text-muted: var(--text-secondary, #909090);
+}
+
+/* Base dark container styles */
+body.dark .pp-root {
+  background: var(--bg-secondary);
+}
+
+body.dark .pp-ticket-pane {
+  background: var(--bg-primary);
+  border-right-color: var(--border-color);
+}
+
+body.dark .pp-ticket-head {
+  border-bottom-color: var(--border-color);
+}
+
+body.dark .pp-ticket-head-title {
+  color: var(--text-primary);
+}
+
+body.dark .pp-search-input {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+body.dark .pp-search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+body.dark .pp-search-input:focus {
+  border-color: var(--primary-color, #a855f7);
+  background: var(--bg-primary);
+}
+
+body.dark .pp-sidebar-filter-select {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+body.dark .pp-sidebar-filter-select:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #555555;
+}
+
+body.dark .pp-sidebar-filter-select:focus {
+  border-color: var(--primary-color, #a855f7);
+  background: var(--bg-primary);
+}
+
+/* Ticket List Item Dark Overrides */
+body.dark .pp-ticket-item {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-ticket-item:hover {
+  border-color: #444444;
+}
+
+body.dark .pp-ticket-item.active {
+  border-color: var(--primary-color, #a855f7) !important;
+  background: var(--brand-purple-light) !important;
+}
+
+body.dark .pp-ticket-item.active .pp-ticket-item-id {
+  color: var(--brand-purple) !important;
+}
+
+body.dark .pp-ticket-item-id {
+  color: var(--text-secondary);
+}
+
+body.dark .pp-ticket-item-date {
+  color: var(--text-secondary);
+}
+
+body.dark .pp-ticket-item-title {
+  color: var(--text-primary);
+}
+
+body.dark .pp-ticket-item-assignee-name {
+  color: var(--text-secondary);
+}
+
+/* Main Content Area Dark Overrides */
+body.dark .pp-main-area {
+  background: var(--bg-secondary);
+}
+
+body.dark .pp-main-header {
+  background: var(--bg-primary);
+  border-bottom-color: var(--border-color);
+}
+
+body.dark .pp-active-title {
+  color: var(--text-primary);
+}
+
+body.dark .pp-active-title-id {
+  color: var(--brand-purple);
+}
+
+body.dark .pp-mobile-sidebar-toggle {
+  color: var(--text-primary);
+}
+
+body.dark .pp-mobile-sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark .pp-filter-select {
+  background-color: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/></svg>");
+}
+
+body.dark .pp-filter-select:hover {
+  background-color: var(--bg-secondary);
+  border-color: #555555;
+}
+
+/* Work Log & Card Styling */
+body.dark .pp-log-wrapper-card {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-log-title {
+  color: var(--text-primary);
+}
+
+body.dark .pp-entry-card {
+  background: var(--bg-primary);
+}
+
+body.dark .pp-entry-card-title {
+  color: var(--text-primary);
+}
+
+body.dark .pp-entry-card-textarea {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-entry-card-textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+body.dark .pp-entry-card-textarea:focus {
+  border-color: var(--primary-color, #a855f7);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+}
+
+/* Tabs and vertical list styling */
+body.dark .pp-tabs-header-row {
+  border-bottom-color: var(--border-color);
+}
+
+body.dark .pp-tabs-header {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+body.dark .pp-tab-link {
+  color: var(--text-secondary);
+}
+
+body.dark .pp-tab-link:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+body.dark .pp-tab-link.active {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .pp-log-tab-content {
+  background: transparent;
+}
+
+body.dark .pp-log-section-title {
+  color: var(--text-primary);
+}
+
+body.dark .pp-entry-field-label {
+  color: var(--text-primary);
+}
+
+body.dark .pp-entry-field-textarea {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-entry-field-textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+body.dark .pp-entry-field-textarea:focus {
+  border-color: var(--primary-color, #a855f7);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+}
+
+/* Button styles */
+body.dark .pp-draft-btn {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-draft-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body.dark .pp-submit-btn {
+  background: var(--primary-color, #a855f7);
+  border-color: var(--primary-color, #a855f7);
+  color: var(--bg-secondary, #111111);
+  font-weight: 600;
+}
+
+body.dark .pp-submit-btn:hover {
+  background: #b975ff;
+  border-color: #b975ff;
+}
+
+body.dark .pp-review-btn {
+  background: var(--bg-primary);
+  border-color: var(--primary-color, #a855f7);
+  color: var(--primary-color, #a855f7);
+}
+
+body.dark .pp-review-btn:hover {
+  background: var(--brand-purple-light);
+}
+
+body.dark .pp-review-btn.active {
+  background: var(--primary-color, #a855f7);
+  color: var(--bg-secondary, #111111);
+}
+
+body.dark .review-comment-group {
+  background: var(--bg-primary);
+  border-color: var(--primary-color, #a855f7);
+}
+
+body.dark .pp-review-textarea {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-review-textarea:disabled {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+}
+
+/* Detail Card and Lower Grid overrides */
+body.dark .pp-detail-card {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-detail-card-title {
+  color: var(--text-primary);
+  border-bottom-color: var(--border-color);
+}
+
+body.dark .pp-detail-row {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .pp-detail-label {
+  color: var(--text-secondary);
+}
+
+body.dark .pp-detail-val {
+  color: var(--text-primary);
+}
+
+body.dark .pp-detail-desc-box {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+/* History and Table Card Overrides */
+body.dark .pp-history-panel {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-history-title {
+  color: var(--text-primary);
+  border-bottom-color: var(--border-color);
+}
+
+body.dark .pp-table-container {
+  border-color: var(--border-color);
+}
+
+body.dark .pp-table th {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-bottom-color: var(--border-color);
+}
+
+body.dark .pp-table td {
+  color: var(--text-primary);
+  border-bottom-color: var(--border-color);
+}
+
+body.dark .pp-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+body.dark .pp-row-review-btn {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-row-review-btn:hover,
+body.dark .pp-row-review-btn.has-review {
+  border-color: var(--primary-color, #a855f7);
+  color: var(--primary-color, #a855f7);
+  background: var(--brand-purple-light);
+}
+
+body.dark .pp-row-review-btn.has-review:hover {
+  background: var(--primary-color, #a855f7);
+  color: var(--bg-secondary, #111111);
+}
+
+body.dark .pp-table-username {
+  color: var(--text-primary);
+}
+
+/* Latest Admin Review Comment on Daily Work Log */
+body.dark .pp-latest-review-box {
+  background: var(--brand-purple-light);
+  border-color: var(--primary-color, #a855f7);
+}
+
+body.dark .pp-latest-review-header {
+  color: var(--brand-purple);
+}
+
+body.dark .pp-latest-review-content {
+  color: var(--text-primary);
+}
+
+/* Modal Popup System Dark Overrides */
+body.dark .pp-modal-backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+body.dark .pp-modal-content {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
+}
+
+body.dark .pp-modal-header {
+  background: var(--bg-secondary);
+  border-bottom-color: var(--border-color);
+}
+
+body.dark .pp-modal-header h2 {
+  color: var(--text-primary);
+}
+
+body.dark .pp-modal-close {
+  color: var(--text-secondary);
+}
+
+body.dark .pp-modal-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+body.dark .pp-modal-info-row {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-modal-section label {
+  color: var(--text-secondary);
+}
+
+body.dark .pp-modal-section p {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-modal-review-input label {
+  color: var(--primary-color, #a855f7);
+}
+
+body.dark .pp-modal-review-input textarea {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-modal-review-input textarea:focus {
+  border-color: var(--primary-color, #a855f7);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+}
+
+body.dark .pp-modal-review-readonly {
+  background: rgba(168, 85, 247, 0.05);
+  color: var(--primary-color, #a855f7);
+  border-color: var(--primary-color, #a855f7);
+}
+
+body.dark .pp-modal-footer {
+  background: var(--bg-secondary);
+  border-top-color: var(--border-color);
+}
+
+body.dark .pp-modal-btn-close {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark .pp-modal-btn-close:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body.dark .pp-modal-btn-save {
+  background: var(--primary-color, #a855f7);
+  border-color: var(--primary-color, #a855f7);
+  color: var(--bg-secondary, #111111);
+}
+
+body.dark .pp-modal-btn-save:hover {
+  background: #b975ff;
+  border-color: #b975ff;
 }

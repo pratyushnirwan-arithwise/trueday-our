@@ -160,6 +160,15 @@ function buildMonthCols(start, total) {
    MAIN COMPONENT
 ════════════════════════════════════════════════ */
 const Timeline = () => {
+  const [isDark, setIsDark] = useState(() => document.body.classList.contains('dark'));
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.body.classList.contains('dark'));
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
   const { currentUser } = useUser();
   const [tickets, setTickets] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -690,7 +699,7 @@ const Timeline = () => {
 
           {/* ── DETAIL PANEL ── */}
           {selected && (
-            <DetailPanel ticket={selected} onClose={() => setSelected(null)} />
+            <DetailPanel ticket={selected} onClose={() => setSelected(null)} isDark={isDark} />
           )}
         </div>
       </div>
@@ -705,7 +714,7 @@ const Timeline = () => {
 };
 
 /* ════ DETAIL PANEL ════ */
-const DetailPanel = ({ ticket: t, onClose }) => {
+const DetailPanel = ({ ticket: t, onClose, isDark }) => {
   const status = t.status?.toUpperCase?.() || 'NEW';
   const priority = t.priority?.toUpperCase?.() || 'MEDIUM';
 
@@ -716,6 +725,42 @@ const DetailPanel = ({ ticket: t, onClose }) => {
     'IN PROGRESS': 50, 'BLOCKED': 30,
     'NEW': 5, 'TO DO': 5,
   }[status] || 0;
+
+  const statusBg = isDark ? {
+    'COMPLETED': 'rgba(168, 179, 194, 0.15)',
+    'DONE': 'rgba(168, 179, 194, 0.15)',
+    'IN PROGRESS': 'rgba(127, 200, 169, 0.15)',
+    'NEW': 'rgba(143, 185, 243, 0.15)',
+    'TO DO': 'rgba(143, 185, 243, 0.15)',
+    'BLOCKED': 'rgba(216, 167, 227, 0.15)',
+    'QA': 'rgba(232, 201, 141, 0.15)',
+    'UAT': 'rgba(231, 185, 142, 0.15)',
+    'REVIEW': 'rgba(232, 217, 168, 0.15)',
+  }[status] || 'rgba(255, 255, 255, 0.08)' : (STATUS_BG[status] || '#f1f5f9');
+
+  const statusColor = isDark ? {
+    'COMPLETED': '#A8B3C2',
+    'DONE': '#A8B3C2',
+    'IN PROGRESS': '#7FC8A9',
+    'NEW': '#8FB9F3',
+    'TO DO': '#8FB9F3',
+    'BLOCKED': '#D8A7E3',
+    'QA': '#E8C98D',
+    'UAT': '#E7B98E',
+    'REVIEW': '#E8D9A8',
+  }[status] || '#909090' : (STATUS_LABEL_COLOR[status] || '#475569');
+
+  const priorityBg = isDark ? {
+    'HIGH': 'rgba(244, 166, 166, 0.15)',
+    'MEDIUM': 'rgba(247, 201, 139, 0.15)',
+    'LOW': 'rgba(158, 216, 180, 0.15)',
+  }[priority] || 'rgba(255, 255, 255, 0.08)' : {
+    'HIGH': '#fef2f2',
+    'MEDIUM': '#fff7ed',
+    'LOW': '#f0fdf4',
+  }[priority] || '#fff7ed';
+
+  const priorityColor = PRIORITY_COLOR[priority] || '#f59e0b';
 
   return (
     <aside className="tl-detail">
@@ -728,13 +773,13 @@ const DetailPanel = ({ ticket: t, onClose }) => {
         <div className="tl-detail-chips">
           <span
             className="tl-chip"
-            style={{ background: STATUS_BG[status] || '#f1f5f9', color: STATUS_LABEL_COLOR[status] || '#475569' }}
+            style={{ background: statusBg, color: statusColor }}
           >
             {status}
           </span>
           <span
             className="tl-chip"
-            style={{ background: '#fff7ed', color: PRIORITY_COLOR[priority] || '#f59e0b' }}
+            style={{ background: priorityBg, color: priorityColor }}
           >
             {priority}
           </span>
@@ -807,7 +852,11 @@ const DetailPanel = ({ ticket: t, onClose }) => {
             <label>Label</label>
             <span
               className="tl-chip"
-              style={{ background: t.color || '#e0e7ff', color: '#3730a3', fontSize: '0.78rem' }}
+              style={{
+                background: isDark ? 'rgba(99, 102, 241, 0.15)' : (t.color || '#e0e7ff'),
+                color: isDark ? '#a5b4fc' : '#3730a3',
+                fontSize: '0.78rem'
+              }}
             >{t.label_name}</span>
           </div>
         )}

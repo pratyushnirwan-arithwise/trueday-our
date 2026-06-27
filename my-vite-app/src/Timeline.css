@@ -1,4 +1,4 @@
-﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    Timeline.css  â€“  Jira-style Gantt Timeline
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -19,7 +19,7 @@
   --tl-detail-w: 340px;
 }
 
-[data-theme='dark'] {
+body.dark {
   --tl-bg: #111111;
   --tl-surface: #1a1a1a;
   --tl-border: #2e2e2e;
@@ -29,110 +29,110 @@
   --tl-indigo: #818cf8;
 }
 
-[data-theme='dark'] .tl-left-header,
-[data-theme='dark'] .tl-project-row,
-[data-theme='dark'] .tl-month-header,
-[data-theme='dark'] .tl-month-cell.tl-month-cell-top,
-[data-theme='dark'] .tl-detail-header {
+body.dark .tl-left-header,
+body.dark .tl-project-row,
+body.dark .tl-month-header,
+body.dark .tl-month-cell.tl-month-cell-top,
+body.dark .tl-detail-header {
   background: #111111 !important;
   color: var(--tl-t1);
 }
 
-[data-theme='dark'] .tl-row {
+body.dark .tl-row {
   border-bottom-color: var(--tl-border);
 }
 
-[data-theme='dark'] .tl-row.selected,
-[data-theme='dark'] .tl-row:hover {
+body.dark .tl-row.selected,
+body.dark .tl-row:hover {
   background: #2e2e2e !important;
 }
 
-[data-theme='dark'] .tl-project-row:hover {
+body.dark .tl-project-row:hover {
   background: #2e2e2e !important;
 }
 
-[data-theme='dark'] .tl-grid-bg .weekend {
+body.dark .tl-grid-bg .weekend {
   background: #111111 !important;
 }
 
-[data-theme='dark'] .tl-desc {
+body.dark .tl-desc {
   background: #111111;
   border-color: var(--tl-border);
 }
 
-[data-theme='dark'] .tl-zoom-btn:hover {
+body.dark .tl-zoom-btn:hover {
   background: #2e2e2e;
 }
 
-[data-theme='dark'] .tl-zoom-btn.active {
+body.dark .tl-zoom-btn.active {
   background: #1a1a1a;
   color: var(--tl-indigo);
 }
 
-[data-theme='dark'] .tl-badge {
+body.dark .tl-badge {
   background: #2e2e2e;
   color: var(--tl-t2);
 }
 
-[data-theme='dark'] .tl-autosave-indicator.saving {
+body.dark .tl-autosave-indicator.saving {
   background: #0c2340;
   color: #38bdf8;
 }
 
-[data-theme='dark'] .tl-autosave-indicator.saved {
+body.dark .tl-autosave-indicator.saved {
   background: #0d3d2f;
   color: #4ade80;
 }
 
-[data-theme='dark'] .tl-autosave-indicator.error {
+body.dark .tl-autosave-indicator.error {
   background: #3d0f0f;
   color: #f87171;
 }
 
-[data-theme='dark'] .tl-autosave-spinner {
+body.dark .tl-autosave-spinner {
   border-color: #38bdf8;
   border-top-color: transparent;
 }
 
-[data-theme='dark'] .tl-count-badge {
+body.dark .tl-count-badge {
   background: #2e2e2e;
   color: var(--tl-t2);
 }
 
-[data-theme='dark'] .tl-day-num-header {
+body.dark .tl-day-num-header {
   border-right-color: var(--tl-border);
 }
 
-[data-theme='dark'] .tl-day-col {
+body.dark .tl-day-col {
   border-right-color: var(--tl-border);
 }
 
-[data-theme='dark'] .tl-bar-row {
+body.dark .tl-bar-row {
   border-bottom-color: var(--tl-border);
 }
 
-[data-theme='dark'] .tl-bar-row:hover {
+body.dark .tl-bar-row:hover {
   background: #2e2e2e;
 }
 
-[data-theme='dark'] .tl-bar-row.selected {
+body.dark .tl-bar-row.selected {
   background: #555555;
 }
 
-[data-theme='dark'] .tl-epic-bar-row {
+body.dark .tl-epic-bar-row {
   background: #111111;
   border-bottom-color: var(--tl-border);
 }
 
-[data-theme='dark'] .tl-gantt-scroll::-webkit-scrollbar-track {
+body.dark .tl-gantt-scroll::-webkit-scrollbar-track {
   background: #111111;
 }
 
-[data-theme='dark'] .tl-gantt-scroll::-webkit-scrollbar-thumb {
+body.dark .tl-gantt-scroll::-webkit-scrollbar-thumb {
   background: #555555;
 }
 
-[data-theme='dark'] .tl-detail-body::-webkit-scrollbar-thumb {
+body.dark .tl-detail-body::-webkit-scrollbar-thumb {
   background: #555555;
 }
 

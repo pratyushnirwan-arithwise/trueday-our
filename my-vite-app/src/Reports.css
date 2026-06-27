@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 *,
 *::before,
@@ -59,6 +59,8 @@ body,
   overflow: hidden;
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
+  margin-left: 60px;
+  transition: margin-left 0.3s ease;
 }
 
 .rpt-main::-webkit-scrollbar {
@@ -937,6 +939,10 @@ body,
 }
 
 @media (max-width: 768px) {
+  .rpt-main {
+    margin-left: 0;
+  }
+
   .rpt-content {
     padding: 1.25rem 1rem 2rem;
   }
@@ -959,3 +965,66 @@ body,
     display: none;
   }
 }
+
+/* ─── DARK THEME OVERRIDES ─── */
+body.dark {
+  --bg: var(--bg-secondary, #111111);
+  --surface: var(--bg-primary, #1a1a1a);
+  --card: var(--bg-primary, #1a1a1a);
+  --border: var(--border-color, #2e2e2e);
+  --border2: var(--border-color, #2e2e2e);
+  --t1: var(--text-primary, #f0f0f0);
+  --t2: var(--text-secondary, #909090);
+  --t3: var(--text-secondary, #707070);
+  --indigo: var(--primary-color, #a855f7);
+  --indigo-lt: rgba(168, 85, 247, 0.12);
+  --green-lt: rgba(16, 185, 129, 0.12);
+  --amber-lt: rgba(245, 158, 11, 0.12);
+  --red-lt: rgba(239, 68, 68, 0.12);
+}
+
+body.dark .rpt-header {
+  background: rgba(26, 26, 26, 0.9);
+  border-bottom: 1px solid var(--border-color, #2e2e2e);
+}
+
+body.dark .btn-export {
+  background: var(--bg-primary, #1a1a1a);
+  border: 1px solid var(--border-color, #2e2e2e);
+  color: var(--text-primary, #f0f0f0);
+  box-shadow: none;
+}
+
+body.dark .btn-export:hover {
+  background: var(--primary-color, #a855f7);
+  color: var(--bg-secondary, #111111);
+  border-color: var(--primary-color, #a855f7);
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+}
+
+body.dark .export-menu {
+  background: var(--bg-primary, #1a1a1a);
+  border-color: var(--border-color, #2e2e2e);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+body.dark .export-menu-item {
+  color: var(--text-primary, #f0f0f0);
+}
+
+body.dark .export-menu-item:hover {
+  background: var(--indigo-lt);
+  color: var(--indigo);
+}
+
+body.dark .export-menu-item+.export-menu-item {
+  border-top-color: var(--border-color, #2e2e2e);
+}
+
+body.dark .badge-default {
+  background: #2e2e2e;
+  color: #909090;
+}
+body.dark .badge-default::before {
+  background: #707070;
+}

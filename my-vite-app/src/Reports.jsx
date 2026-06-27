@@ -23,21 +23,39 @@ const badgeClass = p => {
 };
 
 const PRIORITY_STYLES = {
-  high: { background: '#FEF2F2', color: '#B91C1C', dotColor: '#EF4444' },
-  medium: { background: '#FFFBEB', color: '#92400E', dotColor: '#F59E0B' },
-  low: { background: '#ECFDF5', color: '#065F46', dotColor: '#10B981' },
-  default: { background: '#F1F5F9', color: '#64748B', dotColor: '#94A3B8' },
+  high: {
+    background: () => document.body.classList.contains('dark') ? 'rgba(239, 68, 68, 0.15)' : '#FEF2F2',
+    color: () => document.body.classList.contains('dark') ? '#fca5a5' : '#B91C1C',
+    dotColor: '#EF4444'
+  },
+  medium: {
+    background: () => document.body.classList.contains('dark') ? 'rgba(245, 158, 11, 0.15)' : '#FFFBEB',
+    color: () => document.body.classList.contains('dark') ? '#fde047' : '#92400E',
+    dotColor: '#F59E0B'
+  },
+  low: {
+    background: () => document.body.classList.contains('dark') ? 'rgba(16, 185, 129, 0.15)' : '#ECFDF5',
+    color: () => document.body.classList.contains('dark') ? '#86efac' : '#065F46',
+    dotColor: '#10B981'
+  },
+  default: {
+    background: () => document.body.classList.contains('dark') ? '#2e2e2e' : '#F1F5F9',
+    color: () => document.body.classList.contains('dark') ? '#909090' : '#64748B',
+    dotColor: '#94A3B8'
+  },
 };
 
 const PriorityBadge = ({ priority }) => {
   const key = (priority || '').toLowerCase();
   const s = PRIORITY_STYLES[key] || PRIORITY_STYLES.default;
+  const bg = typeof s.background === 'function' ? s.background() : s.background;
+  const color = typeof s.color === 'function' ? s.color() : s.color;
   return (
     <span style={{
       display: 'inline-flex', alignItems: 'center', gap: '5px',
       padding: '0.2rem 0.6rem', borderRadius: '999px',
       fontSize: '0.72rem', fontWeight: 500, whiteSpace: 'nowrap',
-      background: s.background, color: s.color,
+      background: bg, color: color,
       width: 'fit-content',
     }}>
       <span style={{ width: 6, height: 6, borderRadius: '50%', background: s.dotColor, flexShrink: 0 }} />
@@ -116,23 +134,33 @@ const TOOLTIP = {
   padding: 10,
   cornerRadius: 8,
 };
-const GRID = 'rgba(0,0,0,0.04)';
+const getThemeColors = () => {
+  const isDark = document.body.classList.contains('dark');
+  return {
+    gridColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)',
+    tickColor: isDark ? '#9ca3af' : '#64748b',
+    textColor: isDark ? '#f0f0f0' : '#0f172a',
+  };
+};
 
-const baseOpts = (showLegend = false) => ({
-  responsive: true,
-  maintainAspectRatio: false,
-  animation: { duration: 500, easing: 'easeOutQuart' },
-  plugins: {
-    legend: showLegend
-      ? { position: 'bottom', align: 'center', labels: { boxWidth: 8, padding: 24, font: { ...FONT, size: 9 }, usePointStyle: true, pointStyle: 'circle' } }
-      : { display: false },
-    tooltip: TOOLTIP,
-  },
-  scales: {
-    x: { grid: { display: false }, border: { display: false }, ticks: { font: FONT, color: '#9ca3af', maxRotation: 90, minRotation: 90 } },
-    y: { beginAtZero: true, grid: { color: GRID }, border: { display: false }, ticks: { font: FONT, color: '#9ca3af', callback: v => Number.isInteger(v) ? v : null } },
-  },
-});
+const baseOpts = (showLegend = false) => {
+  const colors = getThemeColors();
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 500, easing: 'easeOutQuart' },
+    plugins: {
+      legend: showLegend
+        ? { position: 'bottom', align: 'center', labels: { boxWidth: 8, padding: 24, font: { ...FONT, size: 9 }, usePointStyle: true, pointStyle: 'circle', color: colors.tickColor } }
+        : { display: false },
+      tooltip: TOOLTIP,
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false }, ticks: { font: FONT, color: colors.tickColor, maxRotation: 90, minRotation: 90 } },
+      y: { beginAtZero: true, grid: { color: colors.gridColor }, border: { display: false }, ticks: { font: FONT, color: colors.tickColor, callback: v => Number.isInteger(v) ? v : null } },
+    },
+  };
+};
 
 const STATUS_TICK_FONT = { family: 'Inter', size: 9 };
 
@@ -149,7 +177,16 @@ const barGradientPlugin = {
         if (!rawColor || base <= y) return;
         const grad = ctx.createLinearGradient(0, y, 0, base);
         grad.addColorStop(0, rawColor);
-        grad.addColorStop(1, 'rgba(255,255,255,0)');
+        // Let's fade to a transparent version of the same color to avoid grey/white rendering artifacts
+        let transparentColor = 'rgba(0, 0, 0, 0)';
+        if (typeof rawColor === 'string') {
+          if (rawColor.startsWith('#')) {
+            transparentColor = rawColor + '00';
+          } else if (rawColor.startsWith('rgb')) {
+            transparentColor = rawColor.replace(/rgb\(|rgba\(/, 'rgba(').replace(/\)/, ', 0)');
+          }
+        }
+        grad.addColorStop(1, transparentColor);
         bar.options.backgroundColor = grad;
       });
     });
@@ -181,46 +218,52 @@ const statusFillPlugin = {
     });
     ctx.lineTo(bars[bars.length - 1].x + hw, base);
     ctx.closePath();
-    ctx.fillStyle = 'rgba(150,150,150,0.13)';
+    ctx.fillStyle = document.body.classList.contains('dark') ? 'rgba(255, 255, 255, 0.05)' : 'rgba(150, 150, 150, 0.13)';
     ctx.fill();
     ctx.restore();
   }
 };
 
-const statusChartOpts = {
-  ...baseOpts(false),
-  scales: {
-    x: { grid: { display: false }, border: { display: false }, ticks: { font: STATUS_TICK_FONT, color: '#9ca3af', maxRotation: 0, minRotation: 0 } },
-    y: { beginAtZero: true, grid: { color: GRID }, border: { display: false }, ticks: { font: STATUS_TICK_FONT, color: '#9ca3af', callback: v => Number.isInteger(v) ? v : null } },
-  },
+const getStatusChartOpts = () => {
+  const colors = getThemeColors();
+  return {
+    ...baseOpts(false),
+    scales: {
+      x: { grid: { display: false }, border: { display: false }, ticks: { font: STATUS_TICK_FONT, color: colors.tickColor, maxRotation: 0, minRotation: 0 } },
+      y: { beginAtZero: true, grid: { color: colors.gridColor }, border: { display: false }, ticks: { font: STATUS_TICK_FONT, color: colors.tickColor, callback: v => Number.isInteger(v) ? v : null } },
+    },
+  };
 };
 
-const DOUGHNUT_OPTS = {
-  responsive: true, maintainAspectRatio: false,
-  layout: { padding: 30 },
-  cutout: '76%',
-  animation: { duration: 500 },
-  plugins: {
-    legend: { position: 'bottom', labels: { boxWidth: 10, padding: 20, font: { ...FONT, size: 12 }, usePointStyle: true, pointStyle: 'circle' } },
-    tooltip: {
-      ...TOOLTIP,
-      xAlign: (ctx) => {
-        const tooltip = ctx.tooltip;
-        if (!tooltip || !tooltip.dataPoints || !tooltip.dataPoints.length) return 'center';
+const getDoughnutOpts = () => {
+  const colors = getThemeColors();
+  return {
+    responsive: true, maintainAspectRatio: false,
+    layout: { padding: 30 },
+    cutout: '76%',
+    animation: { duration: 500 },
+    plugins: {
+      legend: { position: 'bottom', labels: { boxWidth: 10, padding: 20, font: { ...FONT, size: 12 }, usePointStyle: true, pointStyle: 'circle', color: colors.tickColor } },
+      tooltip: {
+        ...TOOLTIP,
+        xAlign: (ctx) => {
+          const tooltip = ctx.tooltip;
+          if (!tooltip || !tooltip.dataPoints || !tooltip.dataPoints.length) return 'center';
 
-        const chart = tooltip.chart;
-        if (!chart || !chart.chartArea) return 'center';
+          const chart = tooltip.chart;
+          if (!chart || !chart.chartArea) return 'center';
 
-        const chartCenter = (chart.chartArea.left + chart.chartArea.right) / 2;
-        const elementX = tooltip.dataPoints[0].element.tooltipPosition().x;
+          const chartCenter = (chart.chartArea.left + chart.chartArea.right) / 2;
+          const elementX = tooltip.dataPoints[0].element.tooltipPosition().x;
 
-        // If slice is on the left half, point arrow rightwards (box goes left)
-        // If slice is on the right half, point arrow leftwards (box goes right)
-        return elementX < chartCenter ? 'right' : 'left';
+          // If slice is on the left half, point arrow rightwards (box goes left)
+          // If slice is on the right half, point arrow leftwards (box goes right)
+          return elementX < chartCenter ? 'right' : 'left';
+        },
+        callbacks: { label: ctx => { const t = ctx.dataset.data.reduce((a, b) => a + b, 0); return ` ${ctx.label.split(' ')[0]}: ${ctx.raw} (${t > 0 ? ((ctx.raw / t) * 100).toFixed(1) : 0}%)`; } }
       },
-      callbacks: { label: ctx => { const t = ctx.dataset.data.reduce((a, b) => a + b, 0); return ` ${ctx.label.split(' ')[0]}: ${ctx.raw} (${t > 0 ? ((ctx.raw / t) * 100).toFixed(1) : 0}%)`; } }
     },
-  },
+  };
 };
 
 const dotEndpointPlugin = {
@@ -243,7 +286,7 @@ const dotEndpointPlugin = {
 
       // Draw value label
       ctx.font = '10px Inter, sans-serif';
-      ctx.fillStyle = '#1e293b';
+      ctx.fillStyle = document.body.classList.contains('dark') ? '#f0f0f0' : '#1e293b';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
       ctx.fillText(value?.toString() ?? '', bar.x + 8, bar.y);
@@ -280,7 +323,7 @@ const yAxisAvatarPlugin = {
 
       // Ranking Number
       ctx.font = '600 12px Inter, system-ui, sans-serif';
-      ctx.fillStyle = '#94a3b8'; // Slate-400 color for subtle ranking number
+      ctx.fillStyle = document.body.classList.contains('dark') ? '#888888' : '#94a3b8'; // Slate-400 color for subtle ranking number
       ctx.textAlign = 'right';
       ctx.fillText(`${index + 1}.`, startX + 6, cy);
 
@@ -298,7 +341,7 @@ const yAxisAvatarPlugin = {
 
       // Employee Name
       ctx.font = '500 13px Inter, system-ui, sans-serif';
-      ctx.fillStyle = '#334155';
+      ctx.fillStyle = document.body.classList.contains('dark') ? '#f0f0f0' : '#334155';
       ctx.textAlign = 'left';
       ctx.fillText(label, startX + 48, cy);
     });
@@ -321,10 +364,10 @@ const doughnutCenterPlugin = {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.font = '700 22px Inter, system-ui, sans-serif';
-    ctx.fillStyle = '#0f172a';
+    ctx.fillStyle = document.body.classList.contains('dark') ? '#f0f0f0' : '#0f172a';
     ctx.fillText(total.toLocaleString(), cx, cy - 4);
     ctx.font = '400 10px Inter, system-ui, sans-serif';
-    ctx.fillStyle = '#94a3b8';
+    ctx.fillStyle = document.body.classList.contains('dark') ? '#9ca3af' : '#94a3b8';
     ctx.fillText('TOTAL', cx, cy + 16);
     ctx.restore();
   }
@@ -368,6 +411,15 @@ const HORIZONTAL_BAR_OPTS = {
 
 /* ═══════ MAIN ═══════ */
 export default function Reports() {
+  const [isDark, setIsDark] = useState(() => document.body.classList.contains('dark'));
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.body.classList.contains('dark'));
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
   const { currentUser } = useUser();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
@@ -575,7 +627,7 @@ export default function Reports() {
   return (
     <div className="rpt-page">
       <DashboardSidebar collapsed={sidebarCollapsed} onToggleCollapse={setSidebarCollapsed} open={sidebarOpen} setOpen={setSidebarOpen} />
-      <div className="rpt-main" style={{ marginLeft: '40px', transition: 'margin-left 0.3s ease' }}>
+      <div className="rpt-main">
 
         {/* HEADER */}
         <header className="rpt-header">
@@ -672,7 +724,7 @@ export default function Reports() {
                 </div>
               </div>
               <div className="rpt-chart-body">
-                {isLoading ? <Spinner /> : <Bar data={mixedStatusData} options={statusChartOpts} plugins={[statusFillPlugin, barGradientPlugin]} />}
+                {isLoading ? <Spinner /> : <Bar data={mixedStatusData} options={getStatusChartOpts()} plugins={[statusFillPlugin, barGradientPlugin]} />}
               </div>
             </div>
 
@@ -688,7 +740,7 @@ export default function Reports() {
                 </div>
               </div>
               <div className="rpt-chart-body">
-                {isLoading ? <Spinner /> : <Doughnut data={mergedPriority} options={DOUGHNUT_OPTS} plugins={[doughnutCenterPlugin]} />}
+                {isLoading ? <Spinner /> : <Doughnut data={mergedPriority} options={getDoughnutOpts()} plugins={[doughnutCenterPlugin]} />}
               </div>
             </div>
 

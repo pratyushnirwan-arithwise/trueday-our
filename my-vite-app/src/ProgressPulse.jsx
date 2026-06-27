@@ -361,7 +361,7 @@ export default function ProgressPulse() {
           </div>
 
           {!activeId ? (
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
               Select a ticket from the list to view details
             </div>
           ) : (
@@ -390,13 +390,13 @@ export default function ProgressPulse() {
               {/* TAB BODY */}
               <div className="pp-tabs-body">
                 {detailLoading ? (
-                  <p style={{ textAlign: 'center', color: '#64748b', margin: '20px 0' }}>Loading...</p>
+                  <p style={{ textAlign: 'center', color: 'var(--text-muted)', margin: '20px 0' }}>Loading...</p>
                 ) : activeTab === 'log' ? (
                   <div className="pp-log-tab-content">
                     {history[0]?.review_comment && (
                       <div className="pp-latest-review-box">
                         <div className="pp-latest-review-header">
-                          <MessageSquare size={16} style={{ color: '#6d117e' }} />
+                          <MessageSquare size={16} style={{ color: 'var(--brand-purple)' }} />
                           <span>Admin Review Comment</span>
                         </div>
                         <div className="pp-latest-review-content">
@@ -459,13 +459,13 @@ export default function ProgressPulse() {
 
                         <tbody>
                           {histLoad && history.length === 0 ? (
-                            <tr><td colSpan="6" style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>Loading history...</td></tr>
+                            <tr><td colSpan="6" style={{ padding: '32px', textAlign: 'center', color: 'var(--text-muted)' }}>Loading history...</td></tr>
                           ) : history.length === 0 ? (
-                            <tr><td colSpan="6" style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>No saved data found.</td></tr>
+                            <tr><td colSpan="6" style={{ padding: '32px', textAlign: 'center', color: 'var(--text-muted)' }}>No saved data found.</td></tr>
                           ) : (
                             history.map((item, index) => (
                               <tr key={item.id || index}>
-                                <td style={{ fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap' }}>
+                                <td style={{ fontWeight: '600', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
                                   {fmtDT(item.created_at)}
                                 </td>
                                 <td style={{ maxWidth: '180px', whiteSpace: 'pre-wrap' }}>
