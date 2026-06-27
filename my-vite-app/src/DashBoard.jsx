@@ -563,6 +563,15 @@ const AddLabelModal = ({ onClose, projects, labels, onLabelsCreated }) => {
 
 // Add Users to Project Modal
 const AddUsersToProjectModal = ({ onClose, onUserAdded }) => {
+  const [isDark, setIsDark] = useState(() => document.body.classList.contains('dark'));
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.body.classList.contains('dark'));
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
   const [selectedProject, setSelectedProject] = useState('');
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [allProjects, setAllProjects] = useState([]);
@@ -748,10 +757,10 @@ const AddUsersToProjectModal = ({ onClose, onUserAdded }) => {
                   maxHeight: '220px',
                   overflowY: 'auto',
                   marginTop: '8px',
-                  border: '1px solid #e2e8f0',
+                  border: isDark ? '1px solid #3e3e3e' : '1px solid #e2e8f0',
                   borderRadius: '8px',
-                  background: '#ffffff',
-                  boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)'
+                  background: isDark ? '#1a1a1a' : '#ffffff',
+                  boxShadow: isDark ? 'inset 0 1px 2px rgba(0,0,0,0.2)' : 'inset 0 1px 2px rgba(0,0,0,0.02)'
                 }}
               >
                 {allUsers.length === 0 ? (
@@ -768,9 +777,11 @@ const AddUsersToProjectModal = ({ onClose, onUserAdded }) => {
                           display: 'flex',
                           alignItems: 'center',
                           padding: '10px 16px',
-                          borderBottom: '1px solid #f1f5f9',
+                          borderBottom: isDark ? '1px solid #2e2e2e' : '1px solid #f1f5f9',
                           cursor: 'pointer',
-                          background: isChecked ? '#f5f3ff' : '#fff',
+                          background: isChecked 
+                            ? (isDark ? 'rgba(94, 20, 94, 0.25)' : '#f5f3ff') 
+                            : (isDark ? '#1a1a1a' : '#fff'),
                           gap: '12px',
                           height: '42px',
                           minHeight: '42px',
@@ -779,7 +790,7 @@ const AddUsersToProjectModal = ({ onClose, onUserAdded }) => {
                           transition: 'none',
                           transform: 'none',
                           fontSize: '0.9rem',
-                          color: '#374151'
+                          color: isDark ? '#f0f0f0' : '#374151'
                         }}
                       >
                         <input
@@ -801,7 +812,7 @@ const AddUsersToProjectModal = ({ onClose, onUserAdded }) => {
                           className="user-checkbox-name"
                           style={{
                             fontSize: '0.9rem',
-                            color: '#374151',
+                            color: isDark ? '#f0f0f0' : '#374151',
                             userSelect: 'none',
                             marginLeft: '4px',
                             transition: 'none',

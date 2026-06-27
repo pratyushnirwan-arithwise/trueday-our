@@ -42,14 +42,13 @@ const DashboardSidebar = ({ collapsed, onToggleCollapse, open, setOpen }) => {
   });
 
   useEffect(() => {
-    // Apply on mount only — subsequent toggles are handled synchronously in toggleTheme
+    // Keep document.body class in sync with theme state (handles initial load and media changes)
     if (theme === 'dark') {
       document.body.classList.add('dark');
     } else {
       document.body.classList.remove('dark');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [theme]);
 
   // Listen for OS/Browser theme changes and force the app to match
   useEffect(() => {

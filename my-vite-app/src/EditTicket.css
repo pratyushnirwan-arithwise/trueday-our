@@ -4316,3 +4316,88 @@ body.dark .ET-readlike .custom-select-option.is-default.selected {
   background: rgba(156, 163, 175, 0.1) !important;
   color: #9ca3af !important;
 }
+
+/* ============================================================
+   DARK MODE ATTACHMENTS MODAL & ITEMS OVERRIDES
+   ============================================================ */
+body.dark .ET-modal-header {
+  background-color: #111111 !important;
+  border-bottom-color: #2e2e2e !important;
+}
+
+body.dark .ET-modal-header h3 {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-modal-close-btn {
+  color: #a0a0a0 !important;
+}
+
+body.dark .ET-modal-close-btn:hover {
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-modal-body {
+  background-color: #1a1a1a !important;
+}
+
+body.dark .ET-attachment-item {
+  background: #111111 !important;
+  border-color: #2e2e2e !important;
+}
+
+body.dark .ET-attachment-item:hover {
+  border-color: #444444 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.dark .ET-attachment-thumbnail-wrapper {
+  background-color: #1a1a1a !important;
+  border-bottom-color: #2e2e2e !important;
+}
+
+body.dark .ET-attachment-name {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-attachment-meta {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-att-icon-btn {
+  border-color: #2e2e2e !important;
+  color: #9ca3af !important;
+}
+
+body.dark .ET-att-icon-btn:hover {
+  background-color: #242424 !important;
+  border-color: #444444 !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-att-preview:hover {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+  color: #c084fc !important;
+}
+
+body.dark .ET-att-download:hover {
+  background-color: rgba(5, 150, 105, 0.15) !important;
+  border-color: rgba(5, 150, 105, 0.4) !important;
+  color: #34d399 !important;
+}
+
+body.dark .ET-att-delete:hover {
+  background-color: rgba(220, 38, 38, 0.15) !important;
+  border-color: rgba(220, 38, 38, 0.4) !important;
+  color: #f87171 !important;
+}
+
+body.dark .ET-empty-state {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-empty-state svg {
+  color: #4b5563 !important;
+}
