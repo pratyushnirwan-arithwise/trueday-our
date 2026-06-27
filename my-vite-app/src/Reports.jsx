@@ -177,13 +177,15 @@ const barGradientPlugin = {
         if (!rawColor || base <= y) return;
         const grad = ctx.createLinearGradient(0, y, 0, base);
         grad.addColorStop(0, rawColor);
-        // Let's fade to a transparent version of the same color to avoid grey/white rendering artifacts
         let transparentColor = 'rgba(0, 0, 0, 0)';
         if (typeof rawColor === 'string') {
-          if (rawColor.startsWith('#')) {
-            transparentColor = rawColor + '00';
-          } else if (rawColor.startsWith('rgb')) {
-            transparentColor = rawColor.replace(/rgb\(|rgba\(/, 'rgba(').replace(/\)/, ', 0)');
+          const trimmed = rawColor.trim();
+          if (trimmed.startsWith('#')) {
+            transparentColor = trimmed.length === 9 ? trimmed.slice(0, 7) + '00' : trimmed + '00';
+          } else if (trimmed.startsWith('rgba')) {
+            transparentColor = trimmed.replace(/,([^,]+)\s*\)$/, ', 0)');
+          } else if (trimmed.startsWith('rgb')) {
+            transparentColor = trimmed.replace('rgb', 'rgba').replace(')', ', 0)');
           }
         }
         grad.addColorStop(1, transparentColor);
