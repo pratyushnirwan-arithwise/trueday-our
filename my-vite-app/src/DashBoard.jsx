@@ -982,19 +982,7 @@ const TicketCard = ({ ticket, onEdit, onDelete, projects, canMoveTickets, labels
       </div>
       {/* Project name band at the bottom */}
       {projectName && (
-        <div style={{
-          backgroundColor: '#f3f4f6',
-          color: '#000000',
-          fontSize: '0.75rem',
-          fontWeight: '600',
-          textAlign: 'center',
-          padding: '6px',
-          marginTop: 'auto',
-          marginLeft: '-1rem',
-          marginRight: '-1rem',
-          marginBottom: '-1rem',
-          borderTop: '1px solid #e2e8f0'
-        }}>
+        <div className="ticket-project-band">
           {projectName}
         </div>
       )}
@@ -1042,7 +1030,7 @@ const StatusColumn = ({ status, tickets, onEdit, onDelete, onDrop, onDeleteStatu
   const isDeletedStatus = status === DELETED_STATUS;
 
   return (
-    <Droppable droppableId={status} type="ticket" isDropDisabled={!canMoveTickets}>
+    <Droppable droppableId={status} type="ticket" isDropDisabled={canMoveTickets ? false : true}>
       {(provided) => (
         <div
           className={`status-column ${isDragOver ? 'drag-over' : ''} ${status.toLowerCase().replace(' ', '-')}`}
@@ -1072,7 +1060,7 @@ const StatusColumn = ({ status, tickets, onEdit, onDelete, onDrop, onDeleteStatu
           <div className="board-content">
             <div className="board-tickets">
               {tickets.map((ticket, index) => (
-                <Draggable key={ticket.id} draggableId={ticket.id} index={index} isDragDisabled={!canMoveTickets}>
+                <Draggable key={ticket.id} draggableId={ticket.id} index={index} isDragDisabled={canMoveTickets ? false : true}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}
@@ -2621,7 +2609,7 @@ const DashBoard = () => {
                             {(ticketsByStatus[status] || []).map((ticket, ticketIdx) => {
                               const userCanMove = canAccessRestrictedFeatures || (ticket.approver_id ? String(ticket.approver_id) === String(currentUser?.id) : true);
                               return (
-                                <Draggable key={ticket.id} draggableId={`ticket-${ticket.id}`} index={ticketIdx} isDragDisabled={!userCanMove}>
+                                <Draggable key={ticket.id} draggableId={`ticket-${ticket.id}`} index={ticketIdx} isDragDisabled={userCanMove ? false : true}>
                                   {(ticketProvided) => (
                                     <div
                                       ref={ticketProvided.innerRef}
@@ -3064,9 +3052,9 @@ const DashBoard = () => {
           ticketId={editingTicket.id}
           initialTicketData={editingTicket}
           onClose={() => setEditingTicket(null)}
-          onSave={async () => {
+          onSave={async (closeModal = true) => {
             await loadTickets();
-            setEditingTicket(null);
+            if (closeModal) setEditingTicket(null);
           }}
         />
       )}

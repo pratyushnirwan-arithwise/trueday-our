@@ -4,9 +4,9 @@ import './CustomSelect.css'; // Shared CSS file for custom components
 
 const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
-export default function CustomDatePicker({ 
-  value, 
-  onChange, 
+export default function CustomDatePicker({
+  value,
+  onChange,
   placeholder = 'Select date...',
   selectsRange = false,
   startDate = null,
@@ -17,11 +17,11 @@ export default function CustomDatePicker({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [viewMode, setViewMode] = useState('days'); // 'days' or 'years'
-  
+
   const initialDateStr = selectsRange ? (startDate || endDate) : value;
   const currentValDate = initialDateStr ? new Date(initialDateStr + 'T12:00:00') : new Date();
   const [viewDate, setViewDate] = useState(new Date(currentValDate.getFullYear(), currentValDate.getMonth(), 1));
-  
+
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function CustomDatePicker({
     const offset = d.getTimezoneOffset();
     const localDate = new Date(d.getTime() - (offset * 60 * 1000));
     const formatted = localDate.toISOString().split('T')[0];
-    
+
     if (!selectsRange) {
       onChange(formatted);
       setIsOpen(false);
@@ -94,11 +94,11 @@ export default function CustomDatePicker({
     const month = viewDate.getMonth();
     const daysInMonth = getDaysInMonth(year, month);
     const firstDay = getFirstDayOfMonth(year, month);
-    
+
     const blanks = Array.from({ length: firstDay }, (_, i) => <div key={`blank-${i}`} className="dp-day empty"></div>);
     const days = Array.from({ length: daysInMonth }, (_, i) => {
       const dayNum = i + 1;
-      
+
       let isSelected = false;
       let inRange = false;
       let isStart = false;
@@ -114,10 +114,10 @@ export default function CustomDatePicker({
       }
 
       const isToday = new Date().getFullYear() === year && new Date().getMonth() === month && new Date().getDate() === dayNum;
-      
+
       return (
-        <div 
-          key={dayNum} 
+        <div
+          key={dayNum}
           className={`dp-day ${isSelected ? 'selected' : ''} ${isStart ? 'is-start' : ''} ${isEnd ? 'is-end' : ''} ${inRange ? 'in-range' : ''} ${isToday && !isSelected ? 'today' : ''}`}
           onClick={() => handleDateClick(dayNum)}
         >
@@ -133,10 +133,10 @@ export default function CustomDatePicker({
     const currentYear = viewDate.getFullYear();
     const startYear = currentYear - 12;
     const years = Array.from({ length: 25 }, (_, i) => startYear + i);
-    
+
     return years.map(y => (
-      <div 
-        key={y} 
+      <div
+        key={y}
         className={`dp-year ${y === currentYear ? 'selected' : ''}`}
         onClick={() => {
           setViewDate(new Date(y, viewDate.getMonth(), 1));
@@ -176,7 +176,7 @@ export default function CustomDatePicker({
     if (!selectsRange || !startDate || endDate) return false;
     const sDate = new Date(startDate + 'T00:00:00');
     const today = new Date();
-    today.setHours(0,0,0,0);
+    today.setHours(0, 0, 0, 0);
     return sDate < today;
   };
 
@@ -185,15 +185,19 @@ export default function CustomDatePicker({
     const offset = new Date().getTimezoneOffset();
     const localDate = new Date(new Date().getTime() - (offset * 60 * 1000));
     const formattedToday = localDate.toISOString().split('T')[0];
-    onChange([startDate, formattedToday]);
+    if (selectsRange) {
+      onChange([startDate, formattedToday]);
+    } else {
+      onChange(formattedToday);
+    }
     setIsOpen(false);
     setViewMode('days');
   };
 
   return (
     <div className={`custom-select-container dp-container ${selectsRange ? 'range' : ''}`} ref={containerRef}>
-      <button 
-        type="button" 
+      <button
+        type="button"
         className={`custom-select-trigger dp-trigger ${isOpen ? 'open' : ''} ${(!value && !startDate) ? 'empty' : ''}`}
         onClick={() => {
           setIsOpen(!isOpen);
@@ -201,7 +205,7 @@ export default function CustomDatePicker({
         }}
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {icon && <span style={{ color: '#000', display: 'flex', alignItems: 'center', fontSize: '1.1em' }}>{icon}</span>}
+          {icon && <span style={{ color: 'inherit', display: 'flex', alignItems: 'center', fontSize: '1.1em' }}>{icon}</span>}
           {displayValue}
         </span>
         {((selectsRange && (startDate || endDate)) || (!selectsRange && value)) && (
@@ -212,16 +216,21 @@ export default function CustomDatePicker({
       </button>
 
       {isOpen && (
-        <div className="custom-select-dropdown dp-popup" style={{ 
-          left: hAlign === 'left' ? 0 : 'auto', 
-          right: hAlign === 'right' ? 0 : 'auto',
-          top: vAlign === 'bottom' ? 'calc(100% + 4px)' : 'auto',
-          bottom: vAlign === 'top' ? 'calc(100% + 4px)' : 'auto'
-        }}>
+        <div
+          className="custom-select-dropdown dp-popup"
+          style={{
+            position: 'absolute',
+            left: '30%',
+            transform: 'translateX(-50%)',
+            top: vAlign === 'bottom' ? 'calc(100% + 4px)' : 'auto',
+            bottom: vAlign === 'top' ? 'calc(100% + 4px)' : 'auto',
+            zIndex: 99999,
+          }}
+        >
           <div className="dp-header">
             <button className="dp-nav" onClick={handlePrevMonth}><ChevronLeft size={16} /></button>
-            <div 
-              className="dp-month-year clickable" 
+            <div
+              className="dp-month-year clickable"
               onClick={() => setViewMode(viewMode === 'days' ? 'years' : 'days')}
               title="Select year"
             >
@@ -229,7 +238,7 @@ export default function CustomDatePicker({
             </div>
             <button className="dp-nav" onClick={handleNextMonth}><ChevronRight size={16} /></button>
           </div>
-          
+
           {viewMode === 'days' ? (
             <div className="dp-grid">
               {DAYS.map(d => <div key={d} className="dp-day-name">{d}</div>)}
@@ -242,10 +251,8 @@ export default function CustomDatePicker({
           )}
 
           <div className="dp-footer">
-            {isStartDatePast() && (
-              <button className="dp-today-btn" onClick={handleSetToday}>Today</button>
-            )}
-            <button className="dp-clear-btn" onClick={handleClear}>Clear Selection</button>
+            <button className="dp-today-btn" onClick={handleSetToday}>Today</button>
+            <button className="dp-clear-btn" onClick={handleClear}>Clear</button>
           </div>
         </div>
       )}

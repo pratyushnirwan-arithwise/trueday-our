@@ -41,6 +41,7 @@ body.dark {
   background-color: #181a20 !important;
   color: #f3f4f6 !important;
 }
+
 body.dark .container,
 body.dark section,
 body.dark .section-header,
@@ -51,81 +52,95 @@ body.dark .modal-content {
   background: #23272f !important;
   color: #f3f4f6 !important;
   border: 1.5px solid #353945 !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.22) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22) !important;
 }
+
 body.dark .btn,
 body.dark .btn-primary {
   background: #8ab4f8 !important;
   color: #23272f !important;
   border: 1.5px solid #8ab4f8 !important;
 }
+
 body.dark .btn:hover,
 body.dark .btn-primary:hover {
   background: #5c7cfa !important;
   color: #fff !important;
 }
+
 body.dark .section-header {
   border-bottom: 1.5px solid #353945 !important;
 }
+
 body.dark .card {
   background: #292c33 !important;
   color: #f3f4f6 !important;
   border: 1.5px solid #353945 !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
 }
+
 body.dark .card-header {
   background: #23272f !important;
   color: #8ab4f8 !important;
   border-bottom: 1.5px solid #353945 !important;
 }
+
 body.dark .input,
 body.dark input,
-body.dark textarea,
 body.dark select {
   background: #23272f !important;
   color: #f3f4f6 !important;
   border: 1.5px solid #353945 !important;
 }
+
 body.dark .input:focus,
 body.dark input:focus,
-body.dark textarea:focus,
 body.dark select:focus {
-  border-color: #8ab4f8 !important;
-  box-shadow: 0 0 0 2px #8ab4f8 !important;
+  border-color: #2e2e2e !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
+
 body.dark .modal-content {
   background: #23272f !important;
   color: #f3f4f6 !important;
   border: 1.5px solid #353945 !important;
 }
+
 body.dark .modal-header,
 body.dark .modal-footer {
   background: #23272f !important;
   color: #f3f4f6 !important;
   border-color: #353945 !important;
 }
+
 body.dark .cancel-btn {
   background: #353945 !important;
   color: #b0b3b8 !important;
   border: 1.5px solid #353945 !important;
 }
+
 body.dark .save-btn {
   background: #8ab4f8 !important;
   color: #23272f !important;
   border: 1.5px solid #8ab4f8 !important;
 }
+
 body.dark .save-btn:hover {
   background: #5c7cfa !important;
   color: #fff !important;
 }
+
 body.dark .delete-btn {
   background: #ef4444 !important;
   color: #fff !important;
   border: 1.5px solid #ef4444 !important;
 }
+
 body.dark .delete-btn:hover {
   background: #b91c1c !important;
 }
+
 body.dark .section-header p {
   color: #b0b3b8 !important;
 }
@@ -231,4 +246,3 @@ section {
     padding: 0.5rem 1rem;
   }
 }
-

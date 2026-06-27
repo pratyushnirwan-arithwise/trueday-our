@@ -456,9 +456,9 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
               <label htmlFor="priority" style={{ width: '150px' }}>Priority</label>
               <CustomSelect
                 options={[
-                  { label: 'Low', value: 'Low', color: '#10b981' },
-                  { label: 'Medium', value: 'Medium', color: '#f59e0b' },
-                  { label: 'High', value: 'High', color: '#ef4444' }
+                  { label: 'Low', value: 'Low', color: '#22c55e', className: 'ET-prio-low' },
+                  { label: 'Medium', value: 'Medium', color: '#eab308', className: 'ET-prio-medium' },
+                  { label: 'High', value: 'High', color: '#ef4444', className: 'ET-prio-high' }
                 ]}
                 value={formData.priority}
                 onChange={(val) => handleChange({ target: { name: 'priority', value: val } })}
@@ -570,7 +570,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
           </div>
           <div className="jira-form-col jira-form-col-right">
             <div className="jira-form-group jira-form-group-description">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="description">Description <span className="required">*</span></label>
               <div className="textarea-wrapper-custom">
                 <textarea
                   id="description"
@@ -578,7 +578,7 @@ const CreateTicket = ({ onClose, isModal, onTicketCreated, projects: propProject
                   rows={8}
                   value={formData.description}
                   onChange={handleChange}
-                  className="jira-form-textarea custom-textarea"
+                  className="custom-textarea"
                   placeholder="Enter Ticket Description"
                 />
 

@@ -814,7 +814,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
       const result = await response.json();
       const attachmentUrl = `/attachments/${result.attachment_id || result.file_path}`;
 
-      const imgHtml = `<img src="${attachmentUrl}" alt="Pasted Image" class="comment-image" style="max-width: 100%; border-radius: 8px; margin-top: 8px;" />`;
+      const imgHtml = `<img src="${attachmentUrl}" alt="Pasted Image" class="comment-image" style="max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 8px; margin-top: 8px; display: block;" />`;
 
       const inputEl = document.getElementById("comment-input");
       if (inputEl) {
@@ -988,36 +988,31 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
 
     return (
       <div className={`ET-comment-thread ${depth > 0 ? "ET-reply" : ""} ${isEditing ? "editing" : ""}`} style={{ marginLeft: depth * 20 }}>
-        <div className="ET-comment">
-          <div className="ET-comment-header">
+        <div className="ET-history-item ET-comment-card">
+          <div className="ET-history-icon" style={{ background: "transparent", border: "none", width: "28px", height: "28px", padding: 0, margin: 0, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div
               className="ET-user-avatar"
-              style={{ backgroundColor: stringToColor(comment.username || comment.user_name) }}
+              style={{ backgroundColor: stringToColor(comment.username || comment.user_name), width: "28px", height: "28px", fontSize: "11px", margin: 0, padding: 0 }}
             >
               {getInitials(comment.username || comment.user_name)}
             </div>
-            <div className="ET-comment-username">{comment.username || comment.user_name}</div>
-            <div className="ET-comment-timestamp">
-              {comment.created_at
-                ? new Date(comment.created_at).toLocaleString()
-                : comment.timestamp
-                  ? new Date(comment.timestamp).toLocaleString()
-                  : ""}
-              {isEditing && <span style={{ marginLeft: "8px", color: "#78176b", fontWeight: 500 }}>(editing...)</span>}
-            </div>
-            {!isEditing && !hideActions && mine && (
-              <div className="ET-comment-actions-inline">
-                <button className="ET-icon-only-btn" onClick={() => handleStartEditMessage(comment)} title="Edit">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          </div>
+          <div className="ET-history-content">
+            <div className="ET-history-action" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span>
+                {comment.username || comment.user_name}
+                {isEditing && <span style={{ marginLeft: "8px", color: "#78176b", fontWeight: 500, fontSize: "12px" }}>(editing...)</span>}
+              </span>
+              {!isEditing && !hideActions && mine && (
+                <button className="ET-icon-only-btn" onClick={() => handleStartEditMessage(comment)} title="Edit" style={{ padding: "2px" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M12 20h9" />
                     <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
                   </svg>
                 </button>
-              </div>
-            )}
-          </div>
-          <div className="ET-comment-text">
-            <>
+              )}
+            </div>
+            <div className="ET-history-details" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
               {comment.message && comment.message.includes("<img") ? (
                 <div
                   className="ET-comment-content-html"
@@ -1042,7 +1037,10 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                   </div>
                 </div>
               )}
-            </>
+            </div>
+            <div className="ET-history-time">
+              {formatHistoryTime(comment.created_at || comment.timestamp)}
+            </div>
           </div>
         </div>
 
@@ -2222,10 +2220,16 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
   const formatChangeDetails = (details, changeType) => {
     if (!details) return ""
 
-    if (changeType === "created") {
+    const ct = String(changeType || "").toLowerCase()
+    if (ct === "created" || ct.includes("attachment")) {
       return ""
     }
-    if (changeType === "comment" || changeType === "comment_edit") {
+    if (ct === "comment" || ct === "comment_edit") {
+      return ""
+    }
+
+    const detStr = typeof details === "string" ? details : JSON.stringify(details)
+    if (detStr.includes("attachment_id") || detStr.includes("file_path")) {
       return ""
     }
 
@@ -2255,6 +2259,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
 
   const formatChangeTypeLabel = (type) => {
     if (!type) return "Update"
+    if (String(type).toLowerCase().includes("attachment")) return "Attachment added"
     const spaced = String(type).replace(/_/g, " ")
     return spaced.replace(/\b\w/g, (m) => m.toUpperCase())
   }
@@ -2474,6 +2479,37 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
     return { valid: true }
   }
 
+  const triggerAutoSave = async (fieldUpdates = {}) => {
+    if (!ticket || !id) return;
+    try {
+      const storedUserData = localStorage.getItem("user");
+      const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
+      const currentUserId = storedUser?.id || localStorage.getItem("userId") || 1;
+      const currentUsername = storedUser?.username || localStorage.getItem("username") || "Unknown User";
+
+      const updateData = {
+        title: ticketTitle?.trim() || ticket?.title || "",
+        description: description,
+        priority: fieldUpdates.priority !== undefined ? fieldUpdates.priority : priority,
+        status: fieldUpdates.status !== undefined ? fieldUpdates.status : status,
+        due_date: fieldUpdates.due_date !== undefined ? fieldUpdates.due_date : dueDate,
+        assignee_id: fieldUpdates.assignee !== undefined ? (fieldUpdates.assignee ? Number.parseInt(fieldUpdates.assignee) : null) : (assignee ? Number.parseInt(assignee) : null),
+        collaborator_id: fieldUpdates.collaborator !== undefined ? (fieldUpdates.collaborator ? Number.parseInt(fieldUpdates.collaborator) : null) : (collaborator ? Number.parseInt(collaborator) : null),
+        approver_id: fieldUpdates.approver !== undefined ? (fieldUpdates.approver ? Number.parseInt(fieldUpdates.approver) : null) : (approver ? Number.parseInt(approver) : null),
+        project_id: fieldUpdates.project !== undefined ? (fieldUpdates.project ? Number.parseInt(fieldUpdates.project) : null) : (project ? Number.parseInt(project) : null),
+        creator_id: currentUserId,
+        user_id: currentUserId,
+        username: currentUsername,
+      };
+      await updateTicket(id, updateData);
+      if (isModal && onSaveProp) {
+        onSaveProp(false);
+      }
+    } catch (err) {
+      console.error("Auto-save error:", err);
+    }
+  };
+
   const handleSave = async () => {
     if (!ticket) return
 
@@ -2533,8 +2569,9 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
       }
 
       await updateTicket(id, updateData)
+      setIsDescEditing(false)
       if (isModal && onSaveProp) {
-        onSaveProp();
+        onSaveProp(false);
       } else {
         navigate("/dashboard")
       }
@@ -2622,6 +2659,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
           <textarea
             className="ET-ticket-title"
             value={ticketTitle}
+            readOnly={!isDescEditing}
             onChange={(e) => {
               setTicketTitle(e.target.value)
               e.target.style.height = "auto"
@@ -2633,18 +2671,30 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
               minHeight: "28px",
               maxHeight: "200px",
               overflowY: "hidden",
+              cursor: !isDescEditing ? "default" : "text",
             }}
           />
         </div>
         <div className="ET-header-actions">
-          <button className="ET-btn-compact ET-btn-primary" title="Save" onClick={handleSave} disabled={saving} style={{ padding: "8px" }}>
+          <button
+            className="ET-btn-compact ET-btn-primary"
+            title={isDescEditing ? "Save Title & Description" : "Edit Title & Description"}
+            onClick={isDescEditing ? handleSave : () => setIsDescEditing(true)}
+            disabled={saving}
+            style={{ padding: "8px" }}
+          >
             {saving ? (
               <div style={{ width: "16px", height: "16px", borderRadius: "50%", border: "2px solid white", borderTopColor: "transparent", animation: "spin 1s linear infinite" }} />
-            ) : (
+            ) : isDescEditing ? (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
                 <polyline points="17 21 17 13 7 13 7 21" />
                 <polyline points="7 3 7 8 15 8" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
               </svg>
             )}
           </button>
@@ -2726,7 +2776,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
           <div className="ET-description-section">
             <div className="ET-section-toggle ET-section-toggle-no-hover" style={{ cursor: 'default' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4a1942" strokeWidth="2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                   <polyline points="14 2 14 8 20 8" />
                   <line x1="16" y1="13" x2="8" y2="13" />
@@ -2735,19 +2785,6 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 </svg>
                 <span>Description</span>
               </div>
-              <button className="ET-desc-edit-toggle" onClick={() => setIsDescEditing((v) => !v)}>
-                {isDescEditing ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 20h9" />
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
-                  </svg>
-                )}
-                {isDescEditing ? 'Done' : 'Edit'}
-              </button>
             </div>
             <div className="ET-description-box">
               {isDescEditing ? (
@@ -2765,7 +2802,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                     fontFamily: "inherit",
                     fontSize: "14px",
                     lineHeight: "1.7",
-                    color: "#3d3832",
+                    color: "inherit",
                     outline: "none",
                   }}
                 />
@@ -2783,9 +2820,6 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
             </div>
           </div>
 
-
-          <hr style={{ border: 'none', borderTop: '1px solid #e8e5e0', margin: '4px 0 0 0' }} />
-
           <div className="ET-discussion-section">
             <div
               className="ET-section-toggle ET-section-toggle-no-hover"
@@ -2802,7 +2836,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a1942" strokeWidth="2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                 </svg>
                 <span>Activity</span>
@@ -3073,7 +3107,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                               borderRadius: 6,
                               cursor: "pointer",
                               fontSize: 12,
-                              color: "#111827",
+                              color: "inherit",
                             }}
                           >
                             @{u.username || u.name}
@@ -3155,7 +3189,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                         </svg>
                       </div>
                       <div className="ET-worklog-empty-text">
-                        <div style={{ fontSize: "16px", fontWeight: 500, color: "#111827", marginBottom: "8px" }}>
+                        <div style={{ fontSize: "16px", fontWeight: 500, color: "inherit", marginBottom: "8px" }}>
                           No time was logged for this Story yet.
                         </div>
                         <div style={{ fontSize: "14px", color: "#6b7280", marginBottom: "16px" }}>
@@ -3247,7 +3281,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
 
         <div className="ET-right-section ET-jira-right">
           <div className="ET-section-header">
-            DETAILS
+            Details
             <div className="ET-ticket-id" style={{ marginLeft: 'auto' }}>#{id}</div>
           </div>
           <div className="ET-form-fields-block">
@@ -3256,18 +3290,18 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              <label>CREATOR</label>
+              <label>Creator</label>
               {ticket?.creator_name ? (
                 <>
                   <div className="ET-detail-avatar" style={{ backgroundColor: stringToColor(ticket.creator_name) }}>
                     {getInitials(ticket.creator_name)}
                   </div>
-                  <div style={{ paddingLeft: "28px", color: "#111827", fontSize: "13px", fontWeight: 500 }}>
+                  <div style={{ paddingLeft: "36px", color: "inherit", fontSize: "12.48px", fontWeight: 400, height: "32px", display: "flex", alignItems: "center" }}>
                     {ticket.creator_name}
                   </div>
                 </>
               ) : (
-                <div style={{ color: "#6b7280", fontSize: "13px" }}>Unknown</div>
+                <div style={{ color: "#6b7280", fontSize: "12.48px", height: "32px", display: "flex", alignItems: "center" }}>Unknown</div>
               )}
             </div>
 
@@ -3276,15 +3310,15 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              <label>ASSIGNEE</label>
-              {assignee && (
+              <label>Assignee</label>
+              {assignee && getDisplayName(assignee) && (
                 <div className="ET-detail-avatar" style={{ backgroundColor: stringToColor(getDisplayName(assignee)) }}>
                   {getInitials(getDisplayName(assignee))}
                 </div>
               )}
               <CustomSelect
                 options={[
-                  { label: "Select Assignee", value: "" },
+                  { label: "No Assignee", value: "", className: "is-default" },
                   ...(project && projectUsers.length > 0 ? projectUsers : users).map((user) => ({
                     label: user.username,
                     value: user.id.toString(),
@@ -3294,6 +3328,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 onChange={(val) => {
                   setAssignee(val)
                   setEditingField(null)
+                  triggerAutoSave({ assignee: val })
                 }}
                 searchable={true}
                 placeholder="Select Assignee"
@@ -3307,15 +3342,15 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
                 <path d="M16 3.13a4 4 0 0 1 0 7.75" />
               </svg>
-              <label>COLLABORATOR</label>
-              {collaborator && (
+              <label>Collaborator</label>
+              {collaborator && getDisplayName(collaborator) && (
                 <div className="ET-detail-avatar" style={{ backgroundColor: stringToColor(getDisplayName(collaborator)) }}>
                   {getInitials(getDisplayName(collaborator))}
                 </div>
               )}
               <CustomSelect
                 options={[
-                  { label: "Select Collaborator", value: "" },
+                  { label: "No Collaborator", value: "", className: "is-default" },
                   ...(project && projectUsers.length > 0 ? projectUsers : users).map((user) => ({
                     label: user.username,
                     value: user.id.toString(),
@@ -3326,6 +3361,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                   const newId = val
                   setCollaborator(newId)
                   setEditingField(null)
+                  triggerAutoSave({ collaborator: newId })
                   try {
                     if (newId) {
                       await fetch("/api/notify-assignment", {
@@ -3350,15 +3386,15 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
 
               </svg>
-              <label>APPROVER</label>
-              {approver && (
+              <label>Approver</label>
+              {approver && getDisplayName(approver) && (
                 <div className="ET-detail-avatar" style={{ backgroundColor: stringToColor(getDisplayName(approver)) }}>
                   {getInitials(getDisplayName(approver))}
                 </div>
               )}
               <CustomSelect
                 options={[
-                  { label: "Select Approver", value: "" },
+                  { label: "No Approver", value: "", className: "is-default" },
                   ...(project && projectUsers.length > 0 ? projectUsers : users).map((user) => ({
                     label: user.username,
                     value: user.id.toString(),
@@ -3369,6 +3405,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                   const newId = val
                   setApprover(newId)
                   setEditingField(null)
+                  triggerAutoSave({ approver: newId })
                   try {
                     if (newId) {
                       await fetch("/api/notify-assignment", {
@@ -3389,10 +3426,10 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
               <svg className="ET-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
               </svg>
-              <label>PROJECT</label>
+              <label>Project</label>
               <CustomSelect
                 options={[
-                  { label: "Select Project", value: "" },
+                  { label: "No Project", value: "", className: "is-default" },
                   ...projects.map((proj) => ({
                     label: proj.name || proj.project_name,
                     value: (proj.id || proj.project_id).toString(),
@@ -3402,6 +3439,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 onChange={(val) => {
                   setProject(val)
                   setEditingField(null)
+                  triggerAutoSave({ project: val })
                 }}
                 searchable={true}
                 placeholder="Select Project"
@@ -3414,18 +3452,19 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
                 <line x1="4" y1="22" x2="4" y2="15" />
               </svg>
-              <label>PRIORITY</label>
+              <label>Priority</label>
               <CustomSelect
                 options={[
-                  { label: "Low", value: "Low", color: "#10b981" },
-                  { label: "Medium", value: "Medium", color: "#f59e0b" },
-                  { label: "High", value: "High", color: "#ef4444" },
-                  { label: "Critical", value: "Critical", color: "#b91c1c" },
+                  { label: "No Priority", value: "", className: "is-default" },
+                  { label: "Low", value: "Low", color: "#22c55e", className: "ET-prio-low" },
+                  { label: "Medium", value: "Medium", color: "#eab308", className: "ET-prio-medium" },
+                  { label: "High", value: "High", color: "#ef4444", className: "ET-prio-high" },
                 ]}
                 value={priority}
                 onChange={(val) => {
                   setPriority(val)
                   setEditingField(null)
+                  triggerAutoSave({ priority: val })
                 }}
                 searchable={false}
                 placeholder="Select Priority"
@@ -3439,32 +3478,21 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 <line x1="8" y1="2" x2="8" y2="6" />
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
-              <label htmlFor="start-date-input">START DATE</label>
+              <label>Date Range</label>
               <CustomDatePicker
-                value={startDate}
-                onChange={(formattedDate) => {
-                  setStartDate(formattedDate || "")
+                vAlign="top"
+                selectsRange={true}
+                startDate={startDate}
+                endDate={dueDate}
+                onChange={([newStart, newEnd]) => {
+                  setStartDate(newStart || "")
+                  setDueDate(newEnd || "")
                   setEditingField(null)
+                  if (newEnd) {
+                    triggerAutoSave({ start_date: newStart || "", due_date: newEnd || "" })
+                  }
                 }}
-                placeholder="Select start date"
-              />
-            </div>
-
-            <div className="ET-form-field ET-readlike">
-              <svg className="ET-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              <label htmlFor="due-date-input">DUE DATE</label>
-              <CustomDatePicker
-                value={dueDate}
-                onChange={(formattedDate) => {
-                  setDueDate(formattedDate || "")
-                  setEditingField(null)
-                }}
-                placeholder="Select due date"
+                placeholder="Select date range"
               />
             </div>
 
@@ -3477,8 +3505,9 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                 <line x1="3" y1="12" x2="3.01" y2="12" />
                 <line x1="3" y1="18" x2="3.01" y2="18" />
               </svg>
-              <label>STATUS</label>
+              <label>Status</label>
               <CustomSelect
+                vAlign="top"
                 options={[
                   { label: "Select Status", value: "", disabled: true },
                   ...(isLoadingStatuses
@@ -3496,8 +3525,9 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                           : { valid: true }
                         const isWorkflowValid = workflowValidation.valid
                         const disabled = !canSelectCompleted || !isWorkflowValid
+                        const formattedLabel = statusName ? statusName.toString().toLowerCase().replace(/^\w/, c => c.toUpperCase()) : ""
                         return {
-                          label: statusName,
+                          label: formattedLabel,
                           value: statusName,
                           disabled: disabled,
                         }
@@ -3533,6 +3563,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
                   setStatus(newStatus)
                   setError(null)
                   setEditingField(null)
+                  triggerAutoSave({ status: newStatus })
                 }}
                 searchable={false}
                 placeholder="Select Status"

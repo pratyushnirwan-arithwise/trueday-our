@@ -335,18 +335,18 @@
   padding-top: 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   display: flex;
-  justify-content: center;
   gap: 8px;
 }
 
 .dp-clear-btn {
+  flex: 1;
   background: transparent;
   border: none;
   color: var(--t3);
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
-  padding: 4px 12px;
+  padding: 6px 12px;
   border-radius: 4px;
   transition: all 0.15s;
 }
@@ -357,17 +357,167 @@
 }
 
 .dp-today-btn {
+  flex: 1;
   background: transparent;
   border: none;
   color: var(--indigo);
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  padding: 4px 12px;
+  padding: 6px 12px;
   border-radius: 4px;
   transition: all 0.15s;
 }
 
 .dp-today-btn:hover {
   background: rgba(99, 102, 241, 0.08);
+}
+
+/* ── Dark Mode ── */
+
+body.dark .custom-select-trigger {
+  background: var(--bg-primary, #1a1a1a) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: var(--border-color, #2e2e2e) !important;
+  color: var(--text-primary, #f0f0f0) !important;
+  box-shadow: none !important;
+}
+
+body.dark .custom-select-trigger:hover,
+body.dark .custom-select-trigger.open {
+  background: var(--bg-secondary, #111111) !important;
+  border-color: #5e145e !important;
+  box-shadow: none !important;
+}
+
+body.dark .custom-select-trigger.empty {
+  color: var(--text-secondary, #909090) !important;
+}
+
+body.dark .custom-select-dropdown {
+  background: var(--bg-primary, #1a1a1a) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: var(--border-color, #2e2e2e) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.dark .custom-select-option {
+  color: var(--text-primary, #f0f0f0) !important;
+}
+
+body.dark .custom-select-option:hover,
+body.dark .custom-select-option.active {
+  background: var(--bg-secondary, #111111) !important;
+  color: #c084fc !important;
+}
+
+body.dark .custom-select-option.selected {
+  background: rgba(192, 132, 252, 0.12) !important;
+  color: #c084fc !important;
+}
+
+body.dark .custom-select-search {
+  background: var(--bg-secondary, #111111) !important;
+  border-color: var(--border-color, #2e2e2e) !important;
+  color: var(--text-primary, #f0f0f0) !important;
+}
+
+/* Date picker popup */
+body.dark .dp-popup {
+  background: var(--bg-primary, #1a1a1a) !important;
+}
+
+body.dark .dp-month-year {
+  color: var(--text-primary, #f0f0f0) !important;
+}
+
+body.dark .dp-month-year.clickable:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+body.dark .dp-nav {
+  color: var(--text-secondary, #909090) !important;
+}
+
+body.dark .dp-nav:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--text-primary, #f0f0f0) !important;
+}
+
+body.dark .dp-day-name {
+  color: var(--text-secondary, #909090) !important;
+}
+
+body.dark .dp-day {
+  color: var(--text-primary, #f0f0f0) !important;
+}
+
+body.dark .dp-day:not(.empty):hover {
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+
+body.dark .dp-day.today {
+  color: #a855f7 !important;
+}
+
+body.dark .dp-day.selected {
+  background: #5e145e !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(94, 20, 94, 0.4) !important;
+}
+
+body.dark .dp-day.selected:hover {
+  background: #7b1d7b !important;
+}
+
+body.dark .dp-day.in-range {
+  background: rgba(120, 40, 120, 0.45) !important;
+  color: #e8d5e8 !important;
+  border-radius: 0 !important;
+}
+
+body.dark .dp-year {
+  color: var(--text-primary, #f0f0f0) !important;
+}
+
+body.dark .dp-year:hover {
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+
+body.dark .dp-year.selected {
+  background: #5e145e !important;
+  color: #fff !important;
+  box-shadow: 0 2px 6px rgba(94, 20, 94, 0.4) !important;
+}
+
+body.dark .dp-footer {
+  border-top-color: var(--border-color, #2e2e2e) !important;
+}
+
+body.dark .dp-clear-btn {
+  color: var(--text-secondary, #909090) !important;
+}
+
+body.dark .dp-clear-btn:hover {
+  background: rgba(239, 68, 68, 0.12) !important;
+  color: #f87171 !important;
+}
+
+body.dark .dp-today-btn {
+  color: #a855f7 !important;
+}
+
+body.dark .dp-today-btn:hover {
+  background: rgba(168, 85, 247, 0.1) !important;
+}
+
+body.dark .dp-clear-icon {
+  color: var(--text-secondary, #909090) !important;
+}
+
+body.dark .dp-clear-icon:hover {
+  color: #f87171 !important;
+  background: rgba(239, 68, 68, 0.12) !important;
 }

@@ -3,6 +3,7 @@ attachments/
 .env
 venv
 new_backend/.env
+new_backend/venv
 new_backend/attachments/
 new_backend/app.log
 new_backend/uploads/

@@ -17,7 +17,9 @@ import {
   UserPlus,
   Info,
   X,
-  Paperclip
+  Paperclip,
+  Sun,
+  Moon
 } from 'lucide-react';
 import './DashboardSidebar.css';
 
@@ -33,6 +35,68 @@ const DashboardSidebar = ({ collapsed, onToggleCollapse, open, setOpen }) => {
   const showPanelRef = useRef(showPanel);
   const wasOpenRef = useRef(false);
   const [deletingIds, setDeletingIds] = useState([]);
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    // Apply on mount only — subsequent toggles are handled synchronously in toggleTheme
+    if (theme === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Listen for OS/Browser theme changes and force the app to match
+  useEffect(() => {
+    if (!window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleChange = (e) => {
+      const newTheme = e.matches ? 'dark' : 'light';
+      setTheme(newTheme);
+      localStorage.setItem('theme', newTheme);
+    };
+
+    // Modern browsers support addEventListener
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    } else if (mediaQuery.addListener) {
+      // Fallback for older browsers
+      mediaQuery.addListener(handleChange);
+      return () => mediaQuery.removeListener(handleChange);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+
+    // 1. Kill all transitions for this frame so nothing animates during the switch
+    document.body.classList.add('theme-switching');
+
+    // 2. Switch theme class synchronously — happens in the same layout pass
+    if (newTheme === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+
+    // 3. Re-enable transitions after the browser has painted the new frame
+    //    Double rAF ensures we wait for the actual commit, not just the next JS tick
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.remove('theme-switching');
+      });
+    });
+
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   useEffect(() => {
     showPanelRef.current = showPanel;
@@ -334,6 +398,21 @@ const DashboardSidebar = ({ collapsed, onToggleCollapse, open, setOpen }) => {
                   backgroundColor: '#ef4444',
                   borderRadius: '50%'
                 }} />
+              )}
+            </div>
+          </div>
+
+          {/* Theme Toggle Trigger */}
+          <div
+            className="ds-nav-item"
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {theme === 'dark' ? (
+                <Sun size={24} strokeWidth={2} className="ds-icon" style={{ color: '#fbbf24' }} />
+              ) : (
+                <Moon size={24} strokeWidth={2} className="ds-icon" />
               )}
             </div>
           </div>

@@ -1,4 +1,4 @@
-body {
+﻿body {
   font-family: 'Calibri', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -137,7 +137,7 @@ body {
   font-weight: 700;
   font-size: 18px;
   margin-bottom: 8px;
-  color: #1e293b;
+  color: #1a1a1a;
 }
 
 .podium-step .player-points {
@@ -149,14 +149,14 @@ body {
 
 .podium-step .player-level {
   font-size: 14px;
-  color: #64748b;
+  color: #777777;
   font-weight: 500;
 }
 
 /* Tab Navigation */
 .tab-navigation {
   display: flex;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid #e0e0e0;
   margin-bottom: 20px;
 }
 
@@ -166,7 +166,7 @@ body {
   border: none;
   font-size: 16px;
   font-weight: 600;
-  color: #64748b;
+  color: #777777;
   cursor: pointer;
 }
 
@@ -196,12 +196,12 @@ body {
 .reward-name {
   font-size: 18px;
   font-weight: 700;
-  color: #334155;
+  color: #2e2e2e;
 }
 
 .reward-description {
   font-size: 14px;
-  color: #64748b;
+  color: #777777;
   text-align: center;
 }
 
@@ -218,7 +218,7 @@ body {
 }
 
 .redeem-button.disabled {
-  background: #cbd5e1;
+  background: #cccccc;
   cursor: not-allowed;
 }
 
@@ -249,12 +249,12 @@ body {
 
 .achievement-name {
   font-weight: 600;
-  color: #334155;
+  color: #2e2e2e;
 }
 
 .achievement-description {
   font-size: 14px;
-  color: #64748b;
+  color: #777777;
 }
 
 /* Popup Styles */
@@ -303,7 +303,7 @@ body {
 
 .cancel-button {
   background: #f1f5f9;
-  color: #64748b;
+  color: #777777;
 }
 
 .confirm-button {
@@ -370,7 +370,7 @@ body {
 
 .leaderboard-subtitle {
   text-align: center;
-  color: #64748b;
+  color: #777777;
   margin-bottom: 30px;
   font-size: 16px;
 }
