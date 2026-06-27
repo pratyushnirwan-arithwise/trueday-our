@@ -1071,7 +1071,7 @@ const StatusColumn = ({ status, tickets, onEdit, onDelete, onDrop, onDeleteStatu
           <div className="board-content">
             <div className="board-tickets">
               {tickets.map((ticket, index) => (
-                <Draggable key={ticket.id} draggableId={ticket.id} index={index} isDragDisabled={canMoveTickets ? false : true}>
+                <Draggable key={ticket.id} draggableId={ticket.id} index={index} isDragDisabled={false}>
                   {(provided) => (
                     <div
                       ref={provided.innerRef}
@@ -1083,7 +1083,7 @@ const StatusColumn = ({ status, tickets, onEdit, onDelete, onDrop, onDeleteStatu
                         onEdit={onEdit}
                         onDelete={onDelete}
                         projects={projects}
-                        canMoveTickets={canMoveTickets}
+                        canMoveTickets={true}
                         labels={labels}
                       />
                     </div>
@@ -2632,14 +2632,14 @@ const DashBoard = () => {
                           <div className="board-tickets">
                             {(ticketsByStatus[status] || []).map((ticket, ticketIdx) => {
                               const isUserProjectSuperuser = currentUser?.project_roles?.[String(ticket.project_id)] === 'Superuser';
-                              const isAssociated =
+                              const isAssociated = 
                                 (ticket.assignee_id && String(ticket.assignee_id) === String(currentUser?.id)) ||
                                 (ticket.creator_id && String(ticket.creator_id) === String(currentUser?.id)) ||
                                 (ticket.approver_id && String(ticket.approver_id) === String(currentUser?.id)) ||
                                 (ticket.collaborator_id && String(ticket.collaborator_id) === String(currentUser?.id));
                               const userCanMove = isAdmin || isUserProjectSuperuser || isAssociated;
                               return (
-                                <Draggable key={ticket.id} draggableId={`ticket-${ticket.id}`} index={ticketIdx} isDragDisabled={userCanMove ? false : true}>
+                                <Draggable key={ticket.id} draggableId={`ticket-${ticket.id}`} index={ticketIdx} isDragDisabled={false}>
                                   {(ticketProvided) => (
                                     <div
                                       ref={ticketProvided.innerRef}
@@ -2651,7 +2651,7 @@ const DashBoard = () => {
                                         onEdit={handleEditTicket}
                                         onDelete={handleDeleteTicket}
                                         projects={projects}
-                                        canMoveTickets={userCanMove}
+                                        canMoveTickets={true}
                                         labels={labels}
                                       />
                                     </div>
