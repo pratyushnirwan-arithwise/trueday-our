@@ -116,3 +116,140 @@
 2026-06-19 01:05:52,513 - app - INFO - Database connection successful!
 2026-06-22 18:05:43,254 - app - DEBUG - Attempting to connect to database: None on None:None
 2026-06-22 18:05:43,331 - app - ERROR - Error connecting to the database: connection failed: connection to server at "localhost" (::1), port 5432 failed: FATAL:  role "Asus" does not exist
+2026-06-27 14:21:53,889 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:21:53,928 - __main__ - INFO - Database connection successful!
+2026-06-27 14:21:53,950 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:21:53,986 - __main__ - INFO - Database connection successful!
+2026-06-27 14:21:54,079 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:21:54,109 - __main__ - INFO - Database connection successful!
+2026-06-27 14:21:56,796 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-27 14:21:56,798 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-27 14:21:56,798 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-27 14:21:56,799 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-27 14:21:56,812 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-27 15:00:00+05:30 (in 2283.187976 seconds)
+2026-06-27 14:21:56,900 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5009
+ * Running on http://192.168.1.132:5009
+2026-06-27 14:21:56,900 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-27 14:21:56,902 - werkzeug - INFO -  * Restarting with stat
+2026-06-27 14:21:57,544 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:21:57,584 - __main__ - INFO - Database connection successful!
+2026-06-27 14:21:57,596 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:21:57,635 - __main__ - INFO - Database connection successful!
+2026-06-27 14:21:57,657 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:21:57,692 - __main__ - INFO - Database connection successful!
+2026-06-27 14:21:57,847 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-27 14:21:57,848 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-27 14:21:57,849 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-27 14:21:57,849 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-27 14:21:57,862 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-27 15:00:00+05:30 (in 2282.137142 seconds)
+2026-06-27 14:21:57,912 - werkzeug - WARNING -  * Debugger is active!
+2026-06-27 14:21:57,919 - werkzeug - INFO -  * Debugger PIN: 811-947-418
+2026-06-27 14:23:03,228 - __main__ - INFO - get_user called for user_id: 18
+2026-06-27 14:23:03,228 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:03,270 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:03,407 - __main__ - WARNING - Failed to sync user role via FDW: could not connect to server "ariths_server"
+DETAIL:  connection to server at "localhost" (::1), port 5432 failed: FATAL:  database "ariths" does not exist
+2026-06-27 14:23:03,572 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:03] "[35m[1mGET /users/18 HTTP/1.1[0m" 500 -
+2026-06-27 14:23:03,593 - __main__ - INFO - get_user called for user_id: 18
+2026-06-27 14:23:03,593 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:03,689 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:03,806 - __main__ - WARNING - Failed to sync user role via FDW: could not connect to server "ariths_server"
+DETAIL:  connection to server at "localhost" (::1), port 5432 failed: FATAL:  database "ariths" does not exist
+2026-06-27 14:23:03,829 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:03] "[35m[1mGET /users/18 HTTP/1.1[0m" 500 -
+2026-06-27 14:23:03,841 - __main__ - INFO - get_user called for user_id: 18
+2026-06-27 14:23:03,841 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:03,876 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:03,912 - __main__ - WARNING - Failed to sync user role via FDW: could not connect to server "ariths_server"
+DETAIL:  connection to server at "localhost" (::1), port 5432 failed: FATAL:  database "ariths" does not exist
+2026-06-27 14:23:03,928 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:03] "[35m[1mGET /users/18 HTTP/1.1[0m" 500 -
+2026-06-27 14:23:03,935 - __main__ - INFO - get_user called for user_id: 18
+2026-06-27 14:23:03,936 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:03,967 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:04,005 - __main__ - WARNING - Failed to sync user role via FDW: could not connect to server "ariths_server"
+DETAIL:  connection to server at "localhost" (::1), port 5432 failed: FATAL:  database "ariths" does not exist
+2026-06-27 14:23:04,022 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:04] "[35m[1mGET /users/18 HTTP/1.1[0m" 500 -
+2026-06-27 14:23:38,039 - __main__ - INFO - POST /login endpoint accessed
+2026-06-27 14:23:38,041 - __main__ - DEBUG - Login attempt for email: unassociated_user@arithwise.com
+2026-06-27 14:23:38,041 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:38,285 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:38,286 - __main__ - DEBUG - Executing SQL query to fetch user
+2026-06-27 14:23:38,359 - __main__ - INFO - User unassociated_user@arithwise.com logged in successfully
+2026-06-27 14:23:38,362 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:38] "POST /login HTTP/1.1" 200 -
+2026-06-27 14:23:38,472 - __main__ - INFO - get_user called for user_id: 105
+2026-06-27 14:23:38,472 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:38,713 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:38,942 - __main__ - WARNING - Failed to sync user role via FDW: could not connect to server "ariths_server"
+DETAIL:  connection to server at "localhost" (::1), port 5432 failed: FATAL:  database "ariths" does not exist
+2026-06-27 14:23:38,988 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:38] "[35m[1mGET /users/105 HTTP/1.1[0m" 500 -
+2026-06-27 14:23:39,301 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:39,318 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:39] "GET /api/notifications/stream?user_id=105 HTTP/1.1" 200 -
+2026-06-27 14:23:39,323 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:39,330 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:39,350 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:39,433 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:39,472 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:39,539 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:39,554 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:39] "GET /api/labels HTTP/1.1" 200 -
+2026-06-27 14:23:39,640 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:39,702 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:39,773 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:39,773 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:39] "GET /api/status HTTP/1.1" 200 -
+2026-06-27 14:23:39,782 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:39,831 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:39] "GET /api/users HTTP/1.1" 200 -
+2026-06-27 14:23:39,965 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:40,111 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:40,388 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:40,418 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:40] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-27 14:23:40,540 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:40,579 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:40] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-27 14:23:40,618 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:40,641 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:40] "GET /api/projects HTTP/1.1" 200 -
+2026-06-27 14:23:40,864 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:40] "GET /api/notifications?user_id=105&limit=50 HTTP/1.1" 200 -
+2026-06-27 14:23:40,865 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:40] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-27 14:23:40,899 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:40,908 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:40,967 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:41,242 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:41,370 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:41,411 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:41,440 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:41] "GET /api/users HTTP/1.1" 200 -
+2026-06-27 14:23:41,464 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:41,472 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:41] "GET /api/labels HTTP/1.1" 200 -
+2026-06-27 14:23:41,566 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:41,589 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:41] "GET /api/status HTTP/1.1" 200 -
+2026-06-27 14:23:41,618 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:41,751 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:41,871 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:41,920 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:41] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-27 14:23:42,053 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:42,570 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:42,577 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:42] "GET /api/projects HTTP/1.1" 200 -
+2026-06-27 14:23:42,618 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:42,636 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:42] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-27 14:23:42,856 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:42,932 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:42,989 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:42] "GET /api/notifications?user_id=105&limit=50 HTTP/1.1" 200 -
+2026-06-27 14:23:43,121 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:43,160 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:43] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-27 14:23:43,234 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:43,452 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:43,626 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:43,821 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:43] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-27 14:23:43,828 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:43] "GET /api/notifications?user_id=105&limit=50 HTTP/1.1" 200 -
+2026-06-27 14:23:43,899 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:44,302 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:44,696 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:44] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-27 14:23:44,884 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:45,253 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:45,619 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:45] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-27 14:23:45,688 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:23:45,828 - __main__ - INFO - Database connection successful!
+2026-06-27 14:23:45,993 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:23:45] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-27 14:24:09,345 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:24:09,629 - __main__ - INFO - Database connection successful!
+2026-06-27 14:24:09,658 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:24:09] "GET /api/notifications?user_id=105&limit=50 HTTP/1.1" 200 -
+2026-06-27 14:24:39,317 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-27 14:24:39,731 - __main__ - INFO - Database connection successful!
+2026-06-27 14:24:39,775 - werkzeug - INFO - 127.0.0.1 - - [27/Jun/2026 14:24:39] "GET /api/notifications?user_id=105&limit=50 HTTP/1.1" 200 -

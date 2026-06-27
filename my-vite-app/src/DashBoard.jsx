@@ -779,8 +779,8 @@ const AddUsersToProjectModal = ({ onClose, onUserAdded }) => {
                           padding: '10px 16px',
                           borderBottom: isDark ? '1px solid #2e2e2e' : '1px solid #f1f5f9',
                           cursor: 'pointer',
-                          background: isChecked 
-                            ? (isDark ? 'rgba(94, 20, 94, 0.25)' : '#f5f3ff') 
+                          background: isChecked
+                            ? (isDark ? 'rgba(94, 20, 94, 0.25)' : '#f5f3ff')
                             : (isDark ? '#1a1a1a' : '#fff'),
                           gap: '12px',
                           height: '42px',
@@ -2513,6 +2513,19 @@ const DashBoard = () => {
         return;
       }
 
+      // Check move permissions: only associated users or superusers/admins can move the ticket
+      const isUserProjectSuperuser = currentUser?.project_roles?.[String(ticket.project_id)] === 'Superuser';
+      const isAssociated =
+        (ticket.assignee_id && String(ticket.assignee_id) === String(currentUser?.id)) ||
+        (ticket.creator_id && String(ticket.creator_id) === String(currentUser?.id)) ||
+        (ticket.approver_id && String(ticket.approver_id) === String(currentUser?.id)) ||
+        (ticket.collaborator_id && String(ticket.collaborator_id) === String(currentUser?.id));
+
+      if (!isAdmin && !isUserProjectSuperuser && !isAssociated) {
+        alert('You do not have permission to move this ticket. Only associated users can move it.');
+        return;
+      }
+
       // Validate workflow transition (allow QA -> COMPLETED)
       const workflowValidation = validateWorkflowTransition(ticket.status, newStatus);
       if (!workflowValidation.valid) {
@@ -2618,7 +2631,13 @@ const DashBoard = () => {
                           </div>
                           <div className="board-tickets">
                             {(ticketsByStatus[status] || []).map((ticket, ticketIdx) => {
-                              const userCanMove = canAccessRestrictedFeatures || (ticket.approver_id ? String(ticket.approver_id) === String(currentUser?.id) : true);
+                              const isUserProjectSuperuser = currentUser?.project_roles?.[String(ticket.project_id)] === 'Superuser';
+                              const isAssociated =
+                                (ticket.assignee_id && String(ticket.assignee_id) === String(currentUser?.id)) ||
+                                (ticket.creator_id && String(ticket.creator_id) === String(currentUser?.id)) ||
+                                (ticket.approver_id && String(ticket.approver_id) === String(currentUser?.id)) ||
+                                (ticket.collaborator_id && String(ticket.collaborator_id) === String(currentUser?.id));
+                              const userCanMove = isAdmin || isUserProjectSuperuser || isAssociated;
                               return (
                                 <Draggable key={ticket.id} draggableId={`ticket-${ticket.id}`} index={ticketIdx} isDragDisabled={userCanMove ? false : true}>
                                   {(ticketProvided) => (

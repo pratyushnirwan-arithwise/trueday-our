@@ -4768,7 +4768,7 @@ def update_ticket_status(ticket_id):
         cursor = conn.cursor()
 
         # Get the current status and ticket details before updating
-        cursor.execute("SELECT status, approver_id, assignee_id, creator_id, title, collaborator_id FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
+        cursor.execute("SELECT status, approver_id, assignee_id, creator_id, title, collaborator_id, project_id FROM trueday.tickets WHERE ticket_id = %s", (ticket_id,))
         current_ticket = cursor.fetchone()
         if not current_ticket:
             return jsonify({"error": "Ticket not found"}), 404
@@ -4781,6 +4781,7 @@ def update_ticket_status(ticket_id):
             ticket_creator_id = current_ticket.get('creator_id')
             ticket_title = current_ticket.get('title')
             ticket_collaborator_id = current_ticket.get('collaborator_id')
+            ticket_project_id = current_ticket.get('project_id')
         else:
             old_status = current_ticket[0]
             ticket_approver_id = current_ticket[1]
@@ -4788,6 +4789,7 @@ def update_ticket_status(ticket_id):
             ticket_creator_id = current_ticket[3]
             ticket_title = current_ticket[4]
             ticket_collaborator_id = current_ticket[5] if len(current_ticket) > 5 else None
+            ticket_project_id = current_ticket[6] if len(current_ticket) > 6 else None
 
         # Get user role
         user_role = 'user'
@@ -4798,11 +4800,22 @@ def update_ticket_status(ticket_id):
                 user_role = str(user_row.get('role') if isinstance(user_row, dict) else user_row[0]).lower()
 
         is_admin = user_role in ['admin', 'superadmin', 'superuser']
+        
+        # Get project-level role if project_id is available
+        is_project_superuser = False
+        if current_user_id and ticket_project_id:
+            cursor.execute("SELECT role FROM trueday.project_users WHERE user_id = %s AND project_id = %s", (current_user_id, ticket_project_id))
+            proj_user_row = cursor.fetchone()
+            if proj_user_row:
+                proj_role = str(proj_user_row.get('role') if isinstance(proj_user_row, dict) else proj_user_row[0]).strip().lower()
+                if proj_role == 'superuser':
+                    is_project_superuser = True
+
         current_uid_str = str(current_user_id) if current_user_id else None
 
         # Check general move permissions
         is_authorized = False
-        if is_admin:
+        if is_admin or is_project_superuser:
             is_authorized = True
         elif current_uid_str and current_uid_str == str(ticket_assignee_id):
             is_authorized = True
@@ -4810,14 +4823,16 @@ def update_ticket_status(ticket_id):
             is_authorized = True
         elif current_uid_str and current_uid_str == str(ticket_approver_id):
             is_authorized = True
+        elif current_uid_str and current_uid_str == str(ticket_collaborator_id):
+            is_authorized = True
 
         if not is_authorized:
-            return jsonify({"error": "Only the assignee, creator, approver, or an admin can move this ticket."}), 403
+            return jsonify({"error": "Only the assignee, creator, approver, collaborator, or a superuser/admin can move this ticket."}), 403
 
         # Validate approver permissions for COMPLETED status
         if new_status == 'COMPLETED' and ticket_approver_id:
             # If there is an approver assigned, only that approver can complete the ticket
-            if not current_uid_str or (current_uid_str != str(ticket_approver_id) and not is_admin):
+            if not current_uid_str or (current_uid_str != str(ticket_approver_id) and not (is_admin or is_project_superuser)):
                 return jsonify({"error": f"Only the assigned approver can mark this ticket as completed"}), 403
 
         # Update the ticket status and set deleted_at if status is DELETED
