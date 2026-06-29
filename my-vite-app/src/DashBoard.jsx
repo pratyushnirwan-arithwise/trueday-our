@@ -2333,6 +2333,7 @@ const DashBoard = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({ status: 'NEW' })
       });
       if (!response.ok) {
@@ -2632,7 +2633,7 @@ const DashBoard = () => {
                           <div className="board-tickets">
                             {(ticketsByStatus[status] || []).map((ticket, ticketIdx) => {
                               const isUserProjectSuperuser = currentUser?.project_roles?.[String(ticket.project_id)] === 'Superuser';
-                              const isAssociated = 
+                              const isAssociated =
                                 (ticket.assignee_id && String(ticket.assignee_id) === String(currentUser?.id)) ||
                                 (ticket.creator_id && String(ticket.creator_id) === String(currentUser?.id)) ||
                                 (ticket.approver_id && String(ticket.approver_id) === String(currentUser?.id)) ||
@@ -2701,7 +2702,7 @@ const DashBoard = () => {
     if (isAdmin || isSuperuser) {
       opts.push({ value: 'add_users', label: 'Add Users' });
     }
-    if (isAdmin) {
+    if (isAdmin || isSuperuser) {
       opts.push({
         value: 'deleted_tickets',
         label: (

@@ -3974,7 +3974,10 @@ def restore_ticket(ticket_id):
         if not current_ticket:
             return jsonify({"error": "Ticket not found"}), 404
         
-        old_status = current_ticket[0]
+        if isinstance(current_ticket, dict):
+            old_status = current_ticket.get('status')
+        else:
+            old_status = current_ticket[0]
         
         cursor.execute("""
             UPDATE trueday.tickets
@@ -3997,15 +4000,29 @@ def restore_ticket(ticket_id):
         conn.commit()
         cursor.close()
         conn.close()
-        return jsonify({
-            "message": "Ticket restored successfully",
-            "ticket": {
+        
+        if isinstance(result, dict):
+            updated_at_val = result.get('updated_at')
+            deleted_at_val = result.get('deleted_at')
+            ticket_data = {
+                "id": result.get('ticket_id') or result.get('id'),
+                "title": result.get('title'),
+                "status": result.get('status'),
+                "updated_at": updated_at_val.isoformat() if hasattr(updated_at_val, 'isoformat') else (str(updated_at_val) if updated_at_val else None),
+                "deleted_at": deleted_at_val.isoformat() if hasattr(deleted_at_val, 'isoformat') else (str(deleted_at_val) if deleted_at_val else None)
+            }
+        else:
+            ticket_data = {
                 "id": result[0],
                 "title": result[1],
                 "status": result[2],
                 "updated_at": result[3].isoformat() if result[3] else None,
                 "deleted_at": result[4].isoformat() if result[4] else None
             }
+            
+        return jsonify({
+            "message": "Ticket restored successfully",
+            "ticket": ticket_data
         }), 200
     except Exception as e:
         print(f"Error restoring ticket: {str(e)}")

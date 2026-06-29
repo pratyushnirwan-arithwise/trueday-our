@@ -40,7 +40,10 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
   }, []);
 
   const filteredOptions = searchable && searchQuery
-    ? options.filter(o => String(o.label).toLowerCase().includes(searchQuery.toLowerCase()))
+    ? options.filter(o => {
+        const labelText = typeof o.label === 'string' ? o.label : '';
+        return labelText.toLowerCase().includes(searchQuery.toLowerCase());
+      })
     : options;
 
   useEffect(() => {
@@ -182,8 +185,8 @@ export default function CustomSelect({ options, value, onChange, placeholder = '
                 onMouseEnter={() => setActiveIndex(i)}
                 style={opt.color ? { backgroundColor: `${opt.color}33`, color: opt.color } : {}}
               >
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {highlightMatch(String(opt.label), searchQuery)}
+                <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                  {typeof opt.label === 'string' ? highlightMatch(opt.label, searchQuery) : opt.label}
                 </div>
               </div>
             )) : (
