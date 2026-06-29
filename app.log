@@ -1192,3 +1192,1642 @@ LINE 2:             SELECT 1 FROM progress_pulse
 2026-06-29 11:20:18,596 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 11:20:18] "GET /api/timeline/989 HTTP/1.1" 200 -
 2026-06-29 11:20:18,648 - __main__ - INFO - Database connection successful!
 2026-06-29 11:20:18,840 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 11:20:18] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 12:35:15,279 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:15,321 - __main__ - INFO - Database connection successful!
+2026-06-29 12:35:15,341 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:15,373 - __main__ - INFO - Database connection successful!
+2026-06-29 12:35:15,414 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:15,449 - __main__ - INFO - Database connection successful!
+2026-06-29 12:35:15,666 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-29 12:35:15,667 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-29 12:35:15,667 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-29 12:35:15,668 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-29 12:35:15,681 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-29 13:00:00+05:30 (in 1484.318312 seconds)
+2026-06-29 12:35:15,758 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5009
+ * Running on http://192.168.29.154:5009
+2026-06-29 12:35:15,758 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-29 12:35:15,759 - werkzeug - INFO -  * Restarting with stat
+2026-06-29 12:35:16,562 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:16,641 - __main__ - INFO - Database connection successful!
+2026-06-29 12:35:16,648 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:16,708 - __main__ - INFO - Database connection successful!
+2026-06-29 12:35:16,731 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:16,767 - __main__ - INFO - Database connection successful!
+2026-06-29 12:35:16,885 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-29 12:35:16,888 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-29 12:35:16,888 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-29 12:35:16,889 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-29 12:35:16,909 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-29 13:00:00+05:30 (in 1483.090742 seconds)
+2026-06-29 12:35:16,956 - werkzeug - WARNING -  * Debugger is active!
+2026-06-29 12:35:16,963 - werkzeug - INFO -  * Debugger PIN: 811-947-418
+2026-06-29 12:35:50,037 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Asus\\Downloads\\trueday-our\\new_backend\\check_users.py', reloading
+2026-06-29 12:35:50,138 - werkzeug - INFO -  * Restarting with stat
+2026-06-29 12:35:50,890 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:50,928 - __main__ - INFO - Database connection successful!
+2026-06-29 12:35:50,935 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:50,965 - __main__ - INFO - Database connection successful!
+2026-06-29 12:35:50,981 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:51,014 - __main__ - INFO - Database connection successful!
+2026-06-29 12:35:51,120 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-29 12:35:51,121 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-29 12:35:51,121 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-29 12:35:51,123 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-29 12:35:51,136 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-29 13:00:00+05:30 (in 1448.863438 seconds)
+2026-06-29 12:35:51,183 - werkzeug - WARNING -  * Debugger is active!
+2026-06-29 12:35:51,191 - werkzeug - INFO -  * Debugger PIN: 811-947-418
+2026-06-29 12:35:54,630 - app - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:54,673 - app - INFO - Database connection successful!
+2026-06-29 12:35:54,679 - app - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:54,710 - app - INFO - Database connection successful!
+2026-06-29 12:35:54,729 - app - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:54,760 - app - INFO - Database connection successful!
+2026-06-29 12:35:54,860 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-29 12:35:54,862 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-29 12:35:54,863 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-29 12:35:54,864 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-29 12:35:54,876 - app - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:35:54,877 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-29 13:00:00+05:30 (in 1445.122966 seconds)
+2026-06-29 12:35:54,908 - app - INFO - Database connection successful!
+2026-06-29 12:36:15,170 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,171 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,178 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,181 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,188 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,199 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,298 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,303 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,329 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:15] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 12:36:15,333 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:15] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 12:36:15,352 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,363 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:15] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 12:36:15,374 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,459 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,471 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:15] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 12:36:15,480 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,482 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,504 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:15] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 12:36:15,562 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,579 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,613 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,646 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:15,731 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,731 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,742 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:15] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 12:36:15,826 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:15] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 12:36:15,826 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,881 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:15] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 12:36:15,889 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,891 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:15,918 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:16,012 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:16,013 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:16] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 12:36:16,045 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:16] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 12:36:16,053 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:16] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 12:36:16,134 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:16,148 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:16] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 12:36:16,159 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:16,274 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:16,314 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:16,353 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:16] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 12:36:16,622 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:16] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 12:36:16,739 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:16,907 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:17,194 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:17] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 12:36:17,563 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:17,808 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:18,081 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:18] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 12:36:18,206 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:18,719 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:19,035 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:19] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 12:36:19,047 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:19,361 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:19,657 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:19] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 12:36:53,599 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:53,626 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:53,653 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:53,709 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:53,733 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:53,850 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:53,868 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:53,899 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:53] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 12:36:53,981 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,031 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,037 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 12:36:54,049 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,055 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,079 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,081 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 12:36:54,091 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,101 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 12:36:54,101 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,137 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,141 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 12:36:54,149 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 12:36:54,171 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,198 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,203 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 12:36:54,222 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,233 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,239 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 12:36:54,244 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,262 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,277 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,279 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,287 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 12:36:54,331 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,339 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,340 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,363 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 12:36:54,364 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/project/1/users HTTP/1.1" 200 -
+2026-06-29 12:36:54,403 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,420 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,430 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,439 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 12:36:54,469 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,471 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:36:54,471 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,474 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 12:36:54,476 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 12:36:54,586 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,586 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,591 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 12:36:54,610 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 12:36:54,614 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,642 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 12:36:54,812 - __main__ - INFO - Database connection successful!
+2026-06-29 12:36:54,855 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:36:54] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 12:37:14,335 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:14,390 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:14,494 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:14,592 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:14,593 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:14,612 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:14,613 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:14,616 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:14] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 12:37:14,633 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:14,643 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:14] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 12:37:14,682 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:14,693 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:14] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 12:37:14,821 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:15,178 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:15,214 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:15,306 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:15,317 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:15,320 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:15,329 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:15] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 12:37:15,350 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:15] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 12:37:15,369 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:15] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 12:37:15,481 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:15,668 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:15,772 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:15,888 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:15,910 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:15] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 12:37:15,912 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:15,914 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:15,919 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:15] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 12:37:15,941 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:15] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 12:37:15,946 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:15,975 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:15,988 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:16,008 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:16] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 12:37:16,373 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:16,396 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:16] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 12:37:16,760 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:16,791 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:16,830 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:16] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 12:37:16,857 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:37:16,908 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:16,948 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:16] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 12:37:16,998 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:17,015 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:17] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 12:37:17,041 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:17,079 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:17] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 12:37:17,348 - __main__ - INFO - Database connection successful!
+2026-06-29 12:37:17,397 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:37:17] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 12:38:06,475 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,496 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,519 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,594 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,631 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,641 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:06,653 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:06] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 12:38:06,781 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,844 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,851 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:06,855 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:06] "[35m[1mGET /api/worklogs/1148 HTTP/1.1[0m" 500 -
+2026-06-29 12:38:06,910 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,917 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:06,918 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:06,926 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:06] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 12:38:06,932 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:06] "GET /api/ticket-history/1148 HTTP/1.1" 200 -
+2026-06-29 12:38:06,935 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,968 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:06,985 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:07,012 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:07] "GET /get_ticket_messages/1148 HTTP/1.1" 200 -
+2026-06-29 12:38:07,038 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:07,038 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:07,060 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:07] "GET /get_ticket_attachments/1148 HTTP/1.1" 200 -
+2026-06-29 12:38:07,069 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:07,105 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:07] "GET /api/timeline/1148 HTTP/1.1" 200 -
+2026-06-29 12:38:07,196 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:07,246 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:07,248 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:07] "GET /api/project/16/users HTTP/1.1" 200 -
+2026-06-29 12:38:07,250 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:07,255 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:07,301 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:07,309 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:07,333 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:07] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 12:38:07,348 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:07] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 12:38:07,621 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:07,628 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:07,648 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:07] "[35m[1mGET /api/worklogs/1148 HTTP/1.1[0m" 500 -
+2026-06-29 12:38:07,796 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:07,798 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:07,893 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:07,909 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:07] "GET /get_ticket_messages/1148 HTTP/1.1" 200 -
+2026-06-29 12:38:07,940 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:07,959 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:07] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 12:38:08,114 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:08,134 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:08] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 12:38:08,183 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:08,189 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:08,201 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:08,222 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:08] "GET /get_ticket_attachments/1148 HTTP/1.1" 200 -
+2026-06-29 12:38:08,233 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:08] "GET /api/timeline/1148 HTTP/1.1" 200 -
+2026-06-29 12:38:08,246 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:08] "GET /api/ticket-history/1148 HTTP/1.1" 200 -
+2026-06-29 12:38:08,503 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:38:08,810 - __main__ - INFO - Database connection successful!
+2026-06-29 12:38:09,067 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:38:09] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 12:39:00,210 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:39:00,309 - __main__ - INFO - Database connection successful!
+2026-06-29 12:39:00,594 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:39:00] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 12:50:02,469 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:50:02,654 - __main__ - INFO - Database connection successful!
+2026-06-29 12:50:03,221 - __main__ - INFO - Notification created for user 18: New Comment on 'Highlighted Favorite Words Not Retained in PDF Download of Transcript'
+2026-06-29 12:50:03,232 - __main__ - INFO - Notification created for user 4: New Comment on 'Highlighted Favorite Words Not Retained in PDF Download of Transcript'
+2026-06-29 12:50:03,273 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:50:03] "[35m[1mPOST /api/comments HTTP/1.1[0m" 201 -
+2026-06-29 12:50:04,236 - __main__ - DEBUG - Announcing notification for user_id=18 to active SSE clients
+2026-06-29 12:50:04,273 - __main__ - DEBUG - Announcing notification for user_id=4 to active SSE clients
+2026-06-29 12:50:11,174 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:50:11,463 - __main__ - INFO - Database connection successful!
+2026-06-29 12:50:11,622 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:50:11] "GET /api/timeline/1148 HTTP/1.1" 200 -
+2026-06-29 12:50:11,725 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:50:12,093 - __main__ - INFO - Database connection successful!
+2026-06-29 12:50:12,140 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:50:12] "GET /api/ticket-history/1148 HTTP/1.1" 200 -
+2026-06-29 12:54:02,553 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:54:03,173 - __main__ - INFO - Database connection successful!
+2026-06-29 12:54:03,221 - __main__ - INFO - Notification created for user 18: New Comment on 'Highlighted Favorite Words Not Retained in PDF Download of Transcript'
+2026-06-29 12:54:03,253 - __main__ - INFO - Notification created for user 4: New Comment on 'Highlighted Favorite Words Not Retained in PDF Download of Transcript'
+2026-06-29 12:54:03,275 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:54:03] "[35m[1mPOST /api/comments HTTP/1.1[0m" 201 -
+2026-06-29 12:54:04,271 - __main__ - DEBUG - Announcing notification for user_id=18 to active SSE clients
+2026-06-29 12:54:04,289 - __main__ - DEBUG - Announcing notification for user_id=4 to active SSE clients
+2026-06-29 12:54:10,774 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:54:10,989 - __main__ - INFO - Database connection successful!
+2026-06-29 12:54:11,085 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:54:11] "GET /api/timeline/1148 HTTP/1.1" 200 -
+2026-06-29 12:54:11,278 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 12:54:11,488 - __main__ - INFO - Database connection successful!
+2026-06-29 12:54:11,536 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 12:54:11] "GET /api/ticket-history/1148 HTTP/1.1" 200 -
+2026-06-29 13:00:00,009 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-29 13:00:00,011 - apscheduler.executors.default - INFO - Running job "send_progress_pulse_reminders (trigger: cron[hour='12-23', minute='0'], next run at: 2026-06-29 13:00:00 IST)" (scheduled at 2026-06-29 13:00:00+05:30)
+2026-06-29 13:00:00,011 - apscheduler.executors.default - INFO - Running job "send_progress_pulse_reminders (trigger: cron[hour='12-23', minute='0'], next run at: 2026-06-29 13:00:00 IST)" (scheduled at 2026-06-29 13:00:00+05:30)
+2026-06-29 13:00:00,011 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-29 14:00:00+05:30 (in 3599.988543 seconds)
+2026-06-29 13:00:00,012 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:00:00,012 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-29 14:00:00+05:30 (in 3599.988543 seconds)
+2026-06-29 13:00:00,012 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:00:00,054 - __main__ - INFO - Database connection successful!
+2026-06-29 13:00:00,082 - __main__ - INFO - Database connection successful!
+2026-06-29 13:00:00,084 - apscheduler.executors.default - ERROR - Job "send_progress_pulse_reminders (trigger: cron[hour='12-23', minute='0'], next run at: 2026-06-29 14:00:00 IST)" raised an exception
+Traceback (most recent call last):
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\venv\lib\site-packages\apscheduler\executors\base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\app.py", line 6225, in send_progress_pulse_reminders
+    cur.execute("""
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\venv\lib\site-packages\psycopg\cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "progress_pulse" does not exist
+LINE 2:             SELECT 1 FROM progress_pulse
+                                  ^
+2026-06-29 13:00:00,095 - apscheduler.executors.default - ERROR - Job "send_progress_pulse_reminders (trigger: cron[hour='12-23', minute='0'], next run at: 2026-06-29 14:00:00 IST)" raised an exception
+Traceback (most recent call last):
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\venv\lib\site-packages\apscheduler\executors\base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\app.py", line 6225, in send_progress_pulse_reminders
+    cur.execute("""
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\venv\lib\site-packages\psycopg\cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "progress_pulse" does not exist
+LINE 2:             SELECT 1 FROM progress_pulse
+                                  ^
+2026-06-29 13:07:18,806 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:18,811 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:18,813 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:18,816 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:18,819 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:18,823 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:18,885 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:18,889 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:18,893 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:18] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:07:18,895 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:18] "GET /get_ticket_attachments/934 HTTP/1.1" 200 -
+2026-06-29 13:07:18,908 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:18,919 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:18,951 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:18] "GET /api/ticket-history/934 HTTP/1.1" 200 -
+2026-06-29 13:07:18,951 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:18] "GET /get_ticket_messages/934 HTTP/1.1" 200 -
+2026-06-29 13:07:18,973 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:18,975 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:18] "[35m[1mGET /api/worklogs/934 HTTP/1.1[0m" 500 -
+2026-06-29 13:07:19,002 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,057 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,081 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,108 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,183 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /api/timeline/934 HTTP/1.1" 200 -
+2026-06-29 13:07:19,184 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,248 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,251 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,270 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,280 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:07:19,282 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,295 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:07:19,302 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,314 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,319 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /api/project/6/users HTTP/1.1" 200 -
+2026-06-29 13:07:19,357 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,400 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,401 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,406 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:07:19,416 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /get_ticket_attachments/934 HTTP/1.1" 200 -
+2026-06-29 13:07:19,417 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,459 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,463 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,482 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /api/ticket-history/934 HTTP/1.1" 200 -
+2026-06-29 13:07:19,483 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,485 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:19,503 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /get_ticket_messages/934 HTTP/1.1" 200 -
+2026-06-29 13:07:19,543 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,545 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "[35m[1mGET /api/worklogs/934 HTTP/1.1[0m" 500 -
+2026-06-29 13:07:19,591 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,595 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:07:19,599 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,614 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:07:19,638 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:19,681 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:19] "GET /api/timeline/934 HTTP/1.1" 200 -
+2026-06-29 13:07:26,998 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,002 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,005 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,007 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,018 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,038 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,065 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,072 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /get_ticket_attachments/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,072 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,077 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:07:27,084 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,090 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,093 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,097 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "[35m[1mGET /api/worklogs/934 HTTP/1.1[0m" 500 -
+2026-06-29 13:07:27,099 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,109 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/ticket-history/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,109 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,110 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,113 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,118 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:07:27,118 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /tickets/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,128 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,140 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,145 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,151 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,159 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /get_ticket_messages/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,164 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,166 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,170 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:07:27,178 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/timeline/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,181 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,187 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,194 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /get_ticket_attachments/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,197 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,201 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,204 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,207 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,210 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:07:27,228 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,230 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,233 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "[35m[1mGET /api/worklogs/934 HTTP/1.1[0m" 500 -
+2026-06-29 13:07:27,257 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,264 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,275 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/ticket-history/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,286 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:27,288 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,288 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,297 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /get_ticket_messages/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,299 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /tickets/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,325 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,334 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:07:27,342 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,356 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/timeline/934 HTTP/1.1" 200 -
+2026-06-29 13:07:27,380 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,386 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/project/6/users HTTP/1.1" 200 -
+2026-06-29 13:07:27,430 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:27,433 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:27] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:07:37,327 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,336 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,338 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,341 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,354 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,401 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,421 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,432 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "[35m[1mGET /api/worklogs/934 HTTP/1.1[0m" 500 -
+2026-06-29 13:07:37,435 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,468 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /api/ticket-history/934 HTTP/1.1" 200 -
+2026-06-29 13:07:37,501 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,535 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,536 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,548 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,570 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /get_ticket_attachments/934 HTTP/1.1" 200 -
+2026-06-29 13:07:37,596 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,613 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,617 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:07:37,731 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,732 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:07:37,741 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,743 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,764 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:07:37,767 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 13:07:37,773 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,778 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 13:07:37,789 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:07:37,803 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,846 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,853 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,867 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,883 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,899 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:37,952 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,970 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:37,987 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /api/timeline/934 HTTP/1.1" 200 -
+2026-06-29 13:07:37,999 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:37] "GET /api/ticket-history/934 HTTP/1.1" 200 -
+2026-06-29 13:07:38,017 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,022 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 13:07:38,038 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,052 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,063 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,063 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,068 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/project/6/users HTTP/1.1" 200 -
+2026-06-29 13:07:38,083 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /get_ticket_messages/934 HTTP/1.1" 200 -
+2026-06-29 13:07:38,085 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,104 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "[35m[1mGET /api/worklogs/934 HTTP/1.1[0m" 500 -
+2026-06-29 13:07:38,119 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,151 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,175 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,194 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,199 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,217 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /get_ticket_attachments/934 HTTP/1.1" 200 -
+2026-06-29 13:07:38,236 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,239 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,247 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:07:38,252 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,303 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,305 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,367 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:07:38,417 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,417 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,448 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,449 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,488 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:07:38,503 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:07:38,505 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 13:07:38,513 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 13:07:38,585 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,617 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,619 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/timeline/934 HTTP/1.1" 200 -
+2026-06-29 13:07:38,620 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,638 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,652 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,660 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,671 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,684 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 13:07:38,751 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,755 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,755 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,760 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:07:38,793 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:07:38,801 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /get_ticket_messages/934 HTTP/1.1" 200 -
+2026-06-29 13:07:38,805 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,808 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,814 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,819 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,830 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:07:38,845 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:38,971 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:07:38,971 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,971 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,974 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:38,996 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:38] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:07:39,001 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:39] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:07:39,003 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:39] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:07:39,050 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:39,119 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:39,269 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:39] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:07:39,301 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:39,468 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:39,580 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:39] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:07:39,601 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:39,684 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:39,786 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:39] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:07:42,788 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:42,809 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:42,928 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:42,932 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:42] "[35m[1mGET /api/worklogs/934 HTTP/1.1[0m" 500 -
+2026-06-29 13:07:42,967 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:42,984 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:42] "GET /api/ticket-history/934 HTTP/1.1" 200 -
+2026-06-29 13:07:58,221 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:58,284 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:58,300 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:58] "GET /api/ticket-history/934 HTTP/1.1" 200 -
+2026-06-29 13:07:59,128 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:07:59,282 - __main__ - INFO - Database connection successful!
+2026-06-29 13:07:59,284 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:07:59] "[35m[1mGET /api/worklogs/934 HTTP/1.1[0m" 500 -
+2026-06-29 13:08:38,158 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,159 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,160 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,164 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,168 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,169 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,203 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,206 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "[35m[1mGET /api/worklogs/1212 HTTP/1.1[0m" 500 -
+2026-06-29 13:08:38,240 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,243 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,246 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,248 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /get_ticket_attachments/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:38,250 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:08:38,255 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/ticket-history/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:38,263 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,277 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,299 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /get_ticket_messages/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:38,300 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,312 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,316 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,333 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,336 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,352 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/timeline/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:38,366 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,481 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,497 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:08:38,522 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,530 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "[35m[1mGET /api/worklogs/1212 HTTP/1.1[0m" 500 -
+2026-06-29 13:08:38,541 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,566 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,578 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:08:38,579 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,585 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,594 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:08:38,643 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,647 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,664 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,677 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /get_ticket_attachments/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:38,678 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,679 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/project/1/users HTTP/1.1" 200 -
+2026-06-29 13:08:38,707 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:38,707 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,714 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/ticket-history/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:38,756 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,762 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,765 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /get_ticket_messages/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:38,777 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/timeline/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:38,783 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,787 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:38,790 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:08:38,799 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:38] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:08:42,565 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:42,618 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:42,630 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:42] "GET /api/ticket-history/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:44,269 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:44,330 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:44,346 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:44] "GET /api/ticket-history/1212 HTTP/1.1" 200 -
+2026-06-29 13:08:46,348 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:08:46,406 - __main__ - INFO - Database connection successful!
+2026-06-29 13:08:46,409 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:08:46] "[35m[1mGET /api/worklogs/1212 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:02,204 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,205 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,208 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,209 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,212 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,220 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,248 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,252 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "[35m[1mGET /api/worklogs/1212 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:02,298 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,314 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /get_ticket_attachments/1212 HTTP/1.1" 200 -
+2026-06-29 13:09:02,441 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,481 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,483 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/ticket-history/1212 HTTP/1.1" 200 -
+2026-06-29 13:09:02,510 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,524 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,533 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,536 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:02,575 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:02,586 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,597 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,631 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,632 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /get_ticket_messages/1212 HTTP/1.1" 200 -
+2026-06-29 13:09:02,659 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,687 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,702 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/timeline/1212 HTTP/1.1" 200 -
+2026-06-29 13:09:02,721 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,745 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,748 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,753 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:02,773 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,776 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "[35m[1mGET /api/worklogs/1212 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:02,779 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,786 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,799 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/project/1/users HTTP/1.1" 200 -
+2026-06-29 13:09:02,802 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,809 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /get_ticket_attachments/1212 HTTP/1.1" 200 -
+2026-06-29 13:09:02,820 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,842 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,848 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,855 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/ticket-history/1212 HTTP/1.1" 200 -
+2026-06-29 13:09:02,856 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,858 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:02,876 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:02,898 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,901 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:02,912 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,921 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /get_ticket_messages/1212 HTTP/1.1" 200 -
+2026-06-29 13:09:02,922 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,927 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:02,938 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:02,950 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:02] "GET /api/timeline/1212 HTTP/1.1" 200 -
+2026-06-29 13:09:12,529 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:12,531 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:12,535 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:12,536 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:12,540 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:12,550 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:12,579 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:12,583 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:12] "[35m[1mGET /api/worklogs/1204 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:12,654 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:12,669 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:12,704 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:12] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:12,714 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:12,716 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:12,739 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:12] "GET /get_ticket_messages/1204 HTTP/1.1" 200 -
+2026-06-29 13:09:12,742 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:12,753 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:12] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:12,791 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:12] "GET /get_ticket_attachments/1204 HTTP/1.1" 200 -
+2026-06-29 13:09:12,813 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:12,841 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:12,842 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:12,877 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:12] "GET /api/ticket-history/1204 HTTP/1.1" 200 -
+2026-06-29 13:09:12,895 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:12] "GET /api/timeline/1204 HTTP/1.1" 200 -
+2026-06-29 13:09:12,947 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:13,013 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:13,063 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:13,067 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,067 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:13,072 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:13,073 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:13,076 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,089 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "[35m[1mGET /api/worklogs/1204 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:13,107 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:13,141 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,143 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:13,157 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "GET /api/project/12/users HTTP/1.1" 200 -
+2026-06-29 13:09:13,167 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,181 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,187 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:13,187 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,188 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:13,195 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:13,207 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:13,209 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,210 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "GET /get_ticket_messages/1204 HTTP/1.1" 200 -
+2026-06-29 13:09:13,218 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "GET /get_ticket_attachments/1204 HTTP/1.1" 200 -
+2026-06-29 13:09:13,243 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,251 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "GET /api/ticket-history/1204 HTTP/1.1" 200 -
+2026-06-29 13:09:13,258 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,275 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "GET /api/timeline/1204 HTTP/1.1" 200 -
+2026-06-29 13:09:13,299 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:13,304 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:13] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:16,182 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,183 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,183 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,184 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,187 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,191 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,291 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,293 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,298 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:16,303 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /get_ticket_attachments/1147 HTTP/1.1" 200 -
+2026-06-29 13:09:16,318 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,329 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/ticket-history/1147 HTTP/1.1" 200 -
+2026-06-29 13:09:16,345 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,359 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:16,390 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,395 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,399 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,412 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,412 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,433 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,466 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /get_ticket_messages/1147 HTTP/1.1" 200 -
+2026-06-29 13:09:16,482 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "[35m[1mGET /api/worklogs/1147 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:16,515 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,544 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,711 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,726 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /get_ticket_attachments/1147 HTTP/1.1" 200 -
+2026-06-29 13:09:16,726 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,727 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,745 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/project/16/users HTTP/1.1" 200 -
+2026-06-29 13:09:16,750 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,755 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/timeline/1147 HTTP/1.1" 200 -
+2026-06-29 13:09:16,755 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,756 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,758 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:16,768 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:16,778 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,791 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,798 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/ticket-history/1147 HTTP/1.1" 200 -
+2026-06-29 13:09:16,809 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,812 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,821 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:16,868 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,870 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,876 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:16,878 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /get_ticket_messages/1147 HTTP/1.1" 200 -
+2026-06-29 13:09:16,878 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,896 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/timeline/1147 HTTP/1.1" 200 -
+2026-06-29 13:09:16,901 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,907 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:16,970 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:16,973 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:16] "[35m[1mGET /api/worklogs/1147 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:20,795 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:20,798 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:20,803 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:20,808 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:20,815 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:20,831 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:20,841 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:20,847 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:20] "[35m[1mGET /api/worklogs/1002 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:20,852 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:20,861 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:20] "GET /get_ticket_attachments/1002 HTTP/1.1" 200 -
+2026-06-29 13:09:20,875 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:20,878 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:20,894 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:20] "GET /api/ticket-history/1002 HTTP/1.1" 200 -
+2026-06-29 13:09:20,982 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:20,995 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,004 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:21,011 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /get_ticket_messages/1002 HTTP/1.1" 200 -
+2026-06-29 13:09:21,021 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,099 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,113 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:21,128 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,162 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,172 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,192 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,212 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/timeline/1002 HTTP/1.1" 200 -
+2026-06-29 13:09:21,279 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,280 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,310 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,313 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "[35m[1mGET /api/worklogs/1002 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:21,317 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,366 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:21,367 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,374 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,375 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/project/1/users HTTP/1.1" 200 -
+2026-06-29 13:09:21,390 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /get_ticket_attachments/1002 HTTP/1.1" 200 -
+2026-06-29 13:09:21,421 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,426 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,433 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/ticket-history/1002 HTTP/1.1" 200 -
+2026-06-29 13:09:21,443 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:21,444 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,473 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,484 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,522 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:21,522 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,536 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /get_ticket_messages/1002 HTTP/1.1" 200 -
+2026-06-29 13:09:21,569 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,577 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:21,592 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,596 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:21,619 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:21,633 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:21] "GET /api/timeline/1002 HTTP/1.1" 200 -
+2026-06-29 13:09:25,122 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,126 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,128 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,132 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,137 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,146 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,178 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,180 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,184 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "[35m[1mGET /api/worklogs/989 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:25,187 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /get_ticket_attachments/989 HTTP/1.1" 200 -
+2026-06-29 13:09:25,226 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,246 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/ticket-history/989 HTTP/1.1" 200 -
+2026-06-29 13:09:25,295 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,323 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,329 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:25,345 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,364 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,386 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,394 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /get_ticket_messages/989 HTTP/1.1" 200 -
+2026-06-29 13:09:25,394 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,420 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:25,427 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,478 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,496 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,543 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,547 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/timeline/989 HTTP/1.1" 200 -
+2026-06-29 13:09:25,574 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,576 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,592 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /get_ticket_attachments/989 HTTP/1.1" 200 -
+2026-06-29 13:09:25,612 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,615 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "[35m[1mGET /api/worklogs/989 HTTP/1.1[0m" 500 -
+2026-06-29 13:09:25,617 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,640 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:25,641 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,672 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,690 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,704 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/ticket-history/989 HTTP/1.1" 200 -
+2026-06-29 13:09:25,727 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,728 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,734 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/project/13/users HTTP/1.1" 200 -
+2026-06-29 13:09:25,736 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:25,746 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,755 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /get_ticket_messages/989 HTTP/1.1" 200 -
+2026-06-29 13:09:25,791 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,791 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,796 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,798 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:09:25,800 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:09:25,810 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/timeline/989 HTTP/1.1" 200 -
+2026-06-29 13:09:25,821 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:25,825 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:25] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:09:30,110 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:30,171 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:30,183 - __main__ - INFO - Notification created for user 18: New Comment on 'Implement Responsive Design Across AudioWise UI'
+2026-06-29 13:09:30,188 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:30] "[35m[1mPOST /api/comments HTTP/1.1[0m" 201 -
+2026-06-29 13:09:30,206 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:30,267 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:30,291 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:30] "GET /api/timeline/989 HTTP/1.1" 200 -
+2026-06-29 13:09:30,302 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:09:30,362 - __main__ - INFO - Database connection successful!
+2026-06-29 13:09:30,368 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:09:30] "GET /api/ticket-history/989 HTTP/1.1" 200 -
+2026-06-29 13:09:31,196 - __main__ - DEBUG - Announcing notification for user_id=18 to active SSE clients
+2026-06-29 13:26:34,113 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:34,226 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:34,335 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:34,385 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:34,745 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:34,917 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:35,096 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:35,112 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:35,118 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:35] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:26:35,121 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:35] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:26:35,160 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:35,110 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:35] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:26:35,277 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:35] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 13:26:35,284 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:35,453 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:35,472 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:35,524 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:35,683 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:35,836 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:35,885 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:35,885 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:36,041 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:36] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 13:26:36,044 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:36] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:26:36,107 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:36] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 13:26:36,224 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:36,268 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:36,344 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:36,366 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:36,397 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:36,791 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:36] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:26:36,792 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:36] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:26:36,850 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:36,865 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:36] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 13:26:36,929 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:36,943 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:36] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 13:26:36,989 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:37,006 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:37,011 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:37,014 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:37] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:26:37,019 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:37] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 13:26:37,668 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:38,205 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:38] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:26:38,356 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:38,685 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:38,928 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:38] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:26:38,979 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:39,312 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:39,544 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:39] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:26:39,755 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:39,975 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:40,733 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:40] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:26:40,799 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:26:41,166 - __main__ - INFO - Database connection successful!
+2026-06-29 13:26:41,553 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:26:41] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:27:51,572 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:51,723 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:51,729 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:51,759 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:51,890 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:51,952 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:52,037 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:52,102 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:52] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 13:27:52,255 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:52,892 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:53,160 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:53] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 13:27:53,315 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:54,112 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:54] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 13:27:54,113 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:54,113 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:54,167 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:54,185 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:54,376 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:54] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 13:27:54,402 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:54] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:27:54,599 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:54,655 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:54,685 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:54] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:27:54,785 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:54] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 13:27:54,931 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:54,949 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:54] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:27:55,015 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:55,243 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:55,256 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:55,272 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:55,322 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:56,167 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:56,171 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:56,277 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:56] "GET /api/project/1/users HTTP/1.1" 200 -
+2026-06-29 13:27:56,465 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:56,536 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:56] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:27:56,779 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:56,829 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:56] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 13:27:58,064 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:58] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 13:27:58,065 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:58,102 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:58] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 13:27:58,188 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:58,810 - __main__ - INFO - Database connection successful!
+2026-06-29 13:27:58,857 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:27:58] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 13:27:58,967 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:59,064 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:59,125 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:27:59,543 - __main__ - INFO - Database connection successful!
+2026-06-29 13:28:02,027 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:28:02] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:28:02,410 - __main__ - INFO - Database connection successful!
+2026-06-29 13:28:02,433 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:28:02] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:28:02,441 - __main__ - INFO - Database connection successful!
+2026-06-29 13:28:02,447 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:28:02] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:28:03,159 - __main__ - INFO - Database connection successful!
+2026-06-29 13:28:03,249 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:28:03] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 13:31:31,619 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,638 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,642 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,644 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,690 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,694 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:31:31,708 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,711 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,714 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "[35m[1mGET /api/worklogs/1207 HTTP/1.1[0m" 500 -
+2026-06-29 13:31:31,717 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,723 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,726 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /get_ticket_attachments/1207 HTTP/1.1" 200 -
+2026-06-29 13:31:31,734 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /api/ticket-history/1207 HTTP/1.1" 200 -
+2026-06-29 13:31:31,737 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,740 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,764 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,769 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,795 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,826 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,830 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,832 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:31:31,835 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "[35m[1mGET /api/worklogs/1207 HTTP/1.1[0m" 500 -
+2026-06-29 13:31:31,847 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,848 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,854 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,861 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /api/ticket-history/1207 HTTP/1.1" 200 -
+2026-06-29 13:31:31,865 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,866 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,873 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /get_ticket_attachments/1207 HTTP/1.1" 200 -
+2026-06-29 13:31:31,880 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /get_ticket_messages/1207 HTTP/1.1" 200 -
+2026-06-29 13:31:31,895 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,900 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,914 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:31:31,933 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,945 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,956 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:31:31,967 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:31,976 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:31,990 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:31] "GET /get_ticket_messages/1207 HTTP/1.1" 200 -
+2026-06-29 13:31:32,004 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:32,014 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:32] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:31:32,045 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:32,049 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:32,055 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:32] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:31:32,069 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:32] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 13:31:32,083 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:32,149 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:32,174 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:32] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 13:31:32,810 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:31:32,912 - __main__ - INFO - Database connection successful!
+2026-06-29 13:31:32,935 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:31:32] "GET /api/project/6/users HTTP/1.1" 200 -
+2026-06-29 13:40:05,727 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:05,733 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:05,736 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:05,745 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:05,747 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:05,752 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:05,805 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:05,806 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:05,810 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:05] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:40:05,831 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:05,866 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:05] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:40:05,897 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:05,898 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:05,903 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:05] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:05,907 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:05,910 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:05] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:40:05,911 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:05,953 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:05,955 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:05] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 13:40:05,956 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:05] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 13:40:05,956 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,121 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,136 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,142 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,148 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:40:06,159 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,163 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,169 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 13:40:06,171 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,206 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,213 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:40:06,223 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,228 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,236 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,241 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:40:06,315 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,317 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:06,318 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,318 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,322 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 13:40:06,324 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 13:40:06,329 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 13:40:06,343 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,389 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,473 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:06,481 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,530 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,612 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:06,623 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,672 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,761 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:06,772 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:06,830 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:06,912 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:06] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:22,589 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,596 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,603 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,608 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,649 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,652 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,654 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,655 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:40:22,661 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:40:22,746 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,746 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:22,746 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,759 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 13:40:22,764 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,782 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,795 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,811 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,822 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,828 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 13:40:22,829 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,833 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:40:22,853 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,856 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 13:40:22,857 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,880 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,889 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,901 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,908 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:40:22,924 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,927 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,928 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:40:22,942 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:22,946 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:22,949 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:22] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 13:40:22,960 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:23,061 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:23] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:23,061 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:23,062 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:23,067 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:23] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 13:40:23,071 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:23] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 13:40:23,079 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:23,094 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:23] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:40:23,101 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:23,198 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:23,301 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:23] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:23,318 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:23,378 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:23,498 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:23] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:40:23,519 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:40:23,580 - __main__ - INFO - Database connection successful!
+2026-06-29 13:40:23,686 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:40:23] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 13:41:43,805 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:43,829 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:43,846 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:43,855 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:43,889 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:43,892 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:43] "[35m[1mGET /api/worklogs/1207 HTTP/1.1[0m" 500 -
+2026-06-29 13:41:43,893 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:43,902 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:43] "GET /get_ticket_attachments/1207 HTTP/1.1" 200 -
+2026-06-29 13:41:43,913 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:43,918 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:43] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:41:43,919 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:43,928 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:43,929 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:43,935 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:43] "GET /api/ticket-history/1207 HTTP/1.1" 200 -
+2026-06-29 13:41:43,945 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:43,951 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:43,968 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:43,971 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:43] "[35m[1mGET /api/worklogs/1207 HTTP/1.1[0m" 500 -
+2026-06-29 13:41:43,996 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,010 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /get_ticket_attachments/1207 HTTP/1.1" 200 -
+2026-06-29 13:41:44,025 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,039 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /api/ticket-history/1207 HTTP/1.1" 200 -
+2026-06-29 13:41:44,050 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,057 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 13:41:44,111 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:44,118 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:44,171 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:44,181 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,192 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:41:44,207 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:44,217 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:44,224 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,235 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /get_ticket_messages/1207 HTTP/1.1" 200 -
+2026-06-29 13:41:44,261 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:44,263 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,278 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 13:41:44,278 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,283 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:41:44,299 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:44,302 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:44,335 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,335 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,341 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 13:41:44,345 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /get_ticket_messages/1207 HTTP/1.1" 200 -
+2026-06-29 13:41:44,360 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,365 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,374 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 13:41:44,385 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 13:41:44,745 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:41:44,803 - __main__ - INFO - Database connection successful!
+2026-06-29 13:41:44,809 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:41:44] "GET /api/project/6/users HTTP/1.1" 200 -
+2026-06-29 13:49:53,321 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:49:53,431 - __main__ - INFO - Database connection successful!
+2026-06-29 13:49:53,491 - __main__ - ERROR - Error creating notification for user_id=5: value too long for type character varying(100)
+2026-06-29 13:49:53,505 - __main__ - ERROR - Error creating notification for user_id=4: current transaction is aborted, commands ignored until end of transaction block
+2026-06-29 13:49:53,506 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:49:53,585 - __main__ - INFO - Database connection successful!
+2026-06-29 13:49:53,606 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:49:53,607 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:49:53] "[35m[1mPOST /api/comments HTTP/1.1[0m" 201 -
+2026-06-29 13:49:53,671 - __main__ - INFO - Database connection successful!
+2026-06-29 13:49:53,680 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:49:53,748 - __main__ - INFO - Database connection successful!
+2026-06-29 13:49:53,781 - __main__ - INFO - Notification created for user 8: You were mentioned in ticket #1207
+2026-06-29 13:49:54,149 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:49:54,304 - __main__ - INFO - Database connection successful!
+2026-06-29 13:49:54,346 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:49:54] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 13:49:54,507 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:49:54,774 - __main__ - INFO - Database connection successful!
+2026-06-29 13:49:54,796 - __main__ - DEBUG - Announcing notification for user_id=8 to active SSE clients
+2026-06-29 13:49:54,807 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:49:54] "GET /api/ticket-history/1207 HTTP/1.1" 200 -
+2026-06-29 13:55:21,849 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:55:21,954 - __main__ - INFO - Database connection successful!
+2026-06-29 13:55:21,979 - __main__ - ERROR - Error creating notification for user_id=5: value too long for type character varying(100)
+2026-06-29 13:55:21,980 - __main__ - ERROR - Error creating notification for user_id=4: current transaction is aborted, commands ignored until end of transaction block
+2026-06-29 13:55:21,981 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:55:21] "[35m[1mPOST /api/comments HTTP/1.1[0m" 201 -
+2026-06-29 13:55:22,062 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:55:22,296 - __main__ - INFO - Database connection successful!
+2026-06-29 13:55:22,343 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:55:22] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 13:55:22,429 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:55:22,566 - __main__ - INFO - Database connection successful!
+2026-06-29 13:55:22,601 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:55:22] "GET /api/ticket-history/1207 HTTP/1.1" 200 -
+2026-06-29 13:56:57,377 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:56:57,520 - __main__ - INFO - Database connection successful!
+2026-06-29 13:56:57,594 - __main__ - ERROR - Error creating notification for user_id=5: value too long for type character varying(100)
+2026-06-29 13:56:57,596 - __main__ - ERROR - Error creating notification for user_id=4: current transaction is aborted, commands ignored until end of transaction block
+2026-06-29 13:56:57,597 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:56:57,692 - __main__ - INFO - Database connection successful!
+2026-06-29 13:56:57,706 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:56:57,714 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:56:57] "[35m[1mPOST /api/comments HTTP/1.1[0m" 201 -
+2026-06-29 13:56:57,829 - __main__ - INFO - Database connection successful!
+2026-06-29 13:56:57,866 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:56:57,904 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:56:57,953 - __main__ - INFO - Database connection successful!
+2026-06-29 13:56:57,988 - __main__ - INFO - Notification created for user 8: You were mentioned in ticket #1207
+2026-06-29 13:56:58,024 - __main__ - INFO - Database connection successful!
+2026-06-29 13:56:58,096 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:56:58] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 13:56:58,177 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:56:58,291 - __main__ - INFO - Database connection successful!
+2026-06-29 13:56:58,326 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:56:58] "GET /api/ticket-history/1207 HTTP/1.1" 200 -
+2026-06-29 13:56:59,011 - __main__ - DEBUG - Announcing notification for user_id=8 to active SSE clients
+2026-06-29 13:57:59,851 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:57:59,992 - __main__ - INFO - Database connection successful!
+2026-06-29 13:58:00,013 - __main__ - ERROR - Error creating notification for user_id=5: value too long for type character varying(100)
+2026-06-29 13:58:00,014 - __main__ - ERROR - Error creating notification for user_id=4: current transaction is aborted, commands ignored until end of transaction block
+2026-06-29 13:58:00,014 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:58:00,101 - __main__ - INFO - Database connection successful!
+2026-06-29 13:58:00,129 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:58:00] "[35m[1mPOST /api/comments HTTP/1.1[0m" 201 -
+2026-06-29 13:58:00,136 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:58:00,265 - __main__ - INFO - Database connection successful!
+2026-06-29 13:58:00,290 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:58:00,310 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:58:00,412 - __main__ - INFO - Database connection successful!
+2026-06-29 13:58:00,412 - __main__ - INFO - Database connection successful!
+2026-06-29 13:58:00,425 - __main__ - INFO - Notification created for user 8: You were mentioned in ticket #1207
+2026-06-29 13:58:00,484 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:58:00] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 13:58:00,528 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:58:00,653 - __main__ - INFO - Database connection successful!
+2026-06-29 13:58:00,676 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:58:00] "GET /api/ticket-history/1207 HTTP/1.1" 200 -
+2026-06-29 13:58:01,434 - __main__ - DEBUG - Announcing notification for user_id=8 to active SSE clients
+2026-06-29 13:58:22,110 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:58:22] "[33mGET /api/comments/1207 HTTP/1.1[0m" 404 -
+2026-06-29 13:59:06,162 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:59:06] "[33mGET /api/comments?ticket_id=1207 HTTP/1.1[0m" 404 -
+2026-06-29 13:59:06,266 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:59:06] "[33mGET /api/comments/ticket/1207 HTTP/1.1[0m" 404 -
+2026-06-29 13:59:06,413 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:59:06] "[33mGET /api/tickets/1207/comments HTTP/1.1[0m" 404 -
+2026-06-29 13:59:06,613 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:59:06] "[33mGET /api/comments HTTP/1.1[0m" 404 -
+2026-06-29 13:59:45,999 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 13:59:46,105 - __main__ - INFO - Database connection successful!
+2026-06-29 13:59:46,183 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 13:59:46] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 14:00:00,009 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-29 14:00:00,015 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-29 15:00:00+05:30 (in 3599.984817 seconds)
+2026-06-29 14:00:00,016 - apscheduler.executors.default - INFO - Running job "send_progress_pulse_reminders (trigger: cron[hour='12-23', minute='0'], next run at: 2026-06-29 15:00:00 IST)" (scheduled at 2026-06-29 14:00:00+05:30)
+2026-06-29 14:00:00,018 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:00:00,031 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-29 14:00:00,044 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-29 15:00:00+05:30 (in 3599.955383 seconds)
+2026-06-29 14:00:00,046 - apscheduler.executors.default - INFO - Running job "send_progress_pulse_reminders (trigger: cron[hour='12-23', minute='0'], next run at: 2026-06-29 15:00:00 IST)" (scheduled at 2026-06-29 14:00:00+05:30)
+2026-06-29 14:00:00,047 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:00:00,134 - __main__ - INFO - Database connection successful!
+2026-06-29 14:00:00,156 - apscheduler.executors.default - ERROR - Job "send_progress_pulse_reminders (trigger: cron[hour='12-23', minute='0'], next run at: 2026-06-29 15:00:00 IST)" raised an exception
+Traceback (most recent call last):
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\venv\lib\site-packages\apscheduler\executors\base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\app.py", line 6225, in send_progress_pulse_reminders
+    cur.execute("""
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\venv\lib\site-packages\psycopg\cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "progress_pulse" does not exist
+LINE 2:             SELECT 1 FROM progress_pulse
+                                  ^
+2026-06-29 14:00:00,175 - __main__ - INFO - Database connection successful!
+2026-06-29 14:00:00,213 - apscheduler.executors.default - ERROR - Job "send_progress_pulse_reminders (trigger: cron[hour='12-23', minute='0'], next run at: 2026-06-29 15:00:00 IST)" raised an exception
+Traceback (most recent call last):
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\venv\lib\site-packages\apscheduler\executors\base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\app.py", line 6225, in send_progress_pulse_reminders
+    cur.execute("""
+  File "C:\Users\Asus\Downloads\trueday-our\new_backend\venv\lib\site-packages\psycopg\cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "progress_pulse" does not exist
+LINE 2:             SELECT 1 FROM progress_pulse
+                                  ^
+2026-06-29 14:00:49,811 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:00:49,874 - __main__ - INFO - Database connection successful!
+2026-06-29 14:00:49,884 - __main__ - ERROR - Error creating notification for user_id=5: value too long for type character varying(100)
+2026-06-29 14:00:49,885 - __main__ - ERROR - Error creating notification for user_id=4: current transaction is aborted, commands ignored until end of transaction block
+2026-06-29 14:00:49,885 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:00:49,975 - __main__ - INFO - Database connection successful!
+2026-06-29 14:00:49,990 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:00:49,994 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:00:49] "[35m[1mPOST /api/comments HTTP/1.1[0m" 201 -
+2026-06-29 14:00:50,094 - __main__ - INFO - Database connection successful!
+2026-06-29 14:00:50,122 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:00:50,150 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:00:50,205 - __main__ - INFO - Database connection successful!
+2026-06-29 14:00:50,221 - __main__ - INFO - Notification created for user 8: You were mentioned in ticket #1207
+2026-06-29 14:00:50,233 - __main__ - INFO - Database connection successful!
+2026-06-29 14:00:50,273 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:00:50] "GET /api/timeline/1207 HTTP/1.1" 200 -
+2026-06-29 14:00:50,333 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:00:50,555 - __main__ - INFO - Database connection successful!
+2026-06-29 14:00:50,583 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:00:50] "GET /api/ticket-history/1207 HTTP/1.1" 200 -
+2026-06-29 14:00:51,250 - __main__ - DEBUG - Announcing notification for user_id=8 to active SSE clients
+2026-06-29 14:38:17,357 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,358 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,359 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,365 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,368 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,369 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,422 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,433 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /get_ticket_attachments/1204 HTTP/1.1" 200 -
+2026-06-29 14:38:17,462 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,476 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,480 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "[35m[1mGET /api/worklogs/1204 HTTP/1.1[0m" 500 -
+2026-06-29 14:38:17,499 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,545 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,556 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/ticket-history/1204 HTTP/1.1" 200 -
+2026-06-29 14:38:17,568 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,582 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:38:17,621 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,637 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,646 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /get_ticket_messages/1204 HTTP/1.1" 200 -
+2026-06-29 14:38:17,679 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,686 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,690 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,696 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:38:17,704 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,708 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,710 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:38:17,719 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,756 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/timeline/1204 HTTP/1.1" 200 -
+2026-06-29 14:38:17,797 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,810 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,812 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/project/12/users HTTP/1.1" 200 -
+2026-06-29 14:38:17,850 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,852 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,853 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,857 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,859 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,866 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "[35m[1mGET /api/worklogs/1204 HTTP/1.1[0m" 500 -
+2026-06-29 14:38:17,875 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/ticket-history/1204 HTTP/1.1" 200 -
+2026-06-29 14:38:17,877 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /get_ticket_attachments/1204 HTTP/1.1" 200 -
+2026-06-29 14:38:17,900 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,911 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:38:17,917 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,920 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:38:17,930 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,937 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:38:17,944 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,953 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /get_ticket_messages/1204 HTTP/1.1" 200 -
+2026-06-29 14:38:17,954 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,958 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:38:17,969 - __main__ - INFO - Database connection successful!
+2026-06-29 14:38:17,988 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:38:17] "GET /api/timeline/1204 HTTP/1.1" 200 -
+2026-06-29 14:39:54,036 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:39:54,101 - __main__ - INFO - Database connection successful!
+2026-06-29 14:39:54,165 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:39:54] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 14:55:57,220 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,221 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,225 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,228 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,235 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,247 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,279 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,282 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 14:55:57,301 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,330 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 14:55:57,415 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,431 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 14:55:57,472 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,478 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,498 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,500 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:55:57,508 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,515 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:55:57,526 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,564 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,566 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 14:55:57,597 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,646 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,714 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,752 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,780 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 14:55:57,807 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,813 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,816 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 14:55:57,820 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,827 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,830 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,831 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:55:57,838 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 14:55:57,839 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /api/project/1/users HTTP/1.1" 200 -
+2026-06-29 14:55:57,865 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,871 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,878 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 14:55:57,880 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,889 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,894 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:55:57,910 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,915 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:55:57,931 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,945 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:57,952 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:55:57,953 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:57] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 14:55:58,031 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:58,044 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:58] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 14:55:58,048 - __main__ - INFO - Database connection successful!
+2026-06-29 14:55:58,053 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:55:58] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:56:08,164 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,166 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,168 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,173 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,175 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,187 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,215 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,218 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 14:56:08,234 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,243 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,249 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,261 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,262 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,262 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,266 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,267 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:56:08,271 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,271 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /tickets/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,296 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,302 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,303 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,311 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:56:08,323 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,338 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,342 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,345 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,352 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,355 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,364 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,368 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:56:08,376 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,386 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,392 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,397 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,400 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 14:56:08,435 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,438 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,446 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,461 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,469 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:56:08,487 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,488 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,491 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,498 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,511 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,523 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /tickets/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,526 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:08,550 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,556 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:56:08,558 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,568 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,569 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,583 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:08,591 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,596 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:56:08,605 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:08,611 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:08] "GET /api/project/1/users HTTP/1.1" 200 -
+2026-06-29 14:56:19,192 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,200 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,206 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,209 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,216 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,223 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,260 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:19,273 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:19] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 14:56:19,414 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,509 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:19,515 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:19,517 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:19,530 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:19] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:56:19,531 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:19,575 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:19] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:19,703 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:19,802 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,821 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:19] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 14:56:19,842 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:19] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:19,843 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:19,844 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,886 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:19] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:56:19,895 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:19] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 14:56:19,948 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:19,980 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,007 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,030 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,051 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,066 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 14:56:20,110 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,114 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:56:20,128 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,160 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,191 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,197 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 14:56:20,218 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,337 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,357 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:20,363 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,380 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/project/1/users HTTP/1.1" 200 -
+2026-06-29 14:56:20,380 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,424 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:20,428 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,430 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,446 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 14:56:20,462 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,473 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,480 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,551 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,571 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:20,592 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,598 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,611 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:56:20,644 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:20,713 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,749 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,786 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,881 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,895 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,896 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 14:56:20,898 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:56:20,898 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:20,912 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:56:20,914 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/ticket-stats HTTP/1.1" 200 -
+2026-06-29 14:56:20,925 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /api/approvers HTTP/1.1" 200 -
+2026-06-29 14:56:20,929 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:20] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:20,997 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,001 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,026 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,027 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,029 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,036 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,212 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,219 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/labels HTTP/1.1" 200 -
+2026-06-29 14:56:21,220 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,243 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,246 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:21,263 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,264 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,278 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,286 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:56:21,348 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:21,363 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,444 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,460 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:56:21,488 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 14:56:21,498 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,510 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,512 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:56:21,523 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,529 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,546 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:56:21,561 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,707 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,709 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,709 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:21,713 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:56:21,729 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:56:21,820 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:21] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 14:56:21,835 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:21,914 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:22,036 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:22] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 14:56:22,057 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:22,128 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:22,260 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:22] "GET /api/tickets HTTP/1.1" 200 -
+2026-06-29 14:56:36,122 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,125 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,130 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,132 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,142 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,188 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,194 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:36,201 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,205 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,206 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:56:36,209 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 14:56:36,221 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,222 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,224 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,227 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,229 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:56:36,231 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:36,236 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,248 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,268 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,271 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,290 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,291 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,295 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/status HTTP/1.1" 200 -
+2026-06-29 14:56:36,298 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /get_ticket_attachments/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:36,309 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,311 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "[35m[1mGET /api/worklogs/1211 HTTP/1.1[0m" 500 -
+2026-06-29 14:56:36,317 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,325 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/ticket-history/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:36,326 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,335 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,346 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,354 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:36,366 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,369 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,382 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:36,389 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,392 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:56:36,398 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,408 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/users HTTP/1.1" 200 -
+2026-06-29 14:56:36,430 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,430 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,436 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,442 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /get_ticket_messages/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:36,492 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,493 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,497 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/projects HTTP/1.1" 200 -
+2026-06-29 14:56:36,511 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/timeline/1211 HTTP/1.1" 200 -
+2026-06-29 14:56:36,566 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-29 14:56:36,667 - __main__ - INFO - Database connection successful!
+2026-06-29 14:56:36,686 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/project/1/users HTTP/1.1" 200 -

@@ -689,6 +689,7 @@ label {
   outline: none;
   border-radius: 0;
   min-height: 120px;
+  font-size: 0.95rem;
   resize: none;
   flex: 1;
 }
