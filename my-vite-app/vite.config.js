@@ -6,6 +6,17 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      // SSE stream must be proxied with response buffering disabled
+      '/api/notifications/stream': {
+        target: 'http://127.0.0.1:5009',
+        changeOrigin: true,
+        configure: (proxy) => {
+          proxy.on('proxyRes', (proxyRes) => {
+            // Disable buffering so SSE events are forwarded immediately
+            proxyRes.headers['x-accel-buffering'] = 'no';
+          });
+        }
+      },
       '/api': {
         target: 'http://127.0.0.1:5009',
         changeOrigin: true,

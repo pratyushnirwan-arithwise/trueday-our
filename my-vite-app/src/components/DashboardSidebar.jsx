@@ -160,8 +160,11 @@ const DashboardSidebar = ({ collapsed, onToggleCollapse, open, setOpen }) => {
       }
     };
 
-    eventSource.onerror = (err) => {
-      console.error("SSE Connection error, falling back...", err);
+    eventSource.onerror = () => {
+      // SSE connection failed (e.g. endpoint not reachable) – close it
+      // immediately so the browser does not retry every few seconds.
+      // The 30-second polling interval below acts as the fallback.
+      eventSource.close();
     };
 
     // Keep a slow 30-second poll as a backup check

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import './DashBoard.css';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { FaPaperclip, FaHistory, FaFile, FaDownload, FaUpload, FaEye, FaTrash, FaTimes, FaUserPlus, FaExchangeAlt, FaComment, FaCircle, FaPaperPlane, FaPlus, FaEllipsisV, FaEdit, FaLock, FaUnlock, FaSearch, FaFilter, FaList, FaExclamationCircle, FaUser, FaTag, FaFolderOpen, FaTrashAlt, FaSignOutAlt, FaBars, FaTimes as FaTimesIcon, FaTh, FaTicketAlt, FaChartBar, FaChartLine, FaClipboardList, FaTrophy, FaUserCheck, FaCheck, FaCog } from 'react-icons/fa';
@@ -1727,38 +1727,53 @@ const DashBoard = () => {
     };
     fetchProjectUsers();
   }, [filters.project_id]);
+  // Stable ref so the focus listener always calls the *current* loadTickets
+  // without needing to re-register the event listener on every render.
+  const loadTicketsRef = useRef(null);
+
   useEffect(() => {
+    // Debounce: ignore focus events that fire within 2 s of each other
+    // (prevents spam when switching tabs rapidly or clicking inside the window)
+    let debounceTimer = null;
     const handleFocus = () => {
-      console.log('🔄 Dashboard focused, refreshing tickets...');
-      loadTickets();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        if (loadTicketsRef.current) {
+          loadTicketsRef.current();
+        }
+      }, 2000);
     };
 
     window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
-  }, []);
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      clearTimeout(debounceTimer);
+    };
+  }, []); // ← empty deps: listener registered once, uses ref to stay current
 
-  const loadTickets = async () => {
+  const loadTickets = useCallback(async (overrideFilters, overrideSearch) => {
     try {
       setIsLoading(true);
 
+      const activeFilters = overrideFilters || filters;
+      const activeSearch = overrideSearch !== undefined ? overrideSearch : searchTerm;
+
       // Build query params from filters
       const params = new URLSearchParams();
-      if (filters.priority) params.append('priority', filters.priority);
-      if (filters.assignee) {
-        console.log('🔍 Filtering by assignee ID:', filters.assignee);
-        params.append('assignee_id', filters.assignee);
+      if (activeFilters.priority) params.append('priority', activeFilters.priority);
+      if (activeFilters.assignee) {
+        params.append('assignee_id', activeFilters.assignee);
       }
-      if (filters.label_name) params.append('label_name', filters.label_name);
-      if (filters.project_id !== 'all') params.append('project_id', filters.project_id);
-      if (filters.tag) params.append('tag', filters.tag); // Append tag to params
-      if (filters.requestor) params.append('requestor_id', filters.requestor); // Append requestor to params
-      if (filters.approver) {
-        // Send approver_name to match with the backend filtering
-        params.append('approver_name', filters.approver);
+      if (activeFilters.label_name) params.append('label_name', activeFilters.label_name);
+      // NOTE: Do NOT pass project_id when fetching for deleted tickets panel,
+      // so that deleted tickets from ALL projects are included.
+      if (activeFilters.project_id !== 'all') params.append('project_id', activeFilters.project_id);
+      if (activeFilters.tag) params.append('tag', activeFilters.tag);
+      if (activeFilters.requestor) params.append('requestor_id', activeFilters.requestor);
+      if (activeFilters.approver) {
+        params.append('approver_name', activeFilters.approver);
       }
-      if (searchTerm) params.append('search', searchTerm);
-
-      console.log('📤 Fetching tickets with params:', params.toString());
+      if (activeSearch) params.append('search', activeSearch);
 
       const response = await fetch(`${API_BASE_URL}/tickets?${params.toString()}`, {
         method: 'GET',
@@ -1775,8 +1790,6 @@ const DashBoard = () => {
       }
 
       const data = await response.json();
-      console.log('📥 Received tickets data:', data);
-      console.log('🔍 Sample ticket with collaborator:', data.find(t => t.collaborator_name));
 
       const transformedTickets = data.map(ticket => ({
         id: ticket.ticket_id,
@@ -1787,12 +1800,12 @@ const DashBoard = () => {
         priority: ticket.priority,
         assignee_id: ticket.assignee_id,
         assignee_name: ticket.assignee_name,
-        collaborator_id: ticket.collaborator_id, // Add collaborator_id
-        collaborator_name: ticket.collaborator_name, // Add collaborator_name
+        collaborator_id: ticket.collaborator_id,
+        collaborator_name: ticket.collaborator_name,
         creator_id: ticket.creator_id,
         creator_name: ticket.creator_name,
-        approver_id: ticket.approver_id, // Add approver_id
-        approver_name: ticket.approver_name, // Add approver_name
+        approver_id: ticket.approver_id,
+        approver_name: ticket.approver_name,
         due_date: ticket.due_date,
         created_at: ticket.created_at,
         deleted_at: ticket.deleted_at,
@@ -1805,17 +1818,19 @@ const DashBoard = () => {
       }));
 
       setTickets(transformedTickets);
-      console.log('🔄 Transformed tickets with collaborators:', transformedTickets.filter(t => t.collaborator_name));
       setError(null);
-      // Update creators list after loading tickets
-      loadCreators();
     } catch (error) {
       console.error('Error loading tickets:', error);
       setError('Failed to load tickets. Please try again later.');
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [filters, searchTerm]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Keep the ref up-to-date so the focus listener always has the latest version
+  useEffect(() => {
+    loadTicketsRef.current = loadTickets;
+  });
 
   const loadStatuses = async () => {
     try {
@@ -2337,14 +2352,19 @@ const DashBoard = () => {
         body: JSON.stringify({ status: 'NEW' })
       });
       if (!response.ok) {
-        throw new Error('Failed to restore ticket');
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || 'Failed to restore ticket');
       }
-      await loadTickets();
+      // Reload all tickets (no project filter) so updated state is fresh
+      await loadTickets({ ...filters, project_id: 'all' }, searchTerm);
       setShowDeletedTickets(false);
-      navigate('/dashboard' + location.search);
+      setToastMessage('Ticket restored successfully!');
+      setToastType('success');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
     } catch (error) {
       console.error('Error restoring ticket:', error);
-      alert('Failed to restore ticket. Please try again.');
+      alert(error.message || 'Failed to restore ticket. Please try again.');
     }
   };
 
@@ -2724,7 +2744,12 @@ const DashBoard = () => {
     } else if (action === 'add_users') {
       setShowAddUsersModal(true);
     } else if (action === 'deleted_tickets') {
-      setShowDeletedTickets(!showDeletedTickets);
+      const next = !showDeletedTickets;
+      setShowDeletedTickets(next);
+      if (next) {
+        // Fetch ALL tickets (ignore project filter) so every deleted ticket is visible
+        loadTickets({ ...filters, project_id: 'all' }, searchTerm);
+      }
     }
   };
 
