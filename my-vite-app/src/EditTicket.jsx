@@ -1551,9 +1551,29 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
       })
 
       if (response.ok) {
+        const result = await response.json().catch(() => ({}))
         setSelectedFile(null)
         setShowUploadModal(false)
+
+        // Optimistically add the new attachment immediately so user sees it right away
+        if (result && result.id) {
+          const optimisticAttachment = {
+            id: result.id,
+            file_name: result.file_name || selectedFile.name,
+            file_path: result.file_path,
+            file_type: result.file_type || selectedFile.type,
+            file_size: result.file_size || selectedFile.size,
+            uploaded_at: result.uploaded_at || new Date().toISOString(),
+            uploaded_by: currentUser?.username || currentUser?.name || null,
+          }
+          setAttachments(prev => [optimisticAttachment, ...prev])
+        }
+
+        // Refresh from server to get full accurate list
         await fetchAttachments()
+        // Second refresh after short delay to handle any backend propagation lag
+        setTimeout(() => fetchAttachments(), 1500)
+
       } else {
         const errorData = await response.json().catch(() => ({}))
         const errorMessage = errorData.error || "Upload failed"
