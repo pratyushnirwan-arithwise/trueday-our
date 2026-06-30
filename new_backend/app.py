@@ -153,13 +153,15 @@ def validate_workflow_transition(current_status, new_status):
     
     return {'valid': True}
 
-# Configure upload folder
-UPLOAD_FOLDER = 'uploads'
+# Configure upload folder — use __file__ so paths are always relative to app.py,
+# regardless of what working directory the server process was started from.
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(_BASE_DIR, 'uploads')
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 # Ensure attachments folder exists
-ATTACHMENTS_FOLDER = os.path.join(os.getcwd(), 'attachments')
+ATTACHMENTS_FOLDER = os.path.join(_BASE_DIR, 'attachments')
 if not os.path.exists(ATTACHMENTS_FOLDER):
     os.makedirs(ATTACHMENTS_FOLDER)
 
@@ -5951,11 +5953,20 @@ def catch_all(path):
         
     # Handle uploads
     if path.startswith('uploads/'):
-        uploads_dir = os.path.join(os.path.dirname(__file__), 'uploads')
-        file_path = os.path.join(uploads_dir, path.replace('uploads/', ''))
+        file_name = path.replace('uploads/', '')
+        file_path = os.path.join(UPLOAD_FOLDER, file_name)
         print(f"[DEBUG] Serving upload: {file_path} (exists: {os.path.exists(file_path)})")
         if os.path.exists(file_path):
-            return send_from_directory(uploads_dir, path.replace('uploads/', ''))
+            return send_from_directory(UPLOAD_FOLDER, file_name)
+        return "Not Found", 404
+
+    # Handle attachments (fallback — primary route is /attachments/<filename>)
+    if path.startswith('attachments/'):
+        file_name = path.replace('attachments/', '')
+        file_path = os.path.join(ATTACHMENTS_FOLDER, file_name)
+        print(f"[DEBUG] Serving attachment: {file_path} (exists: {os.path.exists(file_path)})")
+        if os.path.exists(file_path):
+            return send_from_directory(ATTACHMENTS_FOLDER, file_name)
         return "Not Found", 404
     
     # For all other routes, serve index.html
