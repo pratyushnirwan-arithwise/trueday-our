@@ -1,0 +1,248 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #6366f1;
+  --primary-hover: #590a4f;
+  --secondary-color: #f9fafb;
+  --text-color: #1f2937;
+  --text-light: #6b7280;
+  --border-color: #e5e7eb;
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius: 0.5rem;
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: "Calibri";
+  font-size: 18px;
+  color: var(--text-color);
+  line-height: 1.5;
+  background-color: #ffffff;
+}
+
+body.dark {
+  --primary-color: #8ab4f8;
+  --primary-hover: #5c7cfa;
+  --secondary-color: #23272f;
+  --text-color: #f3f4f6;
+  --text-light: #b0b3b8;
+  --border-color: #353945;
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  background-color: #181a20 !important;
+  color: #f3f4f6 !important;
+}
+
+body.dark .container,
+body.dark section,
+body.dark .section-header,
+body.dark .max-w-md,
+body.dark .dashboard-content,
+body.dark .edit-ticket-page,
+body.dark .modal-content {
+  background: #23272f !important;
+  color: #f3f4f6 !important;
+  border: 1.5px solid #353945 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22) !important;
+}
+
+body.dark .btn,
+body.dark .btn-primary {
+  background: #8ab4f8 !important;
+  color: #23272f !important;
+  border: 1.5px solid #8ab4f8 !important;
+}
+
+body.dark .btn:hover,
+body.dark .btn-primary:hover {
+  background: #5c7cfa !important;
+  color: #fff !important;
+}
+
+body.dark .section-header {
+  border-bottom: 1.5px solid #353945 !important;
+}
+
+body.dark .card {
+  background: #292c33 !important;
+  color: #f3f4f6 !important;
+  border: 1.5px solid #353945 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+}
+
+body.dark .card-header {
+  background: #23272f !important;
+  color: #8ab4f8 !important;
+  border-bottom: 1.5px solid #353945 !important;
+}
+
+body.dark .input,
+body.dark input,
+body.dark select {
+  background: #23272f !important;
+  color: #f3f4f6 !important;
+  border: 1.5px solid #353945 !important;
+}
+
+body.dark .input:focus,
+body.dark input:focus,
+body.dark select:focus {
+  border-color: #2e2e2e !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+body.dark .modal-content {
+  background: #23272f !important;
+  color: #f3f4f6 !important;
+  border: 1.5px solid #353945 !important;
+}
+
+body.dark .modal-header,
+body.dark .modal-footer {
+  background: #23272f !important;
+  color: #f3f4f6 !important;
+  border-color: #353945 !important;
+}
+
+body.dark .cancel-btn {
+  background: #353945 !important;
+  color: #b0b3b8 !important;
+  border: 1.5px solid #353945 !important;
+}
+
+body.dark .save-btn {
+  background: #8ab4f8 !important;
+  color: #23272f !important;
+  border: 1.5px solid #8ab4f8 !important;
+}
+
+body.dark .save-btn:hover {
+  background: #5c7cfa !important;
+  color: #fff !important;
+}
+
+body.dark .delete-btn {
+  background: #ef4444 !important;
+  color: #fff !important;
+  border: 1.5px solid #ef4444 !important;
+}
+
+body.dark .delete-btn:hover {
+  background: #b91c1c !important;
+}
+
+body.dark .section-header p {
+  color: #b0b3b8 !important;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 0.625rem 1.25rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  color: white;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* Section styles */
+section {
+  padding: 4rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.section-header p {
+  font-size: 18px;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  section {
+    padding: 3rem 0;
+  }
+
+  .section-header h2 {
+    font-size: 1.875rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .btn {
+    padding: 0.5rem 1rem;
+  }
+}

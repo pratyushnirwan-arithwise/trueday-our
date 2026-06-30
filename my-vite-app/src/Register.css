@@ -1,0 +1,18 @@
+@media (max-width: 768px) {
+  .register-container, .register-form {
+    padding: 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  .register-form input, .register-form button {
+    font-size: 1rem !important;
+  }
+}
+@media (max-width: 480px) {
+  .register-container, .register-form {
+    padding: 4px !important;
+  }
+  .register-form input, .register-form button {
+    font-size: 0.9rem !important;
+  }
+} 

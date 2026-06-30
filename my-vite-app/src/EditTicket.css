@@ -1,0 +1,4403 @@
+/* Added ET prefix to all CSS classes to avoid conflicts */
+/* Complete redesign for futuristic minimalistic UI with full screen usage - Light Mode */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ET-edit-ticket-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* converted to light mode with white background */
+  background: #ffffff;
+  color: #000000;
+  overflow: hidden;
+}
+
+/* Jira-like overall wrapper */
+.ET-jira .ET-jira-header {
+  background: #fff;
+  /* border-bottom: 1px solid #e6eaeb; */
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+/* .ET-jira .ET-jira-left, .ET-jira .ET-jira-right { box-shadow: 0 1px 2px rgba(0,0,0,0.04); } */
+
+/* .ET-jira-body { background:#f5f6f8; } */
+
+.ET-jira-right {
+  background: #fff;
+
+  /* border-radius: 8px; */
+  /* box-shadow: 0 1px 2px rgba(0,0,0,0.04); */
+}
+
+/* Header tweaks for Jira spacing */
+/* .ET-jira-header .ET-ticket-info { gap:6px; } */
+.ET-jira-header .ET-ticket-id {
+  font-weight: 500;
+}
+
+.ET-jira-header .ET-ticket-title {
+  border: 1px solid transparent;
+  font-size: 22px;
+  padding: 8px 0;
+}
+
+.ET-jira-header .ET-ticket-title:focus {
+  border-color: #cccccc;
+  box-shadow: none;
+}
+
+/* Header Section */
+.ET-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  /* removed bottom border */
+  border-bottom: none;
+  background: #ffffff;
+  min-height: 40px;
+}
+
+.ET-ticket-info {
+  display: flex;
+  flex-direction: column;
+  /* gap: 4px; */
+  flex: 1;
+}
+
+.ET-ticket-id {
+  background: #6b7280;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+.ET-ticket-title {
+  font-size: 20px;
+  font-weight: 500;
+  /* Updated title styling for better visibility */
+  /* border: 1px solid #d0d0d0; */
+  border: white;
+  background: #ffffff;
+  color: #000000;
+  padding: 0;
+  border-radius: 8px;
+  width: 100%;
+  min-width: 300px;
+  max-width: none;
+  outline: none;
+  transition: all 0.2s ease;
+  resize: none;
+  overflow: hidden;
+  line-height: 1.4;
+  font-family: inherit;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+}
+
+.ET-ticket-title:focus {
+  /* Updated focus state */
+  border-color: #999999;
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Added compact header action buttons between title and icons */
+.ET-header-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.ET-btn-compact {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.ET-btn-compact.ET-btn-primary {
+  background: #5e145e;
+  color: #ffffff;
+  border-color: #5e145e;
+}
+
+.ET-btn-compact.ET-btn-primary:hover {
+  background: #7e217e;
+  border-color: #7e217e;
+}
+
+.ET-btn-compact.ET-btn-secondary {
+  background: transparent;
+  color: #666666;
+  border-color: #d0d0d0;
+}
+
+.ET-btn-compact.ET-btn-secondary:hover {
+  background: #f0f0f0;
+  color: #000000;
+  border-color: #999999;
+}
+
+.ET-btn-compact.ET-btn-danger {
+  background: #ffffff;
+  color: #a74d47;
+  border-color: #a74d47;
+}
+
+.ET-btn-compact.ET-btn-danger:hover {
+  background: #fdf5f5;
+  color: #a74d47;
+}
+
+.ET-header-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.ET-icon-button {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.ET-icon-button:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+/* Main Body */
+.ET-main-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Left column card spacing */
+.ET-jira-body .ET-jira-left {
+  padding: 0 24px;
+  padding-bottom: 24px;
+}
+
+.ET-jira-body .ET-jira-right {
+  margin: 0;
+  padding: 0 16px 16px 24px;
+}
+
+/* Status progress like Jira */
+.ET-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ET-quick-attach {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #d0d0d0;
+  background: #fff;
+  color: #71876b;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.ET-quick-attach:hover {
+  background: #f0f3ef;
+  border-color: #71876b
+}
+
+.ET-status-progress {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap
+}
+
+.ET-status-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280
+}
+
+.ET-status-step .ET-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #cccccc
+}
+
+.ET-status-step.active .ET-status-dot {
+  background: #71876b
+}
+
+.ET-status-step.active .ET-status-label {
+  color: #111827;
+  font-weight: 500
+}
+
+/* Collapsible sections */
+/* .ET-section{ margin-top:8px } */
+.ET-section-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #e8e5e0;
+  cursor: pointer;
+  padding: 0 0 12px 0;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #374151
+}
+
+.ET-section-toggle:hover {
+  color: #71876b
+}
+
+/* .ET-collapsible-body{ margin-top:8px } */
+.ET-desc-fade {
+  position: relative;
+  height: 0
+}
+
+.ET-description-box {
+  scrollbar-width: thin;
+  /* Firefox */
+  position: relative
+}
+
+.ET-description-box.ET-collapsible-body {
+  overflow: auto
+}
+
+.ET-description-box.ET-collapsible-body::after {
+  content: "";
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+  pointer-events: none
+}
+
+/* Activity tabs - Modern Segmented Control */
+.ET-activity-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  background: #f1f5f9;
+  /* Soft gray container */
+  border-radius: 12px;
+  padding: 4px;
+  width: fit-content;
+  border: none;
+  gap: 0;
+  margin: 6px 0 12px 0;
+  z-index: 1;
+}
+
+/* The sliding active indicator */
+.ET-activity-tabs::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 4);
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(calc(100% * var(--active-index, 0)));
+  z-index: -1;
+}
+
+.ET-activity-tab {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 4px 9px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #777777;
+  /* Slate 500 */
+  cursor: pointer;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  border-radius: 8px;
+  flex: none;
+  width: auto;
+  min-width: 50px;
+}
+
+.ET-activity-tab:hover {
+  color: #111111;
+  /* Slate 900 */
+  background: transparent;
+}
+
+.ET-activity-tab.active {
+  color: #111111;
+  /* Slate 900 */
+  background: transparent;
+  border: none;
+}
+
+/* Right panel read-like fields */
+.ET-readlike {
+  background: #fff;
+}
+
+.ET-readlike:hover {
+  border-color: transparent;
+}
+
+.ET-form-field label {
+  color: #6b7280
+}
+
+/* Read-like inputs disabled by default but become editable on click (handled in JSX) */
+.ET-readlike select:disabled,
+.ET-readlike input:disabled {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid transparent;
+  cursor: pointer;
+  pointer-events: none;
+  appearance: none;
+}
+
+.ET-readlike:hover select:disabled,
+.ET-readlike:hover input:disabled {
+  background: transparent;
+  border-color: transparent;
+}
+
+.ET-readlike select:not(:disabled),
+.ET-readlike input:not(:disabled) {
+  background: #ffffff;
+  border: 1px solid #d0d0d0;
+  cursor: text;
+  pointer-events: auto;
+}
+
+/* Primary brand color overrides */
+/* .ET-btn-primary,
+.ET-send-button{ background:#71876b }
+.ET-btn-primary:hover:not(:disabled),
+.ET-send-button:hover{ background:#5e7259 }
+.ET-history-item:hover { box-shadow:0 4px 12px rgba(113,135,107,0.15) } */
+
+/* Smooth transitions */
+.ET-section-toggle,
+.ET-activity-tab,
+.ET-quick-attach,
+.ET-status-step,
+.ET-readlike,
+.ET-history-item {
+  transition: all .2s ease;
+}
+
+/* Left Section */
+.ET-left-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff
+}
+
+.ET-form-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ET-form-field label {
+  margin: 0;
+  min-width: 120px;
+}
+
+.ET-form-field select,
+.ET-form-field input {
+  max-width: 220px;
+}
+
+.ET-section-header {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666666;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  /* margin-bottom: 8px; */
+  padding: 0 4px;
+}
+
+.ET-description-section {
+  padding: 0;
+  margin: -16px 0 0 0;
+  /* border-bottom: 1px solid #e5e5e5; */
+}
+
+.ET-description-section-head {
+  padding-left: 20px;
+  align-items: center;
+  gap: 12px;
+  margin-top: -30px;
+  /* border-bottom: 1px solid #e5e5e5; */
+}
+
+.ET-description-box {
+  scrollbar-width: thin;
+  /* Firefox */
+  /* Updated description box styling */
+  /* background: #f8f8f8; */
+  /* border: 1px solid #d0d0d0; */
+  padding: 5px 0;
+  /* border-radius: 8px; */
+  line-height: 1.6;
+  color: #333333;
+  font-size: 14px;
+  margin-bottom: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  font-family: inherit;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  transition: height 0.2s ease;
+}
+
+
+
+/* Custom scrollbar for description box */
+.ET-description-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ET-description-box::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 3px;
+}
+
+.ET-description-box::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 3px;
+}
+
+.ET-description-box::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.ET-description-box textarea {
+  width: 100%;
+  min-height: 30px;
+  border: none;
+  background: transparent;
+  color: #333333;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ET-discussion-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0 0 0;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.ET-comments-area {
+  /* Updated comments area styling */
+  flex: 3;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  padding: 16px 0;
+  /* background: #f8f8f8;
+  border: 1px solid #d0d0d0; */
+  border-radius: 8px;
+  /* max-height: 400px; */
+  box-sizing: border-box;
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+  /* Hide scrollbar for IE and Edge */
+  -ms-overflow-style: none;
+}
+
+.ET-comments-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ET-comments-area::-webkit-scrollbar-track {
+  /* light mode scrollbar */
+  background: #f0f0f0;
+}
+
+.ET-comments-area::-webkit-scrollbar-thumb {
+  /* light mode scrollbar thumb */
+  background: #cccccc;
+  border-radius: 3px;
+}
+
+.ET-comment {
+  margin-bottom: 0;
+  padding-bottom: 12px;
+  border-bottom: none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.ET-comment:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.ET-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.ET-user-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  color: #000000;
+  border: 1px solid #cccccc;
+  flex-shrink: 0;
+  margin-top: 12px;
+}
+
+.ET-user-avatar.ET-small {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+
+.ET-comment-username {
+  font-weight: 500;
+  color: #000000;
+  font-size: 14px;
+  margin-right: 8px;
+  margin-top: 12px;
+}
+
+.ET-comment-timestamp {
+  font-size: 12px;
+  color: #666666;
+  font-weight: 400;
+  margin-top: 14px;
+}
+
+.ET-comment-text {
+  color: #333333;
+  line-height: 1.5;
+  font-size: 14px;
+  margin-left: 32px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* Handle images in comments */
+.ET-comment-text img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 8px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ET-comment-text img:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}
+
+.ET-comment-attachment {
+  margin-top: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ET-comment-attachment img {
+  max-width: 300px;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ET-comment-attachment img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ET-attachment-error {
+  color: #666666;
+  font-style: italic;
+  font-size: 12px;
+  padding: 8px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.ET-comment-content-html {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.ET-comment-content-html img {
+  max-width: 300px;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 8px 0;
+}
+
+.ET-comment-content-html img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ET-comment-content-html a {
+  color: #3b82f6;
+  text-decoration: underline;
+  cursor: pointer;
+  word-break: break-all;
+}
+
+.ET-comment-content-html a:hover {
+  color: #78176b;
+}
+
+.comment-image {
+  max-width: 300px;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 8px 0;
+}
+
+.comment-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Edit Comment Styles */
+.ET-comment-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.ET-edit-comment-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #666666;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.ET-edit-comment-btn:hover {
+  background: #f0f0f0;
+  color: #333333;
+}
+
+.ET-comment-edit-mode {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.ET-comment-edit-actions {
+  justify-content: flex-start;
+}
+
+.ET-save-edit-btn {
+  background: #1d4ed8;
+}
+
+.ET-save-edit-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.ET-cancel-edit-btn {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  color: #374151;
+}
+
+.ET-cancel-edit-btn:hover:not(:disabled) {
+  background: transparent;
+}
+
+.ET-comment-edit-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ET-comment-edit-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.ET-comment-edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+.ET-save-edit-btn,
+.ET-cancel-edit-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ET-save-edit-btn {
+  background: #78176b;
+  color: white;
+  width: 70px;
+}
+
+.ET-save-edit-btn:hover:not(:disabled) {
+  background: #78176b;
+}
+
+.ET-save-edit-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.ET-cancel-edit-btn {
+  background: #f3f4f6;
+  color: #374151;
+  width: 70px;
+}
+
+.ET-cancel-edit-btn:hover:not(:disabled) {
+  background: #e5e7eb;
+}
+
+.ET-cancel-edit-btn:disabled {
+  background: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.ET-comment-input-area {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  /* margin-top: 16px; */
+}
+
+
+.ET-comment-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+  min-height: 80px;
+}
+
+.ET-comment-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  color: #000000;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+  min-height: 80px;
+  max-height: 240px;
+  line-height: 1.5;
+  overflow-y: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.ET-comment-input:empty:before {
+  content: attr(data-placeholder);
+  color: #666666;
+  pointer-events: none;
+}
+
+.ET-comment-input:focus {
+  /* Updated input focus */
+  border-color: #999999;
+  background: #ffffff;
+  /* box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); */
+}
+
+.ET-comment-input::placeholder {
+  color: #666666;
+}
+
+/* Custom scrollbar for comment input */
+.ET-comment-input::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ET-comment-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ET-comment-input::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+.ET-comment-input::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+.ET-send-button {
+  /* Updated send button to match the design */
+  background: #78176b;
+  width: auto;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.ET-send-button:hover {
+  /* Updated send button hover */
+  background: #5a0f4f;
+  transform: translateY(-1px);
+}
+
+.ET-send-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Right Section */
+.ET-right-section {
+  width: 380px;
+  background: #ffffff;
+  padding: 0 16px 20px 16px;
+  border-left: 1px solid #e8e5e0;
+  /* Removed action buttons block since buttons moved to header */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* updated form fields block to take full height */
+.ET-form-fields-block {
+  flex: 1;
+
+  padding-right: 8px;
+}
+
+.ET-form-fields-block::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ET-form-fields-block::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+.ET-form-fields-block::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 3px;
+}
+
+.ET-form-field {
+  margin-bottom: 16px;
+}
+
+.ET-form-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #666666;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ET-form-field select,
+.ET-form-field input {
+  width: 100%;
+  padding: 10px 12px;
+  /* light mode form inputs */
+  border: 1px solid #d0d0d0;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.ET-form-field select:focus,
+.ET-form-field input:focus {
+  /* light mode form focus */
+  border-color: #999999;
+  background: #f8f8f8;
+}
+
+.ET-form-field select option {
+  /* light mode select options */
+  background: #ffffff;
+  color: #000000;
+}
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .ET-right-section {
+    width: 280px;
+  }
+
+  /* Added responsive styling for compact header buttons */
+  .ET-header-actions {
+    gap: 6px;
+    margin: 0 12px;
+  }
+
+  .ET-btn-compact {
+    padding: 5px 10px;
+    font-size: 9px;
+    min-width: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ET-main-body {
+    flex-direction: column;
+  }
+
+  .ET-right-section {
+    width: 100%;
+    max-height: 40vh;
+  }
+
+  .ET-left-section {
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .ET-header-section {
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .ET-ticket-title {
+    min-width: 100%;
+    font-size: 18px;
+    padding: 10px 14px;
+  }
+
+  /* Updated responsive layout for header with compact buttons */
+  .ET-header-actions {
+    order: 2;
+    margin: 0;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .ET-header-icons {
+    order: 3;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Mobile responsive for comment input area */
+  .ET-comment-input-area {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .ET-comment-input {
+    min-height: 40px;
+  }
+
+  .ET-comment-actions {
+    align-self: flex-end;
+    gap: 6px;
+  }
+
+  .ET-image-upload-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .ET-send-button {
+    min-width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+
+  /* Mobile responsive for comments */
+  .ET-comment-header {
+    gap: 6px;
+  }
+
+  .ET-comment-username {
+    font-size: 13px;
+  }
+
+  .ET-comment-timestamp {
+    font-size: 11px;
+  }
+
+  .ET-comment-text {
+    margin-left: 40px;
+    font-size: 13px;
+  }
+
+  .ET-comments-area {
+    max-height: 300px;
+    padding: 12px;
+  }
+}
+
+/* Threaded comment styles */
+.ET-comment-thread {
+  margin-bottom: 0;
+  position: relative;
+}
+
+.ET-comment-thread.ET-reply {
+  /* border-left: 2px solid #e5e7eb; */
+  padding-left: 18px;
+  margin-left: 18px;
+  background: transparent;
+  border-radius: 0;
+  padding: 8px 0 8px 16px;
+  margin-bottom: 0;
+  margin-top: 4px;
+}
+
+.ET-comment-thread.ET-reply::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e5e7eb;
+  margin-left: 16px;
+}
+
+.ET-comment-thread:not(.ET-reply)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.ET-replies {
+  margin-top: 0;
+}
+
+.ET-reply-input {
+  margin-top: 12px;
+  padding: 12px 0;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  position: relative;
+}
+
+.ET-reply-text-input {
+  min-height: 60px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  outline: none;
+  background-color: #f9fafb;
+  color: #000000;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  direction: ltr;
+  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.ET-reply-text-input::placeholder {
+  color: #9ca3af;
+}
+
+.ET-reply-text-input:focus {
+  border-color: #3b82f6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.ET-reply-text-input:disabled {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.ET-reply-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+/* .ET-send-reply-btn {
+  padding: 8px 16px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.ET-send-reply-btn:hover:not(:disabled) {
+  background: #78176b;
+} */
+
+.ET-send-reply-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.ET-cancel-reply-btn {
+  padding: 8px 16px;
+  background: transparent;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.ET-cancel-reply-btn:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+.ET-cancel-reply-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.ET-reply-comment-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  color: #6b7280;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ET-reply-comment-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Fix comment actions layout */
+.ET-comment-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.ET-edit-comment-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  color: #6b7280;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.ET-edit-comment-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.ET-reply-comment-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  color: #6b7280;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.ET-reply-comment-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Image Preview Modal Styles */
+.ET-image-preview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.ET-image-preview-content {
+  background: #f9fafb;
+  border-radius: 12px;
+  width: fit-content;
+  max-width: 88vw;
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.32);
+  position: relative;
+}
+
+.ET-image-preview-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 56px 10px 16px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 48px;
+}
+
+.ET-close-preview-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #666666;
+  transition: all 0.2s ease;
+}
+
+.ET-close-preview-btn:hover {
+  background: #e5e7eb;
+  color: #333333;
+}
+
+/* Floating close button — top-right corner of preview panel */
+.ET-preview-close-float {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #374151;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ET-preview-close-float:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+}
+
+.ET-preview-close-float svg {
+  display: block;
+  stroke: currentColor;
+  pointer-events: none;
+}
+
+.ET-image-preview-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.ET-zoom-btn,
+.ET-reset-zoom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #374151;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.ET-zoom-btn:hover,
+.ET-reset-zoom-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.ET-reset-zoom-btn {
+  width: auto;
+  padding: 0 12px;
+}
+
+.ET-image-preview-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px 20px 20px;
+  overflow: hidden;
+  background: #f9fafb;
+}
+
+.ET-preview-image {
+  display: block;
+  max-width: min(80vw, 1100px);
+  max-height: calc(86vh - 48px - 40px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Modal Styles */
+.ET-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+/* Image preview modal should be on top of other modals */
+.ET-image-preview-modal {
+  z-index: 2000;
+}
+
+.ET-modal-content {
+  background: white;
+  border-radius: 8px;
+  max-width: 96vw;
+  width: clamp(820px, 80vw, 1000px);
+  /* keep a consistent modal width */
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  min-width: 400px;
+}
+
+.ET-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.ET-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.ET-modal-close-btn {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  margin-left: auto;
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.ET-modal-close-btn:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.ET-modal-body {
+  flex: 1;
+  padding: 24px;
+}
+
+.ET-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 20px 24px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+/* Upload Modal Styles */
+.ET-upload-area {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  background: #f9fafb;
+  transition: all 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.ET-upload-area:hover {
+  border-color: #3b82f6;
+  background: #f0f9ff;
+}
+
+.ET-file-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.ET-file-upload-label svg {
+  color: #9ca3af;
+}
+
+.ET-upload-hint {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.ET-selected-file {
+  margin-top: 16px;
+  padding: 12px;
+  background: #e0f2fe;
+  border-radius: 6px;
+  border: 1px solid #b3e5fc;
+}
+
+.ET-file-size {
+  color: #666666;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+/* Attachments Modal Styles */
+.ET-attachments-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.ET-attachment-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.ET-attachment-item:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.ET-attachment-thumbnail-wrapper {
+  width: 100%;
+  height: 140px;
+  flex-shrink: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ET-attachment-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ET-attachment-icon-placeholder {
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ET-attachment-icon-placeholder svg {
+  width: 48px;
+  height: 48px;
+}
+
+.ET-attachment-info {
+  padding: 12px 12px 8px 12px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ET-attachment-name {
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 4px;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ET-attachment-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: #6b7280;
+  align-items: center;
+}
+
+.ET-attachment-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 0;
+  padding: 0 12px 12px 12px;
+}
+
+/* Clean icon-only attachment buttons */
+.ET-att-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.ET-att-icon-btn svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.ET-att-icon-btn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.ET-att-preview:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.ET-att-download:hover {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #15803d;
+}
+
+.ET-att-delete:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.ET-attachment-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #374151;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 4px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.ET-attachment-action-btn:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+  color: #111827;
+}
+
+.ET-preview-btn:hover {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #1d4ed8;
+}
+
+.ET-download-btn:hover {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  color: #15803d;
+}
+
+.ET-delete-btn:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #dc2626;
+}
+
+.ET-attachment-btn svg {
+  width: 16px !important;
+  height: 16px !important;
+  display: block !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 2 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.ET-attachment-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+.ET-attachment-btn.ET-delete-btn:hover {
+  background: #fef2f2;
+  border-color: #f87171;
+  color: #dc2626;
+}
+
+/* Ensure buttons are always visible */
+.ET-attachment-btn:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Mobile responsive for attachments */
+@media (max-width: 768px) {
+  .ET-attachment-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .ET-attachment-actions {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+
+  .ET-attachment-name {
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+/* History Modal Styles */
+.ET-history-list {
+  /* Use available width with responsive columns */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 6px;
+  /* Nice, themed scrollbar */
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: #b98abf #f7eef8;
+  /* thumb track */
+  width: 100%;
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+  /* Hide scrollbar for IE and Edge */
+  -ms-overflow-style: none;
+}
+
+/* WebKit scrollbar styling for the history panel */
+.ET-history-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.ET-history-list::-webkit-scrollbar-track {
+  background: #f7eef8;
+  border-radius: 8px;
+}
+
+.ET-history-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #caa2cf 0%, #9b79a0 100%);
+  border-radius: 8px;
+  border: 2px solid #f7eef8;
+}
+
+.ET-history-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #b98abf 0%, #8a5f90 100%);
+}
+
+.ET-history-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 5px 0;
+  border-radius: 10px;
+  background: #fff;
+  transition: all 0.2s ease;
+  /* box-shadow: 0 1px 2px rgba(0,0,0,0.04); */
+  /* overflow: hidden; */
+  margin-bottom: 5px;
+}
+
+.ET-history-item:hover {
+  border-color: #e1cfe1;
+  /* box-shadow: 0 4px 12px rgba(120, 23, 107, 0.12); */
+}
+
+.ET-history-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #fbe7f9;
+  border-radius: 50%;
+  color: #78176b;
+  flex-shrink: 0;
+  border: 1px solid #f3c9ec;
+}
+
+.ET-history-content {
+  flex: 1;
+  min-width: 0;
+  display: block;
+}
+
+.ET-history-action {
+  font-weight: 500;
+  color: #3a0a34;
+  margin-bottom: 2px;
+  font-size: 13px;
+}
+
+.ET-history-details {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 2px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+}
+
+.ET-history-snippet {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+.ET-history-time {
+  font-size: 11px;
+  color: #9b79a0;
+  margin-left: auto;
+}
+
+/* Tighter layout on smaller screens */
+@media (max-width: 768px) {
+  .ET-history-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Empty State Styles */
+.ET-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 20px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.ET-empty-state svg {
+  color: #d1d5db;
+}
+
+/* Button Styles */
+.ET-btn-primary {
+  background: #78176b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* .ET-btn-primary:hover:not(:disabled) {
+  background: #5a0f4f;
+} */
+
+.ET-btn-primary:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.ET-btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ET-btn-secondary:hover:not(:disabled) {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+}
+
+.ET-btn-secondary:disabled {
+  background: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Formatting Toolbar Styles */
+.ET-formatting-toolbar {
+  display: flex;
+  align-items: center;
+  /* gap: 6px; */
+  padding: 8px 12px;
+  background: #f9f9f9;
+  /* border-bottom: 1px solid #e9ecef;  */
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+
+/* .ET-toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+} */
+
+.ET-toolbar-btn:hover {
+  background: transparent;
+  border-color: transparent;
+  color: inherit;
+}
+
+.ET-toolbar-btn:active {
+  background: transparent;
+  transform: none;
+}
+
+.ET-toolbar-btn.active {
+  background: transparent;
+  border-color: transparent;
+  color: inherit;
+}
+
+.ET-toolbar-btn strong {
+  font-weight: 500;
+}
+
+.ET-toolbar-btn em {
+  font-style: italic;
+}
+
+.ET-toolbar-btn u {
+  text-decoration: underline;
+}
+
+/* Active/toggled state for formatting buttons */
+.ET-toolbar-btn.active {
+  background: #f3e8f6;
+  border-color: #e9d5ff;
+  color: #78176b;
+}
+
+/* Remove hover effect from section toggle */
+.ET-section-toggle-no-hover {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px 4px;
+  font-weight: 500;
+  color: #374151;
+  transition: none;
+}
+
+.ET-section-toggle-no-hover:hover {
+  color: #374151;
+  background: transparent;
+}
+
+/* Jira-style activity tabs container */
+.ET-activity-tabs-container {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 6px 0 0 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Cleaned up old redundant tab styles */
+
+/* Unified activity area styling */
+.ET-unified-activity-area {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 4px;
+  padding: 4px 0;
+  background: #ffffff;
+  /* border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  max-height: 400px; */
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ET-unified-activity-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ET-unified-activity-area::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+.ET-unified-activity-area::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 3px;
+}
+
+/* Jira-style comment actions row - vertical column layout */
+.ET-comment-actions-row {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  margin-top: 8px;
+  margin-left: 44px;
+}
+
+.ET-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 4px;
+  color: #6b7280 !important;
+  box-shadow: none !important;
+}
+
+.ET-action-btn:hover,
+.ET-action-btn:focus,
+.ET-action-btn:active {
+  background: transparent !important;
+  color: #6b7280 !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.ET-reply-btn:hover,
+.ET-edit-btn:hover,
+.ET-delete-btn:hover {
+  color: #6b7280 !important;
+}
+
+.ET-action-btn span {
+  display: none;
+}
+
+.ET-action-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: #6b7280;
+}
+
+/* Update comment input area for comments tab only */
+.ET-comment-input-area {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* Quick action chips row (Suggest a reply, Status update, Thanks) */
+.ET-quick-actions {
+  display: none;
+}
+
+.ET-quick-actions.inside {
+  display: flex;
+  gap: 8px;
+  padding: 8px 8px 0 8px;
+}
+
+.ET-chip {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.ET-chip:hover {
+  background: #e5e7eb;
+  border-color: #cccccc
+}
+
+/* Pro tip helper under input */
+.ET-pro-tip {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+/* Update formatting toolbar with microphone icon */
+/* .ET-formatting-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-left: 1px solid #e9ecef;
+  font-size: 12px;
+  flex-shrink: 0;
+} */
+
+.ET-toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.ET-toolbar-btn:hover {
+  background: #e9ecef;
+  border-color: #ced4da;
+  color: #495057;
+}
+
+.ET-toolbar-btn.active {
+  background: #f3e8f6;
+  border-color: #e9d5ff;
+  color: #78176b;
+}
+
+
+/* Add status dropdown styles */
+.ET-status-dropdown-container {
+  margin: 0;
+  padding: 0;
+}
+
+.ET-status-dropdown-btn {
+  padding: 4px 8px;
+}
+
+.ET-description-section-head .ET-icon-button {
+  margin: 0;
+  padding: 0;
+}
+
+.ET-status-dropdown-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* margin-bottom: 12px; */
+  position: relative;
+}
+
+.ET-status-dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  /* border: 1px solid #d0d0d0;
+  border-radius: 6px; */
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  margin-top: 30px;
+}
+
+.ET-status-dropdown-btn:hover {
+  border-color: #999999;
+  background: #f5f5f5;
+}
+
+.ET-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ET-status-badge.ET-status-new {
+  background: #e0e0e0;
+  color: #333333;
+}
+
+.ET-status-badge.ET-status-in-progress {
+  background: #4a90e2;
+  color: #ffffff;
+}
+
+.ET-status-badge.ET-status-qa {
+  background: #f5a623;
+  color: #ffffff;
+}
+
+.ET-status-badge.ET-status-completed {
+  background: #7ed321;
+  color: #ffffff;
+}
+
+.ET-status-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background: #ffffff;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  min-width: 180px;
+  overflow: hidden;
+}
+
+.ET-status-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #333333;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.ET-status-dropdown-item:hover {
+  background: #f5f5f5;
+  color: #000000;
+}
+
+.ET-status-dropdown-item.active {
+  background: #e8f0ff;
+  color: #4a90e2;
+  font-weight: 500;
+}
+
+.ET-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ET-status-dot-new {
+  background: #999999;
+}
+
+.ET-status-dot-in-progress {
+  background: #4a90e2;
+}
+
+.ET-status-dot-qa {
+  background: #f5a623;
+}
+
+.ET-status-dot-completed {
+  background: #7ed321;
+}
+
+/* Remove hover effect from description section toggle */
+.ET-section-toggle-no-hover {
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+  padding: 20px 4px;
+  font-weight: 500;
+  color: #374151;
+  transition: none !important;
+}
+
+.ET-section-toggle-no-hover:hover {
+  color: #374151 !important;
+  background: transparent !important;
+}
+
+.ET-comment-actions-inline {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  margin-top: 8px;
+  margin-left: 44px;
+}
+
+.ET-icon-only-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
+  color: #6b7280 !important;
+  border-radius: 4px;
+}
+
+.ET-icon-only-btn:hover,
+.ET-icon-only-btn:focus,
+.ET-icon-only-btn:active {
+  background: transparent !important;
+  color: #6b7280 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.ET-icon-only-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+/* Jira-like edit/reply box and toolbar */
+.ET-comment-edit-mode,
+.ET-reply-input {
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.03);
+  padding: 0 !important;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.ET-comment-edit-input,
+.ET-reply-text-input {
+  width: 100%;
+  min-height: 90px;
+  padding: 20px 18px;
+  border: none;
+  resize: none;
+  border-radius: 0;
+  outline: none;
+  font-size: 16px;
+  background: none !important;
+  box-shadow: none !important;
+  color: #1a1a1a;
+}
+
+.ET-comment-edit-input:focus,
+.ET-reply-text-input:focus {
+  outline: 2px solid #d5dbe4 !important;
+  background: none !important;
+}
+
+/* Toolbar matches Jira: flat, no bg or borders, larger icons */
+/* .ET-formatting-toolbar {
+  display: flex; align-items: center;
+  gap: 6px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-height: 48px;
+  padding: 12px 16px 0 16px;
+  margin: 0;
+} */
+.ET-toolbar-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #444 !important;
+  font-size: 19px !important;
+  margin: 0 2px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  box-shadow: none !important;
+  padding: 0;
+}
+
+.ET-toolbar-btn strong,
+.ET-toolbar-btn em,
+.ET-toolbar-btn u {
+  font-size: inherit;
+}
+
+.ET-toolbar-btn:hover,
+.ET-toolbar-btn:active {
+  background: transparent !important;
+  border: none !important;
+  color: #222 !important;
+}
+
+.ET-toolbar-btn.active {
+  background: transparent !important;
+  color: #222 !important;
+}
+
+.ET-mic-icon {
+  width: 14px;
+  height: 14px;
+  stroke: #222;
+}
+
+/* EDIT/REPLY ACTIONS - compact left-aligned */
+.ET-comment-edit-actions,
+.ET-reply-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px 16px 14px 16px;
+}
+
+.ET-save-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #78176b !important;
+  color: #fff !important;
+  border: none !important;
+  min-width: 72px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ET-cancel-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: #555 !important;
+  border: none !important;
+  min-width: 64px;
+  height: 34px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ET-send-reply-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #78176b !important;
+  color: #fff !important;
+  border: none !important;
+  width: 105px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ET-cancel-reply-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  color: #555 !important;
+  border: none !important;
+  width: 64px;
+  height: 34px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* EDIT MODE TOOLBAR BUTTONS (no bg/hover colors) */
+.ET-format-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #444 !important;
+  box-shadow: none !important;
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  margin: 0 2px;
+  border-radius: 4px;
+}
+
+.ET-format-btn:hover,
+.ET-format-btn:active {
+  background: transparent !important;
+  color: #222 !important;
+}
+
+/* Ensure only one active formatting toolbar style (flat) */
+.ET-formatting-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 8px 16px 0 16px;
+}
+
+/* Collapsed comment composer by default; expands on focus */
+.ET-comment-input-container {
+  min-height: auto;
+}
+
+.ET-comment-input {
+  min-height: 40px;
+  /* compact when empty */
+  transition: min-height .2s ease;
+  border-top: none;
+  /* remove top border look */
+}
+
+.ET-comment-input:focus {
+  min-height: 150px;
+}
+
+/* .ET-comment-input:empty { min-height: 40px; } */
+
+/* Compact activity tabs */
+.ET-activity-tabs-container {
+  justify-content: flex-start;
+}
+
+/* Cleaned up old redundant tab styles */
+
+/* Mic blink animation when recording */
+.ET-mic-on .ET-mic-icon {
+  animation: etBlink .9s linear infinite;
+}
+
+@keyframes etBlink {
+
+  0%,
+  49% {
+    opacity: 1
+  }
+
+  50%,
+  100% {
+    opacity: .3
+  }
+}
+
+
+
+/* Worklog clock - centered and trendy */
+.ET-worklog-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px auto 0;
+  padding: 8px 20px;
+  /* background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06); */
+  width: fit-content;
+}
+
+.ET-worklog-clock svg {
+  border-radius: 9999px;
+}
+
+.ET-worklog-title {
+  font-weight: 500;
+  color: #111827;
+  margin-top: 8px;
+}
+
+.ET-worklog-days {
+  font-size: 18px;
+  font-weight: 500;
+  color: #78176b;
+  /* highlight the time */
+}
+
+/* Work Log Container */
+.ET-worklog-container {
+  padding: 16px;
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #bebebe #ffffff;
+}
+
+.ET-worklog-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ET-worklog-container::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.ET-worklog-container::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 3px;
+}
+
+.ET-worklog-container::-webkit-scrollbar-thumb:hover {
+  background: #78176b;
+}
+
+/* Work Log Empty State */
+.ET-worklog-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.ET-worklog-empty-text {
+  margin-top: 8px;
+}
+
+.ET-worklog-log-time-btn {
+  background: transparent;
+  color: #78176b;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: underline;
+}
+
+.ET-worklog-log-time-btn:hover {
+  color: #5a0f4f;
+  text-decoration: none;
+}
+
+/* Work Log List */
+.ET-worklog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ET-worklog-entry {
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.ET-worklog-entry:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ET-worklog-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.ET-worklog-user-info {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+}
+
+.ET-worklog-username {
+  font-weight: 500;
+  color: #111827;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.ET-worklog-time-info {
+  font-size: 13px;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.ET-worklog-timestamp {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.ET-worklog-description {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.ET-worklog-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ET-worklog-action-btn {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.ET-worklog-action-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.ET-worklog-delete-btn:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* Work Log Modal */
+.ET-worklog-modal {
+  background: white;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.ET-worklog-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.ET-worklog-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.ET-worklog-modal-body {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #b98abf #f9fafb;
+}
+
+.ET-worklog-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ET-worklog-modal-body::-webkit-scrollbar-track {
+  background: #f9fafb;
+}
+
+.ET-worklog-modal-body::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 3px;
+}
+
+.ET-worklog-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #78176b;
+}
+
+/* Progress Bar */
+.ET-worklog-progress-bar-container {
+  margin-bottom: 24px;
+}
+
+.ET-worklog-progress-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.ET-worklog-progress-spent {
+  background: #78176b;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.ET-worklog-progress-remaining {
+  background: #e5e7eb;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.ET-worklog-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Form Fields */
+.ET-worklog-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.ET-worklog-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ET-worklog-form-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ET-worklog-input-wrapper {
+  position: relative;
+}
+
+.ET-worklog-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.ET-worklog-input:focus {
+  border-color: #78176b;
+  box-shadow: 0 0 0 3px rgba(120, 23, 107, 0.1);
+}
+
+.ET-worklog-suggestion {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  padding: 6px 10px;
+  background: #ede9fe;
+  color: #6d28d9;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 10;
+}
+
+.ET-worklog-format-hint {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.ET-worklog-format-hint ul {
+  margin: 8px 0 0 20px;
+  padding: 0;
+  list-style: disc;
+}
+
+.ET-worklog-format-hint li {
+  margin: 4px 0;
+}
+
+/* Date and Time Inputs */
+.ET-worklog-date-time-wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.ET-worklog-date-input,
+.ET-worklog-time-input {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.ET-worklog-date-input:focus,
+.ET-worklog-time-input:focus {
+  border-color: #78176b;
+  box-shadow: 0 0 0 3px rgba(120, 23, 107, 0.1);
+}
+
+.ET-worklog-clear-time {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.ET-worklog-clear-time:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Work Description Editor */
+.ET-worklog-description-editor {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.ET-worklog-description-input {
+  min-height: 120px;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  outline: none;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+
+.ET-worklog-description-input:empty:before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.ET-worklog-description-input:focus {
+  outline: none;
+}
+
+/* Modal Actions */
+.ET-worklog-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 20px 24px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.ET-worklog-save-btn {
+  background: #78176b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ET-worklog-save-btn:hover:not(:disabled) {
+  background: #5a0f4f;
+}
+
+.ET-worklog-save-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.ET-worklog-cancel-btn {
+  background: transparent;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ET-worklog-cancel-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ET-worklog-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ET-worklog-modal {
+    width: 95vw;
+    max-height: 95vh;
+  }
+
+  .ET-worklog-entry-header {
+    flex-direction: column;
+  }
+
+  .ET-worklog-actions {
+    align-self: flex-end;
+  }
+}
+
+
+/* ══════════════════════════════════════
+   MAIN TICKET POPUP MODAL — Clean popup
+   ══════════════════════════════════════ */
+
+/* Lock background from shifting when modal opens */
+body:has(.ET-modal-overlay[data-main]) {
+  overflow: hidden !important;
+  scrollbar-gutter: stable !important;
+}
+
+.ET-modal-content-wrapper {
+  position: relative;
+  width: 92vw;
+  max-width: 1200px;
+  height: 88vh;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 32px 80px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  will-change: transform, opacity;
+  animation: ET-panelIn 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: center bottom;
+}
+
+/* Float-close button at top-right of the modal wrapper */
+.ET-modal-content-wrapper>.ET-modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #6b7280;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.ET-modal-content-wrapper>.ET-modal-close-btn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+@keyframes ET-panelIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.88) translateY(32px);
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Main ticket popup overlay */
+.ET-modal-overlay:last-child {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(9, 9, 11, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  animation: ET-overlayFade 0.35s ease-out forwards;
+  overflow: hidden;
+}
+
+@keyframes ET-overlayFade {
+  0% {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+
+  100% {
+    opacity: 1;
+    backdrop-filter: blur(4px);
+  }
+}
+
+/* html scrollbar-gutter removed to prevent white strip on right edge */
+
+body:has(.ET-modal-content-wrapper) {
+  overflow: hidden !important;
+}
+
+.ET-comment-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 0;
+}
+
+.ET-comment-toolbar .ET-send-btn {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: #78176b;
+  color: #ffffff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ET-comment-toolbar .ET-send-btn:hover {
+  background: #5c1153;
+}
+
+.ET-comment-toolbar .ET-send-btn:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+
+/* -- Neutralize purple hover on date pickers -- */
+.react-datepicker__day:hover:not(.react-datepicker__day--selected) {
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+}
+
+.react-datepicker__header {
+  background: #f0f0f0 !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: #374151 !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #6b7280 !important;
+}
+
+
+/* =====================================================
+   MISSING CLASSES — added after last git commit
+   These make the details panel look correct
+   ===================================================== */
+
+/* Detail panel icon — small 16px */
+.ET-detail-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #9ca3af;
+}
+
+/* Avatar circle next to assignee/collaborator/approver */
+.ET-detail-avatar {
+  position: absolute;
+  left: 168px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 500;
+  color: #ffffff;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.ET-form-field.ET-readlike select.ET-has-avatar {
+  padding-left: 28px !important;
+}
+
+/* Details section header row (DETAILS label + TICKET badge) */
+.ET-right-section .ET-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0 0 12px 0;
+  border-bottom: 1px solid #e8e5e0;
+  margin-bottom: 8px;
+}
+
+/* ET-readlike row layout — icon | label | value in one line */
+.ET-form-field.ET-readlike {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ET-form-field.ET-readlike:has(.custom-select-trigger.open) {
+  z-index: 1000 !important;
+}
+
+.ET-form-field.ET-readlike:hover {
+  background: transparent;
+}
+
+.ET-form-field.ET-readlike .ET-detail-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #6b7280;
+}
+
+.ET-form-field.ET-readlike label {
+  width: 120px;
+  min-width: 120px;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* The select/input inside readlike — transparent until active */
+.ET-form-field.ET-readlike select,
+.ET-form-field.ET-readlike input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: #111827;
+  font-weight: 500;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+  max-width: unset;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-align-last: left !important;
+  text-align: left !important;
+  text-indent: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Ensure all values are left-aligned perfectly, reserving a 32px column for absolute avatar */
+.ET-form-field.ET-readlike select,
+.ET-form-field.ET-readlike .react-datepicker-wrapper,
+.ET-form-field.ET-readlike .ET-priority-badge {
+  margin-left: 0px !important;
+}
+
+.ET-form-field.ET-readlike select:focus,
+.ET-form-field.ET-readlike input:focus {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: text;
+}
+
+/* Date picker input inside readlike */
+.ET-form-field.ET-readlike .react-datepicker-wrapper {
+  flex: 1;
+}
+
+.ET-form-field.ET-readlike .react-datepicker-wrapper,
+.ET-form-field.ET-readlike .react-datepicker__input-container {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.ET-form-field.ET-readlike .react-datepicker-wrapper input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: #111827;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  cursor: pointer;
+  line-height: 1;
+  height: auto;
+}
+
+.ET-form-field.ET-readlike .react-datepicker__close-icon {
+  padding: 0;
+  margin: 0;
+}
+
+/* Modal mode — inner container fills wrapper exactly */
+.ET-edit-ticket-container.ET-modal-mode {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.ET-edit-ticket-container.ET-modal-mode .ET-header-section {
+  padding-right: 10px !important;
+}
+
+/* Lock body scroll when modal is open */
+body:has(.ET-modal-content-wrapper) {
+  overflow: hidden !important;
+}
+
+/* =====================================================
+   REMAINING MISSING CLASSES — desc toggle + priority
+   ===================================================== */
+
+/* Edit/Done toggle button on Description header */
+.ET-desc-edit-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 6px;
+  margin-left: auto;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ET-desc-edit-toggle:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+/* Priority pill alignment fix */
+.ET-form-field.ET-readlike label[for],
+.ET-form-field.ET-readlike>label {
+  flex-shrink: 0;
+}
+
+/* Priority row — keep label left, value right */
+.ET-priority-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ET-priority-badge.ET-priority-high,
+.ET-priority-badge.ET-priority-critical {
+  background-color: #fef2f2 !important;
+  color: #dc2626 !important;
+}
+
+.ET-priority-badge.ET-priority-medium {
+  background-color: #fff7ed !important;
+  color: #c2410c !important;
+}
+
+.ET-priority-badge.ET-priority-low {
+  background-color: #f0fdf4 !important;
+  color: #15803d !important;
+}
+
+.ET-description-read {
+  white-space: pre-wrap;
+}
+
+/* Comment Box New Layout */
+.ET-comment-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.ET-formatting-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ET-send-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #78176b;
+  color: #fff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ET-send-btn:hover:not(:disabled) {
+  background: #5a0f4f;
+}
+
+.ET-send-btn:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.ET-comment-bot-icon {
+  pointer-events: none;
+}
+
+.ET-comment-input-container .ET-comment-input {
+  padding-right: 44px;
+  /* Prevent text overlap with bot icon */
+}
+
+/* CustomSelect flat integration for right panel */
+.ET-form-field.ET-readlike .custom-select-container {
+  flex: 1;
+  max-width: unset;
+  min-width: unset;
+}
+
+.ET-form-field.ET-readlike .custom-select-trigger {
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: #111827;
+  font-weight: 500;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+  box-shadow: none;
+  height: auto;
+  min-height: 20px;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  justify-content: flex-start;
+  transition: all 0.1s ease;
+}
+
+.ET-form-field.ET-readlike .custom-select-trigger:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.ET-form-field.ET-readlike .custom-select-trigger.open {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-left: -9px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  box-shadow: none;
+}
+
+.ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger {
+  padding-left: 28px;
+}
+
+.ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger.open {
+  padding-left: 36px;
+}
+
+.ET-form-field.ET-readlike .custom-select-arrow {
+  opacity: 0;
+  margin-left: auto;
+}
+
+.ET-form-field.ET-readlike:hover .custom-select-arrow,
+.ET-form-field.ET-readlike .custom-select-trigger.open .custom-select-arrow {
+  opacity: 0.5;
+}
+
+.ET-form-field.ET-readlike .custom-select-dropdown {
+  margin-top: 6px;
+  min-width: 150px;
+}
+
+.ET-modal-content-wrapper .custom-select-dropdown {
+  animation: none !important;
+}
+
+.ET-selected-file {
+  margin-top: 16px;
+  padding: 12px;
+  background: #e0f2fe;
+  border-radius: 6px;
+  border: 1px solid #b3e5fc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ET-remove-file-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #777777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.ET-remove-file-btn:hover {
+  background: #bae6fd;
+  color: #111111;
+}
+
+/* Priority custom select pill padding fix */
+.ET-form-field.ET-readlike .custom-select-trigger.has-color {
+  padding: 3px 10px !important;
+  border-radius: 12px;
+}
+
+/* Dark Mode Overrides */
+body.dark .ET-modal-content-wrapper,
+body.dark .ET-modal-content,
+body.dark .ET-image-preview-content,
+body.dark .ET-edit-ticket-container,
+body.dark .ET-jira .ET-jira-header,
+body.dark .ET-jira-right {
+  background-color: #1a1a1a !important;
+  color: #f0f0f0 !important;
+  border-color: #2e2e2e !important;
+}
+
+body.dark .ET-modal-content-wrapper>.ET-modal-close-btn {
+  background: #2a2a2a !important;
+  border-color: #3e3e3e !important;
+  color: #a0a0a0 !important;
+}
+
+body.dark .ET-modal-content-wrapper>.ET-modal-close-btn:hover {
+  background: #3a3a3a !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-image-preview-header,
+body.dark .ET-image-preview-body,
+body.dark .ET-left-section,
+body.dark .ET-right-section,
+body.dark .ET-comments-area,
+body.dark .ET-description-box,
+body.dark .ET-comment-input-container,
+body.dark .ET-worklog-modal-actions,
+body.dark .ET-comment-toolbar,
+body.dark .ET-worklog-description-editor {
+  background-color: #111111 !important;
+  color: #f0f0f0 !important;
+  border-color: #2e2e2e !important;
+}
+
+body.dark .ET-ticket-title,
+body.dark .ET-comment-input,
+body.dark .ET-comment-edit-input,
+body.dark .ET-form-field.ET-readlike select,
+body.dark .ET-form-field.ET-readlike input,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger {
+  color: #f0f0f0 !important;
+  background-color: transparent !important;
+}
+
+body.dark .ET-form-field.ET-readlike select:focus,
+body.dark .ET-form-field.ET-readlike input:focus,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger.open,
+body.dark .ET-form-field.ET-readlike .custom-select-dropdown {
+  background-color: #2a2a2a !important;
+  border-color: #444444 !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-form-field.ET-readlike .custom-select-option {
+  color: #e0e0e0 !important;
+}
+
+body.dark .ET-form-field.ET-readlike .custom-select-option:hover {
+  background-color: #3a3a3a !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-form-field label,
+body.dark .ET-right-section .ET-section-header,
+body.dark .ET-desc-edit-toggle,
+body.dark .ET-form-field.ET-readlike label {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-desc-edit-toggle:hover {
+  background: #2a2a2a !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-selected-file {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #e2e8f0 !important;
+}
+
+body.dark .ET-icon-button {
+  background: #2a2a2a !important;
+  border-color: #3e3e3e !important;
+  color: #e2e8f0 !important;
+}
+
+body.dark .ET-icon-button:hover {
+  background: #3a3a3a !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-unified-activity-area,
+body.dark .ET-activity-body-wrapper {
+  background: transparent !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-history-item {
+  background: #1e1e1e !important;
+  border-color: #333333 !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-history-item:hover {
+  background: #252525 !important;
+  border-color: #444444 !important;
+}
+
+body.dark .ET-history-action,
+body.dark .ET-form-field.ET-readlike,
+body.dark .ET-form-field.ET-readlike div,
+body.dark .ET-form-field.ET-readlike span {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-history-details,
+body.dark .ET-history-snippet {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-history-icon {
+  background: #2a1b2a !important;
+  border-color: #4a2b4a !important;
+  color: #d8b4d8 !important;
+}
+
+body.dark .ET-comment {
+  background-color: #1e1e1e !important;
+  border-color: #333333 !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-comment-username,
+body.dark .ET-comment-body,
+body.dark .ET-comment-timestamp {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-section-toggle,
+body.dark .ET-section-toggle span,
+body.dark .ET-description-read {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-section-toggle svg {
+  color: #c084fc !important;
+}
+
+body.dark .ET-activity-tabs {
+  background: #1e1e1e !important;
+}
+
+body.dark .ET-activity-tabs::before {
+  background: #3a3a3a !important;
+}
+
+body.dark .ET-activity-tab {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-activity-tab:hover,
+body.dark .ET-activity-tab.active {
+  color: #ffffff !important;
+}
+
+/* Unify Edit Ticket Modal Theme with Create Ticket Modal Theme */
+.ET-modal-content-wrapper {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  border: 1px solid #e0e7ff !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ET-modal-mode .ET-left-section,
+.ET-modal-mode .ET-right-section,
+.ET-modal-mode .ET-header-section,
+.ET-modal-mode .ET-edit-ticket-container,
+.ET-modal-mode .ET-main-body {
+  background: transparent !important;
+}
+
+/* Ensure Title is clean without boxed borders */
+.ET-modal-mode .ET-ticket-title,
+body.dark .ET-modal-mode .ET-ticket-title {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 8px 0 !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+}
+
+.ET-modal-mode .ET-ticket-title:focus,
+.ET-modal-mode .ET-ticket-title:hover,
+body.dark .ET-modal-mode .ET-ticket-title:focus,
+body.dark .ET-modal-mode .ET-ticket-title:hover {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.ET-modal-mode .ET-form-field select,
+.ET-modal-mode .ET-form-field input,
+.ET-modal-mode .ET-form-field .custom-select-trigger,
+.ET-modal-mode .ET-description-box textarea {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 6px !important;
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.95rem !important;
+  color: #111827 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s !important;
+}
+
+.ET-modal-mode .ET-form-field select:focus,
+.ET-modal-mode .ET-form-field input:focus,
+.ET-modal-mode .ET-form-field .custom-select-trigger.open,
+.ET-modal-mode .ET-description-box textarea:focus {
+  border-color: #6366f1 !important;
+  outline: none !important;
+}
+
+body.dark .ET-modal-content-wrapper {
+  background: #1a1a1a !important;
+  border-color: #2e2e2e !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.dark .ET-modal-mode .ET-left-section,
+body.dark .ET-modal-mode .ET-right-section,
+body.dark .ET-modal-mode .ET-header-section,
+body.dark .ET-modal-mode .ET-edit-ticket-container,
+body.dark .ET-modal-mode .ET-main-body,
+body.dark .ET-modal-mode .ET-comments-area,
+body.dark .ET-modal-mode .ET-description-box {
+  background: transparent !important;
+}
+
+body.dark .ET-modal-mode .ET-form-field select,
+body.dark .ET-modal-mode .ET-form-field input,
+body.dark .ET-modal-mode .ET-form-field .custom-select-trigger,
+body.dark .ET-modal-mode .ET-description-box textarea {
+  background-color: #111111 !important;
+  border-color: #2e2e2e !important;
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-modal-mode .ET-form-field select:hover,
+body.dark .ET-modal-mode .ET-form-field input:hover,
+body.dark .ET-modal-mode .ET-form-field .custom-select-trigger:hover,
+body.dark .ET-modal-mode .ET-description-box textarea:hover {
+  border-color: #6366f1 !important;
+  background-color: #1a1a1a !important;
+}
+
+/* ============================================================
+   Final Overrides: Unboxed Title & Details Dropdowns + Kanban Size
+   ============================================================ */
+
+/* Ensure Title is completely unboxed */
+.ET-ticket-title,
+.ET-modal-mode .ET-ticket-title,
+body.dark .ET-ticket-title,
+body.dark .ET-modal-mode .ET-ticket-title {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Remove outer box from readlike rows on Details panel */
+.ET-form-field.ET-readlike,
+.ET-modal-mode .ET-form-field.ET-readlike,
+body.dark .ET-form-field.ET-readlike,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike,
+body.dark .ET-readlike {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 4px 0 !important;
+  margin-bottom: 6px !important;
+}
+
+/* Sentence case styling for labels */
+.ET-form-field.ET-readlike label,
+body.dark .ET-form-field.ET-readlike label {
+  text-transform: none !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: normal !important;
+  color: #888888 !important;
+}
+
+/* Remove dropdown box styling and match Kanban filter button size */
+.ET-form-field.ET-readlike .custom-select-trigger,
+.ET-form-field.ET-readlike select,
+.ET-form-field.ET-readlike input,
+.ET-form-field.ET-readlike .react-datepicker-wrapper input,
+.ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger,
+.ET-modal-mode .ET-form-field.ET-readlike select,
+.ET-modal-mode .ET-form-field.ET-readlike input,
+.ET-modal-mode .ET-form-field.ET-readlike .react-datepicker-wrapper input,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger,
+body.dark .ET-form-field.ET-readlike select,
+body.dark .ET-form-field.ET-readlike input,
+body.dark .ET-form-field.ET-readlike .react-datepicker-wrapper input,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike select,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike input,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike .react-datepicker-wrapper input {
+  height: 32px !important;
+  line-height: 30px !important;
+  padding: 0 10px !important;
+  font-size: 12.48px !important;
+  border-radius: 4px !important;
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  color: inherit !important;
+}
+
+/* Subtle soft hover feedback on rows */
+.ET-form-field.ET-readlike:hover .custom-select-trigger,
+.ET-form-field.ET-readlike:hover select,
+.ET-form-field.ET-readlike:hover input,
+.ET-form-field.ET-readlike:hover .react-datepicker-wrapper input,
+.ET-form-field.ET-readlike .custom-select-trigger.open {
+  background-color: var(--bg-secondary, rgba(128, 128, 128, 0.12)) !important;
+}
+
+/* ============================================================
+   Disable Height/Margin Shrink Animations & Fix Avatar Overlap
+   ============================================================ */
+
+/* Disable negative margins and height changes when dropdown is clicked/open */
+.ET-form-field.ET-readlike .custom-select-trigger,
+.ET-form-field.ET-readlike .custom-select-trigger.open,
+.ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger,
+.ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger.open,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger,
+body.dark .ET-form-field.ET-readlike .custom-select-trigger.open,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike .custom-select-trigger.open {
+  margin: 0 !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+/* Ensure avatar does not overlap dropdown text */
+.ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger,
+.ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger.open,
+.ET-modal-mode .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger,
+.ET-modal-mode .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger.open,
+body.dark .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger,
+body.dark .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger.open,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger,
+body.dark .ET-modal-mode .ET-form-field.ET-readlike:has(.ET-detail-avatar) .custom-select-trigger.open {
+  padding-left: 36px !important;
+  padding-right: 10px !important;
+}
+
+/* ============================================================
+   Priority Dropdown Options Explicit Colors (Red, Yellow, Green)
+   ============================================================ */
+body .modal-overlay .custom-select-option.ET-prio-high,
+body .jira-create-ticket-card .custom-select-option.ET-prio-high,
+body .ET-form-field.ET-readlike .custom-select-option.ET-prio-high,
+.custom-select-option.ET-prio-high {
+  background-color: rgba(239, 68, 68, 0.22) !important;
+  color: #ff4d4d !important;
+}
+
+body .modal-overlay .custom-select-option.ET-prio-medium,
+body .jira-create-ticket-card .custom-select-option.ET-prio-medium,
+body .ET-form-field.ET-readlike .custom-select-option.ET-prio-medium,
+.custom-select-option.ET-prio-medium {
+  background-color: rgba(234, 179, 8, 0.22) !important;
+  color: #facc15 !important;
+}
+
+body .modal-overlay .custom-select-option.ET-prio-low,
+body .jira-create-ticket-card .custom-select-option.ET-prio-low,
+body .ET-form-field.ET-readlike .custom-select-option.ET-prio-low,
+.custom-select-option.ET-prio-low {
+  background-color: rgba(34, 197, 94, 0.22) !important;
+  color: #4ade80 !important;
+}
+
+/* Selected Priority trigger text color override */
+body .modal-overlay .custom-select-trigger.trigger-ET-prio-high,
+body .jira-create-ticket-card .custom-select-trigger.trigger-ET-prio-high,
+.custom-select-trigger.trigger-ET-prio-high {
+  color: #ff4d4d !important;
+}
+
+body .modal-overlay .custom-select-trigger.trigger-ET-prio-medium,
+body .jira-create-ticket-card .custom-select-trigger.trigger-ET-prio-medium,
+.custom-select-trigger.trigger-ET-prio-medium {
+  color: #facc15 !important;
+}
+
+body .modal-overlay .custom-select-trigger.trigger-ET-prio-low,
+body .jira-create-ticket-card .custom-select-trigger.trigger-ET-prio-low,
+.custom-select-trigger.trigger-ET-prio-low {
+  color: #4ade80 !important;
+}
+
+/* Dark Mode Comment Text Visibility */
+body.dark .ET-comment-text,
+body.dark .ET-worklog-timestamp,
+body.dark .ET-worklog-time-info,
+body.dark .ET-comment-card .ET-history-details {
+  color: #e5e7eb !important;
+}
+
+body.dark .ET-comment-username,
+body.dark .ET-worklog-username,
+body.dark .ET-comment-card .ET-history-action {
+  color: #ffffff !important;
+}
+
+body.dark .ET-comment-timestamp,
+body.dark .ET-history-time,
+body.dark .ET-comment-card .ET-history-time {
+  color: #c084fc !important;
+}
+
+/* Light Mode Comment Card overrides */
+.ET-comment-card .ET-history-details {
+  color: #6b7280;
+}
+
+.ET-comment-card .ET-history-action {
+  color: #3a0a34;
+  font-weight: 500;
+}
+
+.ET-comment-card .ET-history-time {
+  color: #9b79a0;
+}
+
+/* Remove Card Boxes around Activity Log and Comments */
+.ET-history-item,
+body.dark .ET-history-item {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+body.dark .ET-history-item:hover,
+.ET-history-item:hover {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Remove hr horizontal divider lines under comments */
+.ET-comment-thread::after,
+.ET-comment-thread.ET-reply::after,
+.ET-comment-thread:not(.ET-reply)::after {
+  display: none !important;
+}
+
+/* Remove horizontal divider line under DETAILS sidebar header */
+.ET-right-section .ET-section-header {
+  border-bottom: none !important;
+}
+
+/* Remove white background from formatting icons toolbar */
+.ET-formatting-toolbar,
+body.dark .ET-formatting-toolbar {
+  background: transparent !important;
+}
+
+body.dark .ET-toolbar-btn {
+  color: #cccccc !important;
+}
+
+body.dark .ET-toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* Vertically center formatting toolbar icons with send button */
+.ET-comment-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 6px 12px !important;
+}
+
+.ET-formatting-toolbar {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Prevent pasted images from expanding comment composer box and pushing send button out of view */
+.ET-comment-input {
+  max-height: 180px !important;
+  overflow-y: auto !important;
+}
+
+.ET-comment-input img,
+.ET-comment-input .comment-image {
+  max-height: 160px !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}
+
+/* "Clear / No selection" option in EditTicket dropdowns — matches Kanban board filter style */
+.ET-form-field .custom-select-option.is-default,
+.ET-readlike .custom-select-option.is-default {
+  color: #6b7280 !important;
+  opacity: 0.65 !important;
+  font-style: italic !important;
+}
+
+.ET-form-field .custom-select-option.is-default.selected,
+.ET-readlike .custom-select-option.is-default.selected {
+  background: rgba(107, 114, 128, 0.1) !important;
+  color: #6b7280 !important;
+}
+
+body.dark .ET-form-field .custom-select-option.is-default,
+body.dark .ET-readlike .custom-select-option.is-default {
+  color: #9ca3af !important;
+  opacity: 0.65 !important;
+}
+
+body.dark .ET-form-field .custom-select-option.is-default.selected,
+body.dark .ET-readlike .custom-select-option.is-default.selected {
+  background: rgba(156, 163, 175, 0.1) !important;
+  color: #9ca3af !important;
+}
+
+/* ============================================================
+   DARK MODE ATTACHMENTS MODAL & ITEMS OVERRIDES
+   ============================================================ */
+body.dark .ET-modal-header {
+  background-color: #111111 !important;
+  border-bottom-color: #2e2e2e !important;
+}
+
+body.dark .ET-modal-header h3 {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-modal-close-btn {
+  color: #a0a0a0 !important;
+}
+
+body.dark .ET-modal-close-btn:hover {
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-modal-body {
+  background-color: #1a1a1a !important;
+}
+
+body.dark .ET-attachment-item {
+  background: #111111 !important;
+  border-color: #2e2e2e !important;
+}
+
+body.dark .ET-attachment-item:hover {
+  border-color: #444444 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.dark .ET-attachment-thumbnail-wrapper {
+  background-color: #1a1a1a !important;
+  border-bottom-color: #2e2e2e !important;
+}
+
+body.dark .ET-attachment-name {
+  color: #f0f0f0 !important;
+}
+
+body.dark .ET-attachment-meta {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-att-icon-btn {
+  border-color: #2e2e2e !important;
+  color: #9ca3af !important;
+}
+
+body.dark .ET-att-icon-btn:hover {
+  background-color: #242424 !important;
+  border-color: #444444 !important;
+  color: #ffffff !important;
+}
+
+body.dark .ET-att-preview:hover {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+  color: #c084fc !important;
+}
+
+body.dark .ET-att-download:hover {
+  background-color: rgba(5, 150, 105, 0.15) !important;
+  border-color: rgba(5, 150, 105, 0.4) !important;
+  color: #34d399 !important;
+}
+
+body.dark .ET-att-delete:hover {
+  background-color: rgba(220, 38, 38, 0.15) !important;
+  border-color: rgba(220, 38, 38, 0.4) !important;
+  color: #f87171 !important;
+}
+
+body.dark .ET-empty-state {
+  color: #9ca3af !important;
+}
+
+body.dark .ET-empty-state svg {
+  color: #4b5563 !important;
+}

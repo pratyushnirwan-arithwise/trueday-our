@@ -1,0 +1,48 @@
+2026-04-22 20:44:20,782 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5433
+2026-04-22 20:44:20,909 - __main__ - INFO - Database connection successful!
+2026-04-22 20:44:20,944 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5433
+2026-04-22 20:44:20,950 - __main__ - INFO - Database connection successful!
+2026-04-22 20:44:21,109 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5433
+2026-04-22 20:44:21,118 - __main__ - INFO - Database connection successful!
+2026-04-22 20:44:21,169 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-22 20:44:21,169 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-04-22 20:44:21,169 - apscheduler.scheduler - INFO - Scheduler started
+2026-04-22 20:44:21,170 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-04-22 20:44:21,170 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-04-22 21:00:00+05:30 (in 938.829772 seconds)
+✅ Database schema updated successfully
+Added column creator_id to tickets table
+Added column approver_id to tickets table
+Added column collaborator_id to tickets table
+Added column project_id to tickets table
+Added column label_id to tickets table
+Added column updated_at to tickets table
+Added column deleted_at to tickets table
+Database schema updated successfully
+Starting Flask server...
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-04-22 20:44:21,180 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5009
+ * Running on http://192.168.1.92:5009
+2026-04-22 20:44:21,180 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-04-22 20:44:21,181 - werkzeug - INFO -  * Restarting with stat
+2026-04-22 20:44:21,338 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5433
+2026-04-22 20:44:21,358 - __main__ - INFO - Database connection successful!
+2026-04-22 20:44:21,359 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5433
+2026-04-22 20:44:21,363 - __main__ - INFO - Database connection successful!
+2026-04-22 20:44:21,371 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5433
+2026-04-22 20:44:21,378 - __main__ - INFO - Database connection successful!
+2026-04-22 20:44:21,399 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-22 20:44:21,399 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-04-22 20:44:21,400 - apscheduler.scheduler - INFO - Scheduler started
+2026-04-22 20:44:21,400 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-04-22 20:44:21,402 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-04-22 21:00:00+05:30 (in 938.597741 seconds)
+2026-04-22 20:44:21,404 - werkzeug - WARNING -  * Debugger is active!
+2026-04-22 20:44:21,410 - werkzeug - INFO -  * Debugger PIN: 119-629-187
+2026-04-22 20:48:55,879 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5433
+2026-04-22 20:48:55,885 - __main__ - INFO - Database connection successful!
+2026-04-22 20:48:55,925 - werkzeug - INFO - 2409:4090:2030:7419:b9ef:c744:c5dc:1092 - - [22/Apr/2026 20:48:55] "GET /api/tickets HTTP/1.1" 200 -
+2026-04-22 20:49:06,567 - __main__ - DEBUG - Attempting to connect to database: TRUEDAY on localhost:5433
+2026-04-22 20:49:06,572 - __main__ - INFO - Database connection successful!
+2026-04-22 20:49:06,599 - werkzeug - INFO - 2409:4090:2030:7419:b9ef:c744:c5dc:1092 - - [22/Apr/2026 20:49:06] "GET /api/tickets HTTP/1.1" 200 -

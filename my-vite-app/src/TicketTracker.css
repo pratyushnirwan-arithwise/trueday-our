@@ -1,0 +1,126 @@
+﻿/* Main Container - Remove left spacing */
+.main-content {
+  padding: 2rem 2rem 2rem 0; /* Right padding only */
+  background-color: #f0f0f0;
+  min-height: 100vh;
+  width: 100%; /* Full width */
+  margin-left: 0; /* Remove left margin */
+  box-sizing: border-box;
+}
+.layout-container .response-table th{
+  font-size: 16px;
+}
+.layout-container .response-table {
+  font-size: 16px;
+}
+/* Header and Search */
+.tickets-page h1 {
+  font-size: 2rem; /* Increased from 1.75rem */
+  margin-bottom: 1rem;
+}
+.page-container header{
+  margin-top: 1px;
+}
+.tickets-page h2 {
+  font-size: 1.5rem; /* Increased from 1.25rem */
+  margin-bottom: 1.5rem;
+}
+
+/* Table Styling */
+.tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem; /* Increased base font size */
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+.tickets-table thead th {
+  padding: 1rem 0.75rem; /* Slightly increased padding */
+  font-size: 1rem; /* Increased header font size */
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: #f1f5f9;
+  color: #777777;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* Table Cells */
+.tickets-table td {
+  padding: 1rem 0.75rem; /* Slightly increased padding */
+  border-bottom: 1px solid #e0e0e0;
+  color: #2e2e2e;
+  text-align: -webkit-center;
+}
+
+/* Ticket Title */
+.tickets-table td strong {
+  font-size: 1.1rem; /* Increased title size */
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+/* Description */
+.tickets-table td small {
+  font-size: 0.9rem; /* Increased description size */
+  color: #777777;
+}
+
+/* Status Indicators */
+.status-DONE {
+  color: #059669;
+  font-weight: 500;
+}
+.status-NEW,
+.status-COMPLETED,
+.status-BLOCKED,
+.status-QA,
+.status-IN_PROGRESS,
+.status-UAT {
+  background: none !important;
+  color: #222 !important;
+  font-weight: 500;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  text-transform: uppercase;
+}
+
+/* Priority Dots */
+.priority-high::before {
+  content: "●";
+  color: #dc2626;
+  margin-right: 0.5rem;
+}
+.priority-medium::before {
+  content: "●";
+  color: #d97706;
+  margin-right: 0.5rem;
+}
+.priority-low::before {
+  content: "●";
+  color: #059669;
+  margin-right: 0.5rem;
+}
+
+/* Action Percentage */
+.tickets-table td:last-child {
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1.5rem 1rem 1.5rem 0;
+  }
+  
+  .tickets-table {
+    font-size: 0.95rem;
+  }
+  
+  .tickets-table td strong {
+    font-size: 1rem;
+  }
+}

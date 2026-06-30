@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Unsupported File Modal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .test-button:hover {
+            background-color: #2563eb;
+        }
+        .info {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Unsupported File Modal Test</h1>
+        
+        <div class="info">
+            <h3>Test Instructions:</h3>
+            <p>1. Click the "Test .exe File Upload" button to simulate uploading an .exe file</p>
+            <p>2. Click the "Test .php File Upload" button to simulate uploading a .php file</p>
+            <p>3. You should see a popup modal instead of a full-page error</p>
+        </div>
+
+        <button class="test-button" onclick="testExeFile()">Test .exe File Upload</button>
+        <button class="test-button" onclick="testPhpFile()">Test .php File Upload</button>
+        <button class="test-button" onclick="testValidFile()">Test Valid File Upload</button>
+
+        <div id="result" style="margin-top: 20px; padding: 15px; border-radius: 6px; display: none;"></div>
+    </div>
+
+    <script>
+        function testExeFile() {
+            showResult('Testing .exe file upload...', 'error');
+            // Simulate the error that would occur
+            setTimeout(() => {
+                showUnsupportedFileModal('File type not allowed. Allowed types: txt, pdf, png, jpg, jpeg, gif, doc, docx, xls, xlsx');
+            }, 500);
+        }
+
+        function testPhpFile() {
+            showResult('Testing .php file upload...', 'error');
+            // Simulate the error that would occur
+            setTimeout(() => {
+                showUnsupportedFileModal('File type not allowed. Allowed types: txt, pdf, png, jpg, jpeg, gif, doc, docx, xls, xlsx');
+            }, 500);
+        }
+
+        function testValidFile() {
+            showResult('Testing valid file upload...', 'success');
+            setTimeout(() => {
+                showResult('File uploaded successfully!', 'success');
+            }, 1000);
+        }
+
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = message;
+            resultDiv.style.backgroundColor = type === 'error' ? '#fee' : '#efe';
+            resultDiv.style.border = type === 'error' ? '1px solid #fcc' : '1px solid #cfc';
+            resultDiv.style.color = type === 'error' ? '#c33' : '#363';
+        }
+
+        function showUnsupportedFileModal(message) {
+            // Create modal overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                animation: fadeIn 0.3s ease-out;
+            `;
+
+            // Create modal content
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+                max-width: 500px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                animation: slideIn 0.3s ease-out;
+            `;
+
+            modal.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 24px 16px; border-bottom: 1px solid #e5e7eb;">
+                    <h2 style="margin: 0; color: #1f2937; font-size: 1.5rem; font-weight: 600;">Unsupported File Type</h2>
+                    <button onclick="this.closest('.modal-overlay').remove()" style="background: none; border: none; font-size: 24px; color: #6b7280; cursor: pointer; padding: 4px; border-radius: 4px;">&times;</button>
+                </div>
+                <div style="padding: 24px; text-align: center;">
+                    <div style="margin-bottom: 16px; display: flex; justify-content: center;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff6b6b" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                    </div>
+                    <p style="margin: 0 0 16px; color: #374151; font-size: 1rem; line-height: 1.5;">${message}</p>
+                    <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-top: 16px; text-align: left;">
+                        <p style="margin: 0 0 8px; font-size: 0.9rem; color: #4b5563;"><strong>Supported file types:</strong></p>
+                        <p style="margin: 0 0 8px; font-size: 0.9rem; color: #4b5563;">Images: JPEG, PNG, GIF</p>
+                        <p style="margin: 0 0 8px; font-size: 0.9rem; color: #4b5563;">Documents: PDF, DOC, DOCX</p>
+                        <p style="margin: 0 0 8px; font-size: 0.9rem; color: #4b5563;">Spreadsheets: XLS, XLSX</p>
+                        <p style="margin: 0; font-size: 0.9rem; color: #4b5563;">Text files: TXT</p>
+                    </div>
+                </div>
+                <div style="padding: 16px 24px 24px; display: flex; justify-content: center;">
+                    <button onclick="this.closest('.modal-overlay').remove()" style="background-color: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1rem; font-weight: 500; cursor: pointer; min-width: 100px;">OK</button>
+                </div>
+            `;
+
+            overlay.className = 'modal-overlay';
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+
+            // Add CSS animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes slideIn {
+                    from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+                    to { opacity: 1; transform: translateY(0) scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
+</body>
+</html>
