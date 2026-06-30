@@ -3343,8 +3343,22 @@ def permanently_delete_ticket(ticket_id):
         return jsonify({"message": "Ticket deleted permanently"}), 200
     except Exception as e:
         print(f"Error in permanently_delete_ticket: {e}")
-        return jsonify({"error": str(e)}), 500    
-    
+def serialize_datetime_with_tz(dt):
+    if dt is None:
+        return None
+    if isinstance(dt, datetime):
+        if dt.tzinfo is not None and dt.tzinfo.utcoffset(dt) is not None:
+            return dt.isoformat()
+        else:
+            try:
+                import pytz
+                local_tz = pytz.timezone('Asia/Calcutta')
+                return local_tz.localize(dt).isoformat()
+            except Exception:
+                return dt.isoformat() + 'Z'
+    return str(dt)
+
+
 # Route to get messages for a ticket
 @app.route('/get_ticket_messages/<int:ticket_id>', methods=['GET', 'OPTIONS'])
 def get_ticket_messages(ticket_id):
@@ -3391,10 +3405,7 @@ def get_ticket_messages(ticket_id):
             try:
                 if isinstance(msg, dict):
                     created_at_val = msg.get('created_at')
-                    if isinstance(created_at_val, datetime):
-                        ts = created_at_val.isoformat()
-                    else:
-                        ts = str(created_at_val) if created_at_val else None
+                    ts = serialize_datetime_with_tz(created_at_val)
 
                     message_list.append({
                         "id": msg.get('id'),
@@ -3407,7 +3418,7 @@ def get_ticket_messages(ticket_id):
                 else:
                     # tuple/list-like row
                     created_at_val = msg[2] if len(msg) > 2 else None
-                    ts = created_at_val.isoformat() if isinstance(created_at_val, datetime) else (str(created_at_val) if created_at_val else None)
+                    ts = serialize_datetime_with_tz(created_at_val)
                     message_list.append({
                         "id": msg[0] if len(msg) > 0 else None,
                         "message": msg[1] if len(msg) > 1 else None,
@@ -3941,7 +3952,10 @@ def add_ticket_message():
             VALUES (%s, %s, %s, %s, %s)
             RETURNING id, created_at;
         """)
-        created_at_val = timestamp or datetime.now()
+        if timestamp:
+            created_at_val = timestamp
+        else:
+            created_at_val = datetime.now(pytz.utc)
         cursor.execute(insert_query, (ticket_id, user_id, message, parent_id, created_at_val))
         result = cursor.fetchone()
 
@@ -3995,11 +4009,7 @@ def add_ticket_message():
         except Exception as e:
             print(f"[ERROR] Error extracting/sending tagging notifications: {e}")
 
-        # Ensure created_at is JSON serializable
-        try:
-            timestamp_iso = created_at.isoformat() if isinstance(created_at, datetime) else str(created_at)
-        except Exception:
-            timestamp_iso = str(created_at)
+        timestamp_iso = serialize_datetime_with_tz(created_at)
 
         response_data = {
             "id": message_id,
@@ -4054,7 +4064,12 @@ def update_ticket_message(message_id):
             print(f"Message {message_id} not found")
             return jsonify({"error": "Message not found"}), 404
 
-        ticket_id, owner_user_id, old_message_text = row
+        if isinstance(row, dict):
+            ticket_id = row['ticket_id']
+            owner_user_id = row['user_id']
+            old_message_text = row['message_text']
+        else:
+            ticket_id, owner_user_id, old_message_text = row
         print(f"Message owner: {owner_user_id}, requesting user: {user_id}")
         
         if str(owner_user_id) != str(user_id):
@@ -4071,10 +4086,17 @@ def update_ticket_message(message_id):
         updated = cursor.fetchone()
         print(f"Updated message: {updated}")
 
+        updated_id = updated['id'] if isinstance(updated, dict) else updated[0]
+        updated_message_text = updated['message_text'] if isinstance(updated, dict) else updated[1]
+        updated_created_at = updated['created_at'] if isinstance(updated, dict) else updated[2]
+        updated_user_id = updated['user_id'] if isinstance(updated, dict) else updated[3]
+
         # Fetch username
-        cursor.execute("SELECT username FROM trueday.users WHERE id = %s", (updated[3],))
+        cursor.execute("SELECT username FROM trueday.users WHERE id = %s", (updated_user_id,))
         username_row = cursor.fetchone()
-        username = username_row[0] if username_row else ''
+        username = ''
+        if username_row:
+            username = username_row['username'] if isinstance(username_row, dict) else username_row[0]
 
         # Record comment edit in history
         try:
@@ -4092,7 +4114,7 @@ def update_ticket_message(message_id):
                 'comment_edit',
                 old_snippet,
                 new_snippet,
-                json.dumps({"message_id": updated[0]})
+                json.dumps({"message_id": updated_id})
             ))
         except Exception as e:
             print(f"⚠️ Failed to record comment edit history: {e}")
@@ -4115,10 +4137,10 @@ def update_ticket_message(message_id):
             print(f"ℹ️ No tagged usernames found in edited message")
 
         response_data = {
-            "id": updated[0],
-            "message": updated[1],
-            "created_at": updated[2].isoformat() if updated[2] else None,
-            "user_id": updated[3],
+            "id": updated_id,
+            "message": updated_message_text,
+            "created_at": serialize_datetime_with_tz(updated_created_at),
+            "user_id": updated_user_id,
             "username": username,
             "ticket_id": ticket_id
         }
@@ -4158,7 +4180,7 @@ def get_ticket_attachments(ticket_id):
             SELECT a.id, a.ticket_id, a.file_name, a.file_path, a.file_type, a.file_size,
                    a.uploaded_at, u.username as uploaded_by_name
             FROM trueday.attachments a
-            JOIN trueday.users u ON a.uploaded_by = u.id
+            LEFT JOIN trueday.users u ON a.uploaded_by = u.id
             WHERE a.ticket_id = %s
             ORDER BY a.uploaded_at DESC
         """, (ticket_id,))
@@ -5070,16 +5092,7 @@ def ticket_history(ticket_id):
                         details_val = row[6] if len(row) > 6 else None
                         changed_at_value = row[7] if len(row) > 7 else None
 
-                    # Safely serialize changed_at regardless of type
-                    try:
-                        if hasattr(changed_at_value, 'isoformat'):
-                            changed_at_str = changed_at_value.isoformat()
-                        elif changed_at_value is None:
-                            changed_at_str = None
-                        else:
-                            changed_at_str = str(changed_at_value)
-                    except Exception:
-                        changed_at_str = None
+                    changed_at_str = serialize_datetime_with_tz(changed_at_value)
 
                     history.append({
                         'id': rec_id,
@@ -7580,7 +7593,7 @@ def add_timeline_comment():
         return jsonify({
             'success': True,
             'id':         r_id,
-            'created_at': r_created_at.isoformat() if r_created_at else None
+            'created_at': serialize_datetime_with_tz(r_created_at)
         }), 201
     except Exception as e:
         print(f"Error adding comment: {e}")

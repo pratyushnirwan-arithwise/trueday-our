@@ -613,6 +613,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
         ticket_id: Number.parseInt(id),
         user_id: currentUser?.id || currentUser?.user_id || localStorage.getItem("userId"),
         message: newComment.trim(),
+        timestamp: new Date().toISOString(),
       }
 
       await addMessage(messageData)
@@ -686,6 +687,7 @@ const EditTicket = ({ isModal = false, ticketId, onClose, onSave: onSaveProp, in
         user_id: userId,
         message: `[Image uploaded: ${file.name}]`,
         attachment_id: result.id || result.attachment_id,
+        timestamp: new Date().toISOString(),
       }
 
       await addMessage(messageData)

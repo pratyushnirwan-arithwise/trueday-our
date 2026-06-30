@@ -2831,3 +2831,16 @@ LINE 2:             SELECT 1 FROM progress_pulse
 2026-06-29 14:56:36,566 - __main__ - DEBUG - Attempting to connect to database: trueday on localhost:5432
 2026-06-29 14:56:36,667 - __main__ - INFO - Database connection successful!
 2026-06-29 14:56:36,686 - werkzeug - INFO - 127.0.0.1 - - [29/Jun/2026 14:56:36] "GET /api/project/1/users HTTP/1.1" 200 -
+2026-06-30 10:44:33,613 - app - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-30 10:44:33,724 - app - INFO - Database connection successful!
+2026-06-30 10:44:33,802 - app - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-30 10:44:33,900 - app - INFO - Database connection successful!
+2026-06-30 10:44:34,111 - app - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-30 10:44:34,258 - app - INFO - Database connection successful!
+2026-06-30 10:44:37,685 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-06-30 10:44:37,689 - apscheduler.scheduler - INFO - Added job "send_progress_pulse_reminders" to job store "default"
+2026-06-30 10:44:37,689 - apscheduler.scheduler - INFO - Scheduler started
+2026-06-30 10:44:37,690 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2026-06-30 10:44:37,702 - app - DEBUG - Attempting to connect to database: trueday on localhost:5432
+2026-06-30 10:44:37,703 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2026-06-30 12:00:00+05:30 (in 4522.296606 seconds)
+2026-06-30 10:44:37,737 - app - INFO - Database connection successful!
